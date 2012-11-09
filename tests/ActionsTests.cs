@@ -18,7 +18,7 @@ public class ActionsTests
     //Assert.Fail();
     //assertions:
     //callback called with data equalling hash table containing actions available to user
-    //hasDataFromServer == true
+    //HasDataFromServer == true
   }
  
   [Test]
@@ -26,7 +26,7 @@ public class ActionsTests
   public void testFetchFailureServerDown() {
     //assertions:
     //callback called with expected error code
-    //hasDataFromServer == false
+    //HasDataFromServer == false
   }
  
   [Test]

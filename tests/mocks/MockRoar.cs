@@ -6,22 +6,23 @@ public class MockRoar : DefaultRoar, IRoar
 
   new public void Awake ()
   {
-    Config_ = new Roar.implementation.Config ();
+    config = new Roar.implementation.Config ();
     Logger logger = new Logger ();
 
-    api = new MockRequestSender (Config_, this, logger);
+    api = new MockRequestSender (config, this, logger);
     Roar.implementation.DataStore data_store = new Roar.implementation.DataStore (api, logger);
-    WebAPI_ = new global::WebAPI (api);
-    User_ = new Roar.implementation.Components.User (WebAPI_.user, data_store, logger);
-    Properties_ = new Roar.implementation.Components.Properties (data_store);
-    Inventory_ = new Roar.implementation.Components.Inventory (WebAPI_.items, data_store, logger);
-    Shop_ = new Roar.implementation.Components.Shop (WebAPI_.shop, data_store, logger);
-    Actions_ = new Roar.implementation.Components.Actions (WebAPI_.tasks, data_store);
+    webAPI = new global::WebAPI (api);
+    user = new Roar.implementation.Components.User (webAPI.user, data_store, logger);
+    properties = new Roar.implementation.Components.Properties (data_store);
+    inventory = new Roar.implementation.Components.Inventory (webAPI.items, data_store, logger);
+    shop = new Roar.implementation.Components.Shop (webAPI.shop, data_store, logger);
+    actions = new Roar.implementation.Components.Actions (webAPI.tasks, data_store);
 
-    UrbanAirship_ = new Roar.implementation.Adapters.UrbanAirship (WebAPI_);
+    urbanAirship = new Roar.implementation.Adapters.UrbanAirship (webAPI);
 
     // Apply public settings
-    Config.game = gameKey;
+    // TODO: Not sure what this should be now.
+    // Config.game = gameKey;
   }
 }
 

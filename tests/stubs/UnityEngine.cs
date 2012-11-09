@@ -13,6 +13,12 @@ namespace UnityEngine
 		{
 			Console.WriteLine("ERROR : "+ k);
 		}
+		public static void LogWarning( string k )
+		{
+			Console.WriteLine("ERROR : "+ k);
+		}
+		
+		public static bool isDebugBuild { get { return true; } }
 	}
 
 	public class MonoBehaviour
@@ -24,6 +30,8 @@ namespace UnityEngine
 		public void DontDestroyOnLoad( MonoBehaviour m )
 		{
 		}
+		
+		public MonoBehaviour gameObject { get { return null; } }
 	}
 
 	public class WWWForm
@@ -57,6 +65,20 @@ namespace UnityEngine
 		}
 		public static byte[] deviceToken;
 		public static int remoteNotificationCount;
+	}
+	
+	public class GUISkin
+	{
+	}
+	
+	public class GameObject
+	{
+		public static object FindObjectOfType( System.Type t) { return null; }
+	}
+	
+	public class Application
+	{
+		public static bool isEditor { get { return false; } }
 	}
 }
 
