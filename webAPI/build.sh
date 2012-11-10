@@ -1,7 +1,7 @@
 echo -e 'RoarAPI - unity (buidling...)'
 echo -e '---------------------'
 
-API_FUNCTION_JSON=../api_functions.json
+API_FUNCTION_JSON=./api_functions.json
 JSON_LINT=jsonlint
 
 echo -e "[Checking config json]"

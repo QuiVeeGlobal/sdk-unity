@@ -41,7 +41,7 @@ function augment_template( t )
 
 function build_web_api_cs()
 {
-  api_functions = require("../api_functions.json")
+  api_functions = require("./api_functions.json")
   js_template = fs.readFileSync('src/WebAPI.template.cs',"utf8");
   augment_template( api_functions )
 
@@ -54,7 +54,7 @@ function build_web_api_cs()
 
 function build_iweb_api_cs()
 {
-  api_functions = require("../api_functions.json")
+  api_functions = require("./api_functions.json")
   js_template = fs.readFileSync('src/IWebAPI.template.cs',"utf8");
   augment_template( api_functions )
 
