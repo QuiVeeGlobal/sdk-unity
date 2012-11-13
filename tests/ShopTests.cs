@@ -92,8 +92,8 @@ public class ShopTests : ComponentTests
     
     //returns a list of shop items with the expected data structure
     int expectedItemCount = 4;
-    ArrayList itemHashtables = shop.List();
-    Assert.AreEqual(expectedItemCount, itemHashtables.Count);
+    IList<Roar.DomainObjects.ShopEntry> shopEntries = shop.List();
+    Assert.AreEqual(expectedItemCount, shopEntries.Count);
     
     //invokes callback with parameter *data* containing the list of Hashtable shop items
     bool callbackExecuted = false;
@@ -101,11 +101,11 @@ public class ShopTests : ComponentTests
       callbackExecuted=true;
       Assert.AreEqual(IWebAPI.OK, callbackInfo.code);
       Assert.IsNotNull(callbackInfo.d);
-      Assert.AreEqual(callbackInfo.d, itemHashtables);
+      Assert.AreEqual(callbackInfo.d, shopEntries);
     };
-    itemHashtables = shop.List(roarCallback);
+    shopEntries = shop.List(roarCallback);
     Assert.IsTrue(callbackExecuted);
-    Assert.AreEqual(expectedItemCount, itemHashtables.Count);
+    Assert.AreEqual(expectedItemCount, shopEntries.Count);
   }
 
   [Test]
@@ -119,18 +119,18 @@ public class ShopTests : ComponentTests
     mockFetch(shopList, null);
     
     //returns Hashtable of property if exists
-    Hashtable shopItem = shop.GetShopItem("shop_item_ikey_1") as Hashtable;
-    ArrayList costs = shopItem["costs"] as ArrayList;
-    Hashtable costA = costs[0] as Hashtable;
-    Hashtable costB = costs[1] as Hashtable;
-    StringAssert.IsMatch("cash", costA["ikey"] as String);
-    StringAssert.IsMatch("premium_currency", costB["ikey"] as String);
-    Assert.AreEqual(false, (bool)costA["ok"]);
-    Assert.AreEqual(true, (bool)costB["ok"]);
+    Roar.DomainObjects.ShopEntry shopItem = shop.GetShopItem("shop_item_ikey_1");
+    IList<Roar.DomainObjects.Cost> costs= shopItem.costs;
+    Roar.DomainObjects.Costs.Stat costA = costs[0] as Roar.DomainObjects.Costs.Stat;
+    Roar.DomainObjects.Costs.Stat costB = costs[1] as Roar.DomainObjects.Costs.Stat;
+    StringAssert.IsMatch("cash", costA.ikey);
+    StringAssert.IsMatch("premium_currency", costB.ikey);
+    Assert.AreEqual(false, costA.ok);
+    Assert.AreEqual(true, costB.ok);
     
-    ArrayList modifiers = shopItem["modifiers"] as ArrayList;
-    Hashtable modifier = modifiers[0] as Hashtable;
-    StringAssert.IsMatch("item_ikey_1", modifier["ikey"] as String);
+    IList<Roar.DomainObjects.Modifier> modifiers = shopItem.modifiers;
+    Roar.DomainObjects.Modifiers.GrantItem modifier = modifiers[0] as Roar.DomainObjects.Modifiers.GrantItem;
+    StringAssert.IsMatch("item_ikey_1", modifier.ikey );
 
     //returns null on property not existing
     Assert.IsNull(shop.GetShopItem("doesnotexist"));

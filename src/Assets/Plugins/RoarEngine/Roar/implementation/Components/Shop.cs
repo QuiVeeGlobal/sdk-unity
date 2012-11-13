@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Roar.Components;
 using UnityEngine;
 
@@ -31,28 +32,28 @@ namespace Roar.implementation.Components
 			ShopBuy (shop_ikey, callback);
 		}
 
-		public ArrayList List ()
+		public IList<DomainObjects.ShopEntry> List ()
 		{
-			return List (null);
+			return dataStore.shop.List();
 		}
 
-		public ArrayList List (Roar.Callback callback)
+		public IList<DomainObjects.ShopEntry> List (Roar.Callback callback)
 		{
 			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.shop.List ()));
-			return dataStore.shop.List ();
+				callback (new Roar.CallbackInfo<IList<DomainObjects.ShopEntry> > (dataStore.shop.List ()));
+			return dataStore.shop.List();
 		}
 
 		// Returns the *object* associated with attribute `key`
-		public object GetShopItem (string ikey)
+		public DomainObjects.ShopEntry GetShopItem (string ikey)
 		{
-			return GetShopItem (ikey, null);
+			return GetShopItem(ikey, null);
 		}
 
-		public object GetShopItem (string ikey, Roar.Callback callback)
+		public DomainObjects.ShopEntry GetShopItem (string ikey, Roar.Callback callback)
 		{
 			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.shop.Get (ikey)));
+				callback (new Roar.CallbackInfo<DomainObjects.ShopEntry> (dataStore.shop.Get (ikey)));
 			return dataStore.shop.Get (ikey);
 		}
 
@@ -65,13 +66,12 @@ namespace Roar.implementation.Components
 				logger.DebugLog ("[roar] -- Cannot find to purchase: " + shop_ikey);
 				return;
 			}
-			logger.DebugLog ("trying to buy me a : " + Roar.Json.ObjectToJSON (shop_item));
-			string ikey = shop_item ["ikey"] as string;
+			logger.DebugLog ("trying to buy me a : " + shop_item.as_json() );
 
 			Hashtable args = new Hashtable ();
-			args ["shop_item_ikey"] = shop_ikey;
+			args ["shop_item_ikey"] = shop_item.ikey;
 
-			shopActions.buy (args, new ShopBuyCallback (cb, this, ikey));
+			shopActions.buy (args, new ShopBuyCallback (cb, this, shop_item.ikey));
 		}
 
 		protected class ShopBuyCallback : SimpleRequestCallback<IXMLNode>
@@ -120,11 +120,12 @@ namespace Roar.implementation.Components
 		{
 			if (dataStore.shop.HasDataFromServer) {
 				// Build sanitised ARRAY of ikeys from Shop.list()
-				var l = dataStore.shop.List () as ArrayList;
+				IList<DomainObjects.ShopEntry> l = dataStore.shop.List ();
 				var ikeyList = new ArrayList ();
 
-				foreach (Hashtable v in l) {
-					ikeyList.Add (v ["ikey"]);
+				foreach (DomainObjects.ShopEntry v in l) {
+					// TODO: This is a new-style fudge that should be undone.
+					ikeyList.Add (v.ikey);
 				}
 
 				return dataStore.cache.AddToCache (ikeyList);
