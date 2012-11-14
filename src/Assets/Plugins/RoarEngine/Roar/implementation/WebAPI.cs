@@ -494,6 +494,16 @@ public class WebAPI : IWebAPI
 			api.MakeCall ("user/login", obj, cb);
 		}
 
+		public void createSignedReq( Hashtable obj, IRequestCallback<IXMLNode> cb)
+		{
+			api.MakeCall("facebook/create_signed", obj, cb);
+		}
+
+		public void loginSignedReq( Hashtable obj, IRequestCallback<IXMLNode> cb)
+		{
+			api.MakeCall("facebook/login_signed", obj, cb);
+		}
+
 		public void login_facebook_oauth (Hashtable obj, IRequestCallback<IXMLNode> cb)
 		{
 			api.MakeCall ("facebook/login_oauth", obj, cb);
