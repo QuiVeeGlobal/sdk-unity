@@ -350,7 +350,7 @@ namespace Roar.implementation.DataConversion
 			List<DomainObjects.Requirement> req_list = new List<DomainObjects.Requirement> ();
 			foreach (IXMLNode nn in n.Children)
 			{
-				req_list.Add ( ParseARequirement(n) );
+				req_list.Add ( ParseARequirement(nn) );
 			}
 			return req_list;
 		}
