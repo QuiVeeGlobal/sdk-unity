@@ -80,6 +80,8 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\ILeaderboards.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Leaderboards.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\DomainObjects.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IData.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Data.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

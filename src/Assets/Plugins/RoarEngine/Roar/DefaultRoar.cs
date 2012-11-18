@@ -58,6 +58,9 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 
 	public Roar.Components.IInventory Inventory { get { return inventory; } }
 	protected Roar.Components.IInventory inventory = null;
+	
+	public Roar.Components.IData Data { get { return data; } }
+	protected Roar.Components.IData data;
 
 	public Roar.Components.IShop Shop { get { return shop; } }
 	protected Roar.Components.IShop shop;
@@ -149,6 +152,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		properties = new Roar.implementation.Components.Properties( datastore );
 		leaderboards = new Roar.implementation.Components.Leaderboards(datastore, logger);
 		inventory = new Roar.implementation.Components.Inventory( webAPI.items, datastore, logger);
+		data = new Roar.implementation.Components.Data( webAPI.user, datastore, logger);
 		shop = new Roar.implementation.Components.Shop( webAPI.shop, datastore, logger );
 		actions = new Roar.implementation.Components.Actions( webAPI.tasks, datastore );
 
