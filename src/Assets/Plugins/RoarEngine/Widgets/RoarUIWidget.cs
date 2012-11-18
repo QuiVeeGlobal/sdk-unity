@@ -354,4 +354,19 @@ public abstract class RoarUIWidget : MonoBehaviour
 		set { scrollViewRect.height = value; }
 	}
 	
+	public float ContentWidth
+	{
+		get
+		{
+			return contentBounds.width;
+		}
+	}
+
+	public float ContentHeight
+	{
+		get
+		{
+			return contentBounds.height;
+		}
+	}
 }

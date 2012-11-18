@@ -50,6 +50,9 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 	public Roar.Components.IProperties Properties { get { return properties; } }
 	protected Roar.Components.IProperties properties;
 
+	public Roar.Components.IFriends Friends { get { return friends; } }
+	protected Roar.Components.IFriends friends;
+	
 	public Roar.Components.ILeaderboards Leaderboards { get { return leaderboards; } }
 	protected Roar.Components.ILeaderboards leaderboards;
 
@@ -148,6 +151,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		user = new Roar.implementation.Components.User(webAPI.user,datastore, logger);
 		properties = new Roar.implementation.Components.Properties( datastore );
 		leaderboards = new Roar.implementation.Components.Leaderboards(datastore, logger);
+		friends = new Roar.implementation.Components.Friends(datastore, logger);
 		inventory = new Roar.implementation.Components.Inventory( webAPI.items, datastore, logger);
 		shop = new Roar.implementation.Components.Shop( webAPI.shop, datastore, logger );
 		actions = new Roar.implementation.Components.Actions( webAPI.tasks, datastore );

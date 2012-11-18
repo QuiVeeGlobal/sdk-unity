@@ -68,14 +68,8 @@ public class RequestSender : IRequestSender
 		var controller = uc[0];
 		var action = uc[1];
 		
-		Debug.Log(raw);
-		// TEMP
-		/*
-		if (apicall == "shop/list")
-		{
-			raw = "<roar tick=\"135170282509\"><shop><list status=\"ok\"><shopitem ikey=\"rocket_fuel\" label=\"Rocket Fuel\" description=\"\"><costs><stat_cost type=\"currency\" ikey=\"gamecoins\" value=\"10\" ok=\"true\"/></costs><modifiers><grant_stat type=\"currency\" ikey=\"rocket_fuel\" value=\"100\"/></modifiers><tags/></shopitem><shopitem ikey=\"neil_armstrong\" label=\"Neil Armstrong\" description=\"Best copilot in the world\"><costs><stat_cost type=\"currency\" ikey=\"premium_currency\" value=\"15\" ok=\"false\" reason=\"Insufficient Premium Currency\"/></costs><modifiers><grant_item ikey=\"npc_armstrong\"/></modifiers><tags><tag value=\"copilot\"/></tags></shopitem><shopitem ikey=\"starter_space_pack\" label=\"Starter Space Pack\" description=\"Get going!\"><costs><stat_cost type=\"currency\" ikey=\"gamecoins\" value=\"20\" ok=\"true\"/></costs><modifiers><grant_stat type=\"currency\" ikey=\"rocket_fuel\" value=\"30\"/><grant_item ikey=\"regular_space_helmet\"/><grant_item ikey=\"rocket_ship\"/></modifiers><tags><tag value=\"pack\"/></tags></shopitem></list></shop></roar>";
-		}
-		*/
+		if (Debug.isDebugBuild)
+			Debug.Log(raw);
 		
 		// Fire call complete event
 		RoarManager.OnRoarNetworkEnd("no id");
@@ -130,7 +124,7 @@ public class RequestSender : IRequestSender
 		else
 		{
 			IXMLNode auth_token = actionNode.GetFirstChild("auth_token");
-			if (auth_token!=null) RoarAuthToken = auth_token.Text;
+			if (auth_token!=null && !string.IsNullOrEmpty(auth_token.Text)) RoarAuthToken = auth_token.Text;
 			
 			callback_code = IWebAPI.OK;
 			if (cb!=null) cb.OnRequest( new Roar.CallbackInfo<IXMLNode>( rootNode, callback_code, callback_msg) );

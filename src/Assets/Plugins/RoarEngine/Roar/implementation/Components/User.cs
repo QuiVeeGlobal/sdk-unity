@@ -60,6 +60,7 @@ namespace Roar.implementation.Components
 
 			public override object OnSuccess (CallbackInfo<IXMLNode> info)
 			{
+				//Debug.Log("Login -> OnSuccess :"+info.data.DebugAsString());
 				RoarManager.OnLoggedIn ();
 				// @todo Perform auto loading of game and player data
 				return null;

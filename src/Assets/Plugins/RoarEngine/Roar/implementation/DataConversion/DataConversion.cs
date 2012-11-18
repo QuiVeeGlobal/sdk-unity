@@ -234,13 +234,16 @@ namespace Roar.implementation.DataConversion
 					retval ["costs"] = CrmParser_.ParseCostList (nn);
 					break;
 				case "modifiers":
+					retval ["modifiers"] = CrmParser_.ParseModifierList(nn);
 					//We require and expect that there be only one modifier and that modifier is a grant_item
 					//were we to support the more general case we'd do this:
 					//    retval["modifiers"] = CrmParser_.ParseModifierList( nn );
+					/*
 					IXMLNode grantItemNode = nn.GetFirstChild ("grant_item");
 					if (grantItemNode != null) {
 						retval ["ikey"] = grantItemNode.GetAttribute ("ikey");
 					}
+					*/
 					break;
 				case "tags":
 					retval ["tags"] = CrmParser_.ParseChildrenForAttribute (nn, "value");
@@ -394,6 +397,28 @@ namespace Roar.implementation.DataConversion
 		}
 	}
 
+	public class XmlToFriendsListHashtable : IXmlToHashtable
+	{
+
+		public XmlToFriendsListHashtable ()
+		{
+		}
+
+		public string GetKey (IXMLNode n)
+		{
+			return n.GetAttribute ("ikey");
+		}
+
+		public Hashtable BuildHashtable (IXMLNode n)
+		{
+			Hashtable retval = new Hashtable ();
+			foreach (KeyValuePair<string,string> kv in n.Attributes) {
+				retval [kv.Key] = Native.Extract (kv.Value);
+			}
+			return retval;
+		}
+	}
+	
 	public class XmlToAppstoreItemHashtable : IXmlToHashtable
 	{
 		public ICRMParser CrmParser_;

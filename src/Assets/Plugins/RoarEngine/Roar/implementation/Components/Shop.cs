@@ -124,7 +124,8 @@ namespace Roar.implementation.Components
 				var ikeyList = new ArrayList ();
 
 				foreach (Hashtable v in l) {
-					ikeyList.Add (v ["ikey"]);
+					if (v ["ikey"] != null)
+						ikeyList.Add (v ["ikey"]);
 				}
 
 				return dataStore.cache.AddToCache (ikeyList);

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Roar;
 
 public class RoarStatsWidget : RoarUIWidget
 {
@@ -22,13 +23,20 @@ public class RoarStatsWidget : RoarUIWidget
 		public string valueFormat;
 		public string valueStyle;
 		public StatValueType valueType;
-
+		
+		private UserStat userStat;
 		private string value;
 		
 		public string Value
 		{
 			get { return this.value; }
 			set { this.value = value; }
+		}
+		
+		public UserStat UserStat
+		{
+			get { return userStat; }
+			set { userStat = value; }
 		}
 	}
 	
@@ -79,13 +87,20 @@ public class RoarStatsWidget : RoarUIWidget
 			{
 				if (stat != null && stat.key != null && stat.key.Length > 0)
 				{
+					UserStat userStat = RoarTypesCache.UserStatByKey(stat.key);
+					stat.UserStat = userStat;
+					
 					if (stat.valueFormat.Length > 0)
-						stat.Value = string.Format("{0:"+stat.valueFormat+"}", properties.GetValue(stat.key));
+						stat.Value = string.Format("{0:"+stat.valueFormat+"}", userStat.Value);
+						//stat.Value = string.Format("{0:"+stat.valueFormat+"}", properties.GetValue(stat.key));
 					else
-						stat.Value = properties.GetValue(stat.key);
+						stat.Value = userStat.Value;
+						//stat.Value = properties.GetValue(stat.key);
 					
 					if (stat.title == null || stat.title.Length == 0)
 					{
+						stat.title = userStat.label;
+						/*
 						object statProperty = properties.GetProperty(stat.key);
 						if (statProperty is Hashtable)
 						{
@@ -95,6 +110,11 @@ public class RoarStatsWidget : RoarUIWidget
 								stat.title = (string)property["label"];
 							}
 						}
+						*/
+					}
+					else
+					{
+						userStat.Title = stat.title;
 					}
 				}
 			}

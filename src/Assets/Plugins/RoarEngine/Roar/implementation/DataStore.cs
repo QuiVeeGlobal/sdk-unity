@@ -15,7 +15,7 @@ namespace Roar.implementation
 			achievements = new DataModel ("achievements", "user/achievements", "achievement", null, new DC.XmlToAchievementHashtable (), api, logger);
 			leaderboards = new DataModel ("leaderboards", "leaderboards/list", "board", null, new DC.XmlToLeaderboardsHashtable (), api, logger);
 			ranking = new DataModel ("ranking", "leaderboards/view", "ranking", null, new DC.XmlToRankingHashtable (), api, logger);
-			friends = new DataModel ("friends", "friends/list", "friend", null, null, api, logger);
+			friends = new DataModel ("friends", "friends/list", "friend", null, new DC.XmlToFriendsListHashtable(), api, logger);
 			cache = new ItemCache ("cache", "items/view", "item", null, new DC.XMLToItemHashtable (), api, logger);
 			appStore = new DataModel ("appstore", "appstore/shop_list", "shopitem", null, new DC.XmlToAppstoreItemHashtable (), api, logger);
 		}
