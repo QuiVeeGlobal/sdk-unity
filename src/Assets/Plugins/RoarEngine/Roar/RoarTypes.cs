@@ -34,6 +34,42 @@ namespace Roar
 	}
 
 	[System.Serializable]
+	public class Leaderboard
+	{
+		public string id;
+		public string key;
+		public string label;
+
+		public float whenLastFetched;
+		public Roar.Components.IRanking ranking;
+		public ArrayList rankingRaw;
+		public int offset;
+		public int numResults;
+		public int page;
+		public bool lowIsHigh;
+		
+		public List<Rank> ranks;
+		
+		public bool HasPrevious
+		{
+			get { return ranks != null && page > 1; }
+		}
+		
+		public bool HasNext
+		{
+			get { return ranks != null && ranks.Count > 0 && ranks.Count == numResults; }
+		}
+	}
+	[System.Serializable]
+	public class Rank
+	{
+		public int rank;
+		public string playerId;
+		public string playerName;
+		public string value;
+	}
+	
+	[System.Serializable]
 	public class ShopItem
 	{
 		public string key = string.Empty;

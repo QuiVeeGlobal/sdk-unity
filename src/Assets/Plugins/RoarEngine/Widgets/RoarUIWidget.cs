@@ -297,7 +297,12 @@ public abstract class RoarUIWidget : MonoBehaviour
 	}
 	
 	protected abstract void DrawGUI(int windowId);
-
+	
+	public void ResetScrollPosition()
+	{
+		scrollPosition = Vector3.zero;
+	}
+	
 	public Rect Bounds
 	{
 		get

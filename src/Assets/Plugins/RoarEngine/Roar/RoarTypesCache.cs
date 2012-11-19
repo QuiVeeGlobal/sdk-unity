@@ -43,11 +43,33 @@ namespace Roar
 		}
 		public static UserStat AddUserStat(UserStat userStat)
 		{
-			if (userStats.ContainsKey(userStat.key))
+			if (!userStats.ContainsKey(userStat.key))
 				userStats.Add(userStat.key, userStat);
 			else
 				userStats[userStat.key] = userStat;
 			return userStat;
+		}
+		#endregion
+		
+		#region Leaderboards
+		private static Dictionary<string, Leaderboard> leaderboards = new Dictionary<string, Leaderboard>();
+		public static Dictionary<string, Leaderboard> Leaderboards
+		{
+			get { return leaderboards; }
+		}
+		public static Leaderboard LeaderboardByKey(string key)
+		{
+			if (leaderboards.ContainsKey(key))
+				return leaderboards[key];
+			return null;
+		}
+		public static Leaderboard AddLeaderboard(Leaderboard leaderboard)
+		{
+			if (!leaderboards.ContainsKey(leaderboard.key))
+				leaderboards.Add(leaderboard.key, leaderboard);
+			else
+				leaderboards[leaderboard.key] = leaderboard;
+			return leaderboard;
 		}
 		#endregion
 		
@@ -65,7 +87,7 @@ namespace Roar
 		}
 		public static ShopItem AddShopItem(ShopItem shopItem)
 		{
-			if (shopItems.ContainsKey(shopItem.key))
+			if (!shopItems.ContainsKey(shopItem.key))
 				shopItems.Add(shopItem.key, shopItem);
 			else
 				shopItems[shopItem.key] = shopItem;
