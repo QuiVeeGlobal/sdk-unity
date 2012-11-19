@@ -35,9 +35,39 @@ public class RoarRankingsWidget : RoarUIWidget
 	protected override void OnEnable()
 	{
 		base.OnEnable();
+		RoarLeaderboardsWidget.OnLeaderboardsFetchedStarted += OnLeaderboardsFetchedStarted;
+		RoarLeaderboardsWidget.OnLeaderboardsFetchedComplete += OnLeaderboardsFetchedComplete;
+		RoarLeaderboardsWidget.OnLeaderboardSelected += OnLeaderboardSelected;
 		
 		boards = roar.Leaderboards;
 		
+		FetchIfPossible();
+	}
+	
+	protected override void OnDisable()
+	{
+		RoarLeaderboardsWidget.OnLeaderboardsFetchedStarted -= OnLeaderboardsFetchedStarted;
+		RoarLeaderboardsWidget.OnLeaderboardsFetchedComplete -= OnLeaderboardsFetchedComplete;
+		RoarLeaderboardsWidget.OnLeaderboardSelected -= OnLeaderboardSelected;
+	}
+	
+	void OnLeaderboardsFetchedStarted()
+	{}
+	
+	void OnLeaderboardsFetchedComplete()
+	{
+		FetchIfPossible();
+	}
+	
+	void OnLeaderboardSelected(string leaderboardKey)
+	{
+		this.leaderboardKey = leaderboardKey;
+		this.page = 1;
+		FetchIfPossible();
+	}
+	
+	void FetchIfPossible()
+	{
 		if (!string.IsNullOrEmpty(leaderboardKey))
 		{
 			leaderboard = RoarTypesCache.LeaderboardByKey(leaderboardKey);
@@ -52,10 +82,6 @@ public class RoarRankingsWidget : RoarUIWidget
 			{
 				Fetch();
 			}
-		}
-		else
-		{
-			enabled = false;
 		}
 	}
 	
@@ -91,7 +117,7 @@ public class RoarRankingsWidget : RoarUIWidget
 		leaderboard.whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;
 		leaderboard.rankingRaw = leaderboard.ranking.List();
-		boundingTitle = leaderboard.label;
+		Title = leaderboard.label;
 		int cnt = 0;
 		foreach (Hashtable data in leaderboard.rankingRaw)
 		{
@@ -154,17 +180,28 @@ public class RoarRankingsWidget : RoarUIWidget
 		if (isFetching)
 		{
 			GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Fetching leaderboard ranking data...", "StatusNormal");
+			ScrollViewContentHeight = 0;
 		}
 		else
 		{
-			Rect entry = rankingItemBounds;
-			foreach (Rank rank in leaderboard.ranks)
+			if (leaderboard == null || leaderboard.ranks == null || leaderboard.ranks.Count == 0)
 			{
-				GUI.Label(entry, rank.rank.ToString(), rankingEntryPlayerRankStyle);
-				GUI.Label(entry, rank.playerName, rankingEntryPlayerNameStyle);
-				GUI.Label(entry, rank.value, rankingEntryPlayerScoreStyle);
-				
-				entry.y += entry.height + rankingItemSpacing;
+				GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "No ranking data.", "StatusNormal");
+				ScrollViewContentHeight = 0;
+			}
+			else
+			{
+				ScrollViewContentHeight = leaderboard.ranks.Count * (rankingItemBounds.height + rankingItemSpacing);
+				Rect entry = rankingItemBounds;
+				foreach (Rank rank in leaderboard.ranks)
+				{
+					GUI.Label(entry, rank.rank.ToString(), rankingEntryPlayerRankStyle);
+					GUI.Label(entry, rank.playerName, rankingEntryPlayerNameStyle);
+					GUI.Label(entry, rank.value, rankingEntryPlayerScoreStyle);
+					
+					entry.y += entry.height + rankingItemSpacing;
+				}
+				//useScrollView = utilizeScrollView && ((entry.y + entry.height) > contentBounds.height);
 			}
 		}
 	}

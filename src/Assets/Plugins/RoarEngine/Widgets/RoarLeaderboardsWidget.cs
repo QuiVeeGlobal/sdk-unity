@@ -5,6 +5,13 @@ using Roar;
 
 public class RoarLeaderboardsWidget : RoarUIWidget
 {
+	public delegate void RoarLeaderboardsWidgetHandler();
+	public static event RoarLeaderboardsWidgetHandler OnLeaderboardsFetchedStarted;
+	public static event RoarLeaderboardsWidgetHandler OnLeaderboardsFetchedComplete;
+	
+	public delegate void RoarLeaderboardsWidgetSelectedHandler(string leaderboardKey);
+	public static event RoarLeaderboardsWidgetSelectedHandler OnLeaderboardSelected;
+	
 	public enum WhenToFetch { OnEnable, Once, Occassionally, Manual };
 	public WhenToFetch whenToFetch = WhenToFetch.OnEnable;
 	public float howOftenToFetch = 60;
@@ -42,6 +49,8 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 	public void Fetch()
 	{
 		isFetching = true;
+		if (OnLeaderboardsFetchedStarted != null)
+			OnLeaderboardsFetchedStarted();
 		boards.Fetch(OnRoarFetchLeaderboardsComplete);
 	}
 	
@@ -68,6 +77,9 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 		}
 		
 		ScrollViewContentHeight = cnt * (leaderboardItemBounds.height + leaderboardItemSpacing);
+		
+		if (OnLeaderboardsFetchedComplete != null)
+			OnLeaderboardsFetchedComplete();
 	}
 	
 	protected override void DrawGUI(int windowId)
@@ -75,6 +87,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 		if (isFetching)
 		{
 			GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Fetching leaderboard data...", "StatusNormal");
+			ScrollViewContentHeight = 0;
 		}
 		else
 		{
@@ -82,14 +95,18 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 			if (!boards.HasDataFromServer || leaderboards == null || leaderboards.Values.Count == 0)
 			{
 				GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "No leaderboards to display", "StatusNormal");
+				ScrollViewContentHeight = 0;
 			}
 			else
 			{
+				ScrollViewContentHeight = leaderboards.Values.Count * (leaderboardItemBounds.height + leaderboardItemSpacing);
 				Rect entry = leaderboardItemBounds;
 				foreach (Leaderboard leaderboard in leaderboards.Values)
 				{
 					if (GUI.Button(entry, leaderboard.label, leaderboardEntryStyle))
 					{
+						if (OnLeaderboardSelected != null)
+							OnLeaderboardSelected(leaderboard.key);
 					}
 					entry.y += entry.height + leaderboardItemSpacing;
 				}

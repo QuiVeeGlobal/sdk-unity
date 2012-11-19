@@ -27,7 +27,7 @@ public abstract class RoarUIWidget : MonoBehaviour
 	public float initialContentWidth = 0;
 	public float initialContentHeight = 0;
 	public bool alwaysShowHorizontalScrollBar = false;
-	public bool alwaysShowVerticalScrollBar = true;
+	public bool alwaysShowVerticalScrollBar = false;
 	
 	public bool autoEnableOnLogIn = false;
 	public bool autoDisableOnLogout = true;
@@ -116,6 +116,9 @@ public abstract class RoarUIWidget : MonoBehaviour
 	{
 		scrollPosition = Vector2.zero;
 	}
+	
+	protected virtual void OnDisable()
+	{}
 	
 	void Reset()
 	{
@@ -374,4 +377,19 @@ public abstract class RoarUIWidget : MonoBehaviour
 			return contentBounds.height;
 		}
 	}
+	
+	public string Title
+	{
+		get { return boundingTitle; }
+		set
+		{
+			boundingTitle = value;
+			boundingGUIContent = new GUIContent(boundingTitle, boundingImage);
+		}
+	}
+
+	#region Utility
+	public virtual void ResetToDefaultConfiguration()
+	{}
+	#endregion
 }

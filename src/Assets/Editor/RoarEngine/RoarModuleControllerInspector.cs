@@ -156,6 +156,26 @@ public class RoarModuleControllerInspector : RoarModuleInspector
 		roarModule.ResetToDefaultConfiguration();
 		roarModule.uiController = roarModuleController;
 		roarModule.parent = roarModuleController;
+		
+		switch (module)
+		{
+		case RoarModulePanel.Leaderboards:
+			// need to also add widgets RoarLeaderboardsWidget & RoarRankingsWidget as children
+			{
+				GameObject leaderboardsWidgetGO = new GameObject("RoarLeaderboardsWidget");
+				leaderboardsWidgetGO.transform.parent = moduleGO.transform;
+				RoarLeaderboardsWidget leaderboardsWidget = leaderboardsWidgetGO.AddComponent<RoarLeaderboardsWidget>();
+				leaderboardsWidget.ResetToDefaultConfiguration();
+			}
+			{
+				GameObject rankingsWidgetGO = new GameObject("RoarRankingsWidget");
+				rankingsWidgetGO.transform.parent = moduleGO.transform;
+				RoarRankingsWidget rankingsWidget = rankingsWidgetGO.AddComponent<RoarRankingsWidget>();
+				rankingsWidget.ResetToDefaultConfiguration();
+			}
+			break;
+		}
+		
 		EditorUtility.SetDirty(moduleGO);
 		
 		SerializedProperty moduleProperty;
