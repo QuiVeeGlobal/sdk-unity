@@ -47,6 +47,9 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 	public Roar.Components.IUser User { get { return user; } }
 	protected Roar.Components.IUser user;
 
+	public Roar.Components.IFacebook Facebook { get { return facebook; } }
+	protected Roar.Components.IFacebook facebook;
+
 	public Roar.Components.IProperties Properties { get { return properties; } }
 	protected Roar.Components.IProperties properties;
 
@@ -155,6 +158,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		data = new Roar.implementation.Components.Data( webAPI.user, datastore, logger);
 		shop = new Roar.implementation.Components.Shop( webAPI.shop, datastore, logger );
 		actions = new Roar.implementation.Components.Actions( webAPI.tasks, datastore );
+		facebook = new Roar.implementation.Components.Facebook(webAPI.facebook, datastore, logger);
 
 		if (!Application.isEditor)
 		{
@@ -189,14 +193,19 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		User.DoLogin(username,password,callback);
 	}
 
+	public void FetchFacebookOAuthToken( string code, Roar.Callback callback=null )
+	{
+		Facebook.DoFetchFacebookOAuthToken(code,callback);
+	}
+
 	public void LoginFacebookOAuth( string oauth_token, Roar.Callback callback=null )
 	{
-		User.DoLoginFacebookOAuth(oauth_token,callback);
+		Facebook.DoLoginFacebookOAuth(oauth_token,callback);
 	}
 
 	public void LoginFacebookSignedReq( string signedReq, Roar.Callback callback=null )
 	{
-		User.DoLoginFacebookSignedReq(signedReq,callback);
+		Facebook.DoLoginFacebookSignedReq(signedReq,callback);
 	}
 
 	public void Logout( Roar.Callback callback=null )
@@ -206,7 +215,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 
 	public void CreateFacebookSignedReq( string username, string signedAuth, Roar.Callback callback=null )
 	{
-		User.DoCreateFacebookSignedReq(username,signedAuth,callback);
+		Facebook.DoCreateFacebookSignedReq(username,signedAuth,callback);
 	}
 
 	public void Create( string username, string password, Roar.Callback callback=null )
