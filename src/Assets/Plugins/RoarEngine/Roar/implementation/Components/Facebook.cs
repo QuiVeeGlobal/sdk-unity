@@ -174,6 +174,20 @@ namespace Roar.implementation.Components
 			facebook.create_signed (args, new FacebookCreateCallback (cb, this));
 		}
 
+        public void DoCreateFacebookOAuth (string name, string oAuthToken, Roar.Callback cb)
+		{
+			if (name == "" || oAuthToken == "") {
+				logger.DebugLog ("[roar] -- Must specify username and oauthToken for creation");
+				return;
+			}
+
+			Hashtable args = new Hashtable ();
+			args ["name"] = name;
+			args ["oauth_token"] = oAuthToken;
+
+			facebook.create_oauth (args, new FacebookCreateCallback (cb, this));
+		}
+
 
 		//TODO: not sure this belongs in this class!
 		public void CacheFromInventory (Roar.Callback cb=null)
