@@ -152,6 +152,13 @@ namespace Roar.implementation.DataConversion
 
 	public class XCRMParser : IXCRMParser
 	{
+		public IXCRMParser crm = null;
+		
+		public XCRMParser()
+		{
+			crm = this;
+		}
+		
 		public DomainObjects.Modifier ParseAModifier( IXMLNode n )
 		{
 			DomainObjects.Modifier retval;
@@ -252,24 +259,13 @@ namespace Roar.implementation.DataConversion
 					switch( nn.Name )
 					{
 					case "if":
-						foreach (IXMLNode nnn in nn.Children)
-						{
-							if (nnn.Name == "and")
-							{
-								m.if_ = ParseRequirementList(nnn);
-							}
-							else
-							{
-								m.if_ = new List<DomainObjects.Requirement>();
-								m.if_.Add(ParseARequirement(nnn));
-							}
-						}
+						m.if_ = crm.ParseRequirementList(nn);
 						break;
 					case "then":
-						m.then_ = ParseModifierList(nn);
+						m.then_ = crm.ParseModifierList(nn);
 						break;
 					case "else":
-						m.else_ = ParseModifierList(nn);
+						m.else_ = crm.ParseModifierList(nn);
 						break;
 					default:
 						throw new InvalidXMLElementException("Invalid if-then-else node : "+nn.Name);

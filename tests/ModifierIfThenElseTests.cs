@@ -42,21 +42,20 @@ public class ModifierIfThenElseTest
     Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("if_then_else"));
     Expect.AtLeastOnce.On(ixmlnode).GetProperty("Children").Will(Return.Value(if_then_else_nodes));
     
-    List<IXMLNode> if_nodes = new List<IXMLNode>();
-    IXMLNode if_and_node = mockery.NewMock<IXMLNode>();
-    if_nodes.Add(if_and_node);
-    IXMLNode if_other_requirement = mockery.NewMock<IXMLNode>();
-    if_nodes.Add(if_other_requirement);
-    Expect.AtLeastOnce.On(if_node).GetProperty("Children").Will(Return.Value(if_nodes));
-    Expect.AtLeastOnce.On(if_and_node).GetProperty("Name").Will(Return.Value("and"));
-    Expect.AtLeastOnce.On(if_and_node).GetProperty("Children").Will(Return.Value(new List<IXMLNode>()));
-    Expect.AtLeastOnce.On(if_other_requirement).GetProperty("Name").Will(Return.Value("true"));
-    
-    Expect.AtLeastOnce.On(then_node).GetProperty("Children").Will(Return.Value(new List<IXMLNode>()));
-    Expect.AtLeastOnce.On(else_node).GetProperty("Children").Will(Return.Value(new List<IXMLNode>()));
+    parser.crm = mockery.NewMock<IXCRMParser>();
+    List<Roar.DomainObjects.Requirement> mock_if_requirement_list = new List<Roar.DomainObjects.Requirement>();
+    List<Roar.DomainObjects.Modifier> mock_then_modifier_list = new List<Roar.DomainObjects.Modifier>();
+    List<Roar.DomainObjects.Modifier> mock_else_modifier_list = new List<Roar.DomainObjects.Modifier>();
+    Expect.AtLeastOnce.On(parser.crm).Method("ParseRequirementList").With(if_node).Will(Return.Value(mock_if_requirement_list));
+    Expect.AtLeastOnce.On(parser.crm).Method("ParseModifierList").With(then_node).Will(Return.Value(mock_then_modifier_list));
+    Expect.AtLeastOnce.On(parser.crm).Method("ParseModifierList").With(else_node).Will(Return.Value(mock_else_modifier_list));
     
     Modifier m = parser.ParseAModifier(ixmlnode);
+    mockery.VerifyAllExpectationsHaveBeenMet();
     Assert.IsNotNull(m as IfThenElse);
+    Assert.AreSame((m as IfThenElse).if_, mock_if_requirement_list);
+    Assert.AreSame((m as IfThenElse).then_, mock_then_modifier_list);
+    Assert.AreSame((m as IfThenElse).else_, mock_else_modifier_list);
   }
   
 }
