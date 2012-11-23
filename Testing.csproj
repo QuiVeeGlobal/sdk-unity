@@ -35,7 +35,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="NMock2">
-      <HintPath>..\..\..\..\Downloads\nmock2-2.0.0.44-net-2.0\bin\NMock2.dll</HintPath>
+      <HintPath>libs\nmock2-2.0.0.44-net-2.0\bin\NMock2.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
