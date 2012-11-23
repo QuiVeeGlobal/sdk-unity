@@ -24,6 +24,24 @@ public class ModifierIfThenElseTest
     this.mockery = new Mockery();
   }
   
+  /*
+   * This is what the XML should look like:
+   * <if_then_else>
+   *   <if>
+   *     <friends_requirement required="2" ok="false" reason="Insufficient friends"/>
+   *     <true_requirement ok="true"/>
+   *   </if>
+   *   <then>
+   *     <grant_stat type="attribute" ikey="_energy_max" value="0"/>
+   *     <grant_xp value="54"/>
+   *   </then>
+   *   <else>
+   *     <grant_stat_range type="currency" ikey="gamecoins" min="2" max="6"/>
+   *     <remove_items/>
+   *   </else>
+   * </if_then_else>
+   */
+  
   [Test()]
   public void TestGetsIfThenElse()
   {
