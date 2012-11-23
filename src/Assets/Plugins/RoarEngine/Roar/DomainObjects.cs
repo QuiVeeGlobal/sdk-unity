@@ -92,9 +92,9 @@ namespace Roar
 			
 			public class IfThenElse : Modifier
 			{
-				public Requirement if_;
-				public Modifier then_;
-				public Modifier else_;
+				public IList<Requirement> if_;
+				public IList<Modifier> then_;
+				public IList<Modifier> else_;
 			}
 			
 			public class RandomChoice : Modifier

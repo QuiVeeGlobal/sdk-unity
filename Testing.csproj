@@ -53,6 +53,7 @@
     <Compile Include="tests\mocks\MockRequestSender.cs" />
     <Compile Include="tests\mocks\MockRoar.cs" />
     <Compile Include="tests\XmlToObjectTests.cs" />
+    <Compile Include="tests\ModifierIfThenElseTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

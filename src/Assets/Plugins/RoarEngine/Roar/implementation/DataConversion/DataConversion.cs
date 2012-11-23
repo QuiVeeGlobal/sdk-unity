@@ -247,6 +247,34 @@ namespace Roar.implementation.DataConversion
 			{
 				DomainObjects.Modifiers.IfThenElse m = new DomainObjects.Modifiers.IfThenElse();
 				//TODO: Fill me in!
+				foreach (IXMLNode nn in n.Children)
+				{
+					switch( nn.Name )
+					{
+					case "if":
+						foreach (IXMLNode nnn in nn.Children)
+						{
+							if (nnn.Name == "and")
+							{
+								m.if_ = ParseRequirementList(nnn);
+							}
+							else
+							{
+								m.if_ = new List<DomainObjects.Requirement>();
+								m.if_.Add(ParseARequirement(nnn));
+							}
+						}
+						break;
+					case "then":
+						m.then_ = ParseModifierList(nn);
+						break;
+					case "else":
+						m.else_ = ParseModifierList(nn);
+						break;
+					default:
+						throw new InvalidXMLElementException("Invalid if-then-else node : "+nn.Name);
+					}
+				}
 				retval = m;
 				break;
 			}
