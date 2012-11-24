@@ -87,6 +87,8 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\ZWebBase.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IFriends.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Friends.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IFacebook.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Facebook.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -270,22 +270,6 @@ public interface IRoar
 	void Login( string username, string password, Roar.Callback<Roar.WebObjects.User.LoginResponse> callback=null );
 
 	/**
-   * Login a player using Facebook OAuth.
-   *
-   * On success:
-   * - invokes callback with empty data parameter, success code and success message
-   * - fires a RoarManager#loggedInEvent
-   *
-   * On failure:
-   * - invokes callback with empty data parameter, error code and error message
-   * - fires a RoarManager#logInFailedEvent containing a failure message
-   *
-   * @param oauth_token the OAuth token.
-   * @param cb the callback function to be passed the result of doLogin.
-   **/
-	void LoginFacebookOAuth( string oauth_token, Roar.Callback<Roar.WebObjects.User.Login_facebook_oauthResponse> callback=null );
-
-	/**
    * Logs out a user.
    * Clears the authentication token for a user. Must re-login to authenticate.
    *

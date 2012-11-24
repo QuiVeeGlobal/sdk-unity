@@ -50,6 +50,9 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 	public Roar.Components.IUser User { get { return user; } }
 	protected Roar.Components.IUser user;
 
+	public Roar.Components.IFacebook Facebook { get { return facebook; } }
+	protected Roar.Components.IFacebook facebook;
+
 	public Roar.Components.IProperties Properties { get { return properties; } }
 	protected Roar.Components.IProperties properties;
 
@@ -159,6 +162,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		data = new Roar.implementation.Components.Data( webAPI.user, datastore, logger);
 		shop = new Roar.implementation.Components.Shop( webAPI.shop, datastore, logger );
 		actions = new Roar.implementation.Components.Actions( webAPI.tasks, datastore );
+		facebook = new Roar.implementation.Components.Facebook(webAPI.facebook, datastore, logger);
 
 		if (!Application.isEditor)
 		{
@@ -190,11 +194,6 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 	public void Login( string username, string password, Roar.Callback<Roar.WebObjects.User.LoginResponse> callback=null )
 	{
 		User.DoLogin(username,password,callback);
-	}
-
-	public void LoginFacebookOAuth( string oauth_token, Roar.Callback<Roar.WebObjects.User.Login_facebook_oauthResponse> callback=null )
-	{
-		User.DoLoginFacebookOAuth(oauth_token,callback);
 	}
 
 	public void Logout( Roar.Callback<Roar.WebObjects.User.LogoutResponse> callback=null )

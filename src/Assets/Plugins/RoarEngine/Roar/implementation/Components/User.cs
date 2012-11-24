@@ -67,39 +67,6 @@ namespace Roar.implementation.Components
 			}
 		}
 
-		public void DoLoginFacebookOAuth (string oauth_token, Roar.Callback<WebObjects.User.Login_facebook_oauthResponse> cb)
-		{
-			if (oauth_token == "") {
-				logger.DebugLog ("[roar] -- Must specify oauth_token for facebook login");
-				return;
-			}
-
-			WebObjects.User.Login_facebook_oauthArguments args = new Roar.WebObjects.User.Login_facebook_oauthArguments();
-			args.oauth_token = oauth_token;
-
-			userActions.login_facebook_oauth (args, new LoginFacebookOAuthCallback (cb, this));
-		}
-		class LoginFacebookOAuthCallback : CBBase<WebObjects.User.Login_facebook_oauthResponse>
-		{
-			protected User user;
-
-			public LoginFacebookOAuthCallback (Roar.Callback<WebObjects.User.Login_facebook_oauthResponse> in_cb, User in_user) : base( in_cb )
-			{
-				user = in_user;
-			}
-
-			public override void HandleError (RequestResult info)
-			{
-				RoarManager.OnLogInFailed (info.msg);
-			}
-
-			public override void HandleSuccess (CallbackInfo<WebObjects.User.Login_facebook_oauthResponse> info)
-			{
-				RoarManager.OnLoggedIn ();
-				// @todo Perform auto loading of game and player data
-			}
-		}
-
 
 		public void DoLogout (Roar.Callback<WebObjects.User.LogoutResponse> cb)
 		{

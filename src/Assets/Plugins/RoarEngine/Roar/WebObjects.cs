@@ -231,10 +231,14 @@ namespace Roar.WebObjects
 		// Arguments to facebook/create_oauth
 		public class Create_oauthArguments
 		{
+			public string oauth_token;
+			public string name;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["oauth_token"] = oauth_token;
+				retval["name"] = name;
 				return retval;
 			}
 		}
@@ -307,10 +311,11 @@ namespace Roar.WebObjects
 		// Arguments to facebook/login_oauth
 		public class Login_oauthArguments
 		{
-
+			public string oauth_token;
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["oauth_token"] = oauth_token;
 				return retval;
 			}
 		}

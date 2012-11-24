@@ -27,6 +27,7 @@ namespace Roar.Components
 		 */
 		void DoCreate( string name, string hash, Roar.Callback<WebObjects.User.CreateResponse> cb );
 
+
 		/**
 		 * Login a player.
 		 *
@@ -47,21 +48,6 @@ namespace Roar.Components
 		 **/
 		void DoLogin (string name, string hash, Roar.Callback<WebObjects.User.LoginResponse> cb);
 
-		/**
-		 * Login a player using Facebook OAuth.
-		 *
-		 * On success:
-		 * - invokes callback with empty data parameter, success code and success message
-		 * - fires a RoarManager#loggedInEvent
-		 *
-		 * On failure:
-		 * - invokes callback with empty data parameter, error code and error message
-		 * - fires a RoarManager#logInFailedEvent containing a failure message
-		 *
-		 * @param oauth_token the OAuth token.
-		 * @param cb the callback function to be passed the result of doLogin.
-		 **/
-		void DoLoginFacebookOAuth (string oauth_token, Roar.Callback<WebObjects.User.Login_facebook_oauthResponse> cb);
 
 		/**
 		 * Logs out a user.
