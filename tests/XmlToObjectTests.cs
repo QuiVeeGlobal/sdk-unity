@@ -205,5 +205,56 @@ namespace Testing
 		}
 		
 	}
+
+
+	[TestFixture()]
+	public class XmlToFriendTests
+	{
+		private Roar.implementation.DataConversion.XmlToFriend converter;
+
+		[SetUp]
+		public void TestInitialise()
+		{
+			converter = new Roar.implementation.DataConversion.XmlToFriend();
+		}
+
+
+
+		[Test()]
+		public void TestXMLNodeGetsAttributes()
+		{
+			string xml ="<friend>\n"+
+				"  <player_id>ABCDEF</player_id>\n" +
+				"  <name>some dude</name>\n" +
+				"  <level>7</level>" +
+				"</friend>";
+
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse( xml ).GetFirstChild("friend");
+
+			Roar.DomainObjects.Friend friend = converter.Build( nn );
+
+			Assert.AreEqual( "ABCDEF", friend.player_id );
+			Assert.AreEqual( "some dude", friend.name );
+			Assert.AreEqual( 7, friend.level );
+		}
+
+		[Test()]
+		public void TestSystemXMLNodeGetsAttributes()
+		{
+			string xml ="<friend>\n"+
+				"  <player_id>ABCDEF</player_id>\n" +
+				"  <name>some dude</name>\n" +
+				"  <level>7</level>" +
+				"</friend>";
+
+			IXMLNode nn = ( new SystemXMLNodeFactory() ).Create( xml ).GetFirstChild("friend");
+
+			Roar.DomainObjects.Friend friend = converter.Build( nn );
+
+			Assert.AreEqual( "ABCDEF", friend.player_id );
+			Assert.AreEqual( "some dude", friend.name );
+			Assert.AreEqual( 7, friend.level );
+		}
+	}
 }
 

@@ -157,7 +157,7 @@ namespace Roar
 		public class ShopEntry : IDomainObject
 		{
 			public string as_json() { return "{}"; }
-			public bool MatchesKey( string key ) { return false; } //Should check id, ikey, shop_ikey etc.
+			public bool MatchesKey( string key ) { return ikey==key; } //Should check id, ikey, shop_ikey etc.
 			
 			public string ikey;
 			public string label;
@@ -169,5 +169,20 @@ namespace Roar
 			
 			public IList<string> tags;
 		};
+
+
+		public class Friend : IDomainObject
+		{
+			public bool MatchesKey( string key )
+			{
+				return player_id==key;
+			}
+
+			public string player_id;
+			public string name;
+			public int level;
+		};
+
+
 	}
 }

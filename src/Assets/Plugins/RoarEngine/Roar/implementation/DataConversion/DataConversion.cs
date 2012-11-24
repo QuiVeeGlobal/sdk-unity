@@ -535,6 +535,29 @@ namespace Roar.implementation.DataConversion
 
 	}
 
+	public class XmlToFriend : IXmlToObject<DomainObjects.Friend>
+	{
+
+		public XmlToFriend ()
+		{
+		}
+
+		public string GetKey (IXMLNode n)
+		{
+			return n.GetFirstChild("player_id").Text;
+		}
+
+		public Friend Build(IXMLNode n)
+		{
+			Friend retval = new Friend ();
+			retval.player_id = n.GetFirstChild("player_id").Text;
+			retval.name = n.GetFirstChild("name").Text;
+			retval.level = System.Convert.ToInt32( n.GetFirstChild("level").Text );
+			return retval;
+		}
+	}
+
+
 	public class XmlToPropertyHashtable : IXmlToHashtable
 	{
 		public XmlToPropertyHashtable ()
