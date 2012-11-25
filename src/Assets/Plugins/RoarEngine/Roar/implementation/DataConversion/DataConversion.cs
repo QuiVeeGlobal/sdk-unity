@@ -203,9 +203,9 @@ namespace Roar.implementation.DataConversion
 			}
 			case "grant_item":
 			{
-				DomainObjects.Modifiers.GrantItem m = new DomainObjects.Modifiers.GrantItem();
-				//TODO: Fill me in!
-				retval = m;
+				DomainObjects.Modifiers.GrantItem grant_state_item = new DomainObjects.Modifiers.GrantItem();
+				grant_state_item.ikey = n.GetAttribute("ikey");
+				retval = grant_state_item;
 				break;
 			}
 			case "grant_xp":
@@ -253,7 +253,6 @@ namespace Roar.implementation.DataConversion
 			case "if_then_else":
 			{
 				DomainObjects.Modifiers.IfThenElse m = new DomainObjects.Modifiers.IfThenElse();
-				//TODO: Fill me in!
 				foreach (IXMLNode nn in n.Children)
 				{
 					switch( nn.Name )

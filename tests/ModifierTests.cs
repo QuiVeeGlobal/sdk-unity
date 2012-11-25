@@ -25,21 +25,44 @@ public class ModifierTests
   }
   
   /*
-   * This is what the XML should look like:
-   * <if_then_else>
-   *   <if>
-   *     <friends_requirement required="2" ok="false" reason="Insufficient friends"/>
-   *     <true_requirement ok="true"/>
-   *   </if>
-   *   <then>
-   *     <grant_stat type="attribute" ikey="_energy_max" value="0"/>
-   *     <grant_xp value="54"/>
-   *   </then>
-   *   <else>
-   *     <grant_stat_range type="currency" ikey="gamecoins" min="2" max="6"/>
-   *     <remove_items/>
-   *   </else>
-   * </if_then_else>
+   * This is what the Grant Item XML should look like:
+   * <modifiers>
+       <grant_item ikey="christmas_tree"/>
+   * </modifiers>
+   */
+  
+  [Test()]
+  public void TestGrantItem()
+  {
+    XCRMParser parser = new XCRMParser();
+    IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
+    
+    Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("grant_item"));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ikey").Will(Return.Value("some ID"));
+    
+    Modifier m = parser.ParseAModifier(ixmlnode);
+    Assert.IsNotNull(m as GrantItem);
+    Assert.AreEqual((m as GrantItem).ikey, "some ID");
+  }
+  
+  /*
+   * This is what the If-Then-Else XML should look like:
+   * <modifiers>
+   *   <if_then_else>
+   *     <if>
+   *       <friends_requirement required="2" ok="false" reason="Insufficient friends"/>
+   *       <true_requirement ok="true"/>
+   *     </if>
+   *     <then>
+   *       <grant_stat type="attribute" ikey="_energy_max" value="0"/>
+   *       <grant_xp value="54"/>
+   *     </then>
+   *     <else>
+   *       <grant_stat_range type="currency" ikey="gamecoins" min="2" max="6"/>
+   *       <remove_items/>
+   *     </else>
+   *   </if_then_else>
+   * </modifiers>
    */
   
   [Test()]
