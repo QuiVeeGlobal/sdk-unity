@@ -9,11 +9,11 @@ using Roar.DomainObjects.Modifiers;
 using Roar.implementation.DataConversion;
 
 /**
- * Test cases for the Modifier If-Then-Else component
+ * Test cases for the Modifier components
  **/
 
 [TestFixture()]
-public class ModifierIfThenElseTest
+public class ModifierTests
 {
 
   private Mockery mockery = null;
