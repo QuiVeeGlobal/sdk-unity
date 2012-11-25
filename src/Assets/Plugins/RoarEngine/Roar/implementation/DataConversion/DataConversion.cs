@@ -170,7 +170,7 @@ namespace Roar.implementation.DataConversion
 				remove_item_mod.ikey = n.GetAttribute("ikey");
 				if( ! System.Int32.TryParse( n.GetAttribute("count"), out remove_item_mod.count ) )
 				{
-					throw new InvalidXMLElementException("Unable to parse grant_stat count to integer");
+					throw new InvalidXMLElementException("Unable to parse remove_items count to integer");
 				}
 				retval = remove_item_mod;
 				break;
