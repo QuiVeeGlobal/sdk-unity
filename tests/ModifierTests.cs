@@ -70,6 +70,32 @@ public class ModifierTests
   }
   
   /*
+   * This is what the Grant XP XML should look like:
+   * <modifiers>
+       <grant_xp_range min="33" max="44"/>
+   * </modifiers>
+   */
+  
+  [Test()]
+  public void TestGrantXPRange()
+  {
+    XCRMParser parser = new XCRMParser();
+    IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
+    int minimum = 33;
+    int maximum = 44;
+    
+    Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("grant_xp_range"));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("min").Will(Return.Value("" + minimum));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("max").Will(Return.Value("" + maximum));
+    
+    Modifier m = parser.ParseAModifier(ixmlnode);
+    mockery.VerifyAllExpectationsHaveBeenMet();
+    Assert.IsNotNull(m as GrantXpRange);
+    Assert.AreEqual((m as GrantXpRange).min, minimum);
+    Assert.AreEqual((m as GrantXpRange).max, maximum);
+  }
+  
+  /*
    * This is what the Nothing XML should look like:
    * <modifiers>
        <nothing/>

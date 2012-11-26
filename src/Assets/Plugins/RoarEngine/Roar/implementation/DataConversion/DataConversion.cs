@@ -220,9 +220,16 @@ namespace Roar.implementation.DataConversion
 			}
 			case "grant_xp_range":
 			{
-				DomainObjects.Modifiers.GrantXpRange m = new DomainObjects.Modifiers.GrantXpRange();
-				//TODO: Fill me in!
-				retval = m;
+				DomainObjects.Modifiers.GrantXpRange grant_xp_range = new DomainObjects.Modifiers.GrantXpRange();
+				if(! System.Int32.TryParse(n.GetAttribute("min"), out grant_xp_range.min))
+				{
+					throw new InvalidXMLElementException("Unable to parse grant_xp_range min to integer");
+				}
+				if(! System.Int32.TryParse(n.GetAttribute("max"), out grant_xp_range.max))
+				{
+					throw new InvalidXMLElementException("Unable to parse grant_xp_range max to integer");
+				}
+				retval = grant_xp_range;
 				break;
 			}
 			case "random_choice":
