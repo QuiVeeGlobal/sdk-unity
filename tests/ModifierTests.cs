@@ -41,6 +41,7 @@ public class ModifierTests
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ikey").Will(Return.Value("some ID"));
     
     Modifier m = parser.ParseAModifier(ixmlnode);
+    mockery.VerifyAllExpectationsHaveBeenMet();
     Assert.IsNotNull(m as GrantItem);
     Assert.AreEqual((m as GrantItem).ikey, "some ID");
   }
@@ -82,6 +83,7 @@ public class ModifierTests
     IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
     Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("nothing"));
     Modifier m = parser.ParseAModifier(ixmlnode);
+    mockery.VerifyAllExpectationsHaveBeenMet();
     Assert.IsNotNull(m as Nothing);
   }
   
