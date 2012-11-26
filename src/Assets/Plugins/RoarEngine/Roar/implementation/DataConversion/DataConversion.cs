@@ -210,9 +210,12 @@ namespace Roar.implementation.DataConversion
 			}
 			case "grant_xp":
 			{
-				DomainObjects.Modifiers.GrantXp m = new DomainObjects.Modifiers.GrantXp();
-				//TODO: Fill me in!
-				retval = m;
+				DomainObjects.Modifiers.GrantXp grant_xp = new DomainObjects.Modifiers.GrantXp();
+				if(! System.Int32.TryParse(n.GetAttribute("value"), out grant_xp.value))
+				{
+					throw new InvalidXMLElementException("Unable to parse grant_xp value to integer");
+				}
+				retval = grant_xp;
 				break;
 			}
 			case "grant_xp_range":

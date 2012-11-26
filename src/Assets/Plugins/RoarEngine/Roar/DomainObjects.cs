@@ -62,6 +62,7 @@ namespace Roar
 			
 			public class GrantXp : Modifier
 			{
+				public int value;
 			}
 			
 			public class GrantXpRange : Modifier

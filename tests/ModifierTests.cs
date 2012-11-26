@@ -46,6 +46,29 @@ public class ModifierTests
   }
   
   /*
+   * This is what the Grant XP XML should look like:
+   * <modifiers>
+       <grant_xp value="25"/>
+   * </modifiers>
+   */
+  
+  [Test()]
+  public void TestGrantXP()
+  {
+    XCRMParser parser = new XCRMParser();
+    IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
+    int xp = 25;
+    
+    Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("grant_xp"));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("value").Will(Return.Value("" + xp));
+    
+    Modifier m = parser.ParseAModifier(ixmlnode);
+    mockery.VerifyAllExpectationsHaveBeenMet();
+    Assert.IsNotNull(m as GrantXp);
+    Assert.AreEqual((m as GrantXp).value, xp);
+  }
+  
+  /*
    * This is what the Nothing XML should look like:
    * <modifiers>
        <nothing/>
