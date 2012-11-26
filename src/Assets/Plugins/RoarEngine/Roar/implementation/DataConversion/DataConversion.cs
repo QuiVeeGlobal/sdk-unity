@@ -238,9 +238,7 @@ namespace Roar.implementation.DataConversion
 			}
 			case "nothing":
 			{
-				DomainObjects.Modifiers.Nothing m = new DomainObjects.Modifiers.Nothing();
-				//TODO: Fill me in!
-				retval = m;
+				retval = new DomainObjects.Modifiers.Nothing();
 				break;
 			}
 			case "named":

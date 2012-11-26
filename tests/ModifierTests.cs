@@ -46,6 +46,23 @@ public class ModifierTests
   }
   
   /*
+   * This is what the Nothing XML should look like:
+   * <modifiers>
+       <nothing/>
+   * </modifiers>
+   */
+  
+  [Test()]
+  public void TestNothing()
+  {
+    XCRMParser parser = new XCRMParser();
+    IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
+    Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("nothing"));
+    Modifier m = parser.ParseAModifier(ixmlnode);
+    Assert.IsNotNull(m as Nothing);
+  }
+  
+  /*
    * This is what the If-Then-Else XML should look like:
    * <modifiers>
    *   <if_then_else>
