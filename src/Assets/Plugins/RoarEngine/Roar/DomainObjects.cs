@@ -104,9 +104,9 @@ namespace Roar
 			{
 				public struct ChoiceEntry
 				{
-					public double weight;
-					public Modifier modifier;
-					public Requirement requirement;
+					public int weight;
+					public IList<Modifier> modifiers;
+					public IList<Requirement> requirements;
 				}
 				
 				public List<ChoiceEntry> choices;

@@ -96,6 +96,75 @@ public class ModifierTests
   }
   
   /*
+   * This is what the Grant XP XML should look like:
+   * <modifiers>
+   *   <random_choice>
+   *     <choice weight="78">
+   *       <modifier>
+   *         <nothing/>
+   *         <grant_xp value="56"/>
+   *       </modifier>
+   *       <requirement>
+   *         <and ok="false" reason="always fails">
+   *           <true_requirement ok="true"/>
+   *           <false_requirement ok="false" reason="always fails"/>
+   *         </and>
+   *       </requirement>
+   *     </choice>
+   *     <choice weight="12">
+   *       <modifier>
+   *         <nothing/>
+   *       </modifier>
+   *       <requirement>
+   *         <and ok="false" reason="always fails">
+   *           <true_requirement ok="true"/>
+   *         </and>
+   *       </requirement>
+   *     </choice>
+   *   </random_choice>
+   * </modifiers>
+   */
+  
+  [Test()]
+  public void TestRandomChoice()
+  {
+    XCRMParser parser = new XCRMParser();
+    IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
+    List<IXMLNode> choice_list = new List<IXMLNode>();
+    IXMLNode mock_choice = mockery.NewMock<IXMLNode>();
+    choice_list.Add(mock_choice);
+    List<IXMLNode> choice_elements = new List<IXMLNode>();
+    IXMLNode mock_weight_node = mockery.NewMock<IXMLNode>();
+    choice_elements.Add(mock_weight_node);
+    IXMLNode mock_modifiers_node = mockery.NewMock<IXMLNode>();
+    choice_elements.Add(mock_modifiers_node);
+    IXMLNode mock_requirement_node = mockery.NewMock<IXMLNode>();
+    choice_elements.Add(mock_requirement_node);
+    
+    RandomChoice.ChoiceEntry entry = new RandomChoice.ChoiceEntry();
+    entry.weight = 23;
+    entry.modifiers = new List<Modifier>();
+    entry.requirements = new List<Requirement>();
+    
+    parser.crm = mockery.NewMock<IXCRMParser>();
+    Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("random_choice"));
+    Expect.AtLeastOnce.On(ixmlnode).GetProperty("Children").Will(Return.Value(choice_list));
+    Expect.AtLeastOnce.On(mock_choice).GetProperty("Name").Will(Return.Value("choice"));
+    Expect.AtLeastOnce.On(mock_choice).GetProperty("Children").Will(Return.Value(choice_elements));
+    Expect.AtLeastOnce.On(mock_weight_node).GetProperty("Name").Will(Return.Value("weight"));
+    Expect.Once.On(mock_weight_node).Method("GetAttribute").Will(Return.Value("" + entry.weight));
+    Expect.AtLeastOnce.On(mock_modifiers_node).GetProperty("Name").Will(Return.Value("modifier"));
+    Expect.Once.On(parser.crm).Method("ParseModifierList").With(mock_modifiers_node).Will(Return.Value(entry.modifiers));
+    Expect.AtLeastOnce.On(mock_requirement_node).GetProperty("Name").Will(Return.Value("requirement"));
+    Expect.Once.On(parser.crm).Method("ParseRequirementList").With(mock_requirement_node).Will(Return.Value(entry.requirements));
+    
+    Modifier m = parser.ParseAModifier(ixmlnode);
+    mockery.VerifyAllExpectationsHaveBeenMet();
+    Assert.IsNotNull(m as RandomChoice);
+    Assert.AreEqual((m as RandomChoice).choices[0], entry);
+  }
+  
+  /*
    * This is what the Nothing XML should look like:
    * <modifiers>
        <nothing/>

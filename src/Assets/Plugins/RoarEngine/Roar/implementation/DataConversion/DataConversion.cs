@@ -234,9 +234,41 @@ namespace Roar.implementation.DataConversion
 			}
 			case "random_choice":
 			{
-				DomainObjects.Modifiers.RandomChoice m = new DomainObjects.Modifiers.RandomChoice();
-				//TODO: Fill me in!
-				retval = m;
+				DomainObjects.Modifiers.RandomChoice random_choice = new DomainObjects.Modifiers.RandomChoice();
+				random_choice.choices = new List<DomainObjects.Modifiers.RandomChoice.ChoiceEntry>();
+				foreach (IXMLNode nn in n.Children)
+				{
+					if(nn.Name == "choice")
+					{
+						DomainObjects.Modifiers.RandomChoice.ChoiceEntry entry = new DomainObjects.Modifiers.RandomChoice.ChoiceEntry();
+						foreach(IXMLNode nnn in nn.Children)
+						{
+							switch(nnn.Name)
+							{
+							case "weight":
+								if(! System.Int32.TryParse(nnn.GetAttribute("weight"), out entry.weight))
+								{
+									throw new InvalidXMLElementException("Unable to parse choice weight to integer.");
+								}
+								break;
+							case "modifier":
+								entry.modifiers = crm.ParseModifierList(nnn);
+								break;
+							case "requirement":
+								entry.requirements = crm.ParseRequirementList(nnn);
+								break;
+							default:
+								throw new InvalidXMLElementException("Invalid choice element for Random Choice : "+nnn.Name);
+							}
+						}
+						random_choice.choices.Add(entry);
+					}
+					else
+					{
+						throw new InvalidXMLElementException("Invalid Random Choice node : "+nn.Name);
+					}
+				}
+				retval = random_choice;
 				break;
 			}
 			case "multiple":
