@@ -14,7 +14,7 @@ namespace Roar.implementation
 			actions = new DataModel ("tasks", "tasks/list", "task", null, new DC.XmlToTaskHashtable (), api, logger);
 			gifts = new DataModel ("gifts", "mail/what_can_i_send", "mailable", null, new DC.XmlToGiftHashtable (), api, logger);
 			achievements = new DataModel ("achievements", "user/achievements", "achievement", null, new DC.XmlToAchievementHashtable (), api, logger);
-			leaderboards = new DataModel ("leaderboards", "leaderboards/list", "board", null, new DC.XmlToLeaderboardsHashtable (), api, logger);
+			leaderboards = new DataModel<DomainObjects.Leaderboard>("leaderboards", "leaderboards/list", "board", null, new DC.XmlToLeaderboard(), api, logger);
 			ranking = new DataModel ("ranking", "leaderboards/view", "ranking", null, new DC.XmlToRankingHashtable (), api, logger);
 			friends = new DataModel<DomainObjects.Friend> ("friends", "friends/list", "friend", null, new DC.XmlToFriend (), api, logger);
 			cache = new ItemCache ("cache", "items/view", "item", null, new DC.XMLToItemHashtable (), api, logger);
@@ -42,7 +42,7 @@ namespace Roar.implementation
 		public DataModel actions;
 		public DataModel gifts;
 		public DataModel achievements;
-		public DataModel leaderboards;
+		public DataModel<DomainObjects.Leaderboard> leaderboards;
 		public DataModel ranking;
 		public DataModel<DomainObjects.Friend> friends;
 		public DataModel appStore;

@@ -612,10 +612,10 @@ namespace Roar.implementation.DataConversion
 		}
 	}
 
-	public class XmlToLeaderboardsHashtable : IXmlToHashtable
+	public class XmlToLeaderboard : IXmlToObject<DomainObjects.Leaderboard>
 	{
 
-		public XmlToLeaderboardsHashtable ()
+		public XmlToLeaderboard()
 		{
 		}
 
@@ -624,11 +624,116 @@ namespace Roar.implementation.DataConversion
 			return n.GetAttribute ("ikey");
 		}
 
-		public Hashtable BuildHashtable (IXMLNode n)
+		public DomainObjects.Leaderboard Build(IXMLNode n)
 		{
-			Hashtable retval = new Hashtable ();
-			foreach (KeyValuePair<string,string> kv in n.Attributes) {
-				retval [kv.Key] = Native.Extract (kv.Value);
+			DomainObjects.Leaderboard retval = new DomainObjects.Leaderboard();
+
+			IEnumerable<KeyValuePair<string,string>> attributes = n.Attributes;
+			foreach (KeyValuePair<string,string> kv in attributes)
+			{
+				if (kv.Key == "ikey")
+				{
+					retval.ikey = kv.Value;
+				}
+				else if ((kv.Key == "offset") || (kv.Key=="offest") ) //Work around typo in the generated XML
+				{
+					retval.offset = System.Int32.Parse(kv.Value);
+				}
+				else if (kv.Key == "num_results")
+				{
+					retval.num_results = System.Int32.Parse(kv.Value);
+				}
+				else if (kv.Key == "page")
+				{
+					retval.page = System.Int32.Parse(kv.Value);
+				}
+				else if (kv.Key == "low_is_high")
+				{
+					retval.low_is_high = System.Boolean.Parse(kv.Value);
+				}
+				else
+				{
+					throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leadeboard");
+				}
+			}
+
+			retval.entries = new List<LeaderboardEntry>();
+
+			foreach( IXMLNode c in n.Children )
+			{
+				if( c.Name=="entry")
+				{
+					LeaderboardEntry lbe = new LeaderboardEntry();
+					foreach (KeyValuePair<string,string> kv in c.Attributes)
+					{
+						if( kv.Key=="player_id" )
+						{
+							lbe.player_id = kv.Value;
+						}
+						else if( kv.Key=="rank" )
+						{
+							lbe.rank = System.Int32.Parse( kv.Value );
+						}
+						else if( kv.Key=="value" )
+						{
+							lbe.value = System.Double.Parse( kv.Value );
+						}
+						else if( kv.Key=="ikey" )
+						{
+							//Ignored
+						}
+						else
+						{
+							throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leadeboard");
+						}
+					}
+
+					lbe.properties = new List<LeaderboardExtraProperties>();
+					foreach( IXMLNode cc in c.Children )
+					{
+						if(cc.Name == "custom" )
+						{
+							foreach( IXMLNode ccc in cc.Children )
+							{
+								if( ccc.Name == "property" )
+								{
+									LeaderboardExtraProperties prop = new LeaderboardExtraProperties();
+									foreach (KeyValuePair<string,string> kv in ccc.Attributes)
+									{
+										if( kv.Key=="ikey" )
+										{
+											prop.ikey = kv.Value;
+										}
+										else if( kv.Key=="value" )
+										{
+											prop.value = kv.Value;
+										}
+										else
+										{
+											throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leadeboard suctom property");
+										}
+									}
+
+									lbe.properties.Add( prop );
+								}
+								else
+								{
+									throw new UnexpectedXMLElementException("unexpected child, \""+c.Name+"\", on Leadeboard Entry custom properties");
+								}
+							}
+						}
+						else
+						{
+							throw new UnexpectedXMLElementException("unexpected child, \""+c.Name+"\", on Leadeboard Entry");
+						}
+					}
+
+					retval.entries.Add( lbe );
+				}
+				else
+				{
+					throw new UnexpectedXMLElementException("unexpected child, \""+c.Name+"\", on Leadeboard");
+				}
 			}
 			return retval;
 		}

@@ -184,5 +184,64 @@ namespace Roar
 		};
 
 
+		public class LeaderboardExtraProperties
+		{
+			public string ikey;
+			public string value;
+		}
+
+		public class LeaderboardEntry
+		{
+			public int rank;
+			public string player_id;
+			public double value;
+			public IList<LeaderboardExtraProperties> properties;
+		}
+
+		//TODO: Problem with this is that we only keep one page for each leadeerboard request... we really should merge them somehow.
+		/**
+		 * Expected XML is like this:
+		 *
+		 * <leaderboards>
+		 *   <view status="ok">
+		 *      <ranking ikey="mojo" offset="0" num_results="100" page="1" low_is_high="false">
+		 *         <entry rank="1" player_id="612421456098" value="560">
+		 *           <custom>
+		 *             <property ikey="player_name" value="Monkey"/>
+		 *           </custom>
+		 *         </entry>
+		 *         <entry rank="2" player_id="195104156933" value="514">
+		 *           <custom>
+		 *             <property ikey="player_name" value="Dragon"/>
+		 *           </custom>
+		 *        </entry>
+		 *        <entry rank="3" player_id="440312985759" value="490"/>
+		 *          <custom>
+		 *            <property ikey="player_name" value="Fun and Awesome DUUUUUDE"/>
+		 *           </custom>
+		 *        </entry>
+		 *     </ranking>
+		 *   </view>
+		 * </leaderboards>
+		 */
+
+		public class Leaderboard : IDomainObject
+		{
+			public bool MatchesKey( string key )
+			{
+				return ikey==key;
+			}
+
+			public string ikey;
+			public int offset;
+			public int num_results;
+			public int page;
+			public bool low_is_high;
+
+			public IList<LeaderboardEntry> entries;
+
+		}
+
+
 	}
 }
