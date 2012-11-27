@@ -29,12 +29,15 @@ namespace Roar
 			
 			public class Stat : Cost
 			{
-				//TODO: What?
 				public string ikey;
+				public string type;
+				public int value;
 			}
 			
 			public class Item : Cost
 			{
+				public string ikey;
+				public int number_required;
 			}
 		}
 		
