@@ -179,6 +179,7 @@ namespace Roar.implementation.DataConversion
 			{
 				DomainObjects.Modifiers.GrantStat grant_stat_mod = new DomainObjects.Modifiers.GrantStat();
 				grant_stat_mod.ikey = n.GetAttribute("ikey");
+				grant_stat_mod.type = n.GetAttribute("type");
 				if( ! System.Int32.TryParse( n.GetAttribute("value"), out grant_stat_mod.value ) )
 				{
 					throw new InvalidXMLElementException("Unable to parse grant_stat value to integer");
@@ -190,6 +191,7 @@ namespace Roar.implementation.DataConversion
 			{
 				DomainObjects.Modifiers.GrantStatRange grant_stat_mod = new DomainObjects.Modifiers.GrantStatRange();
 				grant_stat_mod.ikey = n.GetAttribute("ikey");
+				grant_stat_mod.type = n.GetAttribute("type");
 				if( ! System.Int32.TryParse( n.GetAttribute("min"), out grant_stat_mod.min ) )
 				{
 					throw new InvalidXMLElementException("Unable to parse grant_stat_range min to integer");

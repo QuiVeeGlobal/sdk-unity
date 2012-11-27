@@ -25,6 +25,96 @@ public class ModifierTests
   }
   
   /*
+   * This is what the Remove Items XML should look like:
+   * <modifiers>
+       <remove_items ikey="christmas_tree" count="15"/>
+   * </modifiers>
+   */
+  
+  [Test()]
+  public void TestRemoveItems()
+  {
+    XCRMParser parser = new XCRMParser();
+    IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
+    RemoveItems remove_items = new RemoveItems();
+    remove_items.ikey = "christmas_tree";
+    remove_items.count = 15;
+    
+    Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("remove_items"));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ikey").Will(Return.Value(remove_items.ikey));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("count").Will(Return.Value("" + remove_items.count));
+    
+    Modifier m = parser.ParseAModifier(ixmlnode);
+    mockery.VerifyAllExpectationsHaveBeenMet();
+    Assert.IsNotNull(m as RemoveItems);
+    Assert.AreEqual((m as RemoveItems).ikey, remove_items.ikey);
+    Assert.AreEqual((m as RemoveItems).count, remove_items.count);
+  }
+  
+  /*
+   * This is what the Grant Stat XML should look like:
+   * <modifiers>
+       <grant_stat type="attribute" ikey="_energy_regen_amount" value="5"/>
+   * </modifiers>
+   */
+  
+  [Test()]
+  public void TestGrantStat()
+  {
+    XCRMParser parser = new XCRMParser();
+    IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
+    GrantStat grant_stat = new GrantStat();
+    grant_stat.type = "attribute";
+    grant_stat.ikey = "_energy_regen_amount";
+    grant_stat.value = 5;
+    
+    Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("grant_stat"));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ikey").Will(Return.Value(grant_stat.ikey));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("type").Will(Return.Value(grant_stat.type));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("value").Will(Return.Value("" + grant_stat.value));
+    
+    Modifier m = parser.ParseAModifier(ixmlnode);
+    mockery.VerifyAllExpectationsHaveBeenMet();
+    Assert.IsNotNull(m as GrantStat);
+    Assert.AreEqual((m as GrantStat).ikey, grant_stat.ikey);
+    Assert.AreEqual((m as GrantStat).type, grant_stat.type);
+    Assert.AreEqual((m as GrantStat).value, grant_stat.value);
+  }
+  
+  /*
+   * This is what the Grant Stat Range XML should look like:
+   * <modifiers>
+       <grant_stat_range type="currency" ikey="premium_web" min="3" max="7"/>
+   * </modifiers>
+   */
+  
+  [Test()]
+  public void TestGrantStatRange()
+  {
+    XCRMParser parser = new XCRMParser();
+    IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
+    GrantStatRange grant_stat_range = new GrantStatRange();
+    grant_stat_range.type = "currency";
+    grant_stat_range.ikey = "premium_web";
+    grant_stat_range.min = 3;
+    grant_stat_range.max = 7;
+    
+    Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("grant_stat_range"));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ikey").Will(Return.Value(grant_stat_range.ikey));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("type").Will(Return.Value(grant_stat_range.type));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("min").Will(Return.Value("" + grant_stat_range.min));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("max").Will(Return.Value("" + grant_stat_range.max));
+    
+    Modifier m = parser.ParseAModifier(ixmlnode);
+    mockery.VerifyAllExpectationsHaveBeenMet();
+    Assert.IsNotNull(m as GrantStatRange);
+    Assert.AreEqual((m as GrantStatRange).ikey, grant_stat_range.ikey);
+    Assert.AreEqual((m as GrantStatRange).type, grant_stat_range.type);
+    Assert.AreEqual((m as GrantStatRange).min, grant_stat_range.min);
+    Assert.AreEqual((m as GrantStatRange).max, grant_stat_range.max);
+  }
+  
+  /*
    * This is what the Grant Item XML should look like:
    * <modifiers>
        <grant_item ikey="christmas_tree"/>
@@ -70,7 +160,7 @@ public class ModifierTests
   }
   
   /*
-   * This is what the Grant XP XML should look like:
+   * This is what the Grant XP Range XML should look like:
    * <modifiers>
        <grant_xp_range min="33" max="44"/>
    * </modifiers>
@@ -96,7 +186,7 @@ public class ModifierTests
   }
   
   /*
-   * This is what the Grant XP XML should look like:
+   * This is what the Random Choice XML should look like:
    * <modifiers>
    *   <random_choice>
    *     <choice weight="78">

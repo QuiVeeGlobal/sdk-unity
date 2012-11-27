@@ -49,6 +49,7 @@ namespace Roar
 			public class GrantStat : Modifier
 			{
 				public string ikey;
+				public string type;
 				public int value;
 			}
 			
@@ -56,6 +57,7 @@ namespace Roar
 			public class GrantStatRange : Modifier
 			{
 				public string ikey;
+				public string type;
 				public int min;
 				public int max;
 			}
