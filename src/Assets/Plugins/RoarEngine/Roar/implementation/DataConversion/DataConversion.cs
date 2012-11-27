@@ -382,13 +382,21 @@ namespace Roar.implementation.DataConversion
 
 			switch( n.Name )
 			{
+			case "friends_requirement":
+				DomainObjects.Requirements.Friends friends = new DomainObjects.Requirements.Friends();
+				if(! System.Int32.TryParse(n.GetAttribute("required"), out friends.required))
+				{
+					throw new InvalidXMLElementException("Unable to parse required to integer");
+				}
+				retval = friends;
+				break;
 			case "true":
 				retval = new DomainObjects.Requirements.True();
 				break;
 			case "false":
 				retval = new DomainObjects.Requirements.False();
 				break;
-			case "level":
+			case "level_requirement":
 				DomainObjects.Requirements.Level level_req = new DomainObjects.Requirements.Level();
 				if( ! System.Int32.TryParse( n.GetAttribute("level"), out level_req.level) )
 				{
@@ -396,7 +404,7 @@ namespace Roar.implementation.DataConversion
 				} ;
 				retval = level_req;
 				break;
-			case "item":
+			case "item_requirement":
 				DomainObjects.Requirements.Item item_req = new DomainObjects.Requirements.Item();
 				item_req.ikey = n.GetAttribute("ikey");
 				if( ! System.Int32.TryParse( n.GetAttribute("number_required"), out item_req.number_required ) )
@@ -423,6 +431,8 @@ namespace Roar.implementation.DataConversion
 				throw new InvalidXMLElementException("Invalid requirement type : "+n.Name);
 			}
 
+			retval.ok = (n.GetAttribute("ok")=="true");
+			retval.reason = n.GetAttribute("reason");
 			return retval;
 		}
 

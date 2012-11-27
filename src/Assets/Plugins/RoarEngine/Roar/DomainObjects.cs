@@ -13,6 +13,8 @@ namespace Roar
 		
 		public abstract class Requirement
 		{
+			public bool ok;
+			public string reason;
 		};
 		
 		public abstract class Modifier
@@ -153,6 +155,7 @@ namespace Roar
 			
 			public class Friends : Requirement
 			{
+				public int required;
 			}
 		}
 		
