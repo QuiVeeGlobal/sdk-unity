@@ -390,10 +390,10 @@ namespace Roar.implementation.DataConversion
 				}
 				retval = friends;
 				break;
-			case "true":
+			case "true_requirement":
 				retval = new DomainObjects.Requirements.True();
 				break;
-			case "false":
+			case "false_requirement":
 				retval = new DomainObjects.Requirements.False();
 				break;
 			case "level_requirement":
@@ -413,9 +413,10 @@ namespace Roar.implementation.DataConversion
 				}
 				retval = item_req;
 				break;
-			case "stat":
+			case "stat_requirement":
 				DomainObjects.Requirements.Stat stat_req = new DomainObjects.Requirements.Stat();
 				stat_req.ikey = n.GetAttribute("ikey");
+				stat_req.type = n.GetAttribute("type");
 				if( ! System.Int32.TryParse( n.GetAttribute("value"), out stat_req.value ) )
 				{
 					throw new InvalidXMLElementException("Unable to parse value in stat requirement");

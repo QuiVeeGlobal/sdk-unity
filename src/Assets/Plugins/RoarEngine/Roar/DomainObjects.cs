@@ -137,6 +137,7 @@ namespace Roar
 			public class Stat : Requirement
 			{
 				public string ikey;
+				public string type;
 				public int value;
 			}
 			

@@ -42,7 +42,7 @@ public class CostTest
     stat.value = 15;
     
     Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("stat_cost"));
-    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ok").Will(Return.Value("" + stat.ok));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ok").Will(Return.Value(stat.ok ? "true" : "false"));
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("reason").Will(Return.Value(stat.reason));
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ikey").Will(Return.Value(stat.ikey));
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("type").Will(Return.Value(stat.type));
@@ -77,7 +77,7 @@ public class CostTest
     item.number_required = 4;
     
     Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("item_cost"));
-    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ok").Will(Return.Value("" + item.ok));
+    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ok").Will(Return.Value(item.ok ? "true" : "false"));
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("reason").Will(Return.Value("" + item.reason));
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ikey").Will(Return.Value(item.ikey));
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("number_required").Will(Return.Value("" + item.number_required));
