@@ -101,6 +101,8 @@
     ],
     "components":[
       "properties",
+      "leaderboards",
+      "ranking",
       "shop",
       "inventory",
       "cache",

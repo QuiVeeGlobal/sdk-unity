@@ -29,49 +29,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class WebAPI : IWebAPI
 {
-  protected IRequestSender requestSender_;
+	protected IRequestSender requestSender_;
 
-  public WebAPI(IRequestSender requestSender)
-  {
-     requestSender_ = requestSender;
-		
+	public WebAPI (IRequestSender requestSender)
+	{
+		requestSender_ = requestSender;
+
 <% _.each( data.modules, function(m,i,l) {
-     print( "    " +m.name + "_ = new " + capitalizeFirst(m.name)+"Actions(requestSender);\n" );
+     print( "\t\t" +m.name + "_ = new " + capitalizeFirst(m.name)+"Actions (requestSender);\n" );
      } );
-%>  }
-
+%>	}
 
 <% _.each( data.modules, function(m,i,l) {
-     print( "  public override I" + capitalizeFirst(m.name) + "Actions "+m.name+" { get { return "+m.name+"_; } }\n" );
-     print( "  public " + capitalizeFirst(m.name)+"Actions " +m.name + "_;\n\n" );
+     print( "\tpublic override I" + capitalizeFirst(m.name) + "Actions "+m.name+" { get { return "+m.name+"_; } }\n\n" );
+     print( "\tpublic " + capitalizeFirst(m.name)+"Actions " +m.name + "_;\n\n" );
      } );
 %>
 
-  public class APIBridge
-  {
-    protected IRequestSender api;
-    public APIBridge( IRequestSender caller ) { api = caller; }
-  }
+	public class APIBridge
+	{
+		protected IRequestSender api;
 
+		public APIBridge (IRequestSender caller)
+		{
+			api = caller;
+		}
+	}
 <%
   _.each( data.modules, function(m,i,l) {
     var class_name = capitalizeFirst(m.name)+"Actions"
 %>
-  public class <%= class_name %> : APIBridge, I<%= class_name %>
-  {
-    public <%= class_name %>( IRequestSender caller ) : base(caller) {}
+	public class <%= class_name %> : APIBridge, I<%= class_name %>
+	{
+		public <%= class_name %> (IRequestSender caller) : base(caller)
+		{
+		}
 
 <% _.each( m.functions, function(f,j,ll) {
      url = f.url ? f.url : (m.name+"/"+f.name);
      obj = f.obj ? f.obj : "obj";
-     print("    public void "+fix_reserved_word(f.name)+"( Hashtable obj, IRequestCallback<IXMLNode> cb)\n");
-     print("    {\n");
-     print("      api.make_call(\""+url+"\", "+obj+", cb);\n");
-     print("    }\n\n");
-} ) %>  }
+     print("		public void "+fix_reserved_word(f.name)+" (Hashtable obj, IRequestCallback<IXMLNode> cb)\n");
+     print("		{\n");
+     print("			api.MakeCall (\""+url+"\", "+obj+", cb);\n");
+     print("		}\n\n");
+} ) %>	}
 <% } ) %>
 
 }

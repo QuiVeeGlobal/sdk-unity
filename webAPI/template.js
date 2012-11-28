@@ -2,6 +2,12 @@ var _ = require("underscore")
 
 fs = require('fs')
 
+function report_err(err)
+{
+	if(err) throw err;
+	console.log("OK")
+}
+
 function pad_left( v, str )
 {
 	if (v.length < str.length)
@@ -47,9 +53,9 @@ function build_web_api_cs()
 
   var output = _.template(js_template, api_functions)
 
-  var filename = "plugins/Roar/implementation/WebAPI.cs";
+  var filename = "../src/Assets/Plugins/RoarEngine/Roar/implementation/WebAPI.cs";
   console.log(filename);
-  fs.writeFile(filename,output);
+  fs.writeFile(filename,output, report_err);
 }
 
 function build_iweb_api_cs()
@@ -60,9 +66,9 @@ function build_iweb_api_cs()
 
   var output = _.template(js_template, api_functions)
 
-  var filename = "plugins/Roar/IWebAPI.cs";
+  var filename = "../src/Assets/Plugins/RoarEngine/Roar/IWebAPI.cs";
   console.log(filename);
-  fs.writeFile(filename,output);
+  fs.writeFile(filename,output, report_err);
 }
 
 function build_event_manager()
@@ -91,9 +97,9 @@ function build_event_manager()
 
   var output = _.template(cs_template, events)
 
-  var filename = "plugins/Roar/RoarManager.cs";
+  var filename = "../src/Assets/Plugins/RoarEngine/Roar/RoarManager.cs";
   console.log(filename);
-  fs.writeFile(filename,output);
+  fs.writeFile(filename,output, report_err);
 }
 console.log("\nbuilding roar unity source files from template\n")
 build_web_api_cs();
