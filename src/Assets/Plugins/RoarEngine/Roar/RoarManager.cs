@@ -1,3 +1,29 @@
+/*
+Copyright (c) 2012, Run With Robots
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the roar.io library nor the
+      names of its contributors may be used to endorse or promote products
+      derived from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY RUN WITH ROBOTS ''AS IS'' AND ANY
+EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL MICHAEL ANDERSON BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+*/
 
 using UnityEngine;
 using System.Collections;
@@ -115,10 +141,22 @@ public class RoarManager
 	public static void OnPropertiesReady() { if(propertiesReadyEvent!=null) propertiesReadyEvent(); }
 
 	/**
+	 * Fired when the data changes.
+	 */
+	public static event Action propertiesChangeEvent;
+	public static void OnPropertiesChange() { if(propertiesChangeEvent!=null) propertiesChangeEvent(); }
+
+	/**
 	 * Fired when the data have been retrieved from the server.
 	 */
 	public static event Action leaderboardsReadyEvent;
 	public static void OnLeaderboardsReady() { if(leaderboardsReadyEvent!=null) leaderboardsReadyEvent(); }
+
+	/**
+	 * Fired when the data changes.
+	 */
+	public static event Action leaderboardsChangeEvent;
+	public static void OnLeaderboardsChange() { if(leaderboardsChangeEvent!=null) leaderboardsChangeEvent(); }
 
 	/**
 	 * Fired when the data have been retrieved from the server.
@@ -129,26 +167,14 @@ public class RoarManager
 	/**
 	 * Fired when the data changes.
 	 */
-	public static event Action propertiesChangeEvent;
-	public static void OnPropertiesChange() { if(propertiesChangeEvent!=null) propertiesChangeEvent(); }
+	public static event Action rankingChangeEvent;
+	public static void OnRankingChange() { if(rankingChangeEvent!=null) rankingChangeEvent(); }
 
 	/**
 	 * Fired when the data have been retrieved from the server.
 	 */
 	public static event Action shopReadyEvent;
 	public static void OnShopReady() { if(shopReadyEvent!=null) shopReadyEvent(); }
-
-	/**
-	 * Fired when the data have been retrieved from the server.
-	 */
-	public static event Action leaderboardsChangeEvent;
-	public static void OnLeaderboardsChange() { if(leaderboardsChangeEvent!=null) leaderboardsChangeEvent(); }
-
-	/**
-	 * Fired when the data have been retrieved from the server.
-	 */
-	public static event Action rankingChangeEvent;
-	public static void OnRankingChange() { if(rankingChangeEvent!=null) rankingChangeEvent(); }
 
 	/**
 	 * Fired when the data changes.
@@ -280,7 +306,7 @@ public class RoarManager
 		}
 	}
 
-	/**
+	/** 
 	 * Fire the correct event for a component change.
 	 *
 	 * @param name The name of the event.
@@ -291,6 +317,12 @@ public class RoarManager
 		{
 		case "properties":
 			OnPropertiesChange();
+			break;
+		case "leaderboards":
+			OnLeaderboardsChange();
+			break;
+		case "ranking":
+			OnRankingChange();
 			break;
 		case "shop":
 			OnShopChange();
@@ -304,12 +336,7 @@ public class RoarManager
 		case "tasks":
 			OnTasksChange();
 			break;
-		case "leaderboards":
-			OnLeaderboardsChange();
-			break;
-		case "ranking":
-			OnRankingChange();
-			break;
+
 		default:
 			Debug.Log ("Component change event for "+name+" not yet implemented");
 			break;
@@ -328,6 +355,12 @@ public class RoarManager
 		case "properties":
 			OnPropertiesReady();
 			break;
+		case "leaderboards":
+			OnLeaderboardsReady();
+			break;
+		case "ranking":
+			OnRankingReady();
+			break;
 		case "shop":
 			OnShopReady();
 			break;
@@ -340,12 +373,7 @@ public class RoarManager
 		case "tasks":
 			OnTasksReady();
 			break;
-		case "leaderboards":
-			OnLeaderboardsReady();
-			break;
-		case "ranking":
-			OnRankingReady();
-			break;
+
 		default:
 			Debug.Log ("Component ready event for "+name+" not yet implemented");
 			break;

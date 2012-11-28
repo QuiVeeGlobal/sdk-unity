@@ -1,13 +1,12 @@
 all: test
 
-ROAR_SRC:=$(shell find ../plugins/Roar -name "*.cs")
-XMLPARSER_SRC:=$(shell find ../plugins/XMLParser -name "*.cs")
+ROAR_SRC:=$(shell find ../unity/plugins/Roar -name "*.cs")
 
 clean:
 	find . -name "*.dll" -delete
 	cp ~/Downloads/nmock2-2.0.0.44-net-2.0/bin/NMock2.dll .
 
-RoarCore.dll : $(ROAR_SRC) $(XMLPARSER_SRC) stubs/UnityEngine.cs
+RoarCore.dll : $(ROAR_SRC) stubs/UnityEngine.cs
 	gmcs -debug -t:library -out:RoarCore.dll $(ROAR_SRC) $(XMLPARSER_SRC) stubs/UnityEngine.cs
 
 Tests.dll : RoarCore.dll XmlTests.cs DataConversionTests.cs WebAPITests.cs

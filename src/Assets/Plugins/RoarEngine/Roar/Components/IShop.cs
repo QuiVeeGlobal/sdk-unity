@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Roar.Components
 {
@@ -19,24 +20,23 @@ namespace Roar.Components
  * A shop item can be accessed via its Hashtable interface:
  *
  * \code
- * Hashtable item = Shop.getShopItem("an_item_key");
+ * ShopEntry item = Shop.getShopItem("an_item_key");
  *
- * string itemKey = item["ikey"];
- * string itemLabel = item["label"];
- * string itemDescription = item["description"];
+ * string itemKey = item.ikey;
+ * string itemLabel = item.label;
+ * string itemDescription = item.description;
  *
- * Hashtable cost = item["costs"][0];
- * string costType = cost["type"];
- * string costKey = cost["ikey"];
- * string costValue = cost["value"];
- * string costStatus = cost["ok"];
- * string costReason = cost["reason"];
+ * Cost cost = item.costs[0];
+ * string costType = cost.type;
+ * string costKey = cost.ikey;
+ * string costValue = cost.value;
+ * string costStatus = cost.ok;
+ * string costReason = cost.reason;
  *
- * Hashtable modifier = item["modifiers"][0];
- * string modifierKey = modifier["ikey"]
+ * Modifier modifier = item.modifiers[0];
+ * string modifierKey = modifier.ikey
  *
- * Hashtable tag = item["tags"][0];
- * string tagValue = tag["value"];
+ * string tag = item.tags[0];
  *
  * \endcode
  *
@@ -51,7 +51,7 @@ namespace Roar.Components
 	   * Fetch shop information from the server.
 	   *
 	   * On success:
-	   * - invokes callback with parameter *Hastable data* containing the data for the shop.
+	   * - invokes callback with parameter *Array<ShopEntry> data* containing the data for the shop.
 	   * - fires the RoarManager#shopReadyEvent
 	   * - sets #hasDataFromServer to true
 	   *
@@ -100,7 +100,7 @@ namespace Roar.Components
 	   *       is called prior to the successful completion of a #fetch call,
 	   *       it will return an empty array.
 	   */
-		ArrayList List ();
+		IList<DomainObjects.ShopEntry> List ();
 
 		/**
 	   * Get a list of all the available items in the shop.
@@ -120,7 +120,7 @@ namespace Roar.Components
 	   *       is called prior to the successful completion of a #fetch call,
 	   *       it will return an empty array.
 	   */
-		ArrayList List (Roar.Callback callback);
+		IList<DomainObjects.ShopEntry> List (Roar.Callback callback);
 
 		/**
 	   * Returns the shop item object for a given key.
@@ -130,7 +130,7 @@ namespace Roar.Components
 	   * @returns the shop item Hashtable associated with the *ikey*
 	   *          or null if the shop item does not exist in the data store.
 	   */
-		object GetShopItem (string ikey);
+		DomainObjects.ShopEntry GetShopItem (string ikey);
 
 		/**
 	   * Returns the shop item object for a given key.
@@ -148,7 +148,7 @@ namespace Roar.Components
 	   * @returns the shop item Hashtable associated with the *ikey*
 	   *          or null if the shop item does not exist in the data store.
 	   */
-		object GetShopItem (string ikey, Roar.Callback callback);
+		DomainObjects.ShopEntry GetShopItem (string ikey, Roar.Callback callback);
 	}
 
 }

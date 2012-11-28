@@ -24,58 +24,16 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
-public class WebAPI : IWebAPI
+namespace Roar.Components
 {
-	protected IRequestSender requestSender_;
 
-	public WebAPI (IRequestSender requestSender)
-	{
-		requestSender_ = requestSender;
-
-<% _.each( data.modules, function(m,i,l) {
-     print( "\t\t" +m.name + "_ = new " + capitalizeFirst(m.name)+"Actions (requestSender);\n" );
-     } );
-%>	}
-
-<% _.each( data.modules, function(m,i,l) {
-     print( "\tpublic override I" + capitalizeFirst(m.name) + "Actions "+m.name+" { get { return "+m.name+"_; } }\n\n" );
-     print( "\tpublic " + capitalizeFirst(m.name)+"Actions " +m.name + "_;\n\n" );
-     } );
-%>
-
-	public class APIBridge
-	{
-		protected IRequestSender api;
-
-		public APIBridge (IRequestSender caller)
-		{
-			api = caller;
-		}
-	}
-<%
-  _.each( data.modules, function(m,i,l) {
-    var class_name = capitalizeFirst(m.name)+"Actions"
-%>
-	public class <%= class_name %> : APIBridge, I<%= class_name %>
-	{
-		public <%= class_name %> (IRequestSender caller) : base(caller)
-		{
-		}
-
-<% _.each( m.functions, function(f,j,ll) {
-     url = f.url ? f.url : (m.name+"/"+f.name);
-     obj = f.obj ? f.obj : "obj";
-     print("		public void "+fix_reserved_word(f.name)+" (Hashtable obj, IRequestCallback<IXMLNode> cb)\n");
-     print("		{\n");
-     print("			api.MakeCall (\""+url+"\", "+obj+", cb);\n");
-     print("		}\n\n");
-} ) %>	}
-<% } ) %>
+  /**
+   * @todo: The IData interface is empty...
+   **/
+  public interface IData
+  {
+  }
 
 }
-

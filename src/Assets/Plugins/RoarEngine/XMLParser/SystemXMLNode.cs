@@ -60,13 +60,8 @@ public class SystemXMLNode : IXMLNode
 
 	public IXMLNode GetFirstChild( string key )
 	{
-		System.Xml.XmlNode firstChild = this.node.FirstChild;
-		// the first child may not be an element
-		while(firstChild != null && firstChild.NodeType != XmlNodeType.Element && firstChild.NextSibling != null)
-		{
-			firstChild = firstChild.NextSibling;
-		}
-		return firstChild == null ? null : new SystemXMLNode(firstChild as System.Xml.XmlElement);
+		XmlNode child = this.node[key];
+		return child == null ? null : new SystemXMLNode(child as System.Xml.XmlElement);
 	}
 
 	public string Text

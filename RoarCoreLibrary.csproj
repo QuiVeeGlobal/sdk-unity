@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{670B6A06-6F7A-48A5-99EC-5EA2493B453C}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>RoarCoreLibrary</RootNamespace>
+    <AssemblyName>RoarCoreLibrary</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="RoarCoreLibrary\AssemblyInfo.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Facebook\FacebookBinding.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Facebook\FacebookManager.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Adapters\IUrbanAirship.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IAchievements.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IActions.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IGifts.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IInAppPurchase.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IInventory.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IProperties.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IShop.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IUser.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\DefaultRoar.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\IConfig.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\ILogger.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\IRoar.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\IWebAPI.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\RoarManager.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\ToJson.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Adapters\UrbanAirship.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Achievements.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Actions.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Gifts.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\InAppPurchase.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Inventory.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Properties.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Shop.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\User.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Config.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\DataConversion\DataConversion.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\DataModel.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\DataStore.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\IRequestSender.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\IUnityObject.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\ItemCache.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\RequestSender.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\WebAPI.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\XMLParser\SystemXMLNode.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\XMLParser\SystemXMLNodeFactory.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\XMLParser\XMLNodeFactory.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\XMLParser\XMLNodeList.cs" />
+    <Compile Include="tests\stubs\UnityEngine.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\XMLParser\XMLNode.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\ILeaderboards.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Leaderboards.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\DomainObjects.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IData.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Data.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="plugins\" />
+  </ItemGroup>
+</Project>

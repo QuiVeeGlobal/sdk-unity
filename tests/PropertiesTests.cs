@@ -46,12 +46,12 @@ public class PropertiesTests : ComponentTests
     base.TestInitialise();
     properties = roar.Properties;
     Assert.IsNotNull(properties);
-    Assert.IsFalse(properties.hasDataFromServer);
+    Assert.IsFalse(properties.HasDataFromServer);
   }
   
   protected void mockFetch(string mockResponse, Roar.Callback cb) {
     requestSender.addMockResponse("user/view", mockResponse);
-    properties.fetch(cb);
+    properties.Fetch(cb);
   }
   
   [Test]
@@ -64,7 +64,7 @@ public class PropertiesTests : ComponentTests
     };
     mockFetch(userView, roarCallback);
     Assert.IsTrue(callbackExecuted);
-    Assert.IsTrue(properties.hasDataFromServer);
+    Assert.IsTrue(properties.HasDataFromServer);
   }
 
   [Test]
@@ -72,7 +72,7 @@ public class PropertiesTests : ComponentTests
   public void testFetchFailureServerDown() {
     //assertions:
     //callback called with expected error code
-    //hasDataFromServer == false
+    //HasDataFromServer == false
   }
   
   [Test]
@@ -81,7 +81,7 @@ public class PropertiesTests : ComponentTests
   //       it appears an xml response with 0 properties will break the fetch...
   public void testListEmpty() {
     //returns an empty array prior to fetch called
-    Assert.AreEqual(0, properties.list().Count);
+    Assert.AreEqual(0, properties.List().Count);
 
     //returns an empty array if no properties available
     mockFetch(@"<roar tick='128455475133'>
@@ -90,19 +90,19 @@ public class PropertiesTests : ComponentTests
   </view>
 </user>
 </roar>", null);
-    Assert.IsTrue(properties.hasDataFromServer);
-    Assert.AreEqual(0, properties.list().Count);
+    Assert.IsTrue(properties.HasDataFromServer);
+    Assert.AreEqual(0, properties.List().Count);
   }
 
   [Test]
   public void testList() {
 
     mockFetch(userView, null);
-    Assert.IsTrue(properties.hasDataFromServer);
+    Assert.IsTrue(properties.HasDataFromServer);
     
     //returns a list of properties with the expected data structure
     int expectedPropertyCount = 15;
-    ArrayList propertyHashtables = properties.list();
+    ArrayList propertyHashtables = properties.List();
     Assert.AreEqual(expectedPropertyCount, propertyHashtables.Count);
     
     //invokes callback with parameter *data* containing the list of Hashtable shop items
@@ -113,7 +113,7 @@ public class PropertiesTests : ComponentTests
       Assert.IsNotNull(callbackInfo.d);
       Assert.AreEqual(callbackInfo.d, propertyHashtables);
     };
-    propertyHashtables = properties.list(roarCallback);
+    propertyHashtables = properties.List(roarCallback);
     Assert.IsTrue(callbackExecuted);
     Assert.AreEqual(expectedPropertyCount, propertyHashtables.Count);
   }
@@ -122,12 +122,12 @@ public class PropertiesTests : ComponentTests
   public void testGetProperty() {
     
     //returns null on no data from server
-    Assert.IsNull(properties.getProperty("stamina"));
+    Assert.IsNull(properties.GetProperty("stamina"));
     
     mockFetch(userView, null);
     
     //returns Hashtable of property if exists
-    Hashtable staminaProperty = properties.getProperty("stamina") as Hashtable;
+    Hashtable staminaProperty = properties.GetProperty("stamina") as Hashtable;
     StringAssert.IsMatch("5", staminaProperty["value"] as String);
     StringAssert.IsMatch("resource", staminaProperty["type"] as String);
     StringAssert.IsMatch("123", staminaProperty["max"] as String);
@@ -136,22 +136,22 @@ public class PropertiesTests : ComponentTests
     StringAssert.IsMatch("Stamina", staminaProperty["label"] as String);
 
     //returns null on property not existing
-    Assert.IsNull(properties.getProperty("doesnotexist"));
+    Assert.IsNull(properties.GetProperty("doesnotexist"));
   }
 
   [Test]
   public void testGetValue() {
     
     //returns null on no data from server
-    Assert.IsNull(properties.getValue("stamina"));
+    Assert.IsNull(properties.GetValue("stamina"));
     
     mockFetch(userView, null);
     
     //returns string of property value attribute if exists
-    StringAssert.IsMatch("5", properties.getValue("stamina") as String);
+    StringAssert.IsMatch("5", properties.GetValue("stamina") as String);
     
     //returns null on property not existing
-    Assert.IsNull(properties.getProperty("doesnotexist"));
+    Assert.IsNull(properties.GetProperty("doesnotexist"));
   }
   
   [Test]
@@ -159,13 +159,13 @@ public class PropertiesTests : ComponentTests
     
     mockFetch(userView, null);
     
-    StringAssert.IsMatch("5", properties.getValue("stamina") as String);
+    StringAssert.IsMatch("5", properties.GetValue("stamina") as String);
     
     IXMLNode updateNode = IXMLNodeFactory.instance.Create("<update type='attribute' ikey='stamina' value='2'/>").GetFirstChild("update");
     
     RoarManager.OnRoarServerUpdate(updateNode);
     
-    StringAssert.IsMatch("2", properties.getValue("stamina") as String);
+    StringAssert.IsMatch("2", properties.GetValue("stamina") as String);
     
   }
 }

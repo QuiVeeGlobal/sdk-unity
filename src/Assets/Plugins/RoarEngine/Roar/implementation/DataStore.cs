@@ -1,5 +1,6 @@
 using DC = Roar.implementation.DataConversion;
 using System.Collections;
+using Roar.DomainObjects;
 
 namespace Roar.implementation
 {
@@ -9,13 +10,13 @@ namespace Roar.implementation
 		{
 			properties = new DataModel ("properties", "user/view", "attribute", null, new DC.XmlToPropertyHashtable (), api, logger);
 			inventory = new DataModel ("inventory", "items/list", "item", null, new DC.XmlToInventoryItemHashtable (), api, logger);
-			shop = new DataModel ("shop", "shop/list", "shopitem", null, new DC.XmlToShopItemHashtable (), api, logger);
+			shop = new DataModel<DomainObjects.ShopEntry>("shop", "shop/list", "shopitem", null, new DC.XmlToShopEntry (), api, logger);
 			actions = new DataModel ("tasks", "tasks/list", "task", null, new DC.XmlToTaskHashtable (), api, logger);
 			gifts = new DataModel ("gifts", "mail/what_can_i_send", "mailable", null, new DC.XmlToGiftHashtable (), api, logger);
 			achievements = new DataModel ("achievements", "user/achievements", "achievement", null, new DC.XmlToAchievementHashtable (), api, logger);
-			leaderboards = new DataModel ("leaderboards", "leaderboards/list", "board", null, new DC.XmlToLeaderboardsHashtable (), api, logger);
+			leaderboards = new DataModel<DomainObjects.Leaderboard>("leaderboards", "leaderboards/list", "board", null, new DC.XmlToLeaderboard(), api, logger);
 			ranking = new DataModel ("ranking", "leaderboards/view", "ranking", null, new DC.XmlToRankingHashtable (), api, logger);
-			friends = new DataModel ("friends", "friends/list", "friend", null, new DC.XmlToFriendsListHashtable(), api, logger);
+			friends = new DataModel<DomainObjects.Friend> ("friends", "friends/list", "friend", null, new DC.XmlToFriend (), api, logger);
 			cache = new ItemCache ("cache", "items/view", "item", null, new DC.XMLToItemHashtable (), api, logger);
 			appStore = new DataModel ("appstore", "appstore/shop_list", "shopitem", null, new DC.XmlToAppstoreItemHashtable (), api, logger);
 		}
@@ -37,13 +38,13 @@ namespace Roar.implementation
 
 		public DataModel properties;
 		public DataModel inventory;
-		public DataModel shop;
+		public DataModel<DomainObjects.ShopEntry> shop;
 		public DataModel actions;
 		public DataModel gifts;
 		public DataModel achievements;
-		public DataModel leaderboards;
+		public DataModel<DomainObjects.Leaderboard> leaderboards;
 		public DataModel ranking;
-		public DataModel friends;
+		public DataModel<DomainObjects.Friend> friends;
 		public DataModel appStore;
 		public ItemCache cache;
 	}

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Roar.Components;
 using UnityEngine;
 
@@ -22,12 +23,12 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return dataStore.leaderboards.HasDataFromServer; } }
 
-		public ArrayList List ()
+		public IList<DomainObjects.Leaderboard> List ()
 		{
 			return List (null);
 		}
 
-		public ArrayList List (Roar.Callback callback)
+		public IList<DomainObjects.Leaderboard> List (Roar.Callback callback)
 		{
 			if (callback != null)
 				callback (new Roar.CallbackInfo<object> (dataStore.leaderboards.List ()));
@@ -35,12 +36,12 @@ namespace Roar.implementation.Components
 		}
 
 		// Returns the leaderboard Hashtable associated with attribute `ikey`
-		public Hashtable GetLeaderboard (string ikey)
+		public DomainObjects.Leaderboard GetLeaderboard (string ikey)
 		{
 			return GetLeaderboard (ikey, null);
 		}
 
-		public Hashtable GetLeaderboard (string ikey, Roar.Callback callback)
+		public DomainObjects.Leaderboard GetLeaderboard (string ikey, Roar.Callback callback)
 		{
 			if (callback != null)
 				callback (new Roar.CallbackInfo<object> (dataStore.leaderboards.Get (ikey)));

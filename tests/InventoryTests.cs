@@ -17,7 +17,7 @@ public class InventoryTests
   public void testFetchSuccess() {
     //assertions:
     //callback called with data equalling hash table containing shop items available to user
-    //hasDataFromServer == true
+    //HasDataFromServer == true
   }
    
   [Test]
@@ -25,7 +25,7 @@ public class InventoryTests
   public void testFetchFailureServerDown() {
     //assertions:
     //callback called with expected error code
-    //hasDataFromServer == false
+    //HasDataFromServer == false
   }
    
   [Test]
