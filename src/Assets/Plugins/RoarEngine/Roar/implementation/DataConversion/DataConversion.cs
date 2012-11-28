@@ -727,6 +727,18 @@ namespace Roar.implementation.DataConversion
 				{
 					retval.ikey = kv.Value;
 				}
+				else if (kv.Key == "board_id")
+				{
+					retval.id = kv.Value;
+				}
+				else if (kv.Key == "resource_id")
+				{
+					retval.resource_id = kv.Value;
+				}
+				else if (kv.Key == "label")
+				{
+					retval.label = kv.Value;
+				}
 				else if ((kv.Key == "offset") || (kv.Key=="offest") ) //Work around typo in the generated XML
 				{
 					retval.offset = System.Int32.Parse(kv.Value);
@@ -745,7 +757,7 @@ namespace Roar.implementation.DataConversion
 				}
 				else
 				{
-					throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leadeboard");
+					throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leaderboard");
 				}
 			}
 
@@ -776,7 +788,7 @@ namespace Roar.implementation.DataConversion
 						}
 						else
 						{
-							throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leadeboard");
+							throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leaderboard");
 						}
 					}
 

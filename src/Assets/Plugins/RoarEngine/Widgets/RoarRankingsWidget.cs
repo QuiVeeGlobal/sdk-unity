@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Roar;
+using Roar.DomainObjects;
 
 public class RoarRankingsWidget : RoarUIWidget
 {
@@ -70,14 +71,14 @@ public class RoarRankingsWidget : RoarUIWidget
 	{
 		if (!string.IsNullOrEmpty(leaderboardKey))
 		{
-			leaderboard = RoarTypesCache.LeaderboardByKey(leaderboardKey);
+			leaderboard = boards.GetLeaderboard(leaderboardKey);
 		}
 		
 		if (leaderboard != null)
 		{
 			if (whenToFetch == WhenToFetch.OnEnable 
 			|| (whenToFetch == WhenToFetch.Once && !boards.HasDataFromServer)
-			|| (whenToFetch == WhenToFetch.Occassionally && (leaderboard.whenLastFetched == 0 || Time.realtimeSinceStartup - leaderboard.whenLastFetched >= howOftenToFetch))
+//			|| (whenToFetch == WhenToFetch.Occassionally && (leaderboard.whenLastFetched == 0 || Time.realtimeSinceStartup - leaderboard.whenLastFetched >= howOftenToFetch))
 			)
 			{
 				Fetch();
@@ -89,13 +90,15 @@ public class RoarRankingsWidget : RoarUIWidget
 	{
 		if (!string.IsNullOrEmpty(leaderboardKey))
 		{
-			leaderboard = RoarTypesCache.LeaderboardByKey(leaderboardKey);
+			leaderboard = boards.GetLeaderboard(leaderboardKey);
+			/*
 			if (leaderboard != null)
 			{
 				isFetching = true;
 				leaderboard.ranking.Page = page;
 				leaderboard.ranking.Fetch(OnRoarFetchRankingsComplete);
 			}
+			*/
 		}
 	}
 	
@@ -112,6 +115,7 @@ public class RoarRankingsWidget : RoarUIWidget
 		Fetch();
 	}
 	
+	/*
 	void OnRoarFetchRankingsComplete(Roar.CallbackInfo info)
 	{
 		leaderboard.whenLastFetched = Time.realtimeSinceStartup;
@@ -174,6 +178,7 @@ public class RoarRankingsWidget : RoarUIWidget
 		
 		ScrollViewContentHeight = cnt * (rankingItemBounds.height + rankingItemSpacing);
 	}
+	*/
 	
 	protected override void DrawGUI(int windowId)
 	{
@@ -184,22 +189,22 @@ public class RoarRankingsWidget : RoarUIWidget
 		}
 		else
 		{
-			if (leaderboard == null || leaderboard.ranks == null || leaderboard.ranks.Count == 0)
+			if (leaderboard == null || leaderboard.entries == null || leaderboard.entries.Count == 0)
 			{
 				GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "No ranking data.", "StatusNormal");
 				ScrollViewContentHeight = 0;
 			}
 			else
 			{
-				ScrollViewContentHeight = leaderboard.ranks.Count * (rankingItemBounds.height + rankingItemSpacing);
-				Rect entry = rankingItemBounds;
-				foreach (Rank rank in leaderboard.ranks)
+				ScrollViewContentHeight = leaderboard.entries.Count * (rankingItemBounds.height + rankingItemSpacing);
+				Rect entryRect = rankingItemBounds;
+				foreach (LeaderboardEntry leaderboardEntry in leaderboard.entries)
 				{
-					GUI.Label(entry, rank.rank.ToString(), rankingEntryPlayerRankStyle);
-					GUI.Label(entry, rank.playerName, rankingEntryPlayerNameStyle);
-					GUI.Label(entry, rank.value, rankingEntryPlayerScoreStyle);
+					GUI.Label(entryRect, leaderboardEntry.rank.ToString(), rankingEntryPlayerRankStyle);
+					//GUI.Label(entry, leaderboardEntry.playerName, rankingEntryPlayerNameStyle);
+					GUI.Label(entryRect, leaderboardEntry.value.ToString(), rankingEntryPlayerScoreStyle);
 					
-					entry.y += entry.height + rankingItemSpacing;
+					entryRect.y += entryRect.height + rankingItemSpacing;
 				}
 				//useScrollView = utilizeScrollView && ((entry.y + entry.height) > contentBounds.height);
 			}

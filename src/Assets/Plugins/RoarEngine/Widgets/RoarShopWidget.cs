@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using Roar;
+using Roar.DomainObjects;
 
 public class RoarShopWidget : RoarUIWidget
 {
@@ -23,6 +24,7 @@ public class RoarShopWidget : RoarUIWidget
 	private bool isFetching;
 	private float whenLastFetched;
 	private Roar.Components.IShop shop;
+	private IList<ShopEntry> shopEntries;
 	
 	protected override void OnEnable ()
 	{
@@ -60,9 +62,10 @@ public class RoarShopWidget : RoarUIWidget
 	void OnRoarFetchShopComplete(Roar.CallbackInfo info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
-		isFetching = false;
+		isFetching = false;		
+		shopEntries = shop.List();
 		
-		ArrayList list = shop.List();
+		/*
 		int cnt = 0;
 		foreach (Hashtable item in list)
 		{
@@ -113,9 +116,10 @@ public class RoarShopWidget : RoarUIWidget
 				shopItem.modifiers.Add(modifier);
 			}
 		}
+		*/
 		
 		ScrollViewContentWidth = shopItemBounds.width;
-		ScrollViewContentHeight = cnt * (shopItemBounds.height + shopItemSpacing);
+		ScrollViewContentHeight = shopEntries.Count * (shopItemBounds.height + shopItemSpacing);
 	}
 	
 	protected override void DrawGUI(int windowId)
@@ -128,22 +132,22 @@ public class RoarShopWidget : RoarUIWidget
 		else
 		{			
 			Rect itemRect = shopItemBounds;
-			foreach (ShopItem item in RoarTypesCache.ShopItems.Values)
+			foreach (ShopEntry item in shopEntries)
 			{
 				GUI.Label(itemRect, item.label, shopItemLabelStyle);
 				GUI.Label(itemRect, item.description, shopItemDescriptionStyle);
-				GUI.Label(itemRect, string.Format("{0} {1}", item.costs[0].amount.ToString(), RoarTypesCache.UserStatByKey(item.costs[0].key).Title), shopItemCostStyle);
+				//GUI.Label(itemRect, string.Format("{0} {1}", item.costs[0].amount.ToString(), RoarTypesCache.UserStatByKey(item.costs[0].key).Title), shopItemCostStyle);
 				GUI.BeginGroup(itemRect);
 				if (GUI.Button(buyButtonBounds, "Buy", shopItemBuyButtonStyle))
 				{
-					if (Debug.isDebugBuild)
-					{
-						Debug.Log(string.Format("buy request: {0} for {1} {2}", item.key, item.costs[0].amount, item.costs[0].key));
-					}
-					if (OnItemBuyRequest != null)
-					{
-						OnItemBuyRequest(item.key, item.costs[0].key);
-					}
+					//if (Debug.isDebugBuild)
+					//{
+					//	Debug.Log(string.Format("buy request: {0} for {1} {2}", item.ikey, item.costs[0].amount, item.costs[0].key));
+					//}
+					//if (OnItemBuyRequest != null)
+					//{
+					//	OnItemBuyRequest(item.ikey, item.costs[0].ikey);
+					//}
 				}
 				GUI.EndGroup();
 				

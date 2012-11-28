@@ -51,6 +51,7 @@ namespace Roar
 		}
 		#endregion
 		
+		/*
 		#region Leaderboards
 		private static Dictionary<string, Leaderboard> leaderboards = new Dictionary<string, Leaderboard>();
 		public static Dictionary<string, Leaderboard> Leaderboards
@@ -72,7 +73,9 @@ namespace Roar
 			return leaderboard;
 		}
 		#endregion
+		*/
 		
+		/*
 		#region Shop
 		private static Dictionary<string, ShopItem> shopItems = new Dictionary<string, ShopItem>();
 		public static Dictionary<string, ShopItem> ShopItems
@@ -94,5 +97,6 @@ namespace Roar
 			return shopItem;
 		}
 		#endregion
+		*/
 	}
 }

@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using Roar.Components;
+using Roar.DomainObjects;
 
 namespace Roar.implementation.Components
 {
@@ -22,24 +24,24 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return dataStore.friends.HasDataFromServer; } }
 
-		public ArrayList List ()
+		public IList<Friend> List ()
 		{
 			return List (null);
 		}
 
-		public ArrayList List (Roar.Callback callback)
+		public IList<Friend> List (Roar.Callback callback)
 		{
 			if (callback != null)
 				callback (new Roar.CallbackInfo<object> (dataStore.friends.List ()));
 			return dataStore.friends.List ();
 		}
 
-		public Hashtable GetFriend (string ikey)
+		public Friend GetFriend (string ikey)
 		{
 			return GetFriend (ikey, null);
 		}
 
-		public Hashtable GetFriend (string ikey, Roar.Callback callback)
+		public Friend GetFriend (string ikey, Roar.Callback callback)
 		{
 			if (callback != null)
 				callback (new Roar.CallbackInfo<object> (dataStore.friends.Get (ikey)));

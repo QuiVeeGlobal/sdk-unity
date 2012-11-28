@@ -32,7 +32,8 @@ namespace Roar
 			}
 		}
 	}
-
+	
+	/*
 	[System.Serializable]
 	public class Leaderboard
 	{
@@ -68,7 +69,9 @@ namespace Roar
 		public string playerName;
 		public string value;
 	}
+	*/
 	
+	/*
 	[System.Serializable]
 	public class ShopItem
 	{
@@ -94,5 +97,5 @@ namespace Roar
 		public string name = string.Empty;
 		public int amount;
 	}
-	
+	*/
 }

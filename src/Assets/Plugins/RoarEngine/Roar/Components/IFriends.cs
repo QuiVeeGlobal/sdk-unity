@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+using Roar.DomainObjects;
 
 namespace Roar.Components
 {
@@ -43,7 +45,7 @@ namespace Roar.Components
 	     *       is called prior to the successful completion of a #fetch call,
 	     *       it will return an empty array.
 	     **/
-		ArrayList List ();
+		IList<Friend> List ();
 
 		/**
 	     * Get a list of all the friend objects for the authenticated user.
@@ -63,7 +65,7 @@ namespace Roar.Components
 	     *       is called prior to the successful completion of a #fetch call,
 	     *       it will return an empty array.
 	     **/
-		ArrayList List (Roar.Callback callback);
+		IList<Friend> List (Roar.Callback callback);
 
 
 		/**
@@ -74,7 +76,7 @@ namespace Roar.Components
 	     * @returns the property Hashtable associated with the *key*
 	     *          or null if the leaderboard does not exist in the data store.
 	     **/
-		Hashtable GetFriend (string ikey);
+		Friend GetFriend (string ikey);
 
 		/**
 	     * Returns the friend object for a given key.
@@ -91,6 +93,6 @@ namespace Roar.Components
 	     * @returns the friend Hashtable associated with the *ikey*
 	     *          or null if the friend does not exist in the data store.
 	     **/
-		Hashtable GetFriend (string ikey, Roar.Callback callback);
+		Friend GetFriend (string ikey, Roar.Callback callback);
 	}
 }
