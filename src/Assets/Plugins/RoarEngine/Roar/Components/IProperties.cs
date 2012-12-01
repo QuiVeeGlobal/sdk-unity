@@ -42,7 +42,7 @@ namespace Roar.Components
 	     *
 	     * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	     **/
-		void Fetch (Roar.Callback callback);
+		void Fetch (Roar.RequestCallback callback);
 
 		/**
 	     * Check whether any user properties data has been obtained from the server.
@@ -64,26 +64,6 @@ namespace Roar.Components
 		ArrayList List ();
 
 		/**
-	     * Get a list of all the property objects for the authenticated user.
-	     *
-	     * On success:
-	     * - invokes callback with parameter *data* containing the list of Hashtable user properties
-	     *
-	     * On failure:
-	     * - returns an empty list
-	     *
-	     * @param callback the callback function to be passed this function's result.
-	     *
-	     * @returns A list of Hashtables for each user property.
-	     *
-	     * @note This does _not_ make a server call. It requires the user properties to
-	     *       have already been fetched via a call to #fetch. If this function
-	     *       is called prior to the successful completion of a #fetch call,
-	     *       it will return an empty array.
-	     **/
-		ArrayList List (Roar.Callback callback);
-
-		/**
 	     * Returns the property object for a given key.
 	     *
 	     * @param key the key that uniquely identifies a property.
@@ -94,24 +74,6 @@ namespace Roar.Components
 		object GetProperty (string key);
 
 		/**
-	     * Returns the property object for a given key.
-	     *
-	     * On success:
-	     * - invokes callback with parameter *data* containing the Hashtable user property
-	     *
-	     * On failure:
-	     * - invokes callback with parameter *data* equaling null if user property does not exist
-	     *
-	     *
-	     * @param key the key that uniquely identifies a property.
-	     * @param callback the callback function to be passed this function's result.
-	     *
-	     * @returns the property Hashtable associated with the *key*
-	     *          or null if the property does not exist in the data store.
-	     **/
-		object GetProperty (string key, Roar.Callback callback);
-
-		/**
 	     * Returns the *value* attribute of a property object.
 	     *
 	     * @param ikey the key that uniquely identifies a property.
@@ -120,22 +82,5 @@ namespace Roar.Components
 	     *         or null if the user property does not exist in the data store.
 	     */
 		string GetValue (string ikey);
-
-		/**
-	     * Returns the *value* attribute of a property object.
-	     *
-	     * On success:
-	     * - invokes callback with parameter *data* containing the user property value string
-	     *
-	     * On failure:
-	     * - invokes callback with parameter *data* equaling null if user property does not exist
-	     *
-	     * @param the key that uniquely identifies a property.
-	     * @param callback the callback function to be passed this function's result.
-	     *
-	     * @return the *value* attribute of a property object
-	     *         or null if the user property does not exist in the data store.
-	     */
-		string GetValue (string ikey, Roar.Callback callback);
 	}
 }

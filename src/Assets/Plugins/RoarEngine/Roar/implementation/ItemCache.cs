@@ -13,7 +13,7 @@ namespace Roar.implementation
 		/**
 	    * Fetches details about `items` array and adds to item Cache Model
 	    */
-		public bool AddToCache (ArrayList items, Roar.Callback cb=null)
+		public bool AddToCache (ArrayList items, Roar.RequestCallback cb=null)
 		{
 			ArrayList batch = ItemsNotInCache (items);
 

@@ -15,7 +15,7 @@ namespace Roar.implementation.Components
 			this.logger = logger;
 		}
 
-		public void Fetch (Roar.Callback callback)
+		public void Fetch (Roar.RequestCallback callback)
 		{
 			dataStore.achievements.Fetch (callback);
 		}
@@ -24,27 +24,15 @@ namespace Roar.implementation.Components
 
 		public ArrayList List ()
 		{
-			return List (null);
-		}
-
-		public ArrayList List (Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.achievements.List ()));
 			return dataStore.achievements.List ();
 		}
+
 
 		// Returns the achievement Hashtable associated with attribute `ikey`
 		public Hashtable GetAchievement (string ikey)
 		{
-			return GetAchievement (ikey, null);
-		}
-
-		public Hashtable GetAchievement (string ikey, Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.achievements.Get (ikey)));
 			return dataStore.achievements.Get (ikey);
 		}
+
 	}
 }

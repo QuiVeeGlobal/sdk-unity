@@ -50,13 +50,13 @@ public class Data : IData
   // ----------------------
   // UNITY Note: Data is never coerced from a string to an Object(Hash)
   // which is left as an exercise for the reader
-  public void load( string key, Roar.Callback callback )
+  public void load( string key, Roar.Callback<string> callback )
   {
     // If data is already present in the client cache, return that
     if (Data_[key] != null) 
     {
-      var ret = Data_[key];
-      if (callback!=null) callback( new Roar.CallbackInfo<object>(ret, IWebAPI.OK, null) );
+      var ret = Data_[key] as string;
+      if (callback!=null) callback( new Roar.CallbackInfo<string>(ret, IWebAPI.OK, null) );
     }
     else
 	{
@@ -66,18 +66,20 @@ public class Data : IData
 		user_actions_.netdrive_fetch( args, new OnGetData( callback, this, key ) );
 	}
   }
-  class OnGetData : SimpleRequestCallback<IXMLNode>
+  class OnGetData : SimpleRequestCallback
   {
     protected Data data;
     protected string key;
+    Roar.Callback<string> cbx;
   
-    public OnGetData( Roar.Callback in_cb, Data in_data, string in_key) : base(in_cb)
+    public OnGetData( Roar.Callback<string> in_cb, Data in_data, string in_key) : base(null)
     {
       data = in_data;
       key = in_key;
+      cbx = in_cb;
     }
   
-  public override object OnSuccess( CallbackInfo<IXMLNode> info )
+  public override void OnSuccess( RequestResult info )
   {
     string value = "";
     string str = null;
@@ -91,23 +93,23 @@ public class Data : IData
 
     data.Data_[key] = value;
 
-    if (value == "") 
+    if ( value==null || value == "") 
     { 
       data.logger_.DebugLog("[roar] -- No data for key: "+key);
       info.code = IWebAPI.UNKNOWN_ERR;
       info.msg = "No data for key: "+key;
-      return value;
+      cbx( new CallbackInfo<string>( null, IWebAPI.UNKNOWN_ERR, "no data for key: "+key ) );
     }
-
+    
+    cbx( new CallbackInfo<string>( value, IWebAPI.OK, null ) );
     RoarManager.OnDataLoaded( key, value);
-    return value;
   }
   }
 
 
   // UNITY Note: Data is forced to a string to save us having to
   // manually 'stringify' anything.
-  public void save( string key, string val, Roar.Callback callback)
+  public void save( string key, string val, Roar.RequestCallback callback)
   {
     Data_[ key ] = val;
 
@@ -118,28 +120,26 @@ public class Data : IData
     user_actions_.netdrive_save( args, new OnSetData(callback, this, key, val) );
   }
   
-  class OnSetData : SimpleRequestCallback<IXMLNode>
+  class OnSetData : SimpleRequestCallback
   {
     protected Data data;
     protected string key;
     protected string value;
 
-    public OnSetData( Roar.Callback in_cb, Data in_data, string in_key, string in_value) : base(in_cb)
+    public OnSetData( Roar.RequestCallback in_cb, Data in_data, string in_key, string in_value) : base(in_cb)
     {
       data = in_data;
       key = in_key;
       value = in_value;
     }
 
-    public override object OnSuccess( CallbackInfo<IXMLNode> info )
+    public override void OnSuccess( RequestResult info )
     {
       RoarManager.OnDataSaved(key, value);
 
       Hashtable data = new Hashtable();
       data["key"] = key;
       data["data"] = value;
-
-      return data;
     }
   }
 

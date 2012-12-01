@@ -20,14 +20,14 @@ namespace Roar.implementation.Components
 			RoarManager.shopReadyEvent += () => CacheFromShop ();
 		}
 
-		public void Fetch (Roar.Callback callback)
+		public void Fetch (Roar.RequestCallback callback)
 		{
 			dataStore.shop.Fetch (callback);
 		}
 
 		public bool HasDataFromServer { get { return dataStore.shop.HasDataFromServer; } }
 
-		public void Buy (string shop_ikey, Roar.Callback callback)
+		public void Buy (string shop_ikey, Roar.RequestCallback callback)
 		{
 			ShopBuy (shop_ikey, callback);
 		}
@@ -37,27 +37,14 @@ namespace Roar.implementation.Components
 			return dataStore.shop.List();
 		}
 
-		public IList<DomainObjects.ShopEntry> List (Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<IList<DomainObjects.ShopEntry> > (dataStore.shop.List ()));
-			return dataStore.shop.List();
-		}
 
 		// Returns the *object* associated with attribute `key`
 		public DomainObjects.ShopEntry GetShopItem (string ikey)
 		{
-			return GetShopItem(ikey, null);
-		}
-
-		public DomainObjects.ShopEntry GetShopItem (string ikey, Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<DomainObjects.ShopEntry> (dataStore.shop.Get (ikey)));
 			return dataStore.shop.Get (ikey);
 		}
 
-		public void ShopBuy (string shop_ikey, Roar.Callback cb)
+		public void ShopBuy (string shop_ikey, Roar.RequestCallback cb)
 		{
 			var shop_item = dataStore.shop.Get (shop_ikey);
 
@@ -74,18 +61,18 @@ namespace Roar.implementation.Components
 			shopActions.buy (args, new ShopBuyCallback (cb, this, shop_item.ikey));
 		}
 
-		protected class ShopBuyCallback : SimpleRequestCallback<IXMLNode>
+		protected class ShopBuyCallback : SimpleRequestCallback
 		{
 			//Shop shop;
 			string ikey;
 
-			public ShopBuyCallback (Roar.Callback in_cb, Shop in_shop, string in_ikey) : base(in_cb)
+			public ShopBuyCallback (Roar.RequestCallback in_cb, Shop in_shop, string in_ikey) : base(in_cb)
 			{
 				//shop = in_shop;
 				ikey = in_ikey;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void OnSuccess (RequestResult info)
 			{
 				IXMLNode result = info.data.GetNode ("roar>0>shop>0>buy>0");
 
@@ -109,8 +96,6 @@ namespace Roar.implementation.Components
 				Hashtable data = new Hashtable ();
 				data ["id"] = id;
 				data ["ikey"] = ikey;
-
-				return data;
 			}
 		}
 

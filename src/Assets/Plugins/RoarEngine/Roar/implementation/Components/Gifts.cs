@@ -15,7 +15,7 @@ namespace Roar.implementation.Components
 			this.logger = logger;
 		}
 
-		public void Fetch (Roar.Callback callback)
+		public void Fetch (Roar.RequestCallback callback)
 		{
 			dataStore.gifts.Fetch (callback);
 		}
@@ -24,26 +24,13 @@ namespace Roar.implementation.Components
 
 		public ArrayList List ()
 		{
-			return List (null);
-		}
-
-		public ArrayList List (Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.gifts.List ()));
 			return dataStore.gifts.List ();
 		}
+
 
 		// Returns the gift Hashtable associated with attribute `id`
 		public Hashtable GetGift (string id)
 		{
-			return GetGift (id, null);
-		}
-
-		public Hashtable GetGift (string id, Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.gifts.Get (id)));
 			return dataStore.gifts.Get (id);
 		}
 	}

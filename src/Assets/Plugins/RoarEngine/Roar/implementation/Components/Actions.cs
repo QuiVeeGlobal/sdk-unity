@@ -16,25 +16,17 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return dataStore.actions.HasDataFromServer; } }
 
-		public void Fetch (Roar.Callback callback)
+		public void Fetch (Roar.RequestCallback callback)
 		{
 			dataStore.actions.Fetch (callback);
 		}
 
 		public ArrayList List ()
 		{
-			return List (null);
+			return dataStore.actions.List ();
 		}
 
-		public ArrayList List (Roar.Callback callback)
-		{
-			ArrayList listResult = dataStore.actions.List ();
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (listResult));
-			return listResult;
-		}
-
-		public void Execute (string ikey, Roar.Callback callback)
+		public void Execute (string ikey, Roar.RequestCallback callback)
 		{
 
 			Hashtable args = new Hashtable ();
@@ -42,16 +34,16 @@ namespace Roar.implementation.Components
 
 			taskActions.start (args, new OnActionsDo (callback, this));
 		}
-		class OnActionsDo : SimpleRequestCallback<IXMLNode>
+		class OnActionsDo : SimpleRequestCallback
 		{
 			//Actions actions;
 
-			public OnActionsDo (Roar.Callback in_cb, Actions in_actions) : base(in_cb)
+			public OnActionsDo (Roar.RequestCallback in_cb, Actions in_actions) : base(in_cb)
 			{
 				//actions = in_actions;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void OnSuccess (RequestResult info)
 			{
 				// Event complete info (task_complete) is sent in a <server> chunk
 				// (backend quirk related to potentially asynchronous tasks)
@@ -61,8 +53,6 @@ namespace Roar.implementation.Components
 				IXMLNode eventData = info.data.GetFirstChild ("server");
 
 				RoarManager.OnEventDone (eventData);
-
-				return eventData;
 			}
 		}
 	}

@@ -17,7 +17,7 @@ namespace Roar.Components
 	     * Fetch appstore product keys from the roar server.
 	     * followed by product details from the appstore.
 	     **/
-		void Fetch (Roar.Callback callback);
+		void Fetch (Roar.RequestCallback callback);
 
 		/**
 	     * Check whether appstore product keys have been obtained from the roar server
@@ -31,9 +31,9 @@ namespace Roar.Components
 
 		Hashtable GetShopItem (string productIdentifier);
 
-		void Purchase (string productId, Roar.Callback cb);
+		void Purchase (string productId, Roar.Callback<string> cb, Roar.RequestCallback cbx);
 
-		void Purchase (string productId, int quantity, Roar.Callback cb);
+		void Purchase (string productId, int quantity, Roar.Callback<string> cb, Roar.RequestCallback cbx);
 
 		bool PurchasesEnabled ();
 

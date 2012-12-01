@@ -49,7 +49,7 @@ public class PropertiesTests : ComponentTests
     Assert.IsFalse(properties.HasDataFromServer);
   }
   
-  protected void mockFetch(string mockResponse, Roar.Callback cb) {
+  protected void mockFetch(string mockResponse, Roar.RequestCallback cb) {
     requestSender.addMockResponse("user/view", mockResponse);
     properties.Fetch(cb);
   }
@@ -57,10 +57,10 @@ public class PropertiesTests : ComponentTests
   [Test]
   public void testFetchSuccess() {
     bool callbackExecuted = false;
-    Roar.Callback roarCallback = (Roar.CallbackInfo callbackInfo) => { 
+    Roar.RequestCallback roarCallback = (Roar.RequestResult callbackInfo) => { 
       callbackExecuted=true;
       Assert.AreEqual(IWebAPI.OK, callbackInfo.code);
-      Assert.IsNotNull(callbackInfo.d);
+      Assert.IsNotNull(callbackInfo.data);
     };
     mockFetch(userView, roarCallback);
     Assert.IsTrue(callbackExecuted);
@@ -105,16 +105,8 @@ public class PropertiesTests : ComponentTests
     ArrayList propertyHashtables = properties.List();
     Assert.AreEqual(expectedPropertyCount, propertyHashtables.Count);
     
-    //invokes callback with parameter *data* containing the list of Hashtable shop items
-    bool callbackExecuted = false;
-    Roar.Callback roarCallback = (Roar.CallbackInfo callbackInfo) => { 
-      callbackExecuted=true;
-      Assert.AreEqual(IWebAPI.OK, callbackInfo.code);
-      Assert.IsNotNull(callbackInfo.d);
-      Assert.AreEqual(callbackInfo.d, propertyHashtables);
-    };
-    propertyHashtables = properties.List(roarCallback);
-    Assert.IsTrue(callbackExecuted);
+
+    propertyHashtables = properties.List();
     Assert.AreEqual(expectedPropertyCount, propertyHashtables.Count);
   }
 

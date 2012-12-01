@@ -105,12 +105,12 @@ namespace Roar.implementation.Adapters
 				urbanAirship = in_urbanAirship;
 			}
 
-			public override void onFailure( CallbackInfo<IXMLNode> info )
+			public override void onFailure( RequestResult info )
 			{
 				if( urbanAirshipRegistrationFailed!=null) urbanAirshipRegistrationFailed(info.msg);
 			}
 
-			public override object onSuccess( CallbackInfo<IXMLNode> info )
+			public override object onSuccess( RequestResult info )
 			{
 				urbanAirship.hasTokenBeenSentToUA = true;
 				if( UrbanAirship.urbanAirshipRegistrationSucceeded!=null) UrbanAirship.urbanAirshipRegistrationSucceeded();

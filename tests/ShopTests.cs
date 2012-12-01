@@ -56,7 +56,7 @@ public class ShopTests : ComponentTests
     Assert.IsFalse(shop.HasDataFromServer);
   }
   
-  protected void mockFetch(string mockResponse, Roar.Callback cb) {
+  protected void mockFetch(string mockResponse, Roar.RequestCallback cb) {
     requestSender.addMockResponse("shop/list", mockResponse);
     // todo: mock a response from items/view for testing the item cache
     requestSender.addMockResponse("items/view", " ");
@@ -66,10 +66,10 @@ public class ShopTests : ComponentTests
   [Test]
   public void testFetchSuccess() {
     bool callbackExecuted = false;
-    Roar.Callback roarCallback = (Roar.CallbackInfo callbackInfo) => { 
+    Roar.RequestCallback roarCallback = (Roar.RequestResult callbackInfo) => { 
       callbackExecuted=true;
       Assert.AreEqual(IWebAPI.OK, callbackInfo.code);
-      Assert.IsNotNull(callbackInfo.d);
+      Assert.IsNotNull(callbackInfo.data);
     };
     mockFetch(shopList, roarCallback);
     Assert.IsTrue(callbackExecuted);
@@ -96,15 +96,8 @@ public class ShopTests : ComponentTests
     Assert.AreEqual(expectedItemCount, shopEntries.Count);
     
     //invokes callback with parameter *data* containing the list of Hashtable shop items
-    bool callbackExecuted = false;
-    Roar.Callback roarCallback = (Roar.CallbackInfo callbackInfo) => { 
-      callbackExecuted=true;
-      Assert.AreEqual(IWebAPI.OK, callbackInfo.code);
-      Assert.IsNotNull(callbackInfo.d);
-      Assert.AreEqual(callbackInfo.d, shopEntries);
-    };
-    shopEntries = shop.List(roarCallback);
-    Assert.IsTrue(callbackExecuted);
+
+    shopEntries = shop.List();
     Assert.AreEqual(expectedItemCount, shopEntries.Count);
   }
 

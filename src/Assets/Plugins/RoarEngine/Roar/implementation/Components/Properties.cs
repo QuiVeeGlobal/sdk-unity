@@ -13,7 +13,7 @@ namespace Roar.implementation.Components
 			RoarManager.roarServerUpdateEvent += this.OnUpdate;
 		}
 
-		public void Fetch (Roar.Callback callback)
+		public void Fetch (Roar.RequestCallback callback)
 		{
 			dataStore.properties.Fetch (callback);
 		}
@@ -22,39 +22,18 @@ namespace Roar.implementation.Components
 
 		public ArrayList List ()
 		{
-			return List (null);
-		}
-
-		public ArrayList List (Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.properties.List ()));
 			return dataStore.properties.List ();
 		}
 
 		// Returns the *object* associated with attribute `key`
 		public object GetProperty (string key)
 		{
-			return GetProperty (key, null);
-		}
-
-		public object GetProperty (string key, Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.properties.Get (key)));
 			return dataStore.properties.Get (key);
 		}
 
 		// Returns the *value* of attribute `key`
 		public string GetValue (string ikey)
 		{
-			return GetValue (ikey, null);
-		}
-
-		public string GetValue (string ikey, Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.properties.GetValue (ikey)));
 			return dataStore.properties.GetValue (ikey);
 		}
 

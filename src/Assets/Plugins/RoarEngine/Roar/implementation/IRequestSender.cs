@@ -1,39 +1,43 @@
 using System.Collections;
 
-public interface IRequestCallback<T>
+public interface IRequestCallback
 {
-	void OnRequest (Roar.CallbackInfo<T> info);
+	void OnRequest (Roar.RequestResult info);
 };
 
 // Provides a little more structure to the IRequestCallback function.
-public abstract class SimpleRequestCallback<T> : IRequestCallback<T>
+public abstract class SimpleRequestCallback : IRequestCallback
 {
-	protected Roar.Callback cb;
+	protected Roar.RequestCallback cb;
 
-	public SimpleRequestCallback (Roar.Callback in_cb)
+	public SimpleRequestCallback (Roar.RequestCallback in_cb)
 	{
 		cb = in_cb;
 	}
 
-	public virtual void OnRequest (Roar.CallbackInfo<T> info)
+	public virtual void OnRequest ( Roar.RequestResult info)
 	{
 		Prologue ();
-		if (info.code != 200) {
-			if (cb != null)
-				cb (new Roar.CallbackInfo<object> (null, info.code, info.msg));
+		
+		if (info.code != 200)
+		{
 			OnFailure (info);
-		} else {
-			object result = OnSuccess (info);
-			if (cb != null)
-				cb (new Roar.CallbackInfo<object> (result, info.code, info.msg));
-
+		} else
+		{
+			OnSuccess (info);
 		}
+		
+		if (cb != null)
+		{
+			cb (info);
+		}
+		
 		Epilogue ();
 	}
   
-	public abstract object OnSuccess (Roar.CallbackInfo<T> info);
+	public abstract void OnSuccess (Roar.RequestResult info);
 
-	public virtual void OnFailure (Roar.CallbackInfo<T> info)
+	public virtual void OnFailure (Roar.RequestResult info)
 	{}
 
 	public virtual void Prologue ()
@@ -45,6 +49,6 @@ public abstract class SimpleRequestCallback<T> : IRequestCallback<T>
 
 public interface IRequestSender
 {
-	void MakeCall (string apicall, Hashtable args, IRequestCallback<IXMLNode> cb);
+	void MakeCall (string apicall, Hashtable args, IRequestCallback cb);
 }
 

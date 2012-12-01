@@ -178,41 +178,41 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 
 	string version="1.0.0";
 
-	public string Version( Roar.Callback callback = null )
+	public string Version( Roar.RequestCallback callback = null )
 	{
-		if(callback!=null) callback( new Roar.CallbackInfo<object>( version ) );
+		//if(callback!=null) callback( new Roar.CallbackInfo<object>( version ) );
 		return version;
 	}
 
-	public void Login( string username, string password, Roar.Callback callback=null )
+	public void Login( string username, string password, Roar.RequestCallback callback=null )
 	{
 		User.DoLogin(username,password,callback);
 	}
 
-	public void LoginFacebookOAuth( string oauth_token, Roar.Callback callback=null )
+	public void LoginFacebookOAuth( string oauth_token, Roar.RequestCallback callback=null )
 	{
 		User.DoLoginFacebookOAuth(oauth_token,callback);
 	}
 
-	public void Logout( Roar.Callback callback=null )
+	public void Logout( Roar.RequestCallback callback=null )
 	{
 		User.DoLogout(callback);
 	}
 
-	public void Create( string username, string password, Roar.Callback callback=null )
+	public void Create( string username, string password, Roar.RequestCallback callback=null )
 	{
 		User.DoCreate(username,password,callback);
 	}
 
-	public string WhoAmI( Roar.Callback callback=null )
+	public string WhoAmI( Roar.RequestCallback callback=null )
 	{
-		if (callback!=null) callback( new Roar.CallbackInfo<object>(Properties.GetValue( "name" )) );
+		//if (callback!=null) callback( new Roar.CallbackInfo<object>(Properties.GetValue( "name" )) );
 		return Properties.GetValue( "name" );
 	}
 
-	public string PlayerId( Roar.Callback callback=null )
+	public string PlayerId( Roar.RequestCallback callback=null )
 	{
-		if (callback!=null) callback( new Roar.CallbackInfo<object>(Properties.GetValue( "id" )) );
+		//if (callback!=null) callback( new Roar.CallbackInfo<object>(Properties.GetValue( "id" )) );
 		return Properties.GetValue( "id" );
 	}
 

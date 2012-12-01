@@ -17,7 +17,10 @@ namespace Roar.implementation.Components
 		protected bool isServerCalling;
 		protected IDictionary<string, Hashtable> productsMap;
 		protected IList<Hashtable> productsList;
-		protected Roar.Callback purchaseCallback;
+		
+		//TODO: Ugly that we need two of these for now.
+		protected Roar.Callback<string> purchaseCallback;
+		protected Roar.RequestCallback purchaseCallbackX;
 
 		public InAppPurchase (IWebAPI.IAppstoreActions actions, string nativeCallbackGameObject, ILogger logger, bool isSandbox)
 		{
@@ -40,7 +43,7 @@ namespace Roar.implementation.Components
 	     * 1. Retrieve the appstore product ids from roar.
 	     * 2. Use the product ids to retrieve the product details from the appstore.
 	     **/
-		public void Fetch (Roar.Callback callback)
+		public void Fetch (Roar.RequestCallback callback)
 		{
 			if (isServerCalling) {
 				return;
@@ -52,7 +55,7 @@ namespace Roar.implementation.Components
 			actions.shop_list (args, new AppstoreListCallback (callback, this));
 		}
 
-		class AppstoreListCallback : SimpleRequestCallback<IXMLNode>
+		class AppstoreListCallback : SimpleRequestCallback
 		{
 			InAppPurchase appstore;
 
@@ -62,12 +65,12 @@ namespace Roar.implementation.Components
 				appstore.isServerCalling = false;
 			}
 
-			public AppstoreListCallback (Roar.Callback in_cb, InAppPurchase in_appstore) : base(in_cb)
+			public AppstoreListCallback (Roar.RequestCallback in_cb, InAppPurchase in_appstore) : base(in_cb)
 			{
 				appstore = in_appstore;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void OnSuccess (RequestResult info)
 			{
 				appstore.logger.DebugLog (string.Format ("onAppstoreList.onSuccess() called with: {0}", info.data.DebugAsString ()));
 				ArrayList productIdentifiersList = appstore.GetProductIdentifiers (info.data);
@@ -77,7 +80,6 @@ namespace Roar.implementation.Components
         		#else
 				appstore.logger.DebugLog (string.Format ("Can't call _StoreKitRequestProductData({0}) from Unity Editor", combinedProductIdentifiers));
         		#endif
-				return productIdentifiersList;
 			}
 		}
 
@@ -112,7 +114,7 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return hasDataFromAppstore; } }
 
-		protected void ValidateReceipt (string receiptId, Roar.Callback callback)
+		protected void ValidateReceipt (string receiptId, Roar.RequestCallback callback)
 		{
 
 			Hashtable args = new Hashtable ();
@@ -122,27 +124,29 @@ namespace Roar.implementation.Components
 			actions.buy (args, new OnReceiptValidation (callback, this, receiptId));
 		}
 
-		class OnReceiptValidation : SimpleRequestCallback<IXMLNode>
+		class OnReceiptValidation : SimpleRequestCallback
 		{
 			InAppPurchase appstore;
 			string receiptId;
 
-			public OnReceiptValidation (Roar.Callback in_cb, InAppPurchase in_appstore, string in_receiptId) : base(in_cb)
+			public OnReceiptValidation (Roar.RequestCallback in_cb, InAppPurchase in_appstore, string in_receiptId) : base(in_cb)
 			{
 				appstore = in_appstore;
 				receiptId = in_receiptId;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void OnSuccess (RequestResult info)
 			{
 				appstore.logger.DebugLog (string.Format ("onReceiptValidation() called with: {0}", info.data.DebugAsString ()));
-				return receiptId;
 			}
 		}
 
-		public void Purchase (string productId, Roar.Callback cb)
+
+		//TODO: Ugly that we need two of these
+		public void Purchase (string productId, Roar.Callback<string> cb, Roar.RequestCallback cbx)
 		{
 			purchaseCallback = cb;
+			purchaseCallbackX = cbx;
     		#if UNITY_IOS && !UNITY_EDITOR
       		_StoreKitPurchase(productId);
     		#else
@@ -150,9 +154,11 @@ namespace Roar.implementation.Components
    			#endif
 		}
 
-		public void Purchase (string productId, int quantity, Roar.Callback cb)
+		public void Purchase (string productId, int quantity, Roar.Callback<string> cb, Roar.RequestCallback cbx)
 		{
 			purchaseCallback = cb;
+			purchaseCallbackX = cbx;
+
     		#if UNITY_IOS && !UNITY_EDITOR
       		_StoreKitPurchaseQuantity(productId, quantity);
     		#else
@@ -212,7 +218,7 @@ namespace Roar.implementation.Components
 			IXMLNode root = IXMLNodeFactory.instance.Create (purchaseXml);
 			IXMLNode purchaseNode = root.GetFirstChild ("shop_item_purchase_success");
 			string transactionIdentifier = purchaseNode.GetAttribute ("transaction_identifier");
-			ValidateReceipt (transactionIdentifier, purchaseCallback);
+			ValidateReceipt (transactionIdentifier, purchaseCallbackX);
 		}
 
 		public void OnPurchaseCancelled (string productIdentifier)

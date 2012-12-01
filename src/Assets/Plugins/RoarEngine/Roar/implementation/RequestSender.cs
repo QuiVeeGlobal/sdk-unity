@@ -20,12 +20,12 @@ public class RequestSender : IRequestSender
 		this.logger = logger;
 	}
 		
-	public void MakeCall( string apicall, Hashtable args, IRequestCallback<IXMLNode> cb )
+	public void MakeCall( string apicall, Hashtable args, IRequestCallback cb )
 	{
 		unityObject.DoCoroutine( SendCore( apicall, args, cb ) );
 	}
 	
-	protected IEnumerator SendCore( string apicall, Hashtable args, IRequestCallback<IXMLNode> cb )
+	protected IEnumerator SendCore( string apicall, Hashtable args, IRequestCallback cb )
 	{
 		if ( GameKey == "")
 		{
@@ -62,7 +62,7 @@ public class RequestSender : IRequestSender
 	}
 	
 	
-	protected void OnServerResponse( string raw, string apicall, IRequestCallback<IXMLNode> cb )
+	protected void OnServerResponse( string raw, string apicall, IRequestCallback cb )
 	{
 		var uc = apicall.Split("/"[0]);
 		var controller = uc[0];
@@ -86,7 +86,7 @@ public class RequestSender : IRequestSender
 		{
 			// Error: fire the error callback
 			IXMLNode errorXml = IXMLNodeFactory.instance.Create("error", raw);
-			if (cb!=null) cb.OnRequest( new Roar.CallbackInfo<IXMLNode>(errorXml, IWebAPI.FATAL_ERROR, "Invalid server response" ) );
+			if (cb!=null) cb.OnRequest( new Roar.RequestResult(errorXml, IWebAPI.FATAL_ERROR, "Invalid server response" ) );
 			return;
 		}
 	
@@ -123,7 +123,7 @@ public class RequestSender : IRequestSender
 			
 			// Error: fire the callback
 			// NOTE: The Unity version ASSUMES callback = errorCallback
-			if (cb!=null) cb.OnRequest( new Roar.CallbackInfo<IXMLNode>(rootNode, callback_code, callback_msg) );
+			if (cb!=null) cb.OnRequest( new Roar.RequestResult(rootNode, callback_code, callback_msg) );
 		}
 		
 		// No error - pre-process the result
@@ -133,7 +133,7 @@ public class RequestSender : IRequestSender
 			if (auth_token!=null) RoarAuthToken = auth_token.Text;
 			
 			callback_code = IWebAPI.OK;
-			if (cb!=null) cb.OnRequest( new Roar.CallbackInfo<IXMLNode>( rootNode, callback_code, callback_msg) );
+			if (cb!=null) cb.OnRequest( new Roar.RequestResult( rootNode, callback_code, callback_msg) );
 		}
 		
 		RoarManager.OnCallComplete( new RoarManager.CallInfo( rootNode, callback_code, callback_msg, "no id" ) );

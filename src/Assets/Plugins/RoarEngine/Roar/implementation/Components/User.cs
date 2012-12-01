@@ -31,7 +31,7 @@ namespace Roar.implementation.Components
 		// ---- Access Methods ----
 		// ------------------------
 
-		public void DoLogin (string name, string hash, Roar.Callback cb)
+		public void DoLogin (string name, string hash, Roar.RequestCallback cb)
 		{
 			if (name == "" || hash == "") {
 				logger.DebugLog ("[roar] -- Must specify username and password for login");
@@ -44,29 +44,28 @@ namespace Roar.implementation.Components
 			userActions.login (args, new LoginCallback (cb, this));
 		}
 
-		protected class LoginCallback : SimpleRequestCallback<IXMLNode>
+		protected class LoginCallback : SimpleRequestCallback
 		{
 			protected User user;
 
-			public LoginCallback (Roar.Callback in_cb, User in_user) : base(in_cb)
+			public LoginCallback (Roar.RequestCallback in_cb, User in_user) : base(in_cb)
 			{
 				user = in_user;
 			}
 
-			public override void OnFailure (CallbackInfo<IXMLNode> info)
+			public override void OnFailure (RequestResult info)
 			{
 				RoarManager.OnLogInFailed (info.msg);
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void OnSuccess (RequestResult info)
 			{
 				RoarManager.OnLoggedIn ();
 				// @todo Perform auto loading of game and player data
-				return null;
 			}
 		}
 
-		public void DoLoginFacebookOAuth (string oauth_token, Roar.Callback cb)
+		public void DoLoginFacebookOAuth (string oauth_token, Roar.RequestCallback cb)
 		{
 			if (oauth_token == "") {
 				logger.DebugLog ("[roar] -- Must specify oauth_token for facebook login");
@@ -78,54 +77,52 @@ namespace Roar.implementation.Components
 
 			userActions.login_facebook_oauth (args, new LoginFacebookOAuthCallback (cb, this));
 		}
-		class LoginFacebookOAuthCallback : SimpleRequestCallback<IXMLNode>
+		class LoginFacebookOAuthCallback : SimpleRequestCallback
 		{
 			protected User user;
 
-			public LoginFacebookOAuthCallback (Roar.Callback in_cb, User in_user) : base( in_cb )
+			public LoginFacebookOAuthCallback (Roar.RequestCallback in_cb, User in_user) : base( in_cb )
 			{
 				user = in_user;
 			}
 
-			public override void OnFailure (CallbackInfo<IXMLNode> info)
+			public override void OnFailure (RequestResult info)
 			{
 				RoarManager.OnLogInFailed (info.msg);
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void OnSuccess (RequestResult info)
 			{
 				RoarManager.OnLoggedIn ();
 				// @todo Perform auto loading of game and player data
-				return null;
 			}
 		}
 
 
-		public void DoLogout (Roar.Callback cb)
+		public void DoLogout (Roar.RequestCallback cb)
 		{
 			userActions.logout (null, new LogoutCallback (cb, this));
 		}
 
-		protected class LogoutCallback : SimpleRequestCallback<IXMLNode>
+		protected class LogoutCallback : SimpleRequestCallback
 		{
 			protected User user;
 
-			public LogoutCallback (Roar.Callback in_cb, User in_user) : base(in_cb)
+			public LogoutCallback (Roar.RequestCallback in_cb, User in_user) : base(in_cb)
 			{
 				user = in_user;
 				cb = in_cb;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void OnSuccess (RequestResult info)
 			{
 				RoarManager.OnLoggedOut ();
-				return null;
 			}
 
 		};
 
 
-		public void DoCreate (string name, string hash, Roar.Callback cb)
+		public void DoCreate (string name, string hash, Roar.RequestCallback cb)
 		{
 			if (name == "" || hash == "") {
 				logger.DebugLog ("[roar] -- Must specify username and password for login");
@@ -137,30 +134,29 @@ namespace Roar.implementation.Components
 
 			userActions.create (args, new CreateCallback (cb, this));
 		}
-		protected class CreateCallback : SimpleRequestCallback<IXMLNode>
+		protected class CreateCallback : SimpleRequestCallback
 		{
 			protected User user;
 
-			public CreateCallback (Roar.Callback in_cb, User in_user) : base(in_cb)
+			public CreateCallback (Roar.RequestCallback in_cb, User in_user) : base(in_cb)
 			{
 				user = in_user;
 			}
 
-			public override void OnFailure (CallbackInfo<IXMLNode> info)
+			public override void OnFailure (RequestResult info)
 			{
 				RoarManager.OnCreateUserFailed (info.msg);
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void OnSuccess (RequestResult info)
 			{
 				RoarManager.OnCreatedUser ();
 				RoarManager.OnLoggedIn ();
-				return null;
 			}
 		}
 
 		//TODO: not sure this belongs in this class!
-		public void CacheFromInventory (Roar.Callback cb=null)
+		public void CacheFromInventory (Roar.RequestCallback cb=null)
 		{
 			if (! dataStore.inventory.HasDataFromServer)
 				return;

@@ -20,7 +20,7 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return  dataStore.inventory.HasDataFromServer; } }
 
-		public void Fetch (Roar.Callback callback)
+		public void Fetch (Roar.RequestCallback callback)
 		{
 			dataStore.inventory.Fetch (callback);
 		}
@@ -30,14 +30,14 @@ namespace Roar.implementation.Components
 			return List (null);
 		}
 
-		public ArrayList List (Roar.Callback callback)
+		public ArrayList List (Roar.Callback<ArrayList> callback)
 		{
 			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.inventory.List ()));
+				callback (new Roar.CallbackInfo<ArrayList> (dataStore.inventory.List ()));
 			return dataStore.inventory.List ();
 		}
 
-		public void Activate (string id, Roar.Callback callback)
+		public void Activate (string id, Roar.RequestCallback callback)
 		{
 			var item = dataStore.inventory.Get (id);
 			if (item == null) {
@@ -49,18 +49,18 @@ namespace Roar.implementation.Components
 			args ["item_id"] = id;
 			itemActions.equip (args, new ActivateCallback (callback, this, id));
 		}
-		class ActivateCallback : SimpleRequestCallback<IXMLNode>
+		class ActivateCallback : SimpleRequestCallback
 		{
 			Inventory inventory;
 			string id;
 
-			public ActivateCallback (Roar.Callback in_cb, Inventory in_inventory, string in_id) : base(in_cb)
+			public ActivateCallback (Roar.RequestCallback in_cb, Inventory in_inventory, string in_id) : base(in_cb)
 			{
 				inventory = in_inventory;
 				id = in_id;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void OnSuccess (RequestResult info)
 			{
 				var item = inventory.dataStore.inventory.Get (id);
 				item ["equipped"] = true;
@@ -70,11 +70,10 @@ namespace Roar.implementation.Components
 				returnObj ["label"] = item ["label"];
 
 				RoarManager.OnGoodActivated (new RoarManager.GoodInfo (id, item ["ikey"] as string, item ["label"] as string));
-				return returnObj;
 			}
 		}
 
-		public void Deactivate (string id, Roar.Callback callback)
+		public void Deactivate (string id, Roar.RequestCallback callback)
 		{
 			var item = dataStore.inventory.Get (id as string);
 			if (item == null) {
@@ -87,18 +86,18 @@ namespace Roar.implementation.Components
 
 			itemActions.unequip (args, new DeactivateCallback (callback, this, id));
 		}
-		class DeactivateCallback : SimpleRequestCallback<IXMLNode>
+		class DeactivateCallback : SimpleRequestCallback
 		{
 			Inventory inventory;
 			string id;
 
-			public DeactivateCallback (Roar.Callback in_cb, Inventory in_inventory, string in_id) : base(in_cb)
+			public DeactivateCallback (Roar.RequestCallback in_cb, Inventory in_inventory, string in_id) : base(in_cb)
 			{
 				inventory = in_inventory;
 				id = in_id;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void OnSuccess (RequestResult info)
 			{
 				var item = inventory.dataStore.inventory.Get (id);
 				item ["equipped"] = false;
@@ -108,39 +107,26 @@ namespace Roar.implementation.Components
 				returnObj ["label"] = item ["label"];
 
 				RoarManager.OnGoodDeactivated (new RoarManager.GoodInfo (id, item ["ikey"] as string, item ["label"] as string));
-				return returnObj;
 			}
 		}
 
 		// `has( key, num )` boolean checks whether user has object `key`
 		// and optionally checks for a `num` number of `keys` *(default 1)*
-		public bool Has (string ikey)
+		public bool Has (string ikey, int num=1)
 		{
-			return Has (ikey, 1, null);
-		}
-
-		public bool Has (string ikey, int num, Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.inventory.Has (ikey, num)));
 			return dataStore.inventory.Has (ikey, num);
 		}
+
 
 		// `quantity( key )` returns the number of `key` objects held by user
 		public int Quantity (string ikey)
 		{
-			return Quantity (ikey, null);
+			return  dataStore.inventory.Quantity (ikey);
 		}
 
-		public int Quantity (string ikey, Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.inventory.Quantity (ikey)));
-			return dataStore.inventory.Quantity (ikey);
-		}
 
 		// `sell(id)` performs a sell on the item `id` specified
-		public void Sell (string id, Roar.Callback callback)
+		public void Sell (string id, Roar.RequestCallback callback)
 		{
 
 			var item = dataStore.inventory.Get (id as string);
@@ -154,7 +140,7 @@ namespace Roar.implementation.Components
 				var error = item ["ikey"] + ": Good is not sellable";
 				logger.DebugLog ("[roar] -- " + error);
 				if (callback != null)
-					callback (new Roar.CallbackInfo<object> (null, IWebAPI.DISALLOWED, error));
+					callback (new Roar.RequestResult (null, IWebAPI.DISALLOWED, error));
 				return;
 			}
 
@@ -164,18 +150,18 @@ namespace Roar.implementation.Components
 			itemActions.sell (args, new SellCallback (callback, this, id));
 		}
 
-		class SellCallback : SimpleRequestCallback<IXMLNode>
+		class SellCallback : SimpleRequestCallback
 		{
 			Inventory inventory;
 			string id;
 
-			public SellCallback (Roar.Callback in_cb, Inventory in_inventory, string in_id) : base(in_cb)
+			public SellCallback (Roar.RequestCallback in_cb, Inventory in_inventory, string in_id) : base(in_cb)
 			{
 				inventory = in_inventory;
 				id = in_id;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void OnSuccess (RequestResult info)
 			{
 				var item = inventory.dataStore.inventory.Get (id);
 				Hashtable returnObj = new Hashtable ();
@@ -186,12 +172,11 @@ namespace Roar.implementation.Components
 				inventory.dataStore.inventory.Unset (id);
 
 				RoarManager.OnGoodSold (new RoarManager.GoodInfo (id, item ["ikey"] as string, item ["label"] as string));
-				return returnObj;
 			}
 		}
 
 		// `use(id)` consumes/uses the item `id`
-		public void Use (string id, Roar.Callback callback)
+		public void Use (string id, Roar.RequestCallback callback)
 		{
 
 			var item = dataStore.inventory.Get (id as string);
@@ -208,7 +193,7 @@ namespace Roar.implementation.Components
 				var error = item ["ikey"] + ": Good is not consumable";
 				logger.DebugLog ("[roar] -- " + error);
 				if (callback != null)
-					callback (new Roar.CallbackInfo<object> (null, IWebAPI.DISALLOWED, error));
+					callback (new Roar.RequestResult (null, IWebAPI.DISALLOWED, error));
 				return;
 			}
 
@@ -219,18 +204,18 @@ namespace Roar.implementation.Components
 			itemActions.use (args, new UseCallback (callback, this, id));
 		}
 
-		class UseCallback : SimpleRequestCallback<IXMLNode>
+		class UseCallback : SimpleRequestCallback
 		{
 			Inventory inventory;
 			string id;
 
-			public UseCallback (Roar.Callback in_cb, Inventory in_inventory, string in_id) : base(in_cb)
+			public UseCallback (Roar.RequestCallback in_cb, Inventory in_inventory, string in_id) : base(in_cb)
 			{
 				inventory = in_inventory;
 				id = in_id;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void OnSuccess (RequestResult info)
 			{
 				var item = inventory.dataStore.inventory.Get (id);
 				Hashtable returnObj = new Hashtable ();
@@ -241,12 +226,11 @@ namespace Roar.implementation.Components
 				inventory.dataStore.inventory.Unset (id);
 
 				RoarManager.OnGoodUsed (new RoarManager.GoodInfo (id, item ["ikey"] as string, item ["label"] as string));
-				return returnObj;
 			}
 		}
 
 		// `remove(id)` for now is simply an *alias* to sell
-		public void Remove (string id, Roar.Callback callback)
+		public void Remove (string id, Roar.RequestCallback callback)
 		{
 			Sell (id, callback);
 		}
@@ -254,13 +238,6 @@ namespace Roar.implementation.Components
 		// Returns raw data object for inventory
 		public Hashtable GetGood (string id)
 		{
-			return GetGood (id, null);
-		}
-
-		public Hashtable GetGood (string id, Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.inventory.Get (id)));
 			return dataStore.inventory.Get (id);
 		}
 

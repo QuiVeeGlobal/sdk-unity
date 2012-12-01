@@ -61,17 +61,17 @@ public class DataModel
 	// Internal call to retrieve model data from server and pass back
 	// to `callback`. `params` is optional obj to pass to RoarAPI call.
 	// `persistModel` optional can prevent Model data clearing.
-	public bool Fetch (Roar.Callback cb)
+	public bool Fetch (Roar.RequestCallback cb)
 	{
 		return Fetch (cb, null, false);
 	}
 
-	public bool Fetch (Roar.Callback cb, Hashtable p)
+	public bool Fetch (Roar.RequestCallback cb, Hashtable p)
 	{
 		return Fetch (cb, p, false);
 	}
 
-	public bool Fetch (Roar.Callback cb, Hashtable p, bool persist)
+	public bool Fetch (Roar.RequestCallback cb, Hashtable p, bool persist)
 	{
 		// Bail out if call for this Model is already underway
 		if (this.isServerCalling)
@@ -89,11 +89,11 @@ public class DataModel
 		return true;
 	}
 
-	private class OnFetch : SimpleRequestCallback<IXMLNode>
+	private class OnFetch : SimpleRequestCallback
 	{
 		protected DataModel model;
 
-		public OnFetch (Roar.Callback in_cb, DataModel in_model) : base(in_cb)
+		public OnFetch (Roar.RequestCallback in_cb, DataModel in_model) : base(in_cb)
 		{
 			model = in_model;
 		}
@@ -104,7 +104,7 @@ public class DataModel
 			model.isServerCalling = false;
 		}
 
-		public override object OnSuccess (Roar.CallbackInfo<IXMLNode> info)
+		public override void OnSuccess (Roar.RequestResult info)
 		{
 			model.logger.DebugLog ("onFetch got given: " + info.data.DebugAsString ());
 
@@ -119,8 +119,6 @@ public class DataModel
 			} else {
 				model.ProcessData (nn);
 			}
-
-			return model.attributes;
 		}
 	}
 
@@ -442,17 +440,17 @@ public class DataModel<T> where T : Roar.DomainObjects.IDomainObject
 	// Internal call to retrieve model data from server and pass back
 	// to `callback`. `params` is optional obj to pass to RoarAPI call.
 	// `persistModel` optional can prevent Model data clearing.
-	public bool Fetch (Roar.Callback cb)
+	public bool Fetch (Roar.RequestCallback cb)
 	{
 		return Fetch (cb, null, false);
 	}
 
-	public bool Fetch (Roar.Callback cb, Hashtable p)
+	public bool Fetch (Roar.RequestCallback cb, Hashtable p)
 	{
 		return Fetch (cb, p, false);
 	}
 
-	public bool Fetch (Roar.Callback cb, Hashtable p, bool persist)
+	public bool Fetch (Roar.RequestCallback cb, Hashtable p, bool persist)
 	{
 		// Bail out if call for this Model is already underway
 		if (this.isServerCalling)
@@ -470,11 +468,11 @@ public class DataModel<T> where T : Roar.DomainObjects.IDomainObject
 		return true;
 	}
 
-	private class OnFetch : SimpleRequestCallback<IXMLNode>
+	private class OnFetch : SimpleRequestCallback
 	{
 		protected DataModel<T> model;
 
-		public OnFetch (Roar.Callback in_cb, DataModel<T> in_model) : base(in_cb)
+		public OnFetch (Roar.RequestCallback in_cb, DataModel<T> in_model) : base(in_cb)
 		{
 			model = in_model;
 		}
@@ -485,7 +483,7 @@ public class DataModel<T> where T : Roar.DomainObjects.IDomainObject
 			model.isServerCalling = false;
 		}
 
-		public override object OnSuccess (Roar.CallbackInfo<IXMLNode> info)
+		public override void OnSuccess (Roar.RequestResult info)
 		{
 			model.logger.DebugLog ("onFetch got given: " + info.data.DebugAsString ());
 
@@ -500,8 +498,6 @@ public class DataModel<T> where T : Roar.DomainObjects.IDomainObject
 			} else {
 				model.ProcessData (nn);
 			}
-
-			return model.attributes;
 		}
 	}
 
