@@ -194,7 +194,23 @@ namespace Roar
 			public string name;
 			public int level;
 		};
-
+		
+		public class FriendInvite : IDomainObject
+		{
+			public bool MatchesKey (string key)
+			{
+				return invite_id == key;
+			}
+			
+			public string invite_id;
+			public string player_id;
+		};
+		
+		public class FriendInviteInfo : Friend
+		{
+			public string friend_invite_row_id;
+			public string message;
+		}
 
 		public class LeaderboardExtraProperties
 		{

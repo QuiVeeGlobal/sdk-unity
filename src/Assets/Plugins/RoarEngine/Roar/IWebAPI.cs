@@ -94,6 +94,7 @@ public abstract class IWebAPI
 		void invite_info( Roar.WebObjects.Friends.Invite_infoArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.Invite_infoResponse> cb);
 		void list( Roar.WebObjects.Friends.ListArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.ListResponse> cb);
 		void remove( Roar.WebObjects.Friends.RemoveArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.RemoveResponse> cb);
+		void list_invites( Roar.WebObjects.Friends.List_invitesArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.List_invitesResponse> cb);
 	}
 
 	public interface IGoogleActions

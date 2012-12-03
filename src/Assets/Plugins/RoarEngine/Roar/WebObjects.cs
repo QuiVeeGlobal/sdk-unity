@@ -481,6 +481,25 @@ namespace Roar.WebObjects
 			}
 		}
 
+		// Arguments to friends/list_invites
+		public class List_invitesArguments
+		{
+
+			public Hashtable ToHashtable()
+			{
+				Hashtable retval = new Hashtable();
+				return retval;
+			}
+		}
+		
+		// Response from friends/list_invites
+		public class List_invitesResponse : IResponse
+		{
+			public void ParseXml( IXMLNode nn )
+			{
+			}
+		}
+
 	}
 
 	//Namespace for typesafe arguments and responses to Roars google/foo calls.

@@ -274,6 +274,11 @@ public class WebAPI : IWebAPI
 			api.MakeCall ("friends/remove", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Friends.RemoveResponse>(cb));
 		}
 
+		public void list_invites( Roar.WebObjects.Friends.List_invitesArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.List_invitesResponse> cb)
+		{
+			api.MakeCall ("friends/list_invites", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Friends.List_invitesResponse>(cb));
+		}
+
 	}
 
 	public class GoogleActions : APIBridge, IGoogleActions

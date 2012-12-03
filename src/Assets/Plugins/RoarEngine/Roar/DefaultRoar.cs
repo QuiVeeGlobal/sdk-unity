@@ -43,6 +43,9 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 
 	public IWebAPI WebAPI { get { return webAPI; } }
 	protected IWebAPI webAPI;
+	
+	public Roar.Components.IFriends Friends { get { return friends; } }
+	protected Roar.Components.IFriends friends;
 
 	public Roar.Components.IUser User { get { return user; } }
 	protected Roar.Components.IUser user;
@@ -147,8 +150,8 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 
 		RequestSender api = new RequestSender(config,this,logger);
 		webAPI = new global::WebAPI(api);
-
 		datastore = new Roar.implementation.DataStore(webAPI, logger);
+		friends = new Roar.implementation.Components.Friends( webAPI.friends, datastore, logger);
 		user = new Roar.implementation.Components.User(webAPI.user,datastore, logger);
 		properties = new Roar.implementation.Components.Properties( datastore );
 		leaderboards = new Roar.implementation.Components.Leaderboards(datastore, logger);

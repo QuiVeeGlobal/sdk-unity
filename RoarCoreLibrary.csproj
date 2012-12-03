@@ -85,6 +85,8 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\ZWebCallbackBridge.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\WebObjects.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\ZWebBase.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IFriends.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Friends.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
