@@ -1,4 +1,6 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
 
 
 namespace Roar.WebObjects
@@ -19,10 +21,23 @@ namespace Roar.WebObjects
 		// Arguments to <%= m.name %>/<%= f.name %>
 		public class <%= capitalizeFirst(f.name) %>Arguments
 		{
+<% _.each( f.arguments, function(arg, k, lll) {
+%>			public <%= arg.type %> <%= arg.name %>;
+<% } ) %>
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				return retval;
+<% _.each( f.arguments, function(arg, k, lll) {
+if( arg.type == "string" )
+{
+%>				retval["<%= arg.name %>"] = <%= arg.name %>;
+<%
+} else {
+%>				retval["<%= arg.name %>"] = Convert.ToString(<%= arg.name %>);
+<%
+}
+} )
+%>				return retval;
 			}
 		}
 		

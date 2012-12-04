@@ -18,6 +18,7 @@ namespace Roar.WebObjects
 		// Arguments to admin/delete_player
 		public class Delete_playerArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -36,6 +37,7 @@ namespace Roar.WebObjects
 		// Arguments to admin/inrement_stat
 		public class Inrement_statArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -54,6 +56,7 @@ namespace Roar.WebObjects
 		// Arguments to admin/set
 		public class SetArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -72,6 +75,7 @@ namespace Roar.WebObjects
 		// Arguments to admin/set_custom
 		public class Set_customArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -90,6 +94,7 @@ namespace Roar.WebObjects
 		// Arguments to admin/view_player
 		public class View_playerArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -116,12 +121,12 @@ namespace Roar.WebObjects
 		{
 			public string receipt;
 			public bool sandbox;
-			
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval ["receipt"] = receipt;
-				retval ["sandbox"] = Convert.ToString (sandbox);
+				retval["receipt"] = receipt;
+				retval["sandbox"] = Convert.ToString(sandbox);
 				return retval;
 			}
 		}
@@ -137,6 +142,7 @@ namespace Roar.WebObjects
 		// Arguments to appstore/shop_list
 		public class Shop_listArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -180,6 +186,7 @@ namespace Roar.WebObjects
 		// Arguments to chrome_web_store/list
 		public class ListArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -204,6 +211,7 @@ namespace Roar.WebObjects
 		// Arguments to facebook/bind_signed
 		public class Bind_signedArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -222,6 +230,7 @@ namespace Roar.WebObjects
 		// Arguments to facebook/create_oauth
 		public class Create_oauthArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -240,6 +249,7 @@ namespace Roar.WebObjects
 		// Arguments to facebook/create_signed
 		public class Create_signedArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -258,6 +268,7 @@ namespace Roar.WebObjects
 		// Arguments to facebook/fetch_oauth_token
 		public class Fetch_oauth_tokenArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -276,6 +287,7 @@ namespace Roar.WebObjects
 		// Arguments to facebook/friends
 		public class FriendsArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -294,6 +306,7 @@ namespace Roar.WebObjects
 		// Arguments to facebook/login_oauth
 		public class Login_oauthArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -312,6 +325,7 @@ namespace Roar.WebObjects
 		// Arguments to facebook/login_signed
 		public class Login_signedArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -330,6 +344,7 @@ namespace Roar.WebObjects
 		// Arguments to facebook/shop_list
 		public class Shop_listArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -354,6 +369,7 @@ namespace Roar.WebObjects
 		// Arguments to friends/accept
 		public class AcceptArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -372,6 +388,7 @@ namespace Roar.WebObjects
 		// Arguments to friends/decline
 		public class DeclineArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -390,6 +407,7 @@ namespace Roar.WebObjects
 		// Arguments to friends/invite
 		public class InviteArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -408,6 +426,7 @@ namespace Roar.WebObjects
 		// Arguments to friends/invite_info
 		public class Invite_infoArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -426,6 +445,7 @@ namespace Roar.WebObjects
 		// Arguments to friends/list
 		public class ListArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -444,6 +464,7 @@ namespace Roar.WebObjects
 		// Arguments to friends/remove
 		public class RemoveArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -468,6 +489,7 @@ namespace Roar.WebObjects
 		// Arguments to google/bind_user
 		public class Bind_userArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -486,6 +508,7 @@ namespace Roar.WebObjects
 		// Arguments to google/bind_user_token
 		public class Bind_user_tokenArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -504,6 +527,7 @@ namespace Roar.WebObjects
 		// Arguments to google/create_user
 		public class Create_userArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -522,6 +546,7 @@ namespace Roar.WebObjects
 		// Arguments to google/create_user_token
 		public class Create_user_tokenArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -540,6 +565,7 @@ namespace Roar.WebObjects
 		// Arguments to google/friends
 		public class FriendsArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -558,6 +584,7 @@ namespace Roar.WebObjects
 		// Arguments to google/login_user
 		public class Login_userArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -576,6 +603,7 @@ namespace Roar.WebObjects
 		// Arguments to google/login_user_token
 		public class Login_user_tokenArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -600,6 +628,7 @@ namespace Roar.WebObjects
 		// Arguments to info/get_bulk_player_info
 		public class Get_bulk_player_infoArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -618,6 +647,7 @@ namespace Roar.WebObjects
 		// Arguments to info/ping
 		public class PingArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -636,6 +666,7 @@ namespace Roar.WebObjects
 		// Arguments to info/user
 		public class UserArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -654,6 +685,7 @@ namespace Roar.WebObjects
 		// Arguments to info/poll
 		public class PollArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -679,10 +711,11 @@ namespace Roar.WebObjects
 		public class EquipArguments
 		{
 			public string item_id;
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval ["item_id"] = item_id;
+				retval["item_id"] = item_id;
 				return retval;
 			}
 		}
@@ -698,6 +731,7 @@ namespace Roar.WebObjects
 		// Arguments to items/list
 		public class ListArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -717,10 +751,11 @@ namespace Roar.WebObjects
 		public class SellArguments
 		{
 			public string item_id;
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval ["item_id"] = item_id;
+				retval["item_id"] = item_id;
 				return retval;
 			}
 		}
@@ -736,6 +771,7 @@ namespace Roar.WebObjects
 		// Arguments to items/set
 		public class SetArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -755,10 +791,11 @@ namespace Roar.WebObjects
 		public class UnequipArguments
 		{
 			public string item_id;
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval ["item_id"] = item_id;
+				retval["item_id"] = item_id;
 				return retval;
 			}
 		}
@@ -775,10 +812,11 @@ namespace Roar.WebObjects
 		public class UseArguments
 		{
 			public string item_id;
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval ["item_id"] = item_id;
+				retval["item_id"] = item_id;
 				return retval;
 			}
 		}
@@ -794,6 +832,7 @@ namespace Roar.WebObjects
 		// Arguments to items/view
 		public class ViewArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -812,6 +851,7 @@ namespace Roar.WebObjects
 		// Arguments to items/view_all
 		public class View_allArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -836,6 +876,7 @@ namespace Roar.WebObjects
 		// Arguments to leaderboards/list
 		public class ListArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -854,6 +895,7 @@ namespace Roar.WebObjects
 		// Arguments to leaderboards/view
 		public class ViewArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -878,6 +920,7 @@ namespace Roar.WebObjects
 		// Arguments to mail/accept
 		public class AcceptArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -896,6 +939,7 @@ namespace Roar.WebObjects
 		// Arguments to mail/send
 		public class SendArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -914,6 +958,7 @@ namespace Roar.WebObjects
 		// Arguments to mail/what_can_i_accept
 		public class What_can_i_acceptArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -932,6 +977,7 @@ namespace Roar.WebObjects
 		// Arguments to mail/what_can_i_send
 		public class What_can_i_sendArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -956,6 +1002,7 @@ namespace Roar.WebObjects
 		// Arguments to shop/list
 		public class ListArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -975,7 +1022,7 @@ namespace Roar.WebObjects
 		public class BuyArguments
 		{
 			public string shop_item_ikey;
-			
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -1001,6 +1048,7 @@ namespace Roar.WebObjects
 		// Arguments to scripts/run
 		public class RunArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -1025,6 +1073,7 @@ namespace Roar.WebObjects
 		// Arguments to tasks/list
 		public class ListArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -1070,6 +1119,7 @@ namespace Roar.WebObjects
 		// Arguments to user/achievements
 		public class AchievementsArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -1088,6 +1138,7 @@ namespace Roar.WebObjects
 		// Arguments to user/change_name
 		public class Change_nameArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -1106,6 +1157,7 @@ namespace Roar.WebObjects
 		// Arguments to user/change_password
 		public class Change_passwordArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -1126,12 +1178,12 @@ namespace Roar.WebObjects
 		{
 			public string name;
 			public string hash;
-			
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval["name"]=name;
-				retval["hash"]=hash;
+				retval["name"] = name;
+				retval["hash"] = hash;
 				return retval;
 			}
 		}
@@ -1149,12 +1201,12 @@ namespace Roar.WebObjects
 		{
 			public string name;
 			public string hash;
-			
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval["name"]=name;
-				retval["hash"]=hash;
+				retval["name"] = name;
+				retval["hash"] = hash;
 				return retval;
 			}
 		}
@@ -1171,6 +1223,7 @@ namespace Roar.WebObjects
 		public class Login_facebook_oauthArguments
 		{
 			public string oauth_token;
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -1190,6 +1243,7 @@ namespace Roar.WebObjects
 		// Arguments to user/logout
 		public class LogoutArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -1210,11 +1264,12 @@ namespace Roar.WebObjects
 		{
 			public string ikey;
 			public string data;
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval["ikey"]=ikey;
-				retval["data"]=data;
+				retval["ikey"] = ikey;
+				retval["data"] = data;
 				return retval;
 			}
 		}
@@ -1231,10 +1286,11 @@ namespace Roar.WebObjects
 		public class Netdrive_fetchArguments
 		{
 			public string ikey;
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval["ikey"]=ikey;
+				retval["ikey"] = ikey;
 				return retval;
 			}
 		}
@@ -1252,6 +1308,7 @@ namespace Roar.WebObjects
 		// Arguments to user/set
 		public class SetArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -1270,6 +1327,7 @@ namespace Roar.WebObjects
 		// Arguments to user/view
 		public class ViewArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -1294,6 +1352,7 @@ namespace Roar.WebObjects
 		// Arguments to urbanairship/ios_register
 		public class Ios_registerArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -1312,6 +1371,7 @@ namespace Roar.WebObjects
 		// Arguments to urbanairship/push
 		public class PushArguments
 		{
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
