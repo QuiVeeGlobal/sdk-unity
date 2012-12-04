@@ -108,7 +108,7 @@ namespace Roar.implementation.Components
 			if (dataStore.shop.HasDataFromServer) {
 				// Build sanitised ARRAY of ikeys from Shop.list()
 				IList<DomainObjects.ShopEntry> l = dataStore.shop.List ();
-				var ikeyList = new ArrayList ();
+				var ikeyList = new List<string> ();
 
 				foreach (DomainObjects.ShopEntry v in l) {
 					// TODO: This is a new-style fudge that should be undone.

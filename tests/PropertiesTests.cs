@@ -102,7 +102,7 @@ public class PropertiesTests : ComponentTests
     
     //returns a list of properties with the expected data structure
     int expectedPropertyCount = 15;
-    ArrayList propertyHashtables = properties.List();
+    IList<Foo> propertyHashtables = properties.List();
     Assert.AreEqual(expectedPropertyCount, propertyHashtables.Count);
     
 

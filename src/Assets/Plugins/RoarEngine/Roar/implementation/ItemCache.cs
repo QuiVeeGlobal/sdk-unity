@@ -1,11 +1,23 @@
 using DC = Roar.implementation.DataConversion;
 using System.Collections;
+using System.Collections.Generic;
+
+//TODO: Remove this!
+public class Foo : Roar.DomainObjects.IDomainObject
+{
+	//TODO: Fix thio
+	public string value;
+	public bool MatchesKey(string s)
+	{
+		return true;
+	}
+}
 
 namespace Roar.implementation
 {
-	public class ItemCache : DataModel
+	public class ItemCache : DataModel<Foo>
 	{
-		public ItemCache (string name, string url, string node, ArrayList conditions, DC.IXmlToHashtable xmlParser, IRequestSender api, Roar.ILogger logger)
+		public ItemCache (string name, string url, string node, ArrayList conditions, DC.IXmlToObject<Foo> xmlParser, IRequestSender api, Roar.ILogger logger)
 		: base(name,url,node,conditions,xmlParser,api,logger)
 		{
 		}
@@ -13,15 +25,15 @@ namespace Roar.implementation
 		/**
 	    * Fetches details about `items` array and adds to item Cache Model
 	    */
-		public bool AddToCache (ArrayList items, Roar.RequestCallback cb=null)
+		public bool AddToCache ( IList<string> items, Roar.RequestCallback cb=null)
 		{
-			ArrayList batch = ItemsNotInCache (items);
+			IList<string> batch = ItemsNotInCache (items);
 
 			// Make the call if there are new items to fetch,
 			// passing the `batch` list and persisting the Model data (adding)
 			// Returns `true` if items are to be added, `false` if nothing to add
 			if (batch.Count > 0) {
-				var keysAsJSON = Roar.Json.ArrayToJSON (batch) as string;
+				var keysAsJSON = Roar.Json.ArrayToJSON (batch);
 				Hashtable args = new Hashtable ();
 				args ["item_ikeys"] = keysAsJSON;
 				Fetch (cb, args, true);
@@ -34,17 +46,17 @@ namespace Roar.implementation
 	   * Takes an array of items and returns an new array of any that are
 	   * NOT currently in cache.
 	   */
-		public ArrayList ItemsNotInCache (ArrayList items)
+		public IList<string> ItemsNotInCache (IList<string> items)
 		{
 			// First build a list of "new" items to add to cache
 			if (!HasDataFromServer) {
-				return items.Clone () as ArrayList;
+				return new List<string>( items );
 			}
 
-			var batch = new ArrayList ();
+			List<string> batch = new List<string>();
 			for (int i=0; i<items.Count; i++)
-				if (!Has ((items [i] as string)))
-					batch.Add (items [i]);
+				if ( ! Has( items [i] ) )
+					batch.Add (items [i] );
 
 			return batch;
 		}

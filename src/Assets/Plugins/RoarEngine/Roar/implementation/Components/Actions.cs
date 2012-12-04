@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using Roar.Components;
 
 namespace Roar.implementation.Components
@@ -21,7 +21,7 @@ namespace Roar.implementation.Components
 			dataStore.actions.Fetch (callback);
 		}
 
-		public ArrayList List ()
+		public IList<Foo> List ()
 		{
 			return dataStore.actions.List ();
 		}

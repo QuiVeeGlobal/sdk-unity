@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+
 
 namespace Roar.Components
 {
@@ -61,7 +63,7 @@ namespace Roar.Components
 	     *       is called prior to the successful completion of a #fetch call,
 	     *       it will return an empty array.
 	     **/
-		ArrayList List ();
+		IList<Foo> List ();
 
 		/**
 	     * Returns the property object for a given key.

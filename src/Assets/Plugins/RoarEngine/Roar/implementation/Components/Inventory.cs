@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Collections;
 using Roar.Components;
 using UnityEngine;
@@ -25,15 +26,8 @@ namespace Roar.implementation.Components
 			dataStore.inventory.Fetch (callback);
 		}
 
-		public ArrayList List ()
+		public IList<DomainObjects.Item> List ()
 		{
-			return List (null);
-		}
-
-		public ArrayList List (Roar.Callback<ArrayList> callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<ArrayList> (dataStore.inventory.List ()));
 			return dataStore.inventory.List ();
 		}
 
@@ -67,14 +61,16 @@ namespace Roar.implementation.Components
 
 			public override void HandleSuccess ( CallbackInfo<WebObjects.Items.EquipResponse> info)
 			{
-				var item = inventory.dataStore.inventory.Get (id);
-				item ["equipped"] = true;
+				DomainObjects.Item item = inventory.dataStore.inventory.Get (id);
+				item.equipped = true;
+				
+				//TODO: Fixup this return value
 				Hashtable returnObj = new Hashtable ();
-				returnObj ["id"] = id;
-				returnObj ["ikey"] = item ["ikey"];
-				returnObj ["label"] = item ["label"];
+				returnObj ["id"] = item.id;
+				returnObj ["ikey"] = item.ikey;
+				returnObj ["label"] = item.label;
 
-				RoarManager.OnGoodActivated (new RoarManager.GoodInfo (id, item ["ikey"] as string, item ["label"] as string));
+				RoarManager.OnGoodActivated (new RoarManager.GoodInfo (id, item.ikey, item.label));
 			}
 		}
 
@@ -105,14 +101,16 @@ namespace Roar.implementation.Components
 
 			public override void HandleSuccess ( CallbackInfo<Roar.WebObjects.Items.UnequipResponse> info)
 			{
-				var item = inventory.dataStore.inventory.Get (id);
-				item ["equipped"] = false;
+				DomainObjects.Item item = inventory.dataStore.inventory.Get (id);
+				item.equipped = false;
+				
+				//TODO: Fix this up
 				Hashtable returnObj = new Hashtable ();
-				returnObj ["id"] = id;
-				returnObj ["ikey"] = item ["ikey"];
-				returnObj ["label"] = item ["label"];
+				returnObj ["id"] = item.id;
+				returnObj ["ikey"] = item.ikey;
+				returnObj ["label"] = item.label;
 
-				RoarManager.OnGoodDeactivated (new RoarManager.GoodInfo (id, item ["ikey"] as string, item ["label"] as string));
+				RoarManager.OnGoodDeactivated (new RoarManager.GoodInfo (item.id, item.ikey, item.label));
 			}
 		}
 
@@ -135,15 +133,15 @@ namespace Roar.implementation.Components
 		public void Sell (string id, Roar.Callback<Roar.WebObjects.Items.SellResponse> callback)
 		{
 
-			var item = dataStore.inventory.Get (id as string);
+			DomainObjects.Item item = dataStore.inventory.Get(id);
 			if (item == null) {
 				logger.DebugLog ("[roar] -- Failed: no record with id: " + id);
 				return;
 			}
 
 			// Ensure item is sellable first
-			if ((bool)item ["sellable"] != true) {
-				var error = item ["ikey"] + ": Good is not sellable";
+			if ( !item.sellable ) {
+				var error = item.ikey + ": Good is not sellable";
 				logger.DebugLog ("[roar] -- " + error);
 				if (callback != null)
 					callback (new Roar.CallbackInfo<Roar.WebObjects.Items.SellResponse> (null, IWebAPI.DISALLOWED, error));
@@ -169,15 +167,17 @@ namespace Roar.implementation.Components
 
 			public override void HandleSuccess (Roar.CallbackInfo<Roar.WebObjects.Items.SellResponse> info)
 			{
-				var item = inventory.dataStore.inventory.Get (id);
+				DomainObjects.Item item = inventory.dataStore.inventory.Get (id);
+				
+				//TODO: Fix this up
 				Hashtable returnObj = new Hashtable ();
 				returnObj ["id"] = id;
-				returnObj ["ikey"] = item ["ikey"];
-				returnObj ["label"] = item ["label"];
+				returnObj ["ikey"] = item.ikey;
+				returnObj ["label"] = item.label;
 
-				inventory.dataStore.inventory.Unset (id);
+				inventory.dataStore.inventory.Unset(item.id);
 
-				RoarManager.OnGoodSold (new RoarManager.GoodInfo (id, item ["ikey"] as string, item ["label"] as string));
+				RoarManager.OnGoodSold (new RoarManager.GoodInfo (item.id, item.ikey, item.label));
 			}
 		}
 
@@ -195,8 +195,8 @@ namespace Roar.implementation.Components
 			// GH#152: Ensure item is consumable first
 			logger.DebugLog (Roar.Json.ObjectToJSON (item));
 
-			if ((bool)item ["consumable"] != true) {
-				var error = item ["ikey"] + ": Good is not consumable";
+			if (!item.consumable) {
+				var error = item.ikey + ": Good is not consumable";
 				logger.DebugLog ("[roar] -- " + error);
 				if (callback != null)
 					callback (new Roar.CallbackInfo<Roar.WebObjects.Items.UseResponse> (null, IWebAPI.DISALLOWED, error));
@@ -222,15 +222,17 @@ namespace Roar.implementation.Components
 
 			public override void HandleSuccess (Roar.CallbackInfo<Roar.WebObjects.Items.UseResponse> info)
 			{
-				var item = inventory.dataStore.inventory.Get (id);
+				DomainObjects.Item item = inventory.dataStore.inventory.Get (id);
+				
+				//TODO: Make this work
 				Hashtable returnObj = new Hashtable ();
-				returnObj ["id"] = id;
-				returnObj ["ikey"] = item ["ikey"];
-				returnObj ["label"] = item ["label"];
+				returnObj ["id"] = item.id;
+				returnObj ["ikey"] = item.ikey;
+				returnObj ["label"] = item.label;
 
-				inventory.dataStore.inventory.Unset (id);
+				inventory.dataStore.inventory.Unset (item.id);
 
-				RoarManager.OnGoodUsed (new RoarManager.GoodInfo (id, item ["ikey"] as string, item ["label"] as string));
+				RoarManager.OnGoodUsed (new RoarManager.GoodInfo (item.id, item.ikey, item.label));
 			}
 		}
 
@@ -241,7 +243,7 @@ namespace Roar.implementation.Components
 		}
 
 		// Returns raw data object for inventory
-		public Hashtable GetGood (string id)
+		public DomainObjects.Item GetGood (string id)
 		{
 			return dataStore.inventory.Get (id);
 		}
@@ -250,31 +252,31 @@ namespace Roar.implementation.Components
 		{
 			// Only add to inventory if it Has previously been intialised
 			if (HasDataFromServer) {
-				var keysToAdd = new ArrayList ();
-				var id = d.GetAttribute ("item_id");
-				var ikey = d.GetAttribute ("item_ikey");
+			
+				//TODO: Implement this!
+				
+				DomainObjects.Item item = new DomainObjects.Item();
+				item.id = d.GetAttribute ("item_id");
+				item.ikey = d.GetAttribute ("item_ikey");
+				
 
-				keysToAdd.Add (ikey);
-
-				if (!dataStore.cache.Has (ikey)) {
-					dataStore.cache.AddToCache (keysToAdd, h => AddToInventory (ikey, id));
+				if (!dataStore.cache.Has ( item.ikey) )
+				{
+					dataStore.cache.AddToCache (new List<string> { item.ikey }, h => AddToInventory (item.ikey, item.id));
 				} else
-					AddToInventory (ikey, id);
+					AddToInventory (item.ikey, item.id);
 			}
 		}
 
 		protected void AddToInventory (string ikey, string id)
 		{
 			// Prepare the item to manually add to Inventory
-			Hashtable item = new Hashtable ();
-			item [id] = DataModel.Clone (dataStore.cache.Get (ikey));
-
-			// Also set the internal reference id (used by templates)
-			var idspec = item [id] as Hashtable;
-			idspec ["id"] = id;
+			DomainObjects.Item item = new DomainObjects.Item();
+			item.item_prototype = dataStore.cache.Get (ikey);
 
 			// Manually add to inventory
-			dataStore.inventory.Set (item);
+			dataStore.inventory.attributes[id]=item;
+			dataStore.inventory.Change();
 		}
 
 	}

@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using Roar.Components;
 using UnityEngine;
 
@@ -22,14 +22,14 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return dataStore.gifts.HasDataFromServer; } }
 
-		public ArrayList List ()
+		public IList<Foo> List ()
 		{
 			return dataStore.gifts.List ();
 		}
 
 
 		// Returns the gift Hashtable associated with attribute `id`
-		public Hashtable GetGift (string id)
+		public Foo GetGift (string id)
 		{
 			return dataStore.gifts.Get (id);
 		}

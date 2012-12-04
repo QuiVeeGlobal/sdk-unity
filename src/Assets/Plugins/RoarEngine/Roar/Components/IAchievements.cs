@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Roar.Components
 {
@@ -63,7 +63,7 @@ namespace Roar.Components
 	     *       is called prior to the successful completion of a #fetch call,
 	     *       it will return an empty array.
 	     **/
-		ArrayList List ();
+		IList<Foo> List ();
 
 		/**
 	     * Returns the achievement object for a given key.
@@ -73,6 +73,6 @@ namespace Roar.Components
 	     * @returns the property Hashtable associated with the *key*
 	     *          or null if the achievement does not exist in the data store.
 	     **/
-		Hashtable GetAchievement (string ikey);
+		Foo GetAchievement (string ikey);
 	}
 }

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 using Roar.Components;
@@ -164,22 +165,26 @@ namespace Roar.implementation.Components
 				return;
 
 			// Build sanitised ARRAY of ikeys from Inventory.list()
-			var l = dataStore.inventory.List ();
-			var ikeyList = new ArrayList ();
+			IList<DomainObjects.Item> l = dataStore.inventory.List ();
+			List<string> ikeyList = new List<string> ();
 			for (int i=0; i<l.Count; i++)
-				ikeyList.Add ((l [i] as Hashtable) ["ikey"]);
+				ikeyList.Add ( l[i].ikey );
 
-			var toCache = dataStore.cache.ItemsNotInCache (ikeyList) as ArrayList;
+			IList<string> toCache = dataStore.cache.ItemsNotInCache (ikeyList);
 
 			// Build sanitised Hashtable of ikeys from Inventory
 			// No need to call server as information is already present
-			Hashtable cacheData = new Hashtable ();
+			Dictionary<string,Foo> cacheData = new Dictionary<string,Foo> ();
 			for (int i=0; i<toCache.Count; i++) {
 				for (int k=0; k<l.Count; k++) {
 					// If the Inventory ikey matches a value in the
 					// list of items to cache, add it to our `cacheData` obj
-					if ((l [k] as Hashtable) ["ikey"] == toCache [i])
-						cacheData [toCache [i]] = l [k];
+					if ( l[k].ikey == toCache [i])
+					{
+						//TODO: Fix this
+						//cacheData [toCache [i]] = l [k];
+						cacheData [toCache[i]] = new Foo();
+					}
 				}
 			}
 

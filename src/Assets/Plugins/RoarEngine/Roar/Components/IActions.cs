@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using Roar.WebObjects;
 
 namespace Roar.Components
@@ -109,7 +109,7 @@ namespace Roar.Components
 	   *       is called prior to the successful completion of a #fetch call,
 	   *       it will return an empty array.
 	   **/
-		ArrayList List ();
+		IList<Foo> List ();
 
 		/**
 	   * Initiates an action on the server, which evaluates the requirements and conditions for the action.

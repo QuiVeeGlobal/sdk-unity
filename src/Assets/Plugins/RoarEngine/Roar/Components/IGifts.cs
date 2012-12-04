@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Roar.Components
 {
@@ -62,7 +62,7 @@ namespace Roar.Components
 	     *       is called prior to the successful completion of a #fetch call,
 	     *       it will return an empty array.
 	     **/
-		ArrayList List ();
+		IList<Foo> List ();
 
 
 		/**
@@ -73,7 +73,7 @@ namespace Roar.Components
 	     * @returns the gift Hashtable associated with the *id*
 	     *          or null if the gift does not exist in the data store.
 	     **/
-		Hashtable GetGift (string id);
+		Foo GetGift (string id);
 
 	}
 }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using Roar.DomainObjects;
 
@@ -511,7 +512,7 @@ namespace Roar.implementation.DataConversion
 
 	}
 
-	public class XmlToInventoryItemHashtable : IXmlToHashtable
+	public class XmlToInventoryItemHashtable : IXmlToObject<DomainObjects.Item>
 	{
 		public ICRMParser CrmParser_;
 
@@ -525,13 +526,24 @@ namespace Roar.implementation.DataConversion
 			return n.GetAttribute ("id");
 		}
 
-		public Hashtable BuildHashtable (IXMLNode n)
+		public DomainObjects.Item Build (IXMLNode n)
 		{
-			Hashtable retval = new Hashtable ();
+			DomainObjects.Item retval = new DomainObjects.Item ();
+			
+			Dictionary<string,string> kv = n.Attributes.ToDictionary( v => v.Key, v => v.Value );
+			
+			
+			retval.id = kv["id"];
+			retval.ikey = kv["ikey"];
+			retval.label = kv["label"];
+			
+			/*
 			foreach (KeyValuePair<string,string> kv in n.Attributes) {
 				retval [kv.Key] = Native.Extract (kv.Value);
 			}
+			*/
 
+			/*
 			foreach (IXMLNode nn in n.Children) {
 				switch (nn.Name) {
 				case "price":
@@ -548,6 +560,7 @@ namespace Roar.implementation.DataConversion
 					break;
 				}
 			}
+			*/
 
 			return retval;
 		}
@@ -701,6 +714,20 @@ namespace Roar.implementation.DataConversion
 				retval [kv.Key] = Native.Extract (kv.Value);
 			}
 			return retval;
+		}
+	}
+	
+	//TODO: Remove me!
+	public class XmlToFoo : IXmlToObject<Foo>
+	{
+		public Foo Build(IXMLNode n)
+		{
+			return new Foo();
+		}
+		
+		public string GetKey (IXMLNode n)
+		{
+			return "monkey";
 		}
 	}
 

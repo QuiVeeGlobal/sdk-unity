@@ -253,6 +253,22 @@ namespace Roar
 			public IList<LeaderboardEntry> entries;
 
 		}
+		
+		public class Item : IDomainObject
+		{
+			public bool MatchesKey( string key )
+			{
+				return ikey==key;
+			}
+
+			public string id;
+			public string ikey;
+			public bool sellable;
+			public bool consumable;
+			public bool equipped;
+			public string label;
+			public Foo item_prototype;
+		}
 
 
 	}

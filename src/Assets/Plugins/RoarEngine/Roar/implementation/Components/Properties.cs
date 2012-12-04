@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Roar.Components;
 
 namespace Roar.implementation.Components
@@ -20,7 +21,7 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return dataStore.properties.HasDataFromServer; } }
 
-		public ArrayList List ()
+		public IList<Foo> List ()
 		{
 			return dataStore.properties.List ();
 		}
@@ -34,7 +35,7 @@ namespace Roar.implementation.Components
 		// Returns the *value* of attribute `key`
 		public string GetValue (string ikey)
 		{
-			return dataStore.properties.GetValue (ikey);
+			return dataStore.properties.Get(ikey).value;
 		}
 
 		protected void OnUpdate (IXMLNode update)

@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 using Roar.Components;
 using UnityEngine;
 
@@ -22,14 +22,14 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return dataStore.achievements.HasDataFromServer; } }
 
-		public ArrayList List ()
+		public IList<Foo> List ()
 		{
 			return dataStore.achievements.List ();
 		}
 
 
 		// Returns the achievement Hashtable associated with attribute `ikey`
-		public Hashtable GetAchievement (string ikey)
+		public Foo GetAchievement (string ikey)
 		{
 			return dataStore.achievements.Get (ikey);
 		}
