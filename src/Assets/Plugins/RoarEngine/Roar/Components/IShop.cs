@@ -88,7 +88,7 @@ namespace Roar.Components
 	   *
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   */
-		void Buy (string shop_ikey, Roar.RequestCallback callback);
+		void Buy (string shop_ikey, Roar.Callback<WebObjects.Shop.BuyResponse> callback);
 
 		/**
 	   * Get a list of all the available items in the shop.

@@ -41,8 +41,8 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 	public Roar.IConfig Config { get { return config; } }
 	protected Roar.IConfig config;
 
-	public IWebAPI WebAPI { get { return webAPI; } }
-	protected IWebAPI webAPI;
+	public ZWebAPI WebAPI { get { return webAPI; } }
+	protected ZWebAPI webAPI;
 
 	public Roar.Components.IUser User { get { return user; } }
 	protected Roar.Components.IUser user;
@@ -147,7 +147,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 
 		RequestSender api = new RequestSender(config,this,logger);
 		datastore = new Roar.implementation.DataStore(api, logger);
-		webAPI = new global::WebAPI(api);
+		webAPI = new global::ZWebAPI( new global::WebAPI(api) );
 		user = new Roar.implementation.Components.User(webAPI.user,datastore, logger);
 		properties = new Roar.implementation.Components.Properties( datastore );
 		leaderboards = new Roar.implementation.Components.Leaderboards(datastore, logger);
@@ -184,22 +184,22 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		return version;
 	}
 
-	public void Login( string username, string password, Roar.RequestCallback callback=null )
+	public void Login( string username, string password, Roar.Callback<Roar.WebObjects.User.LoginResponse> callback=null )
 	{
 		User.DoLogin(username,password,callback);
 	}
 
-	public void LoginFacebookOAuth( string oauth_token, Roar.RequestCallback callback=null )
+	public void LoginFacebookOAuth( string oauth_token, Roar.Callback<Roar.WebObjects.User.Login_facebook_oauthResponse> callback=null )
 	{
 		User.DoLoginFacebookOAuth(oauth_token,callback);
 	}
 
-	public void Logout( Roar.RequestCallback callback=null )
+	public void Logout( Roar.Callback<Roar.WebObjects.User.LogoutResponse> callback=null )
 	{
 		User.DoLogout(callback);
 	}
 
-	public void Create( string username, string password, Roar.RequestCallback callback=null )
+	public void Create( string username, string password, Roar.Callback<Roar.WebObjects.User.CreateResponse> callback=null )
 	{
 		User.DoCreate(username,password,callback);
 	}

@@ -7,10 +7,10 @@ namespace Roar.implementation.Components
 	public class Inventory : IInventory
 	{
 		protected DataStore dataStore;
-		protected IWebAPI.IItemsActions itemActions;
+		protected ZWebAPI.ItemsActions itemActions;
 		protected ILogger logger;
 
-		public Inventory (IWebAPI.IItemsActions itemActions, DataStore dataStore, ILogger logger)
+		public Inventory (ZWebAPI.ItemsActions itemActions, DataStore dataStore, ILogger logger)
 		{
 			this.itemActions = itemActions;
 			this.dataStore = dataStore;
@@ -37,7 +37,7 @@ namespace Roar.implementation.Components
 			return dataStore.inventory.List ();
 		}
 
-		public void Activate (string id, Roar.RequestCallback callback)
+		public void Activate (string id, Roar.Callback<Roar.WebObjects.Items.EquipResponse> callback)
 		{
 			var item = dataStore.inventory.Get (id);
 			if (item == null) {
@@ -45,22 +45,27 @@ namespace Roar.implementation.Components
 				return;
 			}
 
-			Hashtable args = new Hashtable ();
-			args ["item_id"] = id;
+
+			Roar.WebObjects.Items.EquipArguments args = new Roar.WebObjects.Items.EquipArguments();
+			args.item_id = id;
+			
 			itemActions.equip (args, new ActivateCallback (callback, this, id));
 		}
-		class ActivateCallback : SimpleRequestCallback
+		
+
+		
+		class ActivateCallback : CBBase<Roar.WebObjects.Items.EquipResponse>
 		{
 			Inventory inventory;
 			string id;
 
-			public ActivateCallback (Roar.RequestCallback in_cb, Inventory in_inventory, string in_id) : base(in_cb)
+			public ActivateCallback (Callback<Roar.WebObjects.Items.EquipResponse> in_cb, Inventory in_inventory, string in_id) : base(in_cb)
 			{
 				inventory = in_inventory;
 				id = in_id;
 			}
 
-			public override void OnSuccess (RequestResult info)
+			public override void HandleSuccess ( CallbackInfo<WebObjects.Items.EquipResponse> info)
 			{
 				var item = inventory.dataStore.inventory.Get (id);
 				item ["equipped"] = true;
@@ -73,7 +78,7 @@ namespace Roar.implementation.Components
 			}
 		}
 
-		public void Deactivate (string id, Roar.RequestCallback callback)
+		public void Deactivate (string id, Roar.Callback<Roar.WebObjects.Items.UnequipResponse> callback)
 		{
 			var item = dataStore.inventory.Get (id as string);
 			if (item == null) {
@@ -81,23 +86,24 @@ namespace Roar.implementation.Components
 				return;
 			}
 
-			Hashtable args = new Hashtable ();
-			args ["item_id"] = id;
+			WebObjects.Items.UnequipArguments args = new Roar.WebObjects.Items.UnequipArguments();
+			args.item_id = id;
 
 			itemActions.unequip (args, new DeactivateCallback (callback, this, id));
 		}
-		class DeactivateCallback : SimpleRequestCallback
+		class DeactivateCallback : CBBase<Roar.WebObjects.Items.UnequipResponse>
 		{
 			Inventory inventory;
 			string id;
 
-			public DeactivateCallback (Roar.RequestCallback in_cb, Inventory in_inventory, string in_id) : base(in_cb)
+
+			public DeactivateCallback (Callback<Roar.WebObjects.Items.UnequipResponse> in_cb, Inventory in_inventory, string in_id) : base( in_cb )
 			{
 				inventory = in_inventory;
 				id = in_id;
 			}
 
-			public override void OnSuccess (RequestResult info)
+			public override void HandleSuccess ( CallbackInfo<Roar.WebObjects.Items.UnequipResponse> info)
 			{
 				var item = inventory.dataStore.inventory.Get (id);
 				item ["equipped"] = false;
@@ -126,7 +132,7 @@ namespace Roar.implementation.Components
 
 
 		// `sell(id)` performs a sell on the item `id` specified
-		public void Sell (string id, Roar.RequestCallback callback)
+		public void Sell (string id, Roar.Callback<Roar.WebObjects.Items.SellResponse> callback)
 		{
 
 			var item = dataStore.inventory.Get (id as string);
@@ -140,28 +146,28 @@ namespace Roar.implementation.Components
 				var error = item ["ikey"] + ": Good is not sellable";
 				logger.DebugLog ("[roar] -- " + error);
 				if (callback != null)
-					callback (new Roar.RequestResult (null, IWebAPI.DISALLOWED, error));
+					callback (new Roar.CallbackInfo<Roar.WebObjects.Items.SellResponse> (null, IWebAPI.DISALLOWED, error));
 				return;
 			}
 
-			Hashtable args = new Hashtable ();
-			args ["item_id"] = id;
+			WebObjects.Items.SellArguments args = new Roar.WebObjects.Items.SellArguments();
+			args.item_id = id;
 
 			itemActions.sell (args, new SellCallback (callback, this, id));
 		}
 
-		class SellCallback : SimpleRequestCallback
+		class SellCallback : CBBase<Roar.WebObjects.Items.SellResponse>
 		{
 			Inventory inventory;
 			string id;
 
-			public SellCallback (Roar.RequestCallback in_cb, Inventory in_inventory, string in_id) : base(in_cb)
+			public SellCallback (Roar.Callback<Roar.WebObjects.Items.SellResponse> in_cb, Inventory in_inventory, string in_id) : base(in_cb)
 			{
 				inventory = in_inventory;
 				id = in_id;
 			}
 
-			public override void OnSuccess (RequestResult info)
+			public override void HandleSuccess (Roar.CallbackInfo<Roar.WebObjects.Items.SellResponse> info)
 			{
 				var item = inventory.dataStore.inventory.Get (id);
 				Hashtable returnObj = new Hashtable ();
@@ -176,7 +182,7 @@ namespace Roar.implementation.Components
 		}
 
 		// `use(id)` consumes/uses the item `id`
-		public void Use (string id, Roar.RequestCallback callback)
+		public void Use (string id, Roar.Callback<Roar.WebObjects.Items.UseResponse> callback)
 		{
 
 			var item = dataStore.inventory.Get (id as string);
@@ -193,29 +199,28 @@ namespace Roar.implementation.Components
 				var error = item ["ikey"] + ": Good is not consumable";
 				logger.DebugLog ("[roar] -- " + error);
 				if (callback != null)
-					callback (new Roar.RequestResult (null, IWebAPI.DISALLOWED, error));
+					callback (new Roar.CallbackInfo<Roar.WebObjects.Items.UseResponse> (null, IWebAPI.DISALLOWED, error));
 				return;
 			}
 
-
-			Hashtable args = new Hashtable ();
-			args ["item_id"] = id;
-
+			WebObjects.Items.UseArguments args = new Roar.WebObjects.Items.UseArguments();
+			args.item_id = id;
+			
 			itemActions.use (args, new UseCallback (callback, this, id));
 		}
 
-		class UseCallback : SimpleRequestCallback
+		class UseCallback : CBBase<Roar.WebObjects.Items.UseResponse>
 		{
 			Inventory inventory;
 			string id;
 
-			public UseCallback (Roar.RequestCallback in_cb, Inventory in_inventory, string in_id) : base(in_cb)
+			public UseCallback (Roar.Callback<Roar.WebObjects.Items.UseResponse> in_cb, Inventory in_inventory, string in_id) : base(in_cb)
 			{
 				inventory = in_inventory;
 				id = in_id;
 			}
 
-			public override void OnSuccess (RequestResult info)
+			public override void HandleSuccess (Roar.CallbackInfo<Roar.WebObjects.Items.UseResponse> info)
 			{
 				var item = inventory.dataStore.inventory.Get (id);
 				Hashtable returnObj = new Hashtable ();
@@ -230,7 +235,7 @@ namespace Roar.implementation.Components
 		}
 
 		// `remove(id)` for now is simply an *alias* to sell
-		public void Remove (string id, Roar.RequestCallback callback)
+		public void Remove (string id, Roar.Callback<Roar.WebObjects.Items.SellResponse> callback)
 		{
 			Sell (id, callback);
 		}

@@ -6,9 +6,9 @@ namespace Roar.implementation.Components
 	public class Actions : IActions
 	{
 		protected DataStore dataStore;
-		protected IWebAPI.ITasksActions taskActions;
+		protected ZWebAPI.TasksActions taskActions;
 
-		public Actions (IWebAPI.ITasksActions taskActions, DataStore dataStore)
+		public Actions (ZWebAPI.TasksActions taskActions, DataStore dataStore)
 		{
 			this.taskActions = taskActions;
 			this.dataStore = dataStore;
@@ -26,33 +26,30 @@ namespace Roar.implementation.Components
 			return dataStore.actions.List ();
 		}
 
-		public void Execute (string ikey, Roar.RequestCallback callback)
+		public void Execute (string ikey, Roar.Callback<WebObjects.Tasks.StartResponse> callback)
 		{
-
-			Hashtable args = new Hashtable ();
-			args ["task_ikey"] = ikey;
-
-			taskActions.start (args, new OnActionsDo (callback, this));
+			WebObjects.Tasks.StartArguments args = new WebObjects.Tasks.StartArguments();
+			args.ikey = ikey;
+			taskActions.start (args, new OnActionsDo (callback));
 		}
-		class OnActionsDo : SimpleRequestCallback
+		class OnActionsDo : ZWebAPI.Callback<WebObjects.Tasks.StartResponse>
 		{
 			//Actions actions;
+			Roar.Callback<WebObjects.Tasks.StartResponse> cb_;
 
-			public OnActionsDo (Roar.RequestCallback in_cb, Actions in_actions) : base(in_cb)
+			public OnActionsDo (Roar.Callback<WebObjects.Tasks.StartResponse> in_cb)
 			{
-				//actions = in_actions;
+				cb_ = in_cb;
 			}
 
-			public override void OnSuccess (RequestResult info)
+			public void OnError( Roar.RequestResult nn )
 			{
-				// Event complete info (task_complete) is sent in a <server> chunk
-				// (backend quirk related to potentially asynchronous tasks)
-				// In this case its ALWAYS a synchronous call, so we KNOW the data will
-				// be available - data is formatted in WebAPI Class.
-				//var eventData = d["server"] as Hashtable;
-				IXMLNode eventData = info.data.GetFirstChild ("server");
+				cb_( new CallbackInfo<WebObjects.Tasks.StartResponse>(null, nn.code, nn.msg) );
+			}
 
-				RoarManager.OnEventDone (eventData);
+			public void OnSuccess ( CallbackInfo<WebObjects.Tasks.StartResponse> info)
+			{
+				cb_(info);
 			}
 		}
 	}

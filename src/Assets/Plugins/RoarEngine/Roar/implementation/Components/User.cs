@@ -8,10 +8,10 @@ namespace Roar.implementation.Components
 	public class User : IUser
 	{
 		protected DataStore dataStore;
-		IWebAPI.IUserActions userActions;
+		ZWebAPI.UserActions userActions;
 		ILogger logger;
 
-		public User (IWebAPI.IUserActions userActions, DataStore dataStore, ILogger logger)
+		public User (ZWebAPI.UserActions userActions, DataStore dataStore, ILogger logger)
 		{
 			this.userActions = userActions;
 			this.dataStore = dataStore;
@@ -31,67 +31,67 @@ namespace Roar.implementation.Components
 		// ---- Access Methods ----
 		// ------------------------
 
-		public void DoLogin (string name, string hash, Roar.RequestCallback cb)
+		public void DoLogin (string name, string hash, Roar.Callback<WebObjects.User.LoginResponse> cb)
 		{
 			if (name == "" || hash == "") {
 				logger.DebugLog ("[roar] -- Must specify username and password for login");
 				return;
 			}
 
-			Hashtable args = new Hashtable ();
-			args ["name"] = name;
-			args ["hash"] = hash;
+			WebObjects.User.LoginArguments args = new WebObjects.User.LoginArguments();
+			args.name = name;
+			args.hash = hash;
 			userActions.login (args, new LoginCallback (cb, this));
 		}
 
-		protected class LoginCallback : SimpleRequestCallback
+		protected class LoginCallback : CBBase<WebObjects.User.LoginResponse>
 		{
 			protected User user;
 
-			public LoginCallback (Roar.RequestCallback in_cb, User in_user) : base(in_cb)
+			public LoginCallback (Roar.Callback<WebObjects.User.LoginResponse> in_cb, User in_user) : base(in_cb)
 			{
 				user = in_user;
 			}
 
-			public override void OnFailure (RequestResult info)
+			public override void HandleError (RequestResult info)
 			{
 				RoarManager.OnLogInFailed (info.msg);
 			}
 
-			public override void OnSuccess (RequestResult info)
+			public override void HandleSuccess (CallbackInfo<WebObjects.User.LoginResponse> info)
 			{
 				RoarManager.OnLoggedIn ();
 				// @todo Perform auto loading of game and player data
 			}
 		}
 
-		public void DoLoginFacebookOAuth (string oauth_token, Roar.RequestCallback cb)
+		public void DoLoginFacebookOAuth (string oauth_token, Roar.Callback<WebObjects.User.Login_facebook_oauthResponse> cb)
 		{
 			if (oauth_token == "") {
 				logger.DebugLog ("[roar] -- Must specify oauth_token for facebook login");
 				return;
 			}
 
-			Hashtable args = new Hashtable ();
-			args ["oauth_token"] = oauth_token;
+			WebObjects.User.Login_facebook_oauthArguments args = new Roar.WebObjects.User.Login_facebook_oauthArguments();
+			args.oauth_token = oauth_token;
 
 			userActions.login_facebook_oauth (args, new LoginFacebookOAuthCallback (cb, this));
 		}
-		class LoginFacebookOAuthCallback : SimpleRequestCallback
+		class LoginFacebookOAuthCallback : CBBase<WebObjects.User.Login_facebook_oauthResponse>
 		{
 			protected User user;
 
-			public LoginFacebookOAuthCallback (Roar.RequestCallback in_cb, User in_user) : base( in_cb )
+			public LoginFacebookOAuthCallback (Roar.Callback<WebObjects.User.Login_facebook_oauthResponse> in_cb, User in_user) : base( in_cb )
 			{
 				user = in_user;
 			}
 
-			public override void OnFailure (RequestResult info)
+			public override void HandleError (RequestResult info)
 			{
 				RoarManager.OnLogInFailed (info.msg);
 			}
 
-			public override void OnSuccess (RequestResult info)
+			public override void HandleSuccess (CallbackInfo<WebObjects.User.Login_facebook_oauthResponse> info)
 			{
 				RoarManager.OnLoggedIn ();
 				// @todo Perform auto loading of game and player data
@@ -99,22 +99,23 @@ namespace Roar.implementation.Components
 		}
 
 
-		public void DoLogout (Roar.RequestCallback cb)
+		public void DoLogout (Roar.Callback<WebObjects.User.LogoutResponse> cb)
 		{
-			userActions.logout (null, new LogoutCallback (cb, this));
+			WebObjects.User.LogoutArguments args = new Roar.WebObjects.User.LogoutArguments();
+			userActions.logout (args, new LogoutCallback (cb, this));
 		}
 
-		protected class LogoutCallback : SimpleRequestCallback
+		protected class LogoutCallback : CBBase<WebObjects.User.LogoutResponse>
 		{
 			protected User user;
 
-			public LogoutCallback (Roar.RequestCallback in_cb, User in_user) : base(in_cb)
+			public LogoutCallback (Roar.Callback<WebObjects.User.LogoutResponse> in_cb, User in_user) : base(in_cb)
 			{
 				user = in_user;
 				cb = in_cb;
 			}
 
-			public override void OnSuccess (RequestResult info)
+			public override void HandleSuccess (CallbackInfo<WebObjects.User.LogoutResponse> info)
 			{
 				RoarManager.OnLoggedOut ();
 			}
@@ -122,33 +123,34 @@ namespace Roar.implementation.Components
 		};
 
 
-		public void DoCreate (string name, string hash, Roar.RequestCallback cb)
+		public void DoCreate (string name, string hash, Roar.Callback<WebObjects.User.CreateResponse> cb)
 		{
 			if (name == "" || hash == "") {
 				logger.DebugLog ("[roar] -- Must specify username and password for login");
 				return;
 			}
-			Hashtable args = new Hashtable ();
-			args ["name"] = name;
-			args ["hash"] = hash;
+			
+			WebObjects.User.CreateArguments args = new Roar.WebObjects.User.CreateArguments();
+			args.name = name;
+			args.hash = hash;
 
 			userActions.create (args, new CreateCallback (cb, this));
 		}
-		protected class CreateCallback : SimpleRequestCallback
+		protected class CreateCallback : CBBase<WebObjects.User.CreateResponse>
 		{
 			protected User user;
 
-			public CreateCallback (Roar.RequestCallback in_cb, User in_user) : base(in_cb)
+			public CreateCallback (Roar.Callback<WebObjects.User.CreateResponse> in_cb, User in_user) : base(in_cb)
 			{
 				user = in_user;
 			}
 
-			public override void OnFailure (RequestResult info)
+			public override void HandleError (RequestResult info)
 			{
 				RoarManager.OnCreateUserFailed (info.msg);
 			}
 
-			public override void OnSuccess (RequestResult info)
+			public override void HandleSuccess (CallbackInfo<WebObjects.User.CreateResponse> info)
 			{
 				RoarManager.OnCreatedUser ();
 				RoarManager.OnLoggedIn ();

@@ -243,7 +243,7 @@ public interface IRoar
    * @note The callbacks used by the #IWebAPI are slightly different from the Callbacks used by
    * the other functions in #IRoar .
    */
-	IWebAPI WebAPI { get; }
+	ZWebAPI WebAPI { get; }
 
 	/**
    * Get access to the players properties and stats.
@@ -318,7 +318,7 @@ public interface IRoar
    * @param hash the players password
    * @param cb the callback function to be passed the result of doLogin.
    **/
-	void Login (string username, string password, Roar.RequestCallback callback=null);
+	void Login( string username, string password, Roar.Callback<Roar.WebObjects.User.LoginResponse> callback=null );
 
 	/**
    * Login a player using Facebook OAuth.
@@ -334,7 +334,7 @@ public interface IRoar
    * @param oauth_token the OAuth token.
    * @param cb the callback function to be passed the result of doLogin.
    **/
-	void LoginFacebookOAuth (string oauth_token, Roar.RequestCallback callback=null);
+	void LoginFacebookOAuth( string oauth_token, Roar.Callback<Roar.WebObjects.User.Login_facebook_oauthResponse> callback=null );
 
 	/**
    * Logs out a user.
@@ -348,7 +348,7 @@ public interface IRoar
    *
    * @param the callback function to be passed the result of doLoginFacebookOAuth.
    **/
-	void Logout (Roar.RequestCallback callback=null);
+	void Logout( Roar.Callback<Roar.WebObjects.User.LogoutResponse> callback=null );
 
 	/**
    * Creates a new user with the given username and password, and logs
@@ -366,7 +366,7 @@ public interface IRoar
    * @param hash the players password
    * @param cb the callback function to be passed the result of doCreate.
    **/
-	void Create (string username, string password, Roar.RequestCallback callback=null);
+	void Create( string username, string password, Roar.Callback<Roar.WebObjects.User.CreateResponse> callback=null );
 
 	/**
    * @todo Document me!

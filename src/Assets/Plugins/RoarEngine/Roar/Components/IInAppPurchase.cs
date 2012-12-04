@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using WebObjects = Roar.WebObjects;
 
 namespace Roar.Components
 {
@@ -17,7 +18,7 @@ namespace Roar.Components
 	     * Fetch appstore product keys from the roar server.
 	     * followed by product details from the appstore.
 	     **/
-		void Fetch (Roar.RequestCallback callback);
+		void Fetch (Roar.Callback<WebObjects.Appstore.Shop_listResponse> callback);
 
 		/**
 	     * Check whether appstore product keys have been obtained from the roar server
@@ -31,9 +32,9 @@ namespace Roar.Components
 
 		Hashtable GetShopItem (string productIdentifier);
 
-		void Purchase (string productId, Roar.Callback<string> cb, Roar.RequestCallback cbx);
+		void Purchase (string productId, Roar.Callback<string> cb, Roar.Callback<Roar.WebObjects.Appstore.BuyResponse> cbx);
 
-		void Purchase (string productId, int quantity, Roar.Callback<string> cb, Roar.RequestCallback cbx);
+		void Purchase (string productId, int quantity, Roar.Callback<string> cb,Roar.Callback<Roar.WebObjects.Appstore.BuyResponse> cbx);
 
 		bool PurchasesEnabled ();
 

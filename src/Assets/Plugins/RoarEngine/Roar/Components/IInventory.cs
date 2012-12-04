@@ -103,7 +103,7 @@ namespace Roar.Components
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   *
 	   **/
-		void Activate (string id, Roar.RequestCallback callback) ;
+		void Activate (string id, Roar.Callback<Roar.WebObjects.Items.EquipResponse> callback);
 
 		/**
 	   * Deactivates an item in the user's inventory.
@@ -124,7 +124,7 @@ namespace Roar.Components
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   *
 	   **/
-		void Deactivate (string id, Roar.RequestCallback callback);
+		void Deactivate (string id, Roar.Callback<Roar.WebObjects.Items.UnequipResponse> callback);
 
 		/**
 	   * Checks if the user's inventory contains at least one of a given item.
@@ -169,7 +169,7 @@ namespace Roar.Components
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   *
 	   **/
-		void Sell (string id, Roar.RequestCallback callback);
+		void Sell (string id, Roar.Callback<Roar.WebObjects.Items.SellResponse> callback);
 
 		/**
 	   * Consumes/uses an item in the user's inventory.
@@ -189,12 +189,12 @@ namespace Roar.Components
 	   *
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   **/
-		void Use (string id, Roar.RequestCallback callback);
+		void Use (string id, Roar.Callback<Roar.WebObjects.Items.UseResponse> callback);
 
 		/**
 	   * The remove function for now is simply an *alias* to #sell
 	   **/
-		void Remove (string id, Roar.RequestCallback callback);
+		void Remove (string id, Roar.Callback<Roar.WebObjects.Items.SellResponse> callback);
 
 		/**
 	   * Returns the inventory item for a given key.

@@ -11,7 +11,7 @@ public class MockRoar : DefaultRoar, IRoar
 
     api = new MockRequestSender (config, this, logger);
     Roar.implementation.DataStore data_store = new Roar.implementation.DataStore (api, logger);
-    webAPI = new global::WebAPI (api);
+    webAPI = new global::ZWebAPI ( new global::WebAPI(api) );
     user = new Roar.implementation.Components.User (webAPI.user, data_store, logger);
     properties = new Roar.implementation.Components.Properties (data_store);
     inventory = new Roar.implementation.Components.Inventory (webAPI.items, data_store, logger);

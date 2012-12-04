@@ -7,11 +7,11 @@ namespace Roar.implementation.Components
 {
 	public class Shop : IShop
 	{
-		protected IWebAPI.IShopActions shopActions;
+		protected ZWebAPI.ShopActions shopActions;
 		protected DataStore dataStore;
 		protected ILogger logger;
 
-		public Shop (IWebAPI.IShopActions shopActions, DataStore dataStore, ILogger logger)
+		public Shop (ZWebAPI.ShopActions shopActions, DataStore dataStore, ILogger logger)
 		{
 			this.shopActions = shopActions;
 			this.dataStore = dataStore;
@@ -27,7 +27,7 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return dataStore.shop.HasDataFromServer; } }
 
-		public void Buy (string shop_ikey, Roar.RequestCallback callback)
+		public void Buy (string shop_ikey, Roar.Callback<WebObjects.Shop.BuyResponse> callback)
 		{
 			ShopBuy (shop_ikey, callback);
 		}
@@ -44,7 +44,7 @@ namespace Roar.implementation.Components
 			return dataStore.shop.Get (ikey);
 		}
 
-		public void ShopBuy (string shop_ikey, Roar.RequestCallback cb)
+		public void ShopBuy (string shop_ikey, Roar.Callback<WebObjects.Shop.BuyResponse> cb)
 		{
 			var shop_item = dataStore.shop.Get (shop_ikey);
 
@@ -55,47 +55,49 @@ namespace Roar.implementation.Components
 			}
 			logger.DebugLog ("trying to buy me a : " + shop_item.as_json() );
 
-			Hashtable args = new Hashtable ();
-			args ["shop_item_ikey"] = shop_item.ikey;
+			WebObjects.Shop.BuyArguments args = new Roar.WebObjects.Shop.BuyArguments();
+			args.shop_item_ikey = shop_item.ikey;
 
 			shopActions.buy (args, new ShopBuyCallback (cb, this, shop_item.ikey));
 		}
 
-		protected class ShopBuyCallback : SimpleRequestCallback
+		protected class ShopBuyCallback : CBBase<WebObjects.Shop.BuyResponse>
 		{
 			//Shop shop;
 			string ikey;
 
-			public ShopBuyCallback (Roar.RequestCallback in_cb, Shop in_shop, string in_ikey) : base(in_cb)
+			public ShopBuyCallback ( Roar.Callback<WebObjects.Shop.BuyResponse> in_cb, Shop in_shop, string in_ikey) : base(in_cb)
 			{
 				//shop = in_shop;
 				ikey = in_ikey;
 			}
 
-			public override void OnSuccess (RequestResult info)
+			public override void HandleSuccess (CallbackInfo<WebObjects.Shop.BuyResponse> info)
 			{
-				IXMLNode result = info.data.GetNode ("roar>0>shop>0>buy>0");
+				//TODO: This needs to be implemented!
+				//IXMLNode result = info.data.GetNode ("roar>0>shop>0>buy>0");
 
 				// Obtain the server id for the purchased item
 				// NOTE: Assumes ONLY ONE item per "shopitem" entity
+				//TODO : So this assumption needs to be fixed!
 
-				IXMLNode cost = result.GetNode ("costs>0>cost>0");
-				IXMLNode item = result.GetNode ("modifiers>0>modifier>0");
+				//IXMLNode cost = result.GetNode ("costs>0>cost>0");
+				//IXMLNode item = result.GetNode ("modifiers>0>modifier>0");
 
 
-				string id = item.GetAttribute ("item_id");
+				//string id = item.GetAttribute ("item_id");
 
-				RoarManager.OnGoodBought (
-					new RoarManager.PurchaseInfo (
-						cost.GetAttribute ("ikey"), //currency_name
-						int.Parse (cost.GetAttribute ("value")), // item_price
-						ikey, // iitem_id
-						1                                      //item_qty
-				));
+				//RoarManager.OnGoodBought (
+				//	new RoarManager.PurchaseInfo (
+				//		cost.GetAttribute ("ikey"), //currency_name
+				//		int.Parse (cost.GetAttribute ("value")), // item_price
+				//		ikey, // iitem_id
+				//		1                                      //item_qty
+				//));
 
-				Hashtable data = new Hashtable ();
-				data ["id"] = id;
-				data ["ikey"] = ikey;
+				//Hashtable data = new Hashtable ();
+				//data ["id"] = id;
+				//data ["ikey"] = ikey;
 			}
 		}
 

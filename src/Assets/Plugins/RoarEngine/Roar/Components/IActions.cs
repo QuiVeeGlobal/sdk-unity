@@ -1,4 +1,5 @@
 using System.Collections;
+using Roar.WebObjects;
 
 namespace Roar.Components
 {
@@ -141,7 +142,7 @@ namespace Roar.Components
 	   *
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   **/
-		void Execute (string ikey, Roar.RequestCallback callback);
+		void Execute (string ikey, Roar.Callback<WebObjects.Tasks.StartResponse> callback);
 	}
 
 }

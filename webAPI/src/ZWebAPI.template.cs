@@ -26,55 +26,59 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
 using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using WebObjects = Roar.WebObjects;
 
-public class WebAPI : IWebAPI
+
+public class ZWebAPI
 {
-	protected IRequestSender requestSender_;
+	public IWebAPI iwebapi_;
 
-	public WebAPI (IRequestSender requestSender)
+	public ZWebAPI (IWebAPI iwebapi)
 	{
-		requestSender_ = requestSender;
+		iwebapi_ = iwebapi;
 
 <% _.each( data.modules, function(m,i,l) {
-     print( "\t\t" +m.name + "_ = new " + capitalizeFirst(m.name)+"Actions (requestSender);\n" );
+     print( "\t\t" +m.name + "_ = new " + capitalizeFirst(m.name)+"Actions (iwebapi."+m.name+");\n" );
      } );
 %>	}
 
 <% _.each( data.modules, function(m,i,l) {
-     print( "\tpublic override I" + capitalizeFirst(m.name) + "Actions "+m.name+" { get { return "+m.name+"_; } }\n\n" );
+     print( "\tpublic " + capitalizeFirst(m.name) + "Actions "+m.name+" { get { return "+m.name+"_; } }\n" );
      print( "\tpublic " + capitalizeFirst(m.name)+"Actions " +m.name + "_;\n\n" );
      } );
 %>
 
-	public class APIBridge
+	public interface Callback<T>
 	{
-		protected IRequestSender api;
-
-		public APIBridge (IRequestSender caller)
-		{
-			api = caller;
-		}
+		void OnError( Roar.RequestResult nn );
+		void OnSuccess( Roar.CallbackInfo<T> nn );
 	}
+
 <%
   _.each( data.modules, function(m,i,l) {
     var class_name = capitalizeFirst(m.name)+"Actions"
 %>
-	public class <%= class_name %> : APIBridge, I<%= class_name %>
+	public class <%= class_name %> 
 	{
-		public <%= class_name %> (IRequestSender caller) : base(caller)
+		public IWebAPI.I<%= class_name %> actions_;
+
+		public <%= class_name %> (IWebAPI.I<%= class_name %> actions)
 		{
+			actions_=actions;
 		}
 
 <% _.each( m.functions, function(f,j,ll) {
-     url = f.url ? f.url : (m.name+"/"+f.name);
-     obj = f.obj ? f.obj : "obj";
-     print("		public void "+fix_reserved_word(f.name)+" (Hashtable obj, IRequestCallback cb)\n");
-     print("		{\n");
-     print("			api.MakeCall (\""+url+"\", "+obj+", cb);\n");
-     print("		}\n\n");
+     var arg = "WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Arguments"
+     var response  = "WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Response"
+     print("\t\tpublic void "+fix_reserved_word(f.name)+" (" + arg +" args, Callback<"+response+"> cb)\n");
+     print("\t\t{\n");
+     print("\t\t\tactions_."+fix_reserved_word(f.name)+"(\n")
+     print("\t\t\t\targs.ToHashtable(),\n")
+     print("\t\t\t\tnew CallbackBridge<"+response+">(cb)\n")
+     print("\t\t\t\t);\n");
+     print("\t\t}\n\n");
 } ) %>	}
+
 <% } ) %>
 
 }

@@ -50,7 +50,7 @@ public abstract class IWebAPI
 <% _.each( m.functions, function(f,j,ll) {
      url = f.url ? f.url : (m.name+"/"+f.name);
      obj = f.obj ? f.obj : "obj";
-     print("\t\tvoid "+fix_reserved_word(f.name)+"( Hashtable obj, IRequestCallback<IXMLNode> cb);\n");
+     print("\t\tvoid "+fix_reserved_word(f.name)+"( Hashtable obj, IRequestCallback cb);\n");
 } ) %>	}
 <% } ) %>
 }
