@@ -49,7 +49,7 @@ public class PropertiesTests : ComponentTests
     Assert.IsFalse(properties.HasDataFromServer);
   }
   
-  protected void mockFetch(string mockResponse, Roar.RequestCallback cb) {
+  protected void mockFetch(string mockResponse, Roar.Callback< IDictionary<string,Property> > cb) {
     requestSender.addMockResponse("user/view", mockResponse);
     properties.Fetch(cb);
   }
@@ -57,7 +57,7 @@ public class PropertiesTests : ComponentTests
   [Test]
   public void testFetchSuccess() {
     bool callbackExecuted = false;
-    Roar.RequestCallback roarCallback = (Roar.RequestResult callbackInfo) => { 
+    Roar.Callback< IDictionary<string,Property> > roarCallback = (Roar.CallbackInfo< IDictionary<string,Property>> callbackInfo) => { 
       callbackExecuted=true;
       Assert.AreEqual(IWebAPI.OK, callbackInfo.code);
       Assert.IsNotNull(callbackInfo.data);
@@ -102,7 +102,7 @@ public class PropertiesTests : ComponentTests
     
     //returns a list of properties with the expected data structure
     int expectedPropertyCount = 15;
-    IList<Foo> propertyHashtables = properties.List();
+    IList<Property> propertyHashtables = properties.List();
     Assert.AreEqual(expectedPropertyCount, propertyHashtables.Count);
     
 
@@ -119,13 +119,13 @@ public class PropertiesTests : ComponentTests
     mockFetch(userView, null);
     
     //returns Hashtable of property if exists
-    Hashtable staminaProperty = properties.GetProperty("stamina") as Hashtable;
-    StringAssert.IsMatch("5", staminaProperty["value"] as String);
-    StringAssert.IsMatch("resource", staminaProperty["type"] as String);
-    StringAssert.IsMatch("123", staminaProperty["max"] as String);
-    StringAssert.IsMatch("0", staminaProperty["min"] as String);
-    StringAssert.IsMatch("1000", staminaProperty["regen_every"] as String);
-    StringAssert.IsMatch("Stamina", staminaProperty["label"] as String);
+    Property staminaProperty = properties.GetProperty("stamina");
+    StringAssert.IsMatch("5", staminaProperty.value);
+    StringAssert.IsMatch("resource", staminaProperty.type);
+    StringAssert.IsMatch("123", staminaProperty.max);
+    StringAssert.IsMatch("0", staminaProperty.min);
+    StringAssert.IsMatch("1000", staminaProperty.regen_every);
+    StringAssert.IsMatch("Stamina", staminaProperty.label);
 
     //returns null on property not existing
     Assert.IsNull(properties.GetProperty("doesnotexist"));

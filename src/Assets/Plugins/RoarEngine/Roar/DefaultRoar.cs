@@ -146,8 +146,9 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		}
 
 		RequestSender api = new RequestSender(config,this,logger);
-		datastore = new Roar.implementation.DataStore(api, logger);
 		webAPI = new global::ZWebAPI( new global::WebAPI(api) );
+
+		datastore = new Roar.implementation.DataStore(webAPI, api, logger);
 		user = new Roar.implementation.Components.User(webAPI.user,datastore, logger);
 		properties = new Roar.implementation.Components.Properties( datastore );
 		leaderboards = new Roar.implementation.Components.Leaderboards(datastore, logger);

@@ -14,20 +14,20 @@ namespace Roar.implementation.Components
 			RoarManager.roarServerUpdateEvent += this.OnUpdate;
 		}
 
-		public void Fetch (Roar.RequestCallback callback)
+		public void Fetch (Roar.Callback< IDictionary<string,Property> > callback)
 		{
 			dataStore.properties.Fetch (callback);
 		}
 
 		public bool HasDataFromServer { get { return dataStore.properties.HasDataFromServer; } }
 
-		public IList<Foo> List ()
+		public IList<Property> List ()
 		{
 			return dataStore.properties.List ();
 		}
 
 		// Returns the *object* associated with attribute `key`
-		public object GetProperty (string key)
+		public Property GetProperty (string key)
 		{
 			return dataStore.properties.Get (key);
 		}
@@ -46,9 +46,9 @@ namespace Roar.implementation.Components
 
 			//var d = event['data'] as Hashtable;
 
-			var v = GetProperty (update.GetAttribute ("ikey")) as Hashtable;
+			Property v = GetProperty (update.GetAttribute ("ikey"));
 			if (v != null) {
-				v ["value"] = update.GetAttribute ("value");
+				v.value = update.GetAttribute ("value");
 			}
 		}
 

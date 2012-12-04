@@ -15,8 +15,13 @@ public class CBBase<T> : ZWebAPI.Callback<T> where T : class
 	{
 	}
 	
+	public virtual void Prologue()
+	{
+	}
+	
 	public void OnSuccess( Roar.CallbackInfo<T> info)
 	{
+		Prologue();
 		HandleSuccess( info );
 		if(cb!=null)
 			cb( info );
@@ -24,6 +29,7 @@ public class CBBase<T> : ZWebAPI.Callback<T> where T : class
 			
 	public void OnError( Roar.RequestResult info)
 	{
+		Prologue();
 		HandleError( info );
 		if(cb!=null)
 			cb( new Roar.CallbackInfo<T>( null, info.code, info.msg ) );
