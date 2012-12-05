@@ -107,6 +107,7 @@ public class ZWebAPI
 		void OnSuccess( Roar.CallbackInfo<T> nn );
 	}
 
+
 	public class AdminActions 
 	{
 		public IWebAPI.IAdminActions actions_;
@@ -118,42 +119,27 @@ public class ZWebAPI
 
 		public void delete_player (WebObjects.Admin.Delete_playerArguments args, Callback<WebObjects.Admin.Delete_playerResponse> cb)
 		{
-			actions_.delete_player(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Admin.Delete_playerResponse>(cb)
-				);
+			actions_.delete_player(args,cb);
 		}
 
 		public void inrement_stat (WebObjects.Admin.Inrement_statArguments args, Callback<WebObjects.Admin.Inrement_statResponse> cb)
 		{
-			actions_.inrement_stat(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Admin.Inrement_statResponse>(cb)
-				);
+			actions_.inrement_stat(args,cb);
 		}
 
 		public void _set (WebObjects.Admin.SetArguments args, Callback<WebObjects.Admin.SetResponse> cb)
 		{
-			actions_._set(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Admin.SetResponse>(cb)
-				);
+			actions_._set(args,cb);
 		}
 
 		public void set_custom (WebObjects.Admin.Set_customArguments args, Callback<WebObjects.Admin.Set_customResponse> cb)
 		{
-			actions_.set_custom(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Admin.Set_customResponse>(cb)
-				);
+			actions_.set_custom(args,cb);
 		}
 
 		public void view_player (WebObjects.Admin.View_playerArguments args, Callback<WebObjects.Admin.View_playerResponse> cb)
 		{
-			actions_.view_player(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Admin.View_playerResponse>(cb)
-				);
+			actions_.view_player(args,cb);
 		}
 
 	}
@@ -170,18 +156,12 @@ public class ZWebAPI
 
 		public void buy (WebObjects.Appstore.BuyArguments args, Callback<WebObjects.Appstore.BuyResponse> cb)
 		{
-			actions_.buy(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Appstore.BuyResponse>(cb)
-				);
+			actions_.buy(args,cb);
 		}
 
 		public void shop_list (WebObjects.Appstore.Shop_listArguments args, Callback<WebObjects.Appstore.Shop_listResponse> cb)
 		{
-			actions_.shop_list(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Appstore.Shop_listResponse>(cb)
-				);
+			actions_.shop_list(args,cb);
 		}
 
 	}
@@ -198,10 +178,7 @@ public class ZWebAPI
 
 		public void list (WebObjects.Chrome_web_store.ListArguments args, Callback<WebObjects.Chrome_web_store.ListResponse> cb)
 		{
-			actions_.list(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Chrome_web_store.ListResponse>(cb)
-				);
+			actions_.list(args,cb);
 		}
 
 	}
@@ -218,66 +195,42 @@ public class ZWebAPI
 
 		public void bind_signed (WebObjects.Facebook.Bind_signedArguments args, Callback<WebObjects.Facebook.Bind_signedResponse> cb)
 		{
-			actions_.bind_signed(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Facebook.Bind_signedResponse>(cb)
-				);
+			actions_.bind_signed(args,cb);
 		}
 
 		public void create_oauth (WebObjects.Facebook.Create_oauthArguments args, Callback<WebObjects.Facebook.Create_oauthResponse> cb)
 		{
-			actions_.create_oauth(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Facebook.Create_oauthResponse>(cb)
-				);
+			actions_.create_oauth(args,cb);
 		}
 
 		public void create_signed (WebObjects.Facebook.Create_signedArguments args, Callback<WebObjects.Facebook.Create_signedResponse> cb)
 		{
-			actions_.create_signed(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Facebook.Create_signedResponse>(cb)
-				);
+			actions_.create_signed(args,cb);
 		}
 
 		public void fetch_oauth_token (WebObjects.Facebook.Fetch_oauth_tokenArguments args, Callback<WebObjects.Facebook.Fetch_oauth_tokenResponse> cb)
 		{
-			actions_.fetch_oauth_token(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Facebook.Fetch_oauth_tokenResponse>(cb)
-				);
+			actions_.fetch_oauth_token(args,cb);
 		}
 
 		public void friends (WebObjects.Facebook.FriendsArguments args, Callback<WebObjects.Facebook.FriendsResponse> cb)
 		{
-			actions_.friends(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Facebook.FriendsResponse>(cb)
-				);
+			actions_.friends(args,cb);
 		}
 
 		public void login_oauth (WebObjects.Facebook.Login_oauthArguments args, Callback<WebObjects.Facebook.Login_oauthResponse> cb)
 		{
-			actions_.login_oauth(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Facebook.Login_oauthResponse>(cb)
-				);
+			actions_.login_oauth(args,cb);
 		}
 
 		public void login_signed (WebObjects.Facebook.Login_signedArguments args, Callback<WebObjects.Facebook.Login_signedResponse> cb)
 		{
-			actions_.login_signed(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Facebook.Login_signedResponse>(cb)
-				);
+			actions_.login_signed(args,cb);
 		}
 
 		public void shop_list (WebObjects.Facebook.Shop_listArguments args, Callback<WebObjects.Facebook.Shop_listResponse> cb)
 		{
-			actions_.shop_list(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Facebook.Shop_listResponse>(cb)
-				);
+			actions_.shop_list(args,cb);
 		}
 
 	}
@@ -294,50 +247,32 @@ public class ZWebAPI
 
 		public void accept (WebObjects.Friends.AcceptArguments args, Callback<WebObjects.Friends.AcceptResponse> cb)
 		{
-			actions_.accept(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Friends.AcceptResponse>(cb)
-				);
+			actions_.accept(args,cb);
 		}
 
 		public void decline (WebObjects.Friends.DeclineArguments args, Callback<WebObjects.Friends.DeclineResponse> cb)
 		{
-			actions_.decline(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Friends.DeclineResponse>(cb)
-				);
+			actions_.decline(args,cb);
 		}
 
 		public void invite (WebObjects.Friends.InviteArguments args, Callback<WebObjects.Friends.InviteResponse> cb)
 		{
-			actions_.invite(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Friends.InviteResponse>(cb)
-				);
+			actions_.invite(args,cb);
 		}
 
 		public void invite_info (WebObjects.Friends.Invite_infoArguments args, Callback<WebObjects.Friends.Invite_infoResponse> cb)
 		{
-			actions_.invite_info(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Friends.Invite_infoResponse>(cb)
-				);
+			actions_.invite_info(args,cb);
 		}
 
 		public void list (WebObjects.Friends.ListArguments args, Callback<WebObjects.Friends.ListResponse> cb)
 		{
-			actions_.list(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Friends.ListResponse>(cb)
-				);
+			actions_.list(args,cb);
 		}
 
 		public void remove (WebObjects.Friends.RemoveArguments args, Callback<WebObjects.Friends.RemoveResponse> cb)
 		{
-			actions_.remove(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Friends.RemoveResponse>(cb)
-				);
+			actions_.remove(args,cb);
 		}
 
 	}
@@ -354,58 +289,37 @@ public class ZWebAPI
 
 		public void bind_user (WebObjects.Google.Bind_userArguments args, Callback<WebObjects.Google.Bind_userResponse> cb)
 		{
-			actions_.bind_user(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Google.Bind_userResponse>(cb)
-				);
+			actions_.bind_user(args,cb);
 		}
 
 		public void bind_user_token (WebObjects.Google.Bind_user_tokenArguments args, Callback<WebObjects.Google.Bind_user_tokenResponse> cb)
 		{
-			actions_.bind_user_token(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Google.Bind_user_tokenResponse>(cb)
-				);
+			actions_.bind_user_token(args,cb);
 		}
 
 		public void create_user (WebObjects.Google.Create_userArguments args, Callback<WebObjects.Google.Create_userResponse> cb)
 		{
-			actions_.create_user(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Google.Create_userResponse>(cb)
-				);
+			actions_.create_user(args,cb);
 		}
 
 		public void create_user_token (WebObjects.Google.Create_user_tokenArguments args, Callback<WebObjects.Google.Create_user_tokenResponse> cb)
 		{
-			actions_.create_user_token(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Google.Create_user_tokenResponse>(cb)
-				);
+			actions_.create_user_token(args,cb);
 		}
 
 		public void friends (WebObjects.Google.FriendsArguments args, Callback<WebObjects.Google.FriendsResponse> cb)
 		{
-			actions_.friends(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Google.FriendsResponse>(cb)
-				);
+			actions_.friends(args,cb);
 		}
 
 		public void login_user (WebObjects.Google.Login_userArguments args, Callback<WebObjects.Google.Login_userResponse> cb)
 		{
-			actions_.login_user(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Google.Login_userResponse>(cb)
-				);
+			actions_.login_user(args,cb);
 		}
 
 		public void login_user_token (WebObjects.Google.Login_user_tokenArguments args, Callback<WebObjects.Google.Login_user_tokenResponse> cb)
 		{
-			actions_.login_user_token(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Google.Login_user_tokenResponse>(cb)
-				);
+			actions_.login_user_token(args,cb);
 		}
 
 	}
@@ -422,34 +336,22 @@ public class ZWebAPI
 
 		public void get_bulk_player_info (WebObjects.Info.Get_bulk_player_infoArguments args, Callback<WebObjects.Info.Get_bulk_player_infoResponse> cb)
 		{
-			actions_.get_bulk_player_info(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Info.Get_bulk_player_infoResponse>(cb)
-				);
+			actions_.get_bulk_player_info(args,cb);
 		}
 
 		public void ping (WebObjects.Info.PingArguments args, Callback<WebObjects.Info.PingResponse> cb)
 		{
-			actions_.ping(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Info.PingResponse>(cb)
-				);
+			actions_.ping(args,cb);
 		}
 
 		public void user (WebObjects.Info.UserArguments args, Callback<WebObjects.Info.UserResponse> cb)
 		{
-			actions_.user(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Info.UserResponse>(cb)
-				);
+			actions_.user(args,cb);
 		}
 
 		public void poll (WebObjects.Info.PollArguments args, Callback<WebObjects.Info.PollResponse> cb)
 		{
-			actions_.poll(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Info.PollResponse>(cb)
-				);
+			actions_.poll(args,cb);
 		}
 
 	}
@@ -466,66 +368,42 @@ public class ZWebAPI
 
 		public void equip (WebObjects.Items.EquipArguments args, Callback<WebObjects.Items.EquipResponse> cb)
 		{
-			actions_.equip(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Items.EquipResponse>(cb)
-				);
+			actions_.equip(args,cb);
 		}
 
 		public void list (WebObjects.Items.ListArguments args, Callback<WebObjects.Items.ListResponse> cb)
 		{
-			actions_.list(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Items.ListResponse>(cb)
-				);
+			actions_.list(args,cb);
 		}
 
 		public void sell (WebObjects.Items.SellArguments args, Callback<WebObjects.Items.SellResponse> cb)
 		{
-			actions_.sell(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Items.SellResponse>(cb)
-				);
+			actions_.sell(args,cb);
 		}
 
 		public void _set (WebObjects.Items.SetArguments args, Callback<WebObjects.Items.SetResponse> cb)
 		{
-			actions_._set(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Items.SetResponse>(cb)
-				);
+			actions_._set(args,cb);
 		}
 
 		public void unequip (WebObjects.Items.UnequipArguments args, Callback<WebObjects.Items.UnequipResponse> cb)
 		{
-			actions_.unequip(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Items.UnequipResponse>(cb)
-				);
+			actions_.unequip(args,cb);
 		}
 
 		public void use (WebObjects.Items.UseArguments args, Callback<WebObjects.Items.UseResponse> cb)
 		{
-			actions_.use(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Items.UseResponse>(cb)
-				);
+			actions_.use(args,cb);
 		}
 
 		public void view (WebObjects.Items.ViewArguments args, Callback<WebObjects.Items.ViewResponse> cb)
 		{
-			actions_.view(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Items.ViewResponse>(cb)
-				);
+			actions_.view(args,cb);
 		}
 
 		public void view_all (WebObjects.Items.View_allArguments args, Callback<WebObjects.Items.View_allResponse> cb)
 		{
-			actions_.view_all(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Items.View_allResponse>(cb)
-				);
+			actions_.view_all(args,cb);
 		}
 
 	}
@@ -542,18 +420,12 @@ public class ZWebAPI
 
 		public void list (WebObjects.Leaderboards.ListArguments args, Callback<WebObjects.Leaderboards.ListResponse> cb)
 		{
-			actions_.list(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Leaderboards.ListResponse>(cb)
-				);
+			actions_.list(args,cb);
 		}
 
 		public void view (WebObjects.Leaderboards.ViewArguments args, Callback<WebObjects.Leaderboards.ViewResponse> cb)
 		{
-			actions_.view(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Leaderboards.ViewResponse>(cb)
-				);
+			actions_.view(args,cb);
 		}
 
 	}
@@ -570,34 +442,22 @@ public class ZWebAPI
 
 		public void accept (WebObjects.Mail.AcceptArguments args, Callback<WebObjects.Mail.AcceptResponse> cb)
 		{
-			actions_.accept(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Mail.AcceptResponse>(cb)
-				);
+			actions_.accept(args,cb);
 		}
 
 		public void send (WebObjects.Mail.SendArguments args, Callback<WebObjects.Mail.SendResponse> cb)
 		{
-			actions_.send(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Mail.SendResponse>(cb)
-				);
+			actions_.send(args,cb);
 		}
 
 		public void what_can_i_accept (WebObjects.Mail.What_can_i_acceptArguments args, Callback<WebObjects.Mail.What_can_i_acceptResponse> cb)
 		{
-			actions_.what_can_i_accept(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Mail.What_can_i_acceptResponse>(cb)
-				);
+			actions_.what_can_i_accept(args,cb);
 		}
 
 		public void what_can_i_send (WebObjects.Mail.What_can_i_sendArguments args, Callback<WebObjects.Mail.What_can_i_sendResponse> cb)
 		{
-			actions_.what_can_i_send(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Mail.What_can_i_sendResponse>(cb)
-				);
+			actions_.what_can_i_send(args,cb);
 		}
 
 	}
@@ -614,18 +474,12 @@ public class ZWebAPI
 
 		public void list (WebObjects.Shop.ListArguments args, Callback<WebObjects.Shop.ListResponse> cb)
 		{
-			actions_.list(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Shop.ListResponse>(cb)
-				);
+			actions_.list(args,cb);
 		}
 
 		public void buy (WebObjects.Shop.BuyArguments args, Callback<WebObjects.Shop.BuyResponse> cb)
 		{
-			actions_.buy(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Shop.BuyResponse>(cb)
-				);
+			actions_.buy(args,cb);
 		}
 
 	}
@@ -642,10 +496,7 @@ public class ZWebAPI
 
 		public void run (WebObjects.Scripts.RunArguments args, Callback<WebObjects.Scripts.RunResponse> cb)
 		{
-			actions_.run(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Scripts.RunResponse>(cb)
-				);
+			actions_.run(args,cb);
 		}
 
 	}
@@ -662,18 +513,12 @@ public class ZWebAPI
 
 		public void list (WebObjects.Tasks.ListArguments args, Callback<WebObjects.Tasks.ListResponse> cb)
 		{
-			actions_.list(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Tasks.ListResponse>(cb)
-				);
+			actions_.list(args,cb);
 		}
 
 		public void start (WebObjects.Tasks.StartArguments args, Callback<WebObjects.Tasks.StartResponse> cb)
 		{
-			actions_.start(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Tasks.StartResponse>(cb)
-				);
+			actions_.start(args,cb);
 		}
 
 	}
@@ -690,90 +535,57 @@ public class ZWebAPI
 
 		public void achievements (WebObjects.User.AchievementsArguments args, Callback<WebObjects.User.AchievementsResponse> cb)
 		{
-			actions_.achievements(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.User.AchievementsResponse>(cb)
-				);
+			actions_.achievements(args,cb);
 		}
 
 		public void change_name (WebObjects.User.Change_nameArguments args, Callback<WebObjects.User.Change_nameResponse> cb)
 		{
-			actions_.change_name(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.User.Change_nameResponse>(cb)
-				);
+			actions_.change_name(args,cb);
 		}
 
 		public void change_password (WebObjects.User.Change_passwordArguments args, Callback<WebObjects.User.Change_passwordResponse> cb)
 		{
-			actions_.change_password(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.User.Change_passwordResponse>(cb)
-				);
+			actions_.change_password(args,cb);
 		}
 
 		public void create (WebObjects.User.CreateArguments args, Callback<WebObjects.User.CreateResponse> cb)
 		{
-			actions_.create(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.User.CreateResponse>(cb)
-				);
+			actions_.create(args,cb);
 		}
 
 		public void login (WebObjects.User.LoginArguments args, Callback<WebObjects.User.LoginResponse> cb)
 		{
-			actions_.login(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.User.LoginResponse>(cb)
-				);
+			actions_.login(args,cb);
 		}
 
 		public void login_facebook_oauth (WebObjects.User.Login_facebook_oauthArguments args, Callback<WebObjects.User.Login_facebook_oauthResponse> cb)
 		{
-			actions_.login_facebook_oauth(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.User.Login_facebook_oauthResponse>(cb)
-				);
+			actions_.login_facebook_oauth(args,cb);
 		}
 
 		public void logout (WebObjects.User.LogoutArguments args, Callback<WebObjects.User.LogoutResponse> cb)
 		{
-			actions_.logout(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.User.LogoutResponse>(cb)
-				);
+			actions_.logout(args,cb);
 		}
 
 		public void netdrive_save (WebObjects.User.Netdrive_saveArguments args, Callback<WebObjects.User.Netdrive_saveResponse> cb)
 		{
-			actions_.netdrive_save(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.User.Netdrive_saveResponse>(cb)
-				);
+			actions_.netdrive_save(args,cb);
 		}
 
 		public void netdrive_fetch (WebObjects.User.Netdrive_fetchArguments args, Callback<WebObjects.User.Netdrive_fetchResponse> cb)
 		{
-			actions_.netdrive_fetch(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.User.Netdrive_fetchResponse>(cb)
-				);
+			actions_.netdrive_fetch(args,cb);
 		}
 
 		public void _set (WebObjects.User.SetArguments args, Callback<WebObjects.User.SetResponse> cb)
 		{
-			actions_._set(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.User.SetResponse>(cb)
-				);
+			actions_._set(args,cb);
 		}
 
 		public void view (WebObjects.User.ViewArguments args, Callback<WebObjects.User.ViewResponse> cb)
 		{
-			actions_.view(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.User.ViewResponse>(cb)
-				);
+			actions_.view(args,cb);
 		}
 
 	}
@@ -790,18 +602,12 @@ public class ZWebAPI
 
 		public void ios_register (WebObjects.Urbanairship.Ios_registerArguments args, Callback<WebObjects.Urbanairship.Ios_registerResponse> cb)
 		{
-			actions_.ios_register(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Urbanairship.Ios_registerResponse>(cb)
-				);
+			actions_.ios_register(args,cb);
 		}
 
 		public void push (WebObjects.Urbanairship.PushArguments args, Callback<WebObjects.Urbanairship.PushResponse> cb)
 		{
-			actions_.push(
-				args.ToHashtable(),
-				new CallbackBridge<WebObjects.Urbanairship.PushResponse>(cb)
-				);
+			actions_.push(args,cb);
 		}
 
 	}

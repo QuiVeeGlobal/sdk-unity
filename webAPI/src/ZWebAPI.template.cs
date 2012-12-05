@@ -72,10 +72,7 @@ public class ZWebAPI
      var response  = "WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Response"
      print("\t\tpublic void "+fix_reserved_word(f.name)+" (" + arg +" args, Callback<"+response+"> cb)\n");
      print("\t\t{\n");
-     print("\t\t\tactions_."+fix_reserved_word(f.name)+"(\n")
-     print("\t\t\t\targs.ToHashtable(),\n")
-     print("\t\t\t\tnew CallbackBridge<"+response+">(cb)\n")
-     print("\t\t\t\t);\n");
+     print("\t\t\tactions_."+fix_reserved_word(f.name)+"(args,cb);\n");
      print("\t\t}\n\n");
 } ) %>	}
 

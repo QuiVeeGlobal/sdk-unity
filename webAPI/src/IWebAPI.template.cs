@@ -48,9 +48,11 @@ public abstract class IWebAPI
 	public interface I<%= class_name %>
 	{
 <% _.each( m.functions, function(f,j,ll) {
+     var arg = "Roar.WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Arguments"
+     var response  = "Roar.WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Response"
      url = f.url ? f.url : (m.name+"/"+f.name);
      obj = f.obj ? f.obj : "obj";
-     print("\t\tvoid "+fix_reserved_word(f.name)+"( Hashtable obj, IRequestCallback cb);\n");
+     print("\t\tvoid "+fix_reserved_word(f.name)+"( "+arg+" args, ZWebAPI.Callback<"+response+"> cb);\n");
 } ) %>	}
 <% } ) %>
 }
