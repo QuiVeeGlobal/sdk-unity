@@ -8,10 +8,10 @@ namespace Roar.implementation.Components
 	public class Shop : IShop
 	{
 		protected IWebAPI.IShopActions shopActions;
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		protected ILogger logger;
 
-		public Shop (IWebAPI.IShopActions shopActions, DataStore dataStore, ILogger logger)
+		public Shop (IWebAPI.IShopActions shopActions, IDataStore dataStore, ILogger logger)
 		{
 			this.shopActions = shopActions;
 			this.dataStore = dataStore;

@@ -10,7 +10,7 @@ namespace Roar.implementation.Components
 	public class InAppPurchase : IInAppPurchase
 	{
 		protected ILogger logger;
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		protected IWebAPI.IAppstoreActions actions;
 		protected bool isSandbox;
 		protected bool hasDataFromAppstore;

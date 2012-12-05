@@ -84,7 +84,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 
 	private static DefaultRoar instance;
 	private static IRoar api;
-	private Roar.implementation.DataStore datastore;
+	private Roar.implementation.IDataStore datastore;
 	private Logger logger = new Logger();
 
 	/**
@@ -221,7 +221,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		this.StartCoroutine(method);
 	}
 
-	public Roar.implementation.DataStore DataStore
+	public Roar.implementation.IDataStore DataStore
 	{
 		get { return datastore; }
 	}

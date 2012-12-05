@@ -6,10 +6,10 @@ namespace Roar.implementation.Components
 {
 	public class Gifts : IGifts
 	{
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		protected ILogger logger;
 
-		public Gifts (DataStore dataStore, ILogger logger)
+		public Gifts (IDataStore dataStore, ILogger logger)
 		{
 			this.dataStore = dataStore;
 			this.logger = logger;

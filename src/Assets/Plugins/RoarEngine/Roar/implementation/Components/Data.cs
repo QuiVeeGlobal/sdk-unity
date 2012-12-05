@@ -34,13 +34,13 @@ namespace Roar.implementation.Components
 public class Data : IData
 {
   protected IWebAPI.IUserActions user_actions_;
-  protected DataStore data_store_;
+  protected IDataStore data_store_;
   protected ILogger logger_;
 		
   // Universal Data Store - getData + setData
   private Hashtable Data_ = new Hashtable();
   
-  public Data( IWebAPI.IUserActions user_actions, DataStore data_store, ILogger logger )
+  public Data( IWebAPI.IUserActions user_actions, IDataStore data_store, ILogger logger )
   {
 		user_actions_ = user_actions;
 		data_store_ = data_store;

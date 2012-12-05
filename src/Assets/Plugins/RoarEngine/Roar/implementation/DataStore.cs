@@ -165,23 +165,41 @@ public class Property
 
 namespace Roar.implementation
 {
-	public class DataStore
+	public interface IDataStore
+	{
+		void Clear (bool x);
+		
+		IDataModel<Property,Roar.WebObjects.User.ViewResponse> properties { get; }
+		IDataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory { get; }
+		IDataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop { get; }
+		IDataModel<Foo,Foo> actions { get; }
+		IDataModel<Foo,Foo> gifts { get; }
+		IDataModel<Foo,Foo> achievements { get; }
+		IDataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse> leaderboards { get; }
+		IDataModel<Foo,Foo> ranking { get; }
+		IDataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends { get; }
+		IDataModel<Foo,Foo> appStore { get; }
+		IItemCache cache { get; }
+	}
+
+
+	public class DataStore : IDataStore
 	{
 		public DataStore (IWebAPI webapi, ILogger logger)
 		{
 			//This should convert from the response type to key-value pairs
 			
-			properties = new DataModel<Property,Roar.WebObjects.User.ViewResponse> ("properties", new UserViewGetter(webapi), new UserViewToProperty(), logger);
-			inventory = new DataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> ("inventory", new ItemsListGetter(webapi), new ItemsListToItem(), logger);
-			shop = new DataModel<DomainObjects.ShopEntry,WebObjects.Shop.ListResponse>("shop", new ShopListGetter(webapi), new ShopListToShopEntry(), logger);
-			actions = new DataModel<Foo,Foo> ("tasks", new FooGetter(webapi), new FooToFoo(), logger);
-			gifts = new DataModel<Foo,Foo> ("gifts", new FooGetter(webapi), new FooToFoo(), logger);
-			achievements = new DataModel<Foo,Foo> ("achievements", new FooGetter(webapi), new FooToFoo(), logger);
-			leaderboards = new DataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse>( "leaderboards", new LeaderboardListGetter(webapi), new LeaderboardListToLeaderboard(), logger);
-			ranking = new DataModel<Foo,Foo> ("ranking", new FooGetter(webapi), new FooToFoo(), logger);
-			friends = new DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> ("friends",  new FriendsListGetter(webapi), new FriendsListToFriend(), logger);
-			cache = new ItemCache ("cache", new ItemsViewGetter(webapi), new ItemsViewToItemPrototype(), logger);
-			appStore = new DataModel<Foo,Foo> ("appstore", new FooGetter(webapi), new FooToFoo(), logger);
+			properties_ = new DataModel<Property,Roar.WebObjects.User.ViewResponse> ("properties", new UserViewGetter(webapi), new UserViewToProperty(), logger);
+			inventory_ = new DataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> ("inventory", new ItemsListGetter(webapi), new ItemsListToItem(), logger);
+			shop_ = new DataModel<DomainObjects.ShopEntry,WebObjects.Shop.ListResponse>("shop", new ShopListGetter(webapi), new ShopListToShopEntry(), logger);
+			actions_ = new DataModel<Foo,Foo> ("tasks", new FooGetter(webapi), new FooToFoo(), logger);
+			gifts_ = new DataModel<Foo,Foo> ("gifts", new FooGetter(webapi), new FooToFoo(), logger);
+			achievements_ = new DataModel<Foo,Foo> ("achievements", new FooGetter(webapi), new FooToFoo(), logger);
+			leaderboards_ = new DataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse>( "leaderboards", new LeaderboardListGetter(webapi), new LeaderboardListToLeaderboard(), logger);
+			ranking_ = new DataModel<Foo,Foo> ("ranking", new FooGetter(webapi), new FooToFoo(), logger);
+			friends_ = new DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> ("friends",  new FriendsListGetter(webapi), new FriendsListToFriend(), logger);
+			cache_ = new ItemCache ("cache", new ItemsViewGetter(webapi), new ItemsViewToItemPrototype(), logger);
+			appStore_ = new DataModel<Foo,Foo> ("appstore", new FooGetter(webapi), new FooToFoo(), logger);
 		}
 
 		public void Clear (bool x)
@@ -201,17 +219,29 @@ namespace Roar.implementation
 		
 		
 
-		public DataModel<Property,Roar.WebObjects.User.ViewResponse> properties;
-		public DataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory;
-		public DataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop;
-		public DataModel<Foo,Foo> actions;
-		public DataModel<Foo,Foo> gifts;
-		public DataModel<Foo,Foo> achievements;
-		public DataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse> leaderboards;
-		public DataModel<Foo,Foo> ranking;
-		public DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends;
-		public DataModel<Foo,Foo> appStore;
-		public ItemCache cache;
+		public IDataModel<Property,Roar.WebObjects.User.ViewResponse> properties { get { return properties_; } }
+		public IDataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory { get { return inventory_; } }
+		public IDataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop { get { return shop_; } }
+		public IDataModel<Foo,Foo> actions { get { return actions_; } }
+		public IDataModel<Foo,Foo> gifts { get { return gifts_; } }
+		public IDataModel<Foo,Foo> achievements { get { return achievements_; } }
+		public IDataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse> leaderboards { get { return leaderboards_; } }
+		public IDataModel<Foo,Foo> ranking { get { return ranking_; } }
+		public IDataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends { get { return friends_; } }
+		public IDataModel<Foo,Foo> appStore { get { return appStore_; } }
+		public IItemCache cache { get { return cache_; } }
+		
+		public DataModel<Property,Roar.WebObjects.User.ViewResponse> properties_;
+		public DataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory_;
+		public DataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop_;
+		public DataModel<Foo,Foo> actions_;
+		public DataModel<Foo,Foo> gifts_;
+		public DataModel<Foo,Foo> achievements_;
+		public DataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse> leaderboards_;
+		public DataModel<Foo,Foo> ranking_;
+		public DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends_;
+		public DataModel<Foo,Foo> appStore_;
+		public ItemCache cache_;
 	}
 
 }

@@ -6,9 +6,9 @@ namespace Roar.implementation.Components
 {
 	public class Properties : IProperties
 	{
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 
-		public Properties (DataStore dataStore)
+		public Properties (IDataStore dataStore)
 		{
 			this.dataStore = dataStore;
 			RoarManager.roarServerUpdateEvent += this.OnUpdate;
@@ -35,7 +35,8 @@ namespace Roar.implementation.Components
 		// Returns the *value* of attribute `key`
 		public string GetValue (string ikey)
 		{
-			return dataStore.properties.Get(ikey).value;
+			var x = dataStore.properties.Get(ikey);
+			return (x!=null)?x.value:null;
 		}
 
 		protected void OnUpdate (IXMLNode update)

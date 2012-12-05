@@ -15,7 +15,13 @@ public class Foo : Roar.DomainObjects.IDomainObject
 
 namespace Roar.implementation
 {
-	public class ItemCache : DataModel<DomainObjects.ItemPrototype,Roar.WebObjects.Items.ViewResponse>
+	public interface IItemCache : IDataModel<DomainObjects.ItemPrototype,Roar.WebObjects.Items.ViewResponse>
+	{
+		bool AddToCache ( IList<string> items, Roar.Callback<IDictionary<string, DomainObjects.ItemPrototype> > cb=null);
+		IList<string> ItemsNotInCache (IList<string> items);
+	}
+	
+	public class ItemCache : DataModel<DomainObjects.ItemPrototype,Roar.WebObjects.Items.ViewResponse>, IItemCache
 	{
 		public ItemCache (string name, IDomGetter<Roar.WebObjects.Items.ViewResponse> getter, IDomToCache<Roar.WebObjects.Items.ViewResponse,Roar.DomainObjects.ItemPrototype> converter, Roar.ILogger logger)
 		: base(name, getter, converter, logger)

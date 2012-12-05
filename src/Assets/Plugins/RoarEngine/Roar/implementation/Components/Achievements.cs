@@ -6,10 +6,10 @@ namespace Roar.implementation.Components
 {
 	public class Achievements : IAchievements
 	{
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		protected ILogger logger;
 
-		public Achievements (DataStore dataStore, ILogger logger)
+		public Achievements (IDataStore dataStore, ILogger logger)
 		{
 			this.dataStore = dataStore;
 			this.logger = logger;

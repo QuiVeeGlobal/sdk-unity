@@ -5,10 +5,10 @@ namespace Roar.implementation.Components
 {
 	public class Actions : IActions
 	{
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		protected IWebAPI.ITasksActions taskActions;
 
-		public Actions (IWebAPI.ITasksActions taskActions, DataStore dataStore)
+		public Actions (IWebAPI.ITasksActions taskActions, IDataStore dataStore)
 		{
 			this.taskActions = taskActions;
 			this.dataStore = dataStore;

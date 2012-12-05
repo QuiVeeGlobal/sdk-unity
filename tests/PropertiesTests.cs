@@ -120,6 +120,7 @@ public class PropertiesTests : ComponentTests
     
     //returns Hashtable of property if exists
     Property staminaProperty = properties.GetProperty("stamina");
+    Assert.IsNotNull( staminaProperty );
     StringAssert.IsMatch("5", staminaProperty.value);
     StringAssert.IsMatch("resource", staminaProperty.type);
     StringAssert.IsMatch("123", staminaProperty.max);

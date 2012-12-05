@@ -7,10 +7,10 @@ namespace Roar.implementation.Components
 {
 	public class Leaderboards : ILeaderboards
 	{
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		protected ILogger logger;
 
-		public Leaderboards (DataStore dataStore, ILogger logger)
+		public Leaderboards (IDataStore dataStore, ILogger logger)
 		{
 			this.dataStore = dataStore;
 			this.logger = logger;

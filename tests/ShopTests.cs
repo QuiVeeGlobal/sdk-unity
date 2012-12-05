@@ -5,6 +5,50 @@ using NUnit.Framework;
 using NMock2;
 using Roar.Components;
 
+
+[TestFixture]
+public class LowLevelShopTests
+{
+	Mockery mock;
+	[SetUp]
+	public void SetUp()
+	{
+		mock = new Mockery();
+		
+	}
+
+	[Test]
+	public void testListForwardsToDataModel()
+	{
+		WebAPI.IShopActions shop_actions = mock.NewMock<WebAPI.IShopActions>();
+		Roar.implementation.IDataStore datastore = mock.NewMock<Roar.implementation.IDataStore>();
+		Roar.ILogger logger = mock.NewMock<Roar.ILogger>();
+		Roar.implementation.Components.Shop shop = new Roar.implementation.Components.Shop(shop_actions,datastore,logger);
+		
+		IDataModel<Roar.DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop_datamodel = mock.NewMock<IDataModel<Roar.DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse>>();
+		
+		List<Roar.DomainObjects.ShopEntry> retval = new List<Roar.DomainObjects.ShopEntry>();
+		retval.Add( new Roar.DomainObjects.ShopEntry() );
+		retval.Add( new Roar.DomainObjects.ShopEntry() );
+		
+		Expect.AtLeast(1).On(datastore)
+			.GetProperty("shop")
+			.Will(Return.Value( shop_datamodel ) );
+			
+		Expect.AtLeast(1).On(shop_datamodel)
+			.Method("List")
+			.Will (Return.Value( retval ) );
+		
+		IList<Roar.DomainObjects.ShopEntry> l = shop.List ();
+		
+		Assert.AreEqual(2, l.Count );
+		
+		mock.VerifyAllExpectationsHaveBeenMet();
+		
+	}
+}
+
+
 /**
  * Test cases for the Shop component.
  **/
@@ -83,6 +127,8 @@ public class ShopTests : ComponentTests
     //callback called with expected error code
     //HasDataFromServer == false
   }
+  
+
 
   [Test]
   public void testList() {

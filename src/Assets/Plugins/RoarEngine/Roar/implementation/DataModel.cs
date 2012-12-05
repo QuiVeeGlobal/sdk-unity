@@ -4,7 +4,31 @@ using UnityEngine;
 using DC = Roar.implementation.DataConversion;
 using Roar.DomainObjects;
 
-public class DataModel<CT,DT> where DT:class
+public interface IDataModel<CT,DT> where DT:class
+{
+	void Clear( bool silent = false );
+	bool HasDataFromServer { get; set; }
+	
+	bool Fetch (Roar.Callback< IDictionary<string,CT> > cb);
+	bool Fetch (Roar.Callback< IDictionary<string,CT> > cb, Hashtable p);
+	bool Fetch (Roar.Callback< IDictionary<string,CT> > cb, Hashtable p, bool persist);
+	
+	IList<CT> List ();
+	CT Get (string key);
+	
+	DataModel<CT,DT> Set ( Dictionary<string,CT> data);
+	DataModel<CT,DT> Set ( Dictionary<string,CT> data, bool silent);
+
+	
+	void Unset (string key);
+	void Unset (string key, bool silent);
+
+	
+	void AddOrUpdate(string key, CT value);
+}
+
+
+public class DataModel<CT,DT> : IDataModel<CT,DT> where DT:class
 {
 	public Dictionary<string,CT> attributes = new Dictionary<string,CT> ();
 	private Dictionary<string,CT> previousAttributes = new Dictionary<string,CT>();
@@ -125,7 +149,7 @@ public class DataModel<CT,DT> where DT:class
 
 		// Update the Model
 		this.Set (o);
-		cb( new Roar.CallbackInfo< IDictionary<string,CT> >( o, WebAPI.OK, null ) );
+		if(cb!=null) cb( new Roar.CallbackInfo< IDictionary<string,CT> >( o, WebAPI.OK, null ) );
 
 		logger.DebugLog ("Setting the model in " + name + " to : " + Roar.Json.ObjectToJSON (o));
 		logger.DebugLog ("[roar] -- Data Loaded: " + name);
@@ -235,11 +259,12 @@ public class DataModel<CT,DT> where DT:class
 			return default(CT);
 		}
 
-		if (this.attributes [key] != null) {
-			return this.attributes[key];
+		CT retval = default(CT);
+		if( ! this.attributes.TryGetValue(key, out retval) )
+		{
+			logger.DebugLog ("[roar] -- No property found: " + key);
 		}
-		logger.DebugLog ("[roar] -- No property found: " + key);
-		return default(CT);
+		return retval;
 	}
 
 
@@ -286,5 +311,11 @@ public class DataModel<CT,DT> where DT:class
 	{
 		RoarManager.OnComponentChange (this.name);
 		this.hasChanged = false;
+	}
+	
+	public void AddOrUpdate( string key, CT value )
+	{
+		attributes[key]=value;
+		Change();
 	}
 }

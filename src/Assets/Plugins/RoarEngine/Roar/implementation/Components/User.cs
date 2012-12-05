@@ -8,11 +8,11 @@ namespace Roar.implementation.Components
 {
 	public class User : IUser
 	{
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		IWebAPI.IUserActions userActions;
 		ILogger logger;
 
-		public User (IWebAPI.IUserActions userActions, DataStore dataStore, ILogger logger)
+		public User (IWebAPI.IUserActions userActions, IDataStore dataStore, ILogger logger)
 		{
 			this.userActions = userActions;
 			this.dataStore = dataStore;

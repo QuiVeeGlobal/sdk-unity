@@ -8,11 +8,11 @@ namespace Roar.implementation.Components
 {
 	public class Inventory : IInventory
 	{
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		protected IWebAPI.IItemsActions itemActions;
 		protected ILogger logger;
 
-		public Inventory (IWebAPI.IItemsActions itemActions, DataStore dataStore, ILogger logger)
+		public Inventory (IWebAPI.IItemsActions itemActions, IDataStore dataStore, ILogger logger)
 		{
 			this.itemActions = itemActions;
 			this.dataStore = dataStore;
@@ -278,9 +278,7 @@ namespace Roar.implementation.Components
 			DomainObjects.InventoryItem item = new DomainObjects.InventoryItem();
 			item.item_prototype = dataStore.cache.Get (ikey);
 
-			// Manually add to inventory
-			dataStore.inventory.attributes[id]=item;
-			dataStore.inventory.Change();
+			dataStore.inventory.AddOrUpdate(id,item);
 		}
 
 	}
