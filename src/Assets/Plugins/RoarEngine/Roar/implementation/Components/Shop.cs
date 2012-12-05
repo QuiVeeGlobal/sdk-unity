@@ -7,11 +7,11 @@ namespace Roar.implementation.Components
 {
 	public class Shop : IShop
 	{
-		protected ZWebAPI.ShopActions shopActions;
+		protected IWebAPI.IShopActions shopActions;
 		protected DataStore dataStore;
 		protected ILogger logger;
 
-		public Shop (ZWebAPI.ShopActions shopActions, DataStore dataStore, ILogger logger)
+		public Shop (IWebAPI.IShopActions shopActions, DataStore dataStore, ILogger logger)
 		{
 			this.shopActions = shopActions;
 			this.dataStore = dataStore;

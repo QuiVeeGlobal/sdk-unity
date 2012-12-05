@@ -83,7 +83,6 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IData.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Data.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\ZWebCallbackBridge.cs" />
-    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\ZWebAPI.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\WebObjects.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\ZWebBase.cs" />
   </ItemGroup>

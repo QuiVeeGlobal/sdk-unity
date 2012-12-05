@@ -1,4 +1,14 @@
 
+//TODO: Put me in a more sensible place
+namespace ZWebAPI
+{
+	public interface Callback<T>
+	{
+		void OnError( Roar.RequestResult nn );
+		void OnSuccess( Roar.CallbackInfo<T> nn );
+	}
+}
+
 public class CBBase<T> : ZWebAPI.Callback<T> where T : class
 {
 	public Roar.Callback<T> cb;

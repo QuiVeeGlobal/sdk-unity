@@ -11,7 +11,7 @@ namespace Roar.implementation.Components
 	{
 		protected ILogger logger;
 		protected DataStore dataStore;
-		protected ZWebAPI.AppstoreActions actions;
+		protected IWebAPI.IAppstoreActions actions;
 		protected bool isSandbox;
 		protected bool hasDataFromAppstore;
 		protected bool isServerCalling;
@@ -22,7 +22,7 @@ namespace Roar.implementation.Components
 		protected Roar.Callback<string> purchaseCallback;
 		protected Roar.Callback<Roar.WebObjects.Appstore.BuyResponse> purchaseCallbackX;
 
-		public InAppPurchase (ZWebAPI.AppstoreActions actions, string nativeCallbackGameObject, ILogger logger, bool isSandbox)
+		public InAppPurchase (IWebAPI.IAppstoreActions actions, string nativeCallbackGameObject, ILogger logger, bool isSandbox)
 		{
 			this.logger = logger;
 			this.actions = actions;

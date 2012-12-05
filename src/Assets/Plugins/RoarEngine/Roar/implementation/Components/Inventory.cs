@@ -9,10 +9,10 @@ namespace Roar.implementation.Components
 	public class Inventory : IInventory
 	{
 		protected DataStore dataStore;
-		protected ZWebAPI.ItemsActions itemActions;
+		protected IWebAPI.IItemsActions itemActions;
 		protected ILogger logger;
 
-		public Inventory (ZWebAPI.ItemsActions itemActions, DataStore dataStore, ILogger logger)
+		public Inventory (IWebAPI.IItemsActions itemActions, DataStore dataStore, ILogger logger)
 		{
 			this.itemActions = itemActions;
 			this.dataStore = dataStore;

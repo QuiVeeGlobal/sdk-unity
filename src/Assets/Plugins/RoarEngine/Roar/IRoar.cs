@@ -212,7 +212,7 @@ public interface IRoar
    * @note The callbacks used by the #IWebAPI are slightly different from the Callbacks used by
    * the other functions in #IRoar .
    */
-	ZWebAPI WebAPI { get; }
+	IWebAPI WebAPI { get; }
 
 	/**
    * Get access to the players properties and stats.

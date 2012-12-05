@@ -20,12 +20,12 @@ namespace Roar.implementation.Adapters
 
 	public class UrbanAirship : IUrbanAirship
 	{
-		public UrbanAirship( ZWebAPI webAPI )
+		public UrbanAirship( IWebAPI webAPI )
 		{
 			this.webAPI = webAPI;
 		}
 
-		protected ZWebAPI webAPI;
+		protected IWebAPI webAPI;
 
 		#if !UNITY_IOS
 		public void OnStart() {

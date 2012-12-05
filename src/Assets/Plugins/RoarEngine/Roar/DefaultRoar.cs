@@ -41,8 +41,8 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 	public Roar.IConfig Config { get { return config; } }
 	protected Roar.IConfig config;
 
-	public ZWebAPI WebAPI { get { return webAPI; } }
-	protected ZWebAPI webAPI;
+	public IWebAPI WebAPI { get { return webAPI; } }
+	protected IWebAPI webAPI;
 
 	public Roar.Components.IUser User { get { return user; } }
 	protected Roar.Components.IUser user;
@@ -146,9 +146,9 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		}
 
 		RequestSender api = new RequestSender(config,this,logger);
-		webAPI = new global::ZWebAPI( new global::WebAPI(api) );
+		webAPI = new global::WebAPI(api);
 
-		datastore = new Roar.implementation.DataStore(webAPI, api, logger);
+		datastore = new Roar.implementation.DataStore(webAPI, logger);
 		user = new Roar.implementation.Components.User(webAPI.user,datastore, logger);
 		properties = new Roar.implementation.Components.Properties( datastore );
 		leaderboards = new Roar.implementation.Components.Leaderboards(datastore, logger);

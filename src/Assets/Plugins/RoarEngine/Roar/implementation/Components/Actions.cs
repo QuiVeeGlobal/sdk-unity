@@ -6,9 +6,9 @@ namespace Roar.implementation.Components
 	public class Actions : IActions
 	{
 		protected DataStore dataStore;
-		protected ZWebAPI.TasksActions taskActions;
+		protected IWebAPI.ITasksActions taskActions;
 
-		public Actions (ZWebAPI.TasksActions taskActions, DataStore dataStore)
+		public Actions (IWebAPI.ITasksActions taskActions, DataStore dataStore)
 		{
 			this.taskActions = taskActions;
 			this.dataStore = dataStore;

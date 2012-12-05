@@ -108,42 +108,42 @@ public class GenericGetter<T,A> : IDomGetter<T> where A:new()
 
 public class UserViewGetter : GenericGetter<Roar.WebObjects.User.ViewResponse, Roar.WebObjects.User.ViewArguments>
 {
-	public UserViewGetter( ZWebAPI api ) : base( api.user.view ) {}
+	public UserViewGetter( IWebAPI api ) : base( api.user.view ) {}
 }
 
 public class ItemsListGetter : GenericGetter<Roar.WebObjects.Items.ListResponse, Roar.WebObjects.Items.ListArguments>
 {
-	public ItemsListGetter( ZWebAPI api ) :base( api.items.list ) {}
+	public ItemsListGetter( IWebAPI api ) :base( api.items.list ) {}
 }
 
 public class ShopListGetter : GenericGetter<Roar.WebObjects.Shop.ListResponse, Roar.WebObjects.Shop.ListArguments>
 {
-	public ShopListGetter( ZWebAPI api ) :base( api.shop.list ) {}
+	public ShopListGetter( IWebAPI api ) :base( api.shop.list ) {}
 }
 
 public class LeaderboardListGetter : GenericGetter<Roar.WebObjects.Leaderboards.ListResponse, Roar.WebObjects.Leaderboards.ListArguments>
 {
-	public LeaderboardListGetter( ZWebAPI api ) : base( api.leaderboards.list ) {}
+	public LeaderboardListGetter( IWebAPI api ) : base( api.leaderboards.list ) {}
 }
 
 public class FriendsListGetter : GenericGetter<Roar.WebObjects.Friends.ListResponse, Roar.WebObjects.Friends.ListArguments>
 {
-	public FriendsListGetter( ZWebAPI api ) : base( api.friends.list ) {}
+	public FriendsListGetter( IWebAPI api ) : base( api.friends.list ) {}
 }
 
 public class ItemsViewGetter : GenericGetter<Roar.WebObjects.Items.ViewResponse, Roar.WebObjects.Items.ViewArguments>
 {
-	public ItemsViewGetter( ZWebAPI api ) : base( api.items.view ) {}
+	public ItemsViewGetter( IWebAPI api ) : base( api.items.view ) {}
 }
 
 public class FooGetter : IDomGetter<Foo>
 {
-	public FooGetter( ZWebAPI api ) 
+	public FooGetter( IWebAPI api ) 
 	{
 		this.api = api;
 	}
 	
-	protected ZWebAPI api;
+	protected IWebAPI api;
 	public void get( ZWebAPI.Callback<Foo> cb )
 	{
 		throw new System.NotImplementedException();
@@ -167,21 +167,21 @@ namespace Roar.implementation
 {
 	public class DataStore
 	{
-		public DataStore (ZWebAPI zwebapi, IRequestSender api, ILogger logger)
+		public DataStore (IWebAPI webapi, ILogger logger)
 		{
 			//This should convert from the response type to key-value pairs
 			
-			properties = new DataModel<Property,Roar.WebObjects.User.ViewResponse> ("properties", new UserViewGetter(zwebapi), new UserViewToProperty(), logger);
-			inventory = new DataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> ("inventory", new ItemsListGetter(zwebapi), new ItemsListToItem(), logger);
-			shop = new DataModel<DomainObjects.ShopEntry,WebObjects.Shop.ListResponse>("shop", new ShopListGetter(zwebapi), new ShopListToShopEntry(), logger);
-			actions = new DataModel<Foo,Foo> ("tasks", new FooGetter(zwebapi), new FooToFoo(), logger);
-			gifts = new DataModel<Foo,Foo> ("gifts", new FooGetter(zwebapi), new FooToFoo(), logger);
-			achievements = new DataModel<Foo,Foo> ("achievements", new FooGetter(zwebapi), new FooToFoo(), logger);
-			leaderboards = new DataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse>( "leaderboards", new LeaderboardListGetter(zwebapi), new LeaderboardListToLeaderboard(), logger);
-			ranking = new DataModel<Foo,Foo> ("ranking", new FooGetter(zwebapi), new FooToFoo(), logger);
-			friends = new DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> ("friends",  new FriendsListGetter(zwebapi), new FriendsListToFriend(), logger);
-			cache = new ItemCache ("cache", new ItemsViewGetter(zwebapi), new ItemsViewToItemPrototype(), logger);
-			appStore = new DataModel<Foo,Foo> ("appstore", new FooGetter(zwebapi), new FooToFoo(), logger);
+			properties = new DataModel<Property,Roar.WebObjects.User.ViewResponse> ("properties", new UserViewGetter(webapi), new UserViewToProperty(), logger);
+			inventory = new DataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> ("inventory", new ItemsListGetter(webapi), new ItemsListToItem(), logger);
+			shop = new DataModel<DomainObjects.ShopEntry,WebObjects.Shop.ListResponse>("shop", new ShopListGetter(webapi), new ShopListToShopEntry(), logger);
+			actions = new DataModel<Foo,Foo> ("tasks", new FooGetter(webapi), new FooToFoo(), logger);
+			gifts = new DataModel<Foo,Foo> ("gifts", new FooGetter(webapi), new FooToFoo(), logger);
+			achievements = new DataModel<Foo,Foo> ("achievements", new FooGetter(webapi), new FooToFoo(), logger);
+			leaderboards = new DataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse>( "leaderboards", new LeaderboardListGetter(webapi), new LeaderboardListToLeaderboard(), logger);
+			ranking = new DataModel<Foo,Foo> ("ranking", new FooGetter(webapi), new FooToFoo(), logger);
+			friends = new DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> ("friends",  new FriendsListGetter(webapi), new FriendsListToFriend(), logger);
+			cache = new ItemCache ("cache", new ItemsViewGetter(webapi), new ItemsViewToItemPrototype(), logger);
+			appStore = new DataModel<Foo,Foo> ("appstore", new FooGetter(webapi), new FooToFoo(), logger);
 		}
 
 		public void Clear (bool x)

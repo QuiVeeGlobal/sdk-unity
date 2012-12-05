@@ -9,10 +9,10 @@ namespace Roar.implementation.Components
 	public class User : IUser
 	{
 		protected DataStore dataStore;
-		ZWebAPI.UserActions userActions;
+		IWebAPI.IUserActions userActions;
 		ILogger logger;
 
-		public User (ZWebAPI.UserActions userActions, DataStore dataStore, ILogger logger)
+		public User (IWebAPI.IUserActions userActions, DataStore dataStore, ILogger logger)
 		{
 			this.userActions = userActions;
 			this.dataStore = dataStore;
