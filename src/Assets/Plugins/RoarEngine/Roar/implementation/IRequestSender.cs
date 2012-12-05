@@ -1,50 +1,48 @@
 using System.Collections;
 
+namespace Roar
+{
+	public struct RequestResult
+	{
+		public IXMLNode data;
+		public int code;
+		public string msg;
+		
+		public RequestResult (IXMLNode in_data, int in_code=IWebAPI.OK, string in_msg="")
+		{
+			data = in_data;
+			code = in_code;
+			msg = in_msg;
+		}
+	}
+
+   /**
+   * Many roar.io functions take a callback function.  Often this callback is
+   * optional, but if you wish to use one it is always a #Roar.Callback type.
+   * You might not need one if you choose to catch the results of the call using
+   * the events in #RoarManager.
+   *
+   * The Hashtable returned will usually contain three parameters:
+   *
+   *   + code : an int corresponding to the values in #IWebAPI
+   *   + msg : a string message, often empty on success, but containing more
+   *     details in the case of an error
+   *   + data : an object with the results of the call.
+   *
+   * The only place you might need to provide a function of a different signature
+   * is when using the events specified in #RoarManager. These events accept a
+   * function that corresponds to the data available to the event. See the
+   * individual events for details.
+   */
+	//TODO: Can we unify this callback with the IRequestCallback class?
+	public delegate void RequestCallback (RequestResult h);
+	
+
+}
+
 public interface IRequestCallback
 {
-	void OnRequest (Roar.RequestResult info);
-};
-
-// Provides a little more structure to the IRequestCallback function.
-public abstract class SimpleRequestCallback : IRequestCallback
-{
-	protected Roar.RequestCallback cb;
-
-	public SimpleRequestCallback (Roar.RequestCallback in_cb)
-	{
-		cb = in_cb;
-	}
-
-	public virtual void OnRequest ( Roar.RequestResult info)
-	{
-		Prologue ();
-		
-		if (info.code != 200)
-		{
-			OnFailure (info);
-		} else
-		{
-			OnSuccess (info);
-		}
-		
-		if (cb != null)
-		{
-			cb (info);
-		}
-		
-		Epilogue ();
-	}
-  
-	public abstract void OnSuccess (Roar.RequestResult info);
-
-	public virtual void OnFailure (Roar.RequestResult info)
-	{}
-
-	public virtual void Prologue ()
-	{}
-
-	public virtual void Epilogue ()
-	{}
+	void OnRequest ( Roar.RequestResult info);
 };
 
 public interface IRequestSender

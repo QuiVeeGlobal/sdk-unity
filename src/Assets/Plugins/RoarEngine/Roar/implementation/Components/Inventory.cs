@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Collections;
+using System.Linq;
 using Roar.Components;
 using UnityEngine;
 
@@ -21,12 +22,12 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return  dataStore.inventory.HasDataFromServer; } }
 
-		public void Fetch (Roar.RequestCallback callback)
+		public void Fetch (Roar.Callback< IDictionary<string,Roar.DomainObjects.InventoryItem> > callback)
 		{
 			dataStore.inventory.Fetch (callback);
 		}
 
-		public IList<DomainObjects.Item> List ()
+		public IList<DomainObjects.InventoryItem> List ()
 		{
 			return dataStore.inventory.List ();
 		}
@@ -61,7 +62,7 @@ namespace Roar.implementation.Components
 
 			public override void HandleSuccess ( CallbackInfo<WebObjects.Items.EquipResponse> info)
 			{
-				DomainObjects.Item item = inventory.dataStore.inventory.Get (id);
+				DomainObjects.InventoryItem item = inventory.dataStore.inventory.Get (id);
 				item.equipped = true;
 				
 				//TODO: Fixup this return value
@@ -101,7 +102,7 @@ namespace Roar.implementation.Components
 
 			public override void HandleSuccess ( CallbackInfo<Roar.WebObjects.Items.UnequipResponse> info)
 			{
-				DomainObjects.Item item = inventory.dataStore.inventory.Get (id);
+				DomainObjects.InventoryItem item = inventory.dataStore.inventory.Get (id);
 				item.equipped = false;
 				
 				//TODO: Fix this up
@@ -118,14 +119,14 @@ namespace Roar.implementation.Components
 		// and optionally checks for a `num` number of `keys` *(default 1)*
 		public bool Has (string ikey, int num=1)
 		{
-			return dataStore.inventory.Has (ikey, num);
+			return dataStore.inventory.List().Where( v => (v.ikey == ikey) ).Count() >= num;
 		}
 
 
 		// `quantity( key )` returns the number of `key` objects held by user
 		public int Quantity (string ikey)
 		{
-			return  dataStore.inventory.Quantity (ikey);
+			return dataStore.inventory.List().Where( v => (v.ikey == ikey) ).Count();
 		}
 
 
@@ -133,7 +134,7 @@ namespace Roar.implementation.Components
 		public void Sell (string id, Roar.Callback<Roar.WebObjects.Items.SellResponse> callback)
 		{
 
-			DomainObjects.Item item = dataStore.inventory.Get(id);
+			DomainObjects.InventoryItem item = dataStore.inventory.Get(id);
 			if (item == null) {
 				logger.DebugLog ("[roar] -- Failed: no record with id: " + id);
 				return;
@@ -167,7 +168,7 @@ namespace Roar.implementation.Components
 
 			public override void HandleSuccess (Roar.CallbackInfo<Roar.WebObjects.Items.SellResponse> info)
 			{
-				DomainObjects.Item item = inventory.dataStore.inventory.Get (id);
+				DomainObjects.InventoryItem item = inventory.dataStore.inventory.Get (id);
 				
 				//TODO: Fix this up
 				Hashtable returnObj = new Hashtable ();
@@ -222,7 +223,7 @@ namespace Roar.implementation.Components
 
 			public override void HandleSuccess (Roar.CallbackInfo<Roar.WebObjects.Items.UseResponse> info)
 			{
-				DomainObjects.Item item = inventory.dataStore.inventory.Get (id);
+				DomainObjects.InventoryItem item = inventory.dataStore.inventory.Get (id);
 				
 				//TODO: Make this work
 				Hashtable returnObj = new Hashtable ();
@@ -243,7 +244,7 @@ namespace Roar.implementation.Components
 		}
 
 		// Returns raw data object for inventory
-		public DomainObjects.Item GetGood (string id)
+		public DomainObjects.InventoryItem GetGood (string id)
 		{
 			return dataStore.inventory.Get (id);
 		}
@@ -255,23 +256,26 @@ namespace Roar.implementation.Components
 			
 				//TODO: Implement this!
 				
-				DomainObjects.Item item = new DomainObjects.Item();
+				DomainObjects.InventoryItem item = new DomainObjects.InventoryItem();
 				item.id = d.GetAttribute ("item_id");
 				item.ikey = d.GetAttribute ("item_ikey");
 				
 
-				if (!dataStore.cache.Has ( item.ikey) )
+				if ( ! dataStore.cache.List ().Any( i => (i.ikey == item.ikey) ) )
 				{
 					dataStore.cache.AddToCache (new List<string> { item.ikey }, h => AddToInventory (item.ikey, item.id));
-				} else
+				}
+				else
+				{
 					AddToInventory (item.ikey, item.id);
+				}
 			}
 		}
 
 		protected void AddToInventory (string ikey, string id)
 		{
 			// Prepare the item to manually add to Inventory
-			DomainObjects.Item item = new DomainObjects.Item();
+			DomainObjects.InventoryItem item = new DomainObjects.InventoryItem();
 			item.item_prototype = dataStore.cache.Get (ikey);
 
 			// Manually add to inventory

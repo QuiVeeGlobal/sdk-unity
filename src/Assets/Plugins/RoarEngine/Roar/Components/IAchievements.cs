@@ -44,7 +44,7 @@ namespace Roar.Components
 	     *
 	     * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	     **/
-		void Fetch (Roar.RequestCallback callback);
+		void Fetch (Roar.Callback< IDictionary<string,Foo> > callback);
 
 		/**
 	     * Check whether any user achievements data has been obtained from the server.

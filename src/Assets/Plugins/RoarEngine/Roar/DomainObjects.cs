@@ -254,7 +254,7 @@ namespace Roar
 
 		}
 		
-		public class Item : IDomainObject
+		public class InventoryItem : IDomainObject
 		{
 			public bool MatchesKey( string key )
 			{
@@ -267,8 +267,19 @@ namespace Roar
 			public bool consumable;
 			public bool equipped;
 			public string label;
-			public Foo item_prototype;
+			public ItemPrototype item_prototype;
 		}
+		
+		public class ItemPrototype : IDomainObject
+		{
+			public bool MatchesKey( string key )
+			{
+				return ikey==key;
+			}
+			public string ikey;
+		}
+		
+		
 
 
 	}

@@ -16,7 +16,7 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return dataStore.actions.HasDataFromServer; } }
 
-		public void Fetch (Roar.RequestCallback callback)
+		public void Fetch (Roar.Callback< IDictionary<string,Foo> > callback)
 		{
 			dataStore.actions.Fetch (callback);
 		}

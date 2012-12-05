@@ -20,7 +20,7 @@ namespace Roar.implementation.Components
 			RoarManager.shopReadyEvent += () => CacheFromShop ();
 		}
 
-		public void Fetch (Roar.RequestCallback callback)
+		public void Fetch (Roar.Callback<IDictionary<string,DomainObjects.ShopEntry> > callback)
 		{
 			dataStore.shop.Fetch (callback);
 		}

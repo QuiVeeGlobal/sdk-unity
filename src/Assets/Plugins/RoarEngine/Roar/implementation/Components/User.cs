@@ -159,13 +159,13 @@ namespace Roar.implementation.Components
 		}
 
 		//TODO: not sure this belongs in this class!
-		public void CacheFromInventory (Roar.RequestCallback cb=null)
+		public void CacheFromInventory ()
 		{
 			if (! dataStore.inventory.HasDataFromServer)
 				return;
 
 			// Build sanitised ARRAY of ikeys from Inventory.list()
-			IList<DomainObjects.Item> l = dataStore.inventory.List ();
+			IList<DomainObjects.InventoryItem> l = dataStore.inventory.List ();
 			List<string> ikeyList = new List<string> ();
 			for (int i=0; i<l.Count; i++)
 				ikeyList.Add ( l[i].ikey );
@@ -174,7 +174,7 @@ namespace Roar.implementation.Components
 
 			// Build sanitised Hashtable of ikeys from Inventory
 			// No need to call server as information is already present
-			Dictionary<string,Foo> cacheData = new Dictionary<string,Foo> ();
+			Dictionary<string,DomainObjects.ItemPrototype> cacheData = new Dictionary<string,DomainObjects.ItemPrototype> ();
 			for (int i=0; i<toCache.Count; i++) {
 				for (int k=0; k<l.Count; k++) {
 					// If the Inventory ikey matches a value in the
@@ -183,7 +183,7 @@ namespace Roar.implementation.Components
 					{
 						//TODO: Fix this
 						//cacheData [toCache [i]] = l [k];
-						cacheData [toCache[i]] = new Foo();
+						cacheData [toCache[i]] = new DomainObjects.ItemPrototype();
 					}
 				}
 			}

@@ -16,7 +16,7 @@ namespace Roar.implementation.Components
 			this.logger = logger;
 		}
 
-		public void Fetch (Roar.RequestCallback callback)
+		public void Fetch (Roar.Callback< IDictionary<string,DomainObjects.Leaderboard> > callback)
 		{
 			dataStore.leaderboards.Fetch (callback);
 		}

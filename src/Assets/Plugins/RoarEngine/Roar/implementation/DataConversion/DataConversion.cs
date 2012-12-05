@@ -512,7 +512,7 @@ namespace Roar.implementation.DataConversion
 
 	}
 
-	public class XmlToInventoryItemHashtable : IXmlToObject<DomainObjects.Item>
+	public class XmlToInventoryItemHashtable : IXmlToObject<DomainObjects.InventoryItem>
 	{
 		public ICRMParser CrmParser_;
 
@@ -526,9 +526,9 @@ namespace Roar.implementation.DataConversion
 			return n.GetAttribute ("id");
 		}
 
-		public DomainObjects.Item Build (IXMLNode n)
+		public DomainObjects.InventoryItem Build (IXMLNode n)
 		{
-			DomainObjects.Item retval = new DomainObjects.Item ();
+			DomainObjects.InventoryItem retval = new DomainObjects.InventoryItem ();
 			
 			Dictionary<string,string> kv = n.Attributes.ToDictionary( v => v.Key, v => v.Value );
 			

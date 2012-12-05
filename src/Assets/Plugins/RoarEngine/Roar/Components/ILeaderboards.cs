@@ -26,7 +26,7 @@ namespace Roar.Components
 	     *
 	     * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	     **/
-		void Fetch (Roar.RequestCallback callback);
+		void Fetch (Roar.Callback< IDictionary<string,DomainObjects.Leaderboard> > callback);
 
 		/**
 	     * Check whether any leaderboard data has been obtained from the server.

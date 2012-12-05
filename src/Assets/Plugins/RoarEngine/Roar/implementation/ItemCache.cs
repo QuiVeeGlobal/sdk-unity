@@ -15,17 +15,17 @@ public class Foo : Roar.DomainObjects.IDomainObject
 
 namespace Roar.implementation
 {
-	public class ItemCache : DataModel<Foo>
+	public class ItemCache : DataModel<DomainObjects.ItemPrototype,Roar.WebObjects.Items.ViewResponse>
 	{
-		public ItemCache (string name, string url, string node, ArrayList conditions, DC.IXmlToObject<Foo> xmlParser, IRequestSender api, Roar.ILogger logger)
-		: base(name,url,node,conditions,xmlParser,api,logger)
+		public ItemCache (string name, IDomGetter<Roar.WebObjects.Items.ViewResponse> getter, IDomToCache<Roar.WebObjects.Items.ViewResponse,Roar.DomainObjects.ItemPrototype> converter, Roar.ILogger logger)
+		: base(name, getter, converter, logger)
 		{
 		}
 
 		/**
 	    * Fetches details about `items` array and adds to item Cache Model
 	    */
-		public bool AddToCache ( IList<string> items, Roar.RequestCallback cb=null)
+		public bool AddToCache ( IList<string> items, Roar.Callback<IDictionary<string, DomainObjects.ItemPrototype> > cb=null)
 		{
 			IList<string> batch = ItemsNotInCache (items);
 
@@ -54,8 +54,9 @@ namespace Roar.implementation
 			}
 
 			List<string> batch = new List<string>();
+			
 			for (int i=0; i<items.Count; i++)
-				if ( ! Has( items [i] ) )
+				if ( RawGet( items [i] ) == null )
 					batch.Add (items [i] );
 
 			return batch;

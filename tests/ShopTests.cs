@@ -56,7 +56,7 @@ public class ShopTests : ComponentTests
     Assert.IsFalse(shop.HasDataFromServer);
   }
   
-  protected void mockFetch(string mockResponse, Roar.RequestCallback cb) {
+  protected void mockFetch(string mockResponse, Roar.Callback< IDictionary<string, Roar.DomainObjects.ShopEntry> > cb) {
     requestSender.addMockResponse("shop/list", mockResponse);
     // todo: mock a response from items/view for testing the item cache
     requestSender.addMockResponse("items/view", " ");
@@ -66,7 +66,7 @@ public class ShopTests : ComponentTests
   [Test]
   public void testFetchSuccess() {
     bool callbackExecuted = false;
-    Roar.RequestCallback roarCallback = (Roar.RequestResult callbackInfo) => { 
+    Roar.Callback< IDictionary<string, Roar.DomainObjects.ShopEntry> > roarCallback = (Roar.CallbackInfo< IDictionary<string, Roar.DomainObjects.ShopEntry> > callbackInfo) => { 
       callbackExecuted=true;
       Assert.AreEqual(IWebAPI.OK, callbackInfo.code);
       Assert.IsNotNull(callbackInfo.data);

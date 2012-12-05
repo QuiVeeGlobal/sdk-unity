@@ -62,7 +62,7 @@ namespace Roar.Components
 	   *
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   */
-		void Fetch (Roar.RequestCallback callback);
+		void Fetch (Roar.Callback<IDictionary<string,DomainObjects.ShopEntry> > callback);
 
 		/**
 	   * Check whether shop information has been obtained from the server.

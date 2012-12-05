@@ -179,9 +179,8 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 
 	string version="1.0.0";
 
-	public string Version( Roar.RequestCallback callback = null )
+	public string Version( )
 	{
-		//if(callback!=null) callback( new Roar.CallbackInfo<object>( version ) );
 		return version;
 	}
 
@@ -205,15 +204,13 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		User.DoCreate(username,password,callback);
 	}
 
-	public string WhoAmI( Roar.RequestCallback callback=null )
+	public string WhoAmI()
 	{
-		//if (callback!=null) callback( new Roar.CallbackInfo<object>(Properties.GetValue( "name" )) );
 		return Properties.GetValue( "name" );
 	}
 
-	public string PlayerId( Roar.RequestCallback callback=null )
+	public string PlayerId()
 	{
-		//if (callback!=null) callback( new Roar.CallbackInfo<object>(Properties.GetValue( "id" )) );
 		return Properties.GetValue( "id" );
 	}
 

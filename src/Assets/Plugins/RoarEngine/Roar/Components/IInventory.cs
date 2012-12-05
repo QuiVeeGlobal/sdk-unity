@@ -63,7 +63,7 @@ namespace Roar.Components
 	   *
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   */
-		void Fetch (Roar.RequestCallback callback);
+		void Fetch(Roar.Callback< IDictionary<string,Roar.DomainObjects.InventoryItem> > callback);
 
 		/**
 	   * Check whether any inventory data has been obtained from the server.
@@ -84,7 +84,7 @@ namespace Roar.Components
 	   *       is called prior to the successful completion of a #fetch call,
 	   *       it will return an empty array.
 	   **/
-		IList<DomainObjects.Item> List ();
+		IList<DomainObjects.InventoryItem> List ();
 
 		/**
 	   * Activates an item in the user's inventory.
@@ -206,7 +206,7 @@ namespace Roar.Components
 	   * @returns the inventory item Hashtable associated with the *id*
 	   *          or null if the inventory item does not exist in the data store.
 	   */
-		DomainObjects.Item GetGood (string id);
+		DomainObjects.InventoryItem GetGood (string id);
 
 	}
 
