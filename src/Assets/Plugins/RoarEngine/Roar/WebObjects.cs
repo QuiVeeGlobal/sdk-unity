@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 
 namespace Roar.WebObjects
@@ -1340,10 +1341,64 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/view
-		public class ViewResponse : IResponse
+		/*
+		<roar tick="135477750110">
+  <user>
+    <view status="ok">
+      <attribute type="special" ikey="id" value="7768994473418730544"/>
+      <attribute type="special" ikey="xp" value="0" level_start="0" next_level="20"/>
+      <attribute ikey="daily_login_throttle" label="Daily Login Throttle" value="1" type="resource" min="0" max="1" regen_amount="1" regen_every="8640000"/>
+      <attribute ikey="energy" label="Energy" value="10" type="resource" min="0" max="10" regen_amount="1" regen_every="18000"/>
+      <attribute ikey="magic" label="Magic" value="7" type="core"/>
+      <attribute ikey="gamecoins" label="GameCoins" value="100" type="currency" min="0"/>
+      <attribute name="player_name" value="Default Name" type="custom"/>
+      <attribute name="status" value="No current status update available" type="custom"/>
+      <regen_scripts/>
+    </view>
+  </user>
+</roar>
+*/
+		public class PlayerAttribute
 		{
+			public string ikey = null;
+			public string name = null;
+			public string label = null;
+			public string value = null;
+			public string type = null;
+			public string min = null;
+			public string max = null;
+			public string regen_amount = null;
+			public string regen_every = null;
+			
 			public void ParseXml( IXMLNode nn )
 			{
+				Dictionary<string,string> kv = nn.Attributes.ToDictionary( v => v.Key, v => v.Value );
+				kv.TryGetValue("ikey",out ikey);
+				kv.TryGetValue("name",out name);
+				if( ikey == null ) { ikey = name;} 
+
+				kv.TryGetValue("label",out label);
+				kv.TryGetValue("value",out value);
+				kv.TryGetValue("type",out type);
+				kv.TryGetValue("min",out min);
+				kv.TryGetValue("max",out max);
+				kv.TryGetValue("regen_amount",out regen_amount);
+				kv.TryGetValue("regen_every",out regen_every);
+			}
+		}
+		
+		public class ViewResponse : IResponse
+		{
+			public List<PlayerAttribute> attributes = new List<PlayerAttribute>();
+			public void ParseXml( IXMLNode nn )
+			{
+				List<IXMLNode> attribute_nodes = nn.GetNodeList("roar>0>user>0>view>0>attribute");
+				foreach( IXMLNode n in attribute_nodes )
+				{
+					PlayerAttribute a = new PlayerAttribute();
+					a.ParseXml(n);
+					attributes.Add(a);
+				}
 			}
 		}
 
