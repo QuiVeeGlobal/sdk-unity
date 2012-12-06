@@ -1,4 +1,5 @@
-using System.Collections;
+using System.Collections.Generic;
+using Roar.WebObjects;
 
 namespace Roar.Components
 {
@@ -89,7 +90,7 @@ namespace Roar.Components
 	   *
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   **/
-		void Fetch (Roar.Callback callback);
+		void Fetch (Roar.Callback< IDictionary<string,Foo> > callback);
 
 		/**
 	   * Check whether any action data has been obtained from the server.
@@ -108,27 +109,7 @@ namespace Roar.Components
 	   *       is called prior to the successful completion of a #fetch call,
 	   *       it will return an empty array.
 	   **/
-		ArrayList List ();
-
-		/**
-	   * Get a list of all the actions for the authenticated user.
-	   *
-	   * On success:
-	   * - invokes callback with parameter *data* containing the list of Hashtable actions
-	   *
-	   * On failure:
-	   * - returns an empty list
-	   *
-	   * @param callback the callback function to be passed this function's result.
-	   *
-	   * @returns A list of Hashtables for each action.
-	   *
-	   * @note This does _not_ make a server call. It requires the actions to
-	   *       have already been fetched via a call to #fetch. If this function
-	   *       is called prior to the successful completion of a #fetch call,
-	   *       it will return an empty array.
-	   **/
-		ArrayList List (Roar.Callback callback);
+		IList<Foo> List ();
 
 		/**
 	   * Initiates an action on the server, which evaluates the requirements and conditions for the action.
@@ -161,7 +142,7 @@ namespace Roar.Components
 	   *
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   **/
-		void Execute (string ikey, Roar.Callback callback);
+		void Execute (string ikey, Roar.Callback<WebObjects.Tasks.StartResponse> callback);
 	}
 
 }

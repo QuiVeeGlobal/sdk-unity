@@ -34,13 +34,13 @@ namespace Roar.implementation.Components
 public class Data : IData
 {
   protected IWebAPI.IUserActions user_actions_;
-  protected DataStore data_store_;
+  protected IDataStore data_store_;
   protected ILogger logger_;
 		
   // Universal Data Store - getData + setData
   private Hashtable Data_ = new Hashtable();
   
-  public Data( IWebAPI.IUserActions user_actions, DataStore data_store, ILogger logger )
+  public Data( IWebAPI.IUserActions user_actions, IDataStore data_store, ILogger logger )
   {
 		user_actions_ = user_actions;
 		data_store_ = data_store;
@@ -50,35 +50,39 @@ public class Data : IData
   // ----------------------
   // UNITY Note: Data is never coerced from a string to an Object(Hash)
   // which is left as an exercise for the reader
-  public void load( string key, Roar.Callback callback )
+  public void load( string key, Roar.Callback<string> callback )
   {
     // If data is already present in the client cache, return that
     if (Data_[key] != null) 
     {
-      var ret = Data_[key];
-      if (callback!=null) callback( new Roar.CallbackInfo<object>(ret, IWebAPI.OK, null) );
+      var ret = Data_[key] as string;
+      if (callback!=null) callback( new Roar.CallbackInfo<string>(ret, IWebAPI.OK, null) );
     }
     else
 	{
-		Hashtable args = new Hashtable();
-		args["ikey"] = key;
+		WebObjects.User.Netdrive_fetchArguments args = new Roar.WebObjects.User.Netdrive_fetchArguments();
+		args.ikey =  key;
 
 		user_actions_.netdrive_fetch( args, new OnGetData( callback, this, key ) );
 	}
   }
-  class OnGetData : SimpleRequestCallback<IXMLNode>
+  class OnGetData : CBBase<WebObjects.User.Netdrive_fetchResponse>
   {
     protected Data data;
     protected string key;
+    Roar.Callback<string> cbx;
   
-    public OnGetData( Roar.Callback in_cb, Data in_data, string in_key) : base(in_cb)
+    public OnGetData( Roar.Callback<string> in_cb, Data in_data, string in_key) : base(null)
     {
       data = in_data;
       key = in_key;
+      cbx = in_cb;
     }
   
-  public override object OnSuccess( CallbackInfo<IXMLNode> info )
+  public override void HandleSuccess( CallbackInfo<WebObjects.User.Netdrive_fetchResponse> info )
   {
+    //TODO: Move this into the ParseXML function in Netdrive_fetchResponse
+    /*
     string value = "";
     string str = null;
 
@@ -89,57 +93,54 @@ public class Data : IData
     }
     if (str!=null) value = str;
 
-    data.Data_[key] = value;
 
-    if (value == "") 
+    if ( value==null || value == "") 
     { 
       data.logger_.DebugLog("[roar] -- No data for key: "+key);
       info.code = IWebAPI.UNKNOWN_ERR;
       info.msg = "No data for key: "+key;
-      return value;
+      cbx( new CallbackInfo<string>( null, IWebAPI.UNKNOWN_ERR, "no data for key: "+key ) );
     }
+    */
+    
+    data.Data_[key] = info.data;
 
-    RoarManager.OnDataLoaded( key, value);
-    return value;
+    
+    cbx( new CallbackInfo<string>( info.data.data, IWebAPI.OK, null ) );
+    RoarManager.OnDataLoaded( key, info.data.data);
   }
   }
 
 
   // UNITY Note: Data is forced to a string to save us having to
   // manually 'stringify' anything.
-  public void save( string key, string val, Roar.Callback callback)
+  public void save( string key, string val, Roar.Callback<WebObjects.User.Netdrive_saveResponse> callback)
   {
     Data_[ key ] = val;
 
-	Hashtable args = new Hashtable();
-	args["ikey"]=key;
-	args["data"]=val;
+	WebObjects.User.Netdrive_saveArguments args = new Roar.WebObjects.User.Netdrive_saveArguments();
+	args.ikey=key;
+	args.data=val;
 		
     user_actions_.netdrive_save( args, new OnSetData(callback, this, key, val) );
   }
   
-  class OnSetData : SimpleRequestCallback<IXMLNode>
+  class OnSetData : CBBase<WebObjects.User.Netdrive_saveResponse>
   {
     protected Data data;
     protected string key;
     protected string value;
 
-    public OnSetData( Roar.Callback in_cb, Data in_data, string in_key, string in_value) : base(in_cb)
+    public OnSetData( Roar.Callback<WebObjects.User.Netdrive_saveResponse> in_cb, Data in_data, string in_key, string in_value) : base(in_cb)
     {
       data = in_data;
       key = in_key;
       value = in_value;
     }
 
-    public override object OnSuccess( CallbackInfo<IXMLNode> info )
+    public override void HandleSuccess( CallbackInfo<WebObjects.User.Netdrive_saveResponse> info )
     {
       RoarManager.OnDataSaved(key, value);
-
-      Hashtable data = new Hashtable();
-      data["key"] = key;
-      data["data"] = value;
-
-      return data;
     }
   }
 

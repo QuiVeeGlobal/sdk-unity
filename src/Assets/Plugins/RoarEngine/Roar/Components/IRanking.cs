@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Roar.Components
 {
@@ -25,7 +26,7 @@ namespace Roar.Components
 	     *
 	     * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	     **/
-		void Fetch (Roar.Callback callback);
+		void Fetch (Roar.Callback< IDictionary<string,Foo> > callback);
 
 		/**
 	     * Check whether any ranking data has been obtained from the server.
@@ -44,28 +45,7 @@ namespace Roar.Components
 	     *       is called prior to the successful completion of a #fetch call,
 	     *       it will return an empty array.
 	     **/
-		ArrayList List ();
-
-		/**
-	     * Get a list of all the ranking objects for the authenticated user.
-	     *
-	     * On success:
-	     * - invokes callback with parameter *data* containing the list of Hashtable ranking
-	     *
-	     * On failure:
-	     * - returns an empty list
-	     *
-	     * @param callback the callback function to be passed this function's result.
-	     *
-	     * @returns A list of Hashtables for each ranking.
-	     *
-	     * @note This does _not_ make a server call. It requires the user achievements to
-	     *       have already been fetched via a call to #fetch. If this function
-	     *       is called prior to the successful completion of a #fetch call,
-	     *       it will return an empty array.
-	     **/
-		ArrayList List (Roar.Callback callback);
-
+		IList<Foo> List ();
 
 		/**
 	     * Returns the ranking object for a given key.
@@ -75,23 +55,6 @@ namespace Roar.Components
 	     * @returns the property Hashtable associated with the *key*
 	     *          or null if the ranking does not exist in the data store.
 	     **/
-		Hashtable GetEntry (string ikey);
-
-		/**
-	     * Returns the ranking object for a given key.
-	     *
-	     * On success:
-	     * - invokes callback with parameter *data* containing the ranking Hashtable
-	     *
-	     * On failure:
-	     * - invokes callback with parameter *data* equalling null if ranking does not exist
-	     *
-	     * @param ikey the key that uniquely identifies a ranking.
-	     * @param callback the callback function to be passed this function's result.
-	     *
-	     * @returns the achievement Hashtable associated with the *ikey*
-	     *          or null if the ranking does not exist in the data store.
-	     **/
-		Hashtable GetEntry (string ikey, Roar.Callback callback);
+		Foo GetEntry (string ikey);
 	}
 }

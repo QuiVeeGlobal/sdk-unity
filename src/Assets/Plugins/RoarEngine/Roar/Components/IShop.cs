@@ -62,7 +62,7 @@ namespace Roar.Components
 	   *
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   */
-		void Fetch (Roar.Callback callback);
+		void Fetch (Roar.Callback<IDictionary<string,DomainObjects.ShopEntry> > callback);
 
 		/**
 	   * Check whether shop information has been obtained from the server.
@@ -88,7 +88,7 @@ namespace Roar.Components
 	   *
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   */
-		void Buy (string shop_ikey, Roar.Callback callback);
+		void Buy (string shop_ikey, Roar.Callback<WebObjects.Shop.BuyResponse> callback);
 
 		/**
 	   * Get a list of all the available items in the shop.
@@ -103,26 +103,6 @@ namespace Roar.Components
 		IList<DomainObjects.ShopEntry> List ();
 
 		/**
-	   * Get a list of all the available items in the shop.
-	   *
-	   * On success:
-	   * - invokes callback with parameter *data* containing the list of Hashtable shop items
-	   *
-	   * On failure:
-	   * - returns an empty list
-	   *
-	   * @param callback the callback function to be passed this function's result.
-	   *
-	   * @returns A list of Hashtables for each shop item.
-	   *
-	   * @note This does _not_ make a server call. It requires the shop data to
-	   *       have already been fetched via a call to #fetch. If this function
-	   *       is called prior to the successful completion of a #fetch call,
-	   *       it will return an empty array.
-	   */
-		IList<DomainObjects.ShopEntry> List (Roar.Callback callback);
-
-		/**
 	   * Returns the shop item object for a given key.
 	   *
 	   * @param ikey the key that uniquely identifies a shop item.
@@ -131,24 +111,6 @@ namespace Roar.Components
 	   *          or null if the shop item does not exist in the data store.
 	   */
 		DomainObjects.ShopEntry GetShopItem (string ikey);
-
-		/**
-	   * Returns the shop item object for a given key.
-	   *
-	   * On success:
-	   * - invokes callback with parameter *data* containing the Hashtable shop item
-	   *
-	   * On failure:
-	   * - invokes callback with parameter *data* equaling null if shop item does not exist.
-	   *
-	   *
-	   * @param ikey the key that uniquely identifies a shop item.
-	   * @param callback the callback function to be passed this function's result.
-	   *
-	   * @returns the shop item Hashtable associated with the *ikey*
-	   *          or null if the shop item does not exist in the data store.
-	   */
-		DomainObjects.ShopEntry GetShopItem (string ikey, Roar.Callback callback);
 	}
 
 }

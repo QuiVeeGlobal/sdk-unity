@@ -10,14 +10,17 @@ namespace Roar.implementation.Components
 	public class InAppPurchase : IInAppPurchase
 	{
 		protected ILogger logger;
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		protected IWebAPI.IAppstoreActions actions;
 		protected bool isSandbox;
 		protected bool hasDataFromAppstore;
 		protected bool isServerCalling;
 		protected IDictionary<string, Hashtable> productsMap;
 		protected IList<Hashtable> productsList;
-		protected Roar.Callback purchaseCallback;
+		
+		//TODO: Ugly that we need two of these for now.
+		protected Roar.Callback<string> purchaseCallback;
+		protected Roar.Callback<Roar.WebObjects.Appstore.BuyResponse> purchaseCallbackX;
 
 		public InAppPurchase (IWebAPI.IAppstoreActions actions, string nativeCallbackGameObject, ILogger logger, bool isSandbox)
 		{
@@ -40,7 +43,7 @@ namespace Roar.implementation.Components
 	     * 1. Retrieve the appstore product ids from roar.
 	     * 2. Use the product ids to retrieve the product details from the appstore.
 	     **/
-		public void Fetch (Roar.Callback callback)
+		public void Fetch (Roar.Callback<WebObjects.Appstore.Shop_listResponse> callback)
 		{
 			if (isServerCalling) {
 				return;
@@ -48,36 +51,38 @@ namespace Roar.implementation.Components
 			isServerCalling = false;
 			productsMap.Clear ();
 			productsList.Clear ();
-			Hashtable args = new Hashtable ();
-			actions.shop_list (args, new AppstoreListCallback (callback, this));
+			actions.shop_list ( new Roar.WebObjects.Appstore.Shop_listArguments(), new AppstoreListCallback (callback, this));
 		}
 
-		class AppstoreListCallback : SimpleRequestCallback<IXMLNode>
+		class AppstoreListCallback : ZWebAPI.Callback<WebObjects.Appstore.Shop_listResponse>
 		{
 			InAppPurchase appstore;
+			Roar.Callback<WebObjects.Appstore.Shop_listResponse> cb_;
 
-			public override void Prologue ()
-			{
-				// Reset this function call
-				appstore.isServerCalling = false;
-			}
-
-			public AppstoreListCallback (Roar.Callback in_cb, InAppPurchase in_appstore) : base(in_cb)
+			public AppstoreListCallback (Roar.Callback<WebObjects.Appstore.Shop_listResponse> in_cb, InAppPurchase in_appstore)
 			{
 				appstore = in_appstore;
+				cb_ = in_cb;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public void OnSuccess (Roar.CallbackInfo<WebObjects.Appstore.Shop_listResponse> info)
 			{
-				appstore.logger.DebugLog (string.Format ("onAppstoreList.onSuccess() called with: {0}", info.data.DebugAsString ()));
-				ArrayList productIdentifiersList = appstore.GetProductIdentifiers (info.data);
-				string combinedProductIdentifiers = string.Join (",", (string[])productIdentifiersList.ToArray (typeof(string)));
-        		#if UNITY_IOS && !UNITY_EDITOR
-        		_StoreKitRequestProductData(combinedProductIdentifiers);
-        		#else
+				appstore.isServerCalling = false;
+				appstore.logger.DebugLog (string.Format ("onAppstoreList.onSuccess() called with: {0}", info.data.ToString()));
+				string combinedProductIdentifiers = string.Join (",", (string[])info.data.productIdentifiers.ToArray());
+#if UNITY_IOS && !UNITY_EDITOR
+				_StoreKitRequestProductData(combinedProductIdentifiers);
+#else
 				appstore.logger.DebugLog (string.Format ("Can't call _StoreKitRequestProductData({0}) from Unity Editor", combinedProductIdentifiers));
-        		#endif
-				return productIdentifiersList;
+#endif
+				cb_(info);
+			}
+			
+			public void OnError( RequestResult info )
+			{
+				appstore.isServerCalling = false;
+				cb_( new CallbackInfo<WebObjects.Appstore.Shop_listResponse>( null, info.code, info.msg) );
+
 			}
 		}
 
@@ -91,58 +96,52 @@ namespace Roar.implementation.Components
 			return productsMap [productIdentifier];
 		}
 
-		protected ArrayList GetProductIdentifiers (IXMLNode data)
-		{
-			ArrayList productIdentifiers = new ArrayList ();
-			// extract the product identifiers from the xml
-			string path = "roar>0>appstore>0>shop_list>0>shopitem";
-			List<IXMLNode> products = data.GetNodeList (path);
-			if (products == null) {
-				logger.DebugLog (string.Format ("data.GetNodeList('{0}') return null", path));
-				return productIdentifiers;
-			}
-			foreach (IXMLNode product in products) {
-				string pid = product.GetAttribute ("product_identifier");
-				if (!string.IsNullOrEmpty (pid)) {
-					productIdentifiers.Add (pid);
-				}
-			}
-			return productIdentifiers;
-		}
+
 
 		public bool HasDataFromServer { get { return hasDataFromAppstore; } }
 
-		protected void ValidateReceipt (string receiptId, Roar.Callback callback)
+		protected void ValidateReceipt (string receiptId, Roar.Callback<WebObjects.Appstore.BuyResponse> callback)
 		{
 
-			Hashtable args = new Hashtable ();
-			args ["receipt"] = receiptId;
-			args ["sandbox"] = Convert.ToString (isSandbox);
+
+			
+			WebObjects.Appstore.BuyArguments args = new Roar.WebObjects.Appstore.BuyArguments();
+			args.receipt = receiptId;
+			args.sandbox = isSandbox;
 
 			actions.buy (args, new OnReceiptValidation (callback, this, receiptId));
 		}
 
-		class OnReceiptValidation : SimpleRequestCallback<IXMLNode>
+		class OnReceiptValidation : ZWebAPI.Callback<WebObjects.Appstore.BuyResponse>
 		{
 			InAppPurchase appstore;
 			string receiptId;
+			Roar.Callback<WebObjects.Appstore.BuyResponse> cb;
 
-			public OnReceiptValidation (Roar.Callback in_cb, InAppPurchase in_appstore, string in_receiptId) : base(in_cb)
+			public OnReceiptValidation (Roar.Callback<WebObjects.Appstore.BuyResponse> in_cb, InAppPurchase in_appstore, string in_receiptId) 
 			{
 				appstore = in_appstore;
 				receiptId = in_receiptId;
+				cb = in_cb;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public void OnSuccess (CallbackInfo<WebObjects.Appstore.BuyResponse> info)
+			{
+				appstore.logger.DebugLog (string.Format ("onReceiptValidation() called with: {0}", info.data.ToString()));
+			}
+			
+			public void OnError (RequestResult info)
 			{
 				appstore.logger.DebugLog (string.Format ("onReceiptValidation() called with: {0}", info.data.DebugAsString ()));
-				return receiptId;
 			}
 		}
 
-		public void Purchase (string productId, Roar.Callback cb)
+
+		//TODO: Ugly that we need two of these
+		public void Purchase (string productId, Roar.Callback<string> cb, Roar.Callback<Roar.WebObjects.Appstore.BuyResponse> cbx)
 		{
 			purchaseCallback = cb;
+			purchaseCallbackX = cbx;
     		#if UNITY_IOS && !UNITY_EDITOR
       		_StoreKitPurchase(productId);
     		#else
@@ -150,9 +149,11 @@ namespace Roar.implementation.Components
    			#endif
 		}
 
-		public void Purchase (string productId, int quantity, Roar.Callback cb)
+		public void Purchase (string productId, int quantity, Roar.Callback<string> cb, Roar.Callback<Roar.WebObjects.Appstore.BuyResponse> cbx)
 		{
 			purchaseCallback = cb;
+			purchaseCallbackX = cbx;
+
     		#if UNITY_IOS && !UNITY_EDITOR
       		_StoreKitPurchaseQuantity(productId, quantity);
     		#else
@@ -212,7 +213,7 @@ namespace Roar.implementation.Components
 			IXMLNode root = IXMLNodeFactory.instance.Create (purchaseXml);
 			IXMLNode purchaseNode = root.GetFirstChild ("shop_item_purchase_success");
 			string transactionIdentifier = purchaseNode.GetAttribute ("transaction_identifier");
-			ValidateReceipt (transactionIdentifier, purchaseCallback);
+			ValidateReceipt (transactionIdentifier, purchaseCallbackX);
 		}
 
 		public void OnPurchaseCancelled (string productIdentifier)

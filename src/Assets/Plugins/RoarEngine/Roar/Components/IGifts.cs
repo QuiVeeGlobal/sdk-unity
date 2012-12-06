@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Roar.Components
 {
@@ -43,7 +43,7 @@ namespace Roar.Components
 	     *
 	     * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	     **/
-		void Fetch (Roar.Callback callback);
+		void Fetch (Roar.Callback< IDictionary<string,Foo> > callback);
 
 		/**
 	     * Check whether any user gifts data has been obtained from the server.
@@ -62,27 +62,7 @@ namespace Roar.Components
 	     *       is called prior to the successful completion of a #fetch call,
 	     *       it will return an empty array.
 	     **/
-		ArrayList List ();
-
-		/**
-	     * Get a list of all the giftable items for the authenticated user.
-	     *
-	     * On success:
-	     * - invokes callback with parameter *data* containing the list of gift Hashtables
-	     *
-	     * On failure:
-	     * - returns an empty list
-	     *
-	     * @param callback the callback function to be passed this function's result.
-	     *
-	     * @returns A list of Hashtables for each giftable items.
-	     *
-	     * @note This does _not_ make a server call. It requires the gifts to
-	     *       have already been fetched via a call to #fetch. If this function
-	     *       is called prior to the successful completion of a #fetch call,
-	     *       it will return an empty array.
-	     **/
-		ArrayList List (Roar.Callback callback);
+		IList<Foo> List ();
 
 
 		/**
@@ -93,23 +73,7 @@ namespace Roar.Components
 	     * @returns the gift Hashtable associated with the *id*
 	     *          or null if the gift does not exist in the data store.
 	     **/
-		Hashtable GetGift (string id);
+		Foo GetGift (string id);
 
-		/**
-	     * Returns the gift object for a given id.
-	     *
-	     * On success:
-	     * - invokes callback with parameter *data* containing the gift Hashtable
-	     *
-	     * On failure:
-	     * - invokes callback with parameter *data* equalling null if gift does not exist
-	     *
-	     * @param id the key that uniquely identifies a gift.
-	     * @param callback the callback function to be passed this function's result.
-	     *
-	     * @returns the gift Hashtable associated with the *id*
-	     *          or null if the gift does not exist in the data store.
-	     **/
-		Hashtable GetGift (string id, Roar.Callback callback);
 	}
 }

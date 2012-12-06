@@ -94,7 +94,7 @@ public class RequirementTests
   {
     XCRMParser parser = new XCRMParser();
     IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
-    Item item = new Item();
+    Roar.DomainObjects.Requirements.Item item = new Roar.DomainObjects.Requirements.Item();
     item.ikey = "christmas_tree";
     item.number_required = 56;
     item.ok = false;
@@ -108,11 +108,11 @@ public class RequirementTests
     
     Requirement r = parser.ParseARequirement(ixmlnode);
     mockery.VerifyAllExpectationsHaveBeenMet();
-    Assert.IsNotNull(r as Item);
-    Assert.AreEqual((r as Item).ikey, item.ikey);
-    Assert.AreEqual((r as Item).number_required, item.number_required);
-    Assert.AreEqual((r as Item).ok, item.ok);
-    Assert.AreEqual((r as Item).reason, item.reason);
+    Assert.IsNotNull(r as Roar.DomainObjects.Requirements.Item);
+    Assert.AreEqual((r as Roar.DomainObjects.Requirements.Item).ikey, item.ikey);
+    Assert.AreEqual((r as Roar.DomainObjects.Requirements.Item).number_required, item.number_required);
+    Assert.AreEqual((r as Roar.DomainObjects.Requirements.Item).ok, item.ok);
+    Assert.AreEqual((r as Roar.DomainObjects.Requirements.Item).reason, item.reason);
   }
 
   /*
@@ -140,7 +140,6 @@ public class RequirementTests
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("value").Will(Return.Value("" + stat.value));
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ok").Will(Return.Value(stat.ok ? "true" : "false"));
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("reason").Will(Return.Value(stat.reason));
-    System.Console.Out.WriteLine("bool [" + true + "] [" + false + "]");
     
     Requirement r = parser.ParseARequirement(ixmlnode);
     mockery.VerifyAllExpectationsHaveBeenMet();

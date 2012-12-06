@@ -6,6 +6,23 @@ namespace Roar
 
 public class Json
 {
+  public static string ArrayToJSON( IList<string> ar )
+  {
+    // Bail out if nothing passed correctly
+    if (ar==null)
+    {
+      return "null";
+    }
+
+    string str = "[";
+    for (int i=0; i<ar.Count; i++)
+    {
+      str += StringToJSON(ar[i]);
+      if (i != (ar.Count-1)) str+= ",";
+    }
+    str += "]";
+    return str;
+  }
 
   public static string ArrayToJSON( ArrayList ar )
   {

@@ -19,7 +19,14 @@
         "name":"appstore",
         "functions":
         [
-          { "name":"buy" },
+          {
+            "name":"buy",
+            "arguments":
+            [
+              {"name":"receipt","type":"string"},
+              {"name":"sandbox","type":"bool"}
+            ]
+          },
           { "name":"shop_list" }
         ]
      },
@@ -83,12 +90,28 @@
         "name":"items",
         "functions":
         [
-          { "name":"equip" },
+          {
+            "name":"equip",
+            "arguments":[
+              {"name":"item_id","type":"string"}
+            ] },
           { "name":"list", "obj":"null" },
-          { "name":"sell" },
+          {
+            "name":"sell",
+            "arguments":[
+              {"name":"item_id","type":"string"}
+            ] },
           { "name":"set" },
-          { "name":"unequip" },
-          { "name":"use" },
+          {
+            "name":"unequip", 
+            "arguments":[
+              {"name":"item_id","type":"string"}
+            ] },
+          {
+            "name":"use",
+            "arguments":[
+              {"name":"item_id","type":"string"}
+            ] },
           { "name":"view" },
           { "name":"view_all" }
         ]
@@ -116,7 +139,11 @@
         "functions":
         [
           { "name":"list", "obj":"null" },
-          { "name":"buy" }
+          {
+            "name":"buy",
+            "arguments":[
+              {"name":"shop_item_ikey","type":"string"}
+            ] }
         ]
      },
      {
@@ -131,7 +158,11 @@
         "functions":
         [
           {"name":"list", "obj":"null"},
-          {"name":"start"}
+          {
+            "name":"start",
+            "arguments":[
+              {"name":"task_ikey","type":"string"}
+            ] }
         ]
       },
       {
@@ -141,12 +172,38 @@
           {"name":"achievements", "obj":"null"},
           {"name":"change_name"},
           {"name":"change_password"},
-          {"name":"create"},
-          {"name":"login"},
-          {"name":"login_facebook_oauth", "url":"facebook/login_oauth"},
+          {
+            "name":"create",
+            "arguments":[
+              {"name":"name","type":"string"},
+              {"name":"hash","type":"string"}
+            ] },
+          {
+            "name":"login",
+            "arguments":[
+              {"name":"name","type":"string"},
+              {"name":"hash","type":"string"}
+            ] },
+          {
+            "name":"login_facebook_oauth",
+            "url":"facebook/login_oauth",
+            "arguments":[
+              {"name":"oauth_token","type":"string"}
+            ] },
           {"name":"logout", "obj":"null"},
-          {"name":"netdrive_save", "url":"user/netdrive_set"},
-          {"name":"netdrive_fetch", "url":"user/netdrive_get"},
+          {
+            "name":"netdrive_save",
+            "url":"user/netdrive_set",
+            "arguments":[
+              {"name":"ikey", "type":"string"},
+              {"name":"data", "type":"string"}
+            ] },
+          {
+            "name":"netdrive_fetch",
+            "url":"user/netdrive_get",
+            "arguments":[
+              {"name":"ikey", "type":"string"}
+            ]},
           {"name":"set"},
           {"name":"view", "obj":"null"}
         ]

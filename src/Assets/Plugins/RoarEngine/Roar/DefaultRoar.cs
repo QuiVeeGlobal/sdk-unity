@@ -87,7 +87,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 
 	private static DefaultRoar instance;
 	private static IRoar api;
-	private Roar.implementation.DataStore datastore;
+	private Roar.implementation.IDataStore datastore;
 	private Logger logger = new Logger();
 
 	/**
@@ -149,8 +149,9 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		}
 
 		RequestSender api = new RequestSender(config,this,logger);
-		datastore = new Roar.implementation.DataStore(api, logger);
 		webAPI = new global::WebAPI(api);
+
+		datastore = new Roar.implementation.DataStore(webAPI, logger);
 		user = new Roar.implementation.Components.User(webAPI.user,datastore, logger);
 		properties = new Roar.implementation.Components.Properties( datastore );
 		leaderboards = new Roar.implementation.Components.Leaderboards(datastore, logger);
@@ -182,41 +183,38 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 
 	string version="1.0.0";
 
-	public string Version( Roar.Callback callback = null )
+	public string Version( )
 	{
-		if(callback!=null) callback( new Roar.CallbackInfo<object>( version ) );
 		return version;
 	}
 
-	public void Login( string username, string password, Roar.Callback callback=null )
+	public void Login( string username, string password, Roar.Callback<Roar.WebObjects.User.LoginResponse> callback=null )
 	{
 		User.DoLogin(username,password,callback);
 	}
 
-	public void LoginFacebookOAuth( string oauth_token, Roar.Callback callback=null )
+	public void LoginFacebookOAuth( string oauth_token, Roar.Callback<Roar.WebObjects.User.Login_facebook_oauthResponse> callback=null )
 	{
 		User.DoLoginFacebookOAuth(oauth_token,callback);
 	}
 
-	public void Logout( Roar.Callback callback=null )
+	public void Logout( Roar.Callback<Roar.WebObjects.User.LogoutResponse> callback=null )
 	{
 		User.DoLogout(callback);
 	}
 
-	public void Create( string username, string password, Roar.Callback callback=null )
+	public void Create( string username, string password, Roar.Callback<Roar.WebObjects.User.CreateResponse> callback=null )
 	{
 		User.DoCreate(username,password,callback);
 	}
 
-	public string WhoAmI( Roar.Callback callback=null )
+	public string WhoAmI()
 	{
-		if (callback!=null) callback( new Roar.CallbackInfo<object>(Properties.GetValue( "name" )) );
 		return Properties.GetValue( "name" );
 	}
 
-	public string PlayerId( Roar.Callback callback=null )
+	public string PlayerId()
 	{
-		if (callback!=null) callback( new Roar.CallbackInfo<object>(Properties.GetValue( "id" )) );
 		return Properties.GetValue( "id" );
 	}
 
@@ -227,7 +225,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		this.StartCoroutine(method);
 	}
 
-	public Roar.implementation.DataStore DataStore
+	public Roar.implementation.IDataStore DataStore
 	{
 		get { return datastore; }
 	}

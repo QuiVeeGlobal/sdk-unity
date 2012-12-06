@@ -5,6 +5,50 @@ using NUnit.Framework;
 using NMock2;
 using Roar.Components;
 
+
+[TestFixture]
+public class LowLevelShopTests
+{
+	Mockery mock;
+	[SetUp]
+	public void SetUp()
+	{
+		mock = new Mockery();
+		
+	}
+
+	[Test]
+	public void testListForwardsToDataModel()
+	{
+		WebAPI.IShopActions shop_actions = mock.NewMock<WebAPI.IShopActions>();
+		Roar.implementation.IDataStore datastore = mock.NewMock<Roar.implementation.IDataStore>();
+		Roar.ILogger logger = mock.NewMock<Roar.ILogger>();
+		Roar.implementation.Components.Shop shop = new Roar.implementation.Components.Shop(shop_actions,datastore,logger);
+		
+		IDataModel<Roar.DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop_datamodel = mock.NewMock<IDataModel<Roar.DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse>>();
+		
+		List<Roar.DomainObjects.ShopEntry> retval = new List<Roar.DomainObjects.ShopEntry>();
+		retval.Add( new Roar.DomainObjects.ShopEntry() );
+		retval.Add( new Roar.DomainObjects.ShopEntry() );
+		
+		Expect.AtLeast(1).On(datastore)
+			.GetProperty("shop")
+			.Will(Return.Value( shop_datamodel ) );
+			
+		Expect.AtLeast(1).On(shop_datamodel)
+			.Method("List")
+			.Will (Return.Value( retval ) );
+		
+		IList<Roar.DomainObjects.ShopEntry> l = shop.List ();
+		
+		Assert.AreEqual(2, l.Count );
+		
+		mock.VerifyAllExpectationsHaveBeenMet();
+		
+	}
+}
+
+
 /**
  * Test cases for the Shop component.
  **/
@@ -56,7 +100,7 @@ public class ShopTests : ComponentTests
     Assert.IsFalse(shop.HasDataFromServer);
   }
   
-  protected void mockFetch(string mockResponse, Roar.Callback cb) {
+  protected void mockFetch(string mockResponse, Roar.Callback< IDictionary<string, Roar.DomainObjects.ShopEntry> > cb) {
     requestSender.addMockResponse("shop/list", mockResponse);
     // todo: mock a response from items/view for testing the item cache
     requestSender.addMockResponse("items/view", " ");
@@ -66,10 +110,10 @@ public class ShopTests : ComponentTests
   [Test]
   public void testFetchSuccess() {
     bool callbackExecuted = false;
-    Roar.Callback roarCallback = (Roar.CallbackInfo callbackInfo) => { 
+    Roar.Callback< IDictionary<string, Roar.DomainObjects.ShopEntry> > roarCallback = (Roar.CallbackInfo< IDictionary<string, Roar.DomainObjects.ShopEntry> > callbackInfo) => { 
       callbackExecuted=true;
       Assert.AreEqual(IWebAPI.OK, callbackInfo.code);
-      Assert.IsNotNull(callbackInfo.d);
+      Assert.IsNotNull(callbackInfo.data);
     };
     mockFetch(shopList, roarCallback);
     Assert.IsTrue(callbackExecuted);
@@ -83,6 +127,8 @@ public class ShopTests : ComponentTests
     //callback called with expected error code
     //HasDataFromServer == false
   }
+  
+
 
   [Test]
   public void testList() {
@@ -96,15 +142,8 @@ public class ShopTests : ComponentTests
     Assert.AreEqual(expectedItemCount, shopEntries.Count);
     
     //invokes callback with parameter *data* containing the list of Hashtable shop items
-    bool callbackExecuted = false;
-    Roar.Callback roarCallback = (Roar.CallbackInfo callbackInfo) => { 
-      callbackExecuted=true;
-      Assert.AreEqual(IWebAPI.OK, callbackInfo.code);
-      Assert.IsNotNull(callbackInfo.d);
-      Assert.AreEqual(callbackInfo.d, shopEntries);
-    };
-    shopEntries = shop.List(roarCallback);
-    Assert.IsTrue(callbackExecuted);
+
+    shopEntries = shop.List();
     Assert.AreEqual(expectedItemCount, shopEntries.Count);
   }
 

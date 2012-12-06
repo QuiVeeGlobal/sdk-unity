@@ -25,7 +25,7 @@ namespace Roar.Components
 		 * @param hash the players password
 		 * @param cb the callback function to be passed the result of doCreate.
 		 */
-		void DoCreate( string name, string hash, Roar.Callback cb );
+		void DoCreate( string name, string hash, Roar.Callback<WebObjects.User.CreateResponse> cb );
 
 		/**
 		 * Login a player.
@@ -45,7 +45,7 @@ namespace Roar.Components
 		 * @param hash the players password
 		 * @param cb the callback function to be passed the result of doLogin.
 		 **/
-		void DoLogin( string name, string hash, Roar.Callback cb );
+		void DoLogin (string name, string hash, Roar.Callback<WebObjects.User.LoginResponse> cb);
 
 		/**
 		 * Login a player using Facebook OAuth.
@@ -61,7 +61,7 @@ namespace Roar.Components
 		 * @param oauth_token the OAuth token.
 		 * @param cb the callback function to be passed the result of doLogin.
 		 **/
-		void DoLoginFacebookOAuth( string oauth_token, Roar.Callback cb );
+		void DoLoginFacebookOAuth (string oauth_token, Roar.Callback<WebObjects.User.Login_facebook_oauthResponse> cb);
 
 		/**
 		 * Logs out a user.
@@ -75,6 +75,6 @@ namespace Roar.Components
 		 *
 		 * @param the callback function to be passed the result of doLoginFacebookOAuth.
 		 **/
-		void DoLogout( Roar.Callback cb );
+		void DoLogout (Roar.Callback<WebObjects.User.LogoutResponse> cb);
 	}
 }

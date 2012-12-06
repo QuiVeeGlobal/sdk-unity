@@ -1,14 +1,14 @@
-using System.Collections;
+using System.Collections.Generic;
 using Roar.Components;
 
 namespace Roar.implementation.Components
 {
 	public class Actions : IActions
 	{
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		protected IWebAPI.ITasksActions taskActions;
 
-		public Actions (IWebAPI.ITasksActions taskActions, DataStore dataStore)
+		public Actions (IWebAPI.ITasksActions taskActions, IDataStore dataStore)
 		{
 			this.taskActions = taskActions;
 			this.dataStore = dataStore;
@@ -16,53 +16,40 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return dataStore.actions.HasDataFromServer; } }
 
-		public void Fetch (Roar.Callback callback)
+		public void Fetch (Roar.Callback< IDictionary<string,Foo> > callback)
 		{
 			dataStore.actions.Fetch (callback);
 		}
 
-		public ArrayList List ()
+		public IList<Foo> List ()
 		{
-			return List (null);
+			return dataStore.actions.List ();
 		}
 
-		public ArrayList List (Roar.Callback callback)
+		public void Execute (string ikey, Roar.Callback<WebObjects.Tasks.StartResponse> callback)
 		{
-			ArrayList listResult = dataStore.actions.List ();
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (listResult));
-			return listResult;
+			WebObjects.Tasks.StartArguments args = new WebObjects.Tasks.StartArguments();
+			args.ikey = ikey;
+			taskActions.start (args, new OnActionsDo (callback));
 		}
-
-		public void Execute (string ikey, Roar.Callback callback)
-		{
-
-			Hashtable args = new Hashtable ();
-			args ["task_ikey"] = ikey;
-
-			taskActions.start (args, new OnActionsDo (callback, this));
-		}
-		class OnActionsDo : SimpleRequestCallback<IXMLNode>
+		class OnActionsDo : ZWebAPI.Callback<WebObjects.Tasks.StartResponse>
 		{
 			//Actions actions;
+			Roar.Callback<WebObjects.Tasks.StartResponse> cb_;
 
-			public OnActionsDo (Roar.Callback in_cb, Actions in_actions) : base(in_cb)
+			public OnActionsDo (Roar.Callback<WebObjects.Tasks.StartResponse> in_cb)
 			{
-				//actions = in_actions;
+				cb_ = in_cb;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public void OnError( Roar.RequestResult nn )
 			{
-				// Event complete info (task_complete) is sent in a <server> chunk
-				// (backend quirk related to potentially asynchronous tasks)
-				// In this case its ALWAYS a synchronous call, so we KNOW the data will
-				// be available - data is formatted in WebAPI Class.
-				//var eventData = d["server"] as Hashtable;
-				IXMLNode eventData = info.data.GetFirstChild ("server");
+				cb_( new CallbackInfo<WebObjects.Tasks.StartResponse>(null, nn.code, nn.msg) );
+			}
 
-				RoarManager.OnEventDone (eventData);
-
-				return eventData;
+			public void OnSuccess ( CallbackInfo<WebObjects.Tasks.StartResponse> info)
+			{
+				cb_(info);
 			}
 		}
 	}

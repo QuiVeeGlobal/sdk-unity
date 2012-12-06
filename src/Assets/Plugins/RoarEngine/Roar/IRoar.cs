@@ -152,52 +152,21 @@ using System.Collections;
  */
 namespace Roar
 {
-	public abstract class CallbackInfo
+	public class CallbackInfo<T>
 	{
-		public abstract object d { get; }
+		public T data;
+		public int code;
+		public string msg;
 
-		protected CallbackInfo (int in_code, string in_msg)
+		public CallbackInfo (T in_data, int in_code=IWebAPI.OK, string in_msg="")
 		{
+			data = in_data;
 			code = in_code;
 			msg = in_msg;
 		}
-
-		public int code;
-		public string msg;
-	}
-
-	public class CallbackInfo<T> : CallbackInfo
-	{
-		public override object d { get { return data; } }
-
-		public T data;
-
-		public CallbackInfo (T in_data, int in_code=IWebAPI.OK, string in_msg="") : base( in_code, in_msg )
-		{
-			data = in_data;
-		}
-	};
-
-	/**
-   * Many roar.io functions take a callback function.  Often this callback is
-   * optional, but if you wish to use one it is always a #Roar.Callback type.
-   * You might not need one if you choose to catch the results of the call using
-   * the events in #RoarManager.
-   *
-   * The Hashtable returned will usually contain three parameters:
-   *
-   *   + code : an int corresponding to the values in #IWebAPI
-   *   + msg : a string message, often empty on success, but containing more
-   *     details in the case of an error
-   *   + data : an object with the results of the call.
-   *
-   * The only place you might need to provide a function of a different signature
-   * is when using the events specified in #RoarManager. These events accept a
-   * function that corresponds to the data available to the event. See the
-   * individual events for details.
-   */
-	//TODO: Can we unify this callback with the IRequestCallback class?
-	public delegate void Callback (CallbackInfo h);
+	};	
+	
+	public delegate void Callback<T> (CallbackInfo<T> h);
 }
 
 /**
@@ -278,7 +247,7 @@ public interface IRoar
    *
    *     {"data":"version string", "code":IWebAPI.OK, "msg":null}
    */
-	string Version (Roar.Callback callback = null);
+	string Version ();
 
 	/**
    * Login a player.
@@ -298,7 +267,7 @@ public interface IRoar
    * @param hash the players password
    * @param cb the callback function to be passed the result of doLogin.
    **/
-	void Login (string username, string password, Roar.Callback callback=null);
+	void Login( string username, string password, Roar.Callback<Roar.WebObjects.User.LoginResponse> callback=null );
 
 	/**
    * Login a player using Facebook OAuth.
@@ -314,7 +283,7 @@ public interface IRoar
    * @param oauth_token the OAuth token.
    * @param cb the callback function to be passed the result of doLogin.
    **/
-	void LoginFacebookOAuth (string oauth_token, Roar.Callback callback=null);
+	void LoginFacebookOAuth( string oauth_token, Roar.Callback<Roar.WebObjects.User.Login_facebook_oauthResponse> callback=null );
 
 	/**
    * Logs out a user.
@@ -328,7 +297,7 @@ public interface IRoar
    *
    * @param the callback function to be passed the result of doLoginFacebookOAuth.
    **/
-	void Logout (Roar.Callback callback=null);
+	void Logout( Roar.Callback<Roar.WebObjects.User.LogoutResponse> callback=null );
 
 	/**
    * Creates a new user with the given username and password, and logs
@@ -346,12 +315,12 @@ public interface IRoar
    * @param hash the players password
    * @param cb the callback function to be passed the result of doCreate.
    **/
-	void Create (string username, string password, Roar.Callback callback=null);
+	void Create( string username, string password, Roar.Callback<Roar.WebObjects.User.CreateResponse> callback=null );
 
 	/**
    * @todo Document me!
    */
-	string WhoAmI (Roar.Callback callback=null);
+	string WhoAmI ();
 }
 
 

@@ -70,7 +70,7 @@ public class CostTest
   {
     XCRMParser parser = new XCRMParser();
     IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
-    Item item = new Item();
+    Roar.DomainObjects.Costs.Item item = new Roar.DomainObjects.Costs.Item();
     item.ok = false;
     item.reason = "whatever";
     item.ikey = "Christmas tree";
@@ -84,11 +84,11 @@ public class CostTest
     
     Cost c = parser.ParseACost(ixmlnode);
     mockery.VerifyAllExpectationsHaveBeenMet();
-    Assert.IsNotNull(c as Item);
-    Assert.AreEqual((c as Item).ok, item.ok);
-    Assert.AreEqual((c as Item).reason, item.reason);
-    Assert.AreEqual((c as Item).ikey, item.ikey);
-    Assert.AreEqual((c as Item).number_required, item.number_required);
+    Assert.IsNotNull(c as Roar.DomainObjects.Costs.Item);
+    Assert.AreEqual((c as Roar.DomainObjects.Costs.Item).ok, item.ok);
+    Assert.AreEqual((c as Roar.DomainObjects.Costs.Item).reason, item.reason);
+    Assert.AreEqual((c as Roar.DomainObjects.Costs.Item).ikey, item.ikey);
+    Assert.AreEqual((c as Roar.DomainObjects.Costs.Item).number_required, item.number_required);
   }
   
 }

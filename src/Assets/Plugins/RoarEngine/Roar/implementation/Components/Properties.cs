@@ -1,61 +1,42 @@
 using System.Collections;
+using System.Collections.Generic;
 using Roar.Components;
 
 namespace Roar.implementation.Components
 {
 	public class Properties : IProperties
 	{
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 
-		public Properties (DataStore dataStore)
+		public Properties (IDataStore dataStore)
 		{
 			this.dataStore = dataStore;
 			RoarManager.roarServerUpdateEvent += this.OnUpdate;
 		}
 
-		public void Fetch (Roar.Callback callback)
+		public void Fetch (Roar.Callback< IDictionary<string,Property> > callback)
 		{
 			dataStore.properties.Fetch (callback);
 		}
 
 		public bool HasDataFromServer { get { return dataStore.properties.HasDataFromServer; } }
 
-		public ArrayList List ()
+		public IList<Property> List ()
 		{
-			return List (null);
-		}
-
-		public ArrayList List (Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.properties.List ()));
 			return dataStore.properties.List ();
 		}
 
 		// Returns the *object* associated with attribute `key`
-		public object GetProperty (string key)
+		public Property GetProperty (string key)
 		{
-			return GetProperty (key, null);
-		}
-
-		public object GetProperty (string key, Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.properties.Get (key)));
 			return dataStore.properties.Get (key);
 		}
 
 		// Returns the *value* of attribute `key`
 		public string GetValue (string ikey)
 		{
-			return GetValue (ikey, null);
-		}
-
-		public string GetValue (string ikey, Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.properties.GetValue (ikey)));
-			return dataStore.properties.GetValue (ikey);
+			var x = dataStore.properties.Get(ikey);
+			return (x!=null)?x.value:null;
 		}
 
 		protected void OnUpdate (IXMLNode update)
@@ -66,9 +47,9 @@ namespace Roar.implementation.Components
 
 			//var d = event['data'] as Hashtable;
 
-			var v = GetProperty (update.GetAttribute ("ikey")) as Hashtable;
+			Property v = GetProperty (update.GetAttribute ("ikey"));
 			if (v != null) {
-				v ["value"] = update.GetAttribute ("value");
+				v.value = update.GetAttribute ("value");
 			}
 		}
 

@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 using Roar.Components;
@@ -7,11 +8,11 @@ namespace Roar.implementation.Components
 {
 	public class User : IUser
 	{
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		IWebAPI.IUserActions userActions;
 		ILogger logger;
 
-		public User (IWebAPI.IUserActions userActions, DataStore dataStore, ILogger logger)
+		public User (IWebAPI.IUserActions userActions, IDataStore dataStore, ILogger logger)
 		{
 			this.userActions = userActions;
 			this.dataStore = dataStore;
@@ -31,158 +32,160 @@ namespace Roar.implementation.Components
 		// ---- Access Methods ----
 		// ------------------------
 
-		public void DoLogin (string name, string hash, Roar.Callback cb)
+		public void DoLogin (string name, string hash, Roar.Callback<WebObjects.User.LoginResponse> cb)
 		{
 			if (name == "" || hash == "") {
 				logger.DebugLog ("[roar] -- Must specify username and password for login");
 				return;
 			}
 
-			Hashtable args = new Hashtable ();
-			args ["name"] = name;
-			args ["hash"] = hash;
+			WebObjects.User.LoginArguments args = new WebObjects.User.LoginArguments();
+			args.name = name;
+			args.hash = hash;
 			userActions.login (args, new LoginCallback (cb, this));
 		}
 
-		protected class LoginCallback : SimpleRequestCallback<IXMLNode>
+		protected class LoginCallback : CBBase<WebObjects.User.LoginResponse>
 		{
 			protected User user;
 
-			public LoginCallback (Roar.Callback in_cb, User in_user) : base(in_cb)
+			public LoginCallback (Roar.Callback<WebObjects.User.LoginResponse> in_cb, User in_user) : base(in_cb)
 			{
 				user = in_user;
 			}
 
-			public override void OnFailure (CallbackInfo<IXMLNode> info)
+			public override void HandleError (RequestResult info)
 			{
 				RoarManager.OnLogInFailed (info.msg);
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void HandleSuccess (CallbackInfo<WebObjects.User.LoginResponse> info)
 			{
 				//Debug.Log("Login -> OnSuccess :"+info.data.DebugAsString());
 				RoarManager.OnLoggedIn ();
 				// @todo Perform auto loading of game and player data
-				return null;
 			}
 		}
 
-		public void DoLoginFacebookOAuth (string oauth_token, Roar.Callback cb)
+		public void DoLoginFacebookOAuth (string oauth_token, Roar.Callback<WebObjects.User.Login_facebook_oauthResponse> cb)
 		{
 			if (oauth_token == "") {
 				logger.DebugLog ("[roar] -- Must specify oauth_token for facebook login");
 				return;
 			}
 
-			Hashtable args = new Hashtable ();
-			args ["oauth_token"] = oauth_token;
+			WebObjects.User.Login_facebook_oauthArguments args = new Roar.WebObjects.User.Login_facebook_oauthArguments();
+			args.oauth_token = oauth_token;
 
 			userActions.login_facebook_oauth (args, new LoginFacebookOAuthCallback (cb, this));
 		}
-		class LoginFacebookOAuthCallback : SimpleRequestCallback<IXMLNode>
+		class LoginFacebookOAuthCallback : CBBase<WebObjects.User.Login_facebook_oauthResponse>
 		{
 			protected User user;
 
-			public LoginFacebookOAuthCallback (Roar.Callback in_cb, User in_user) : base( in_cb )
+			public LoginFacebookOAuthCallback (Roar.Callback<WebObjects.User.Login_facebook_oauthResponse> in_cb, User in_user) : base( in_cb )
 			{
 				user = in_user;
 			}
 
-			public override void OnFailure (CallbackInfo<IXMLNode> info)
+			public override void HandleError (RequestResult info)
 			{
 				RoarManager.OnLogInFailed (info.msg);
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void HandleSuccess (CallbackInfo<WebObjects.User.Login_facebook_oauthResponse> info)
 			{
 				RoarManager.OnLoggedIn ();
 				// @todo Perform auto loading of game and player data
-				return null;
 			}
 		}
 
 
-		public void DoLogout (Roar.Callback cb)
+		public void DoLogout (Roar.Callback<WebObjects.User.LogoutResponse> cb)
 		{
-			userActions.logout (null, new LogoutCallback (cb, this));
+			WebObjects.User.LogoutArguments args = new Roar.WebObjects.User.LogoutArguments();
+			userActions.logout (args, new LogoutCallback (cb, this));
 		}
 
-		protected class LogoutCallback : SimpleRequestCallback<IXMLNode>
+		protected class LogoutCallback : CBBase<WebObjects.User.LogoutResponse>
 		{
 			protected User user;
 
-			public LogoutCallback (Roar.Callback in_cb, User in_user) : base(in_cb)
+			public LogoutCallback (Roar.Callback<WebObjects.User.LogoutResponse> in_cb, User in_user) : base(in_cb)
 			{
 				user = in_user;
 				cb = in_cb;
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void HandleSuccess (CallbackInfo<WebObjects.User.LogoutResponse> info)
 			{
 				RoarManager.OnLoggedOut ();
-				return null;
 			}
 
 		};
 
 
-		public void DoCreate (string name, string hash, Roar.Callback cb)
+		public void DoCreate (string name, string hash, Roar.Callback<WebObjects.User.CreateResponse> cb)
 		{
 			if (name == "" || hash == "") {
 				logger.DebugLog ("[roar] -- Must specify username and password for login");
 				return;
 			}
-			Hashtable args = new Hashtable ();
-			args ["name"] = name;
-			args ["hash"] = hash;
+			
+			WebObjects.User.CreateArguments args = new Roar.WebObjects.User.CreateArguments();
+			args.name = name;
+			args.hash = hash;
 
 			userActions.create (args, new CreateCallback (cb, this));
 		}
-		protected class CreateCallback : SimpleRequestCallback<IXMLNode>
+		protected class CreateCallback : CBBase<WebObjects.User.CreateResponse>
 		{
 			protected User user;
 
-			public CreateCallback (Roar.Callback in_cb, User in_user) : base(in_cb)
+			public CreateCallback (Roar.Callback<WebObjects.User.CreateResponse> in_cb, User in_user) : base(in_cb)
 			{
 				user = in_user;
 			}
 
-			public override void OnFailure (CallbackInfo<IXMLNode> info)
+			public override void HandleError (RequestResult info)
 			{
 				RoarManager.OnCreateUserFailed (info.msg);
 			}
 
-			public override object OnSuccess (CallbackInfo<IXMLNode> info)
+			public override void HandleSuccess (CallbackInfo<WebObjects.User.CreateResponse> info)
 			{
 				RoarManager.OnCreatedUser ();
 				RoarManager.OnLoggedIn ();
-				return null;
 			}
 		}
 
 		//TODO: not sure this belongs in this class!
-		public void CacheFromInventory (Roar.Callback cb=null)
+		public void CacheFromInventory ()
 		{
 			if (! dataStore.inventory.HasDataFromServer)
 				return;
 
 			// Build sanitised ARRAY of ikeys from Inventory.list()
-			var l = dataStore.inventory.List ();
-			var ikeyList = new ArrayList ();
+			IList<DomainObjects.InventoryItem> l = dataStore.inventory.List ();
+			List<string> ikeyList = new List<string> ();
 			for (int i=0; i<l.Count; i++)
-				ikeyList.Add ((l [i] as Hashtable) ["ikey"]);
+				ikeyList.Add ( l[i].ikey );
 
-			var toCache = dataStore.cache.ItemsNotInCache (ikeyList) as ArrayList;
+			IList<string> toCache = dataStore.cache.ItemsNotInCache (ikeyList);
 
 			// Build sanitised Hashtable of ikeys from Inventory
 			// No need to call server as information is already present
-			Hashtable cacheData = new Hashtable ();
+			Dictionary<string,DomainObjects.ItemPrototype> cacheData = new Dictionary<string,DomainObjects.ItemPrototype> ();
 			for (int i=0; i<toCache.Count; i++) {
 				for (int k=0; k<l.Count; k++) {
 					// If the Inventory ikey matches a value in the
 					// list of items to cache, add it to our `cacheData` obj
-					if ((l [k] as Hashtable) ["ikey"] == toCache [i])
-						cacheData [toCache [i]] = l [k];
+					if ( l[k].ikey == toCache [i])
+					{
+						//TODO: Fix this
+						//cacheData [toCache [i]] = l [k];
+						cacheData [toCache[i]] = new DomainObjects.ItemPrototype();
+					}
 				}
 			}
 

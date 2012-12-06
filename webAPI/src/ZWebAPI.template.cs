@@ -24,36 +24,59 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-using System.Collections;
 
-public abstract class IWebAPI
+using System.Collections;
+using WebObjects = Roar.WebObjects;
+
+
+public class ZWebAPI
 {
+	public IWebAPI iwebapi_;
+
+	public ZWebAPI (IWebAPI iwebapi)
+	{
+		iwebapi_ = iwebapi;
+
 <% _.each( data.modules, function(m,i,l) {
-     print( "\tpublic abstract I" + capitalizeFirst(m.name) + "Actions "+m.name+" { get; }\n" );
+     print( "\t\t" +m.name + "_ = new " + capitalizeFirst(m.name)+"Actions (iwebapi."+m.name+");\n" );
+     } );
+%>	}
+
+<% _.each( data.modules, function(m,i,l) {
+     print( "\tpublic " + capitalizeFirst(m.name) + "Actions "+m.name+" { get { return "+m.name+"_; } }\n" );
+     print( "\tpublic " + capitalizeFirst(m.name)+"Actions " +m.name + "_;\n\n" );
      } );
 %>
 
-	public const int UNKNOWN_ERR  = 0;    // Default unspecified error (parse manually)
-	public const int UNAUTHORIZED = 1;    // Auth token is no longer valid. Relogin.
-	public const int BAD_INPUTS   = 2;    // Incorrect parameters passed to Roar
-	public const int DISALLOWED   = 3;    // Action was not allowed (but otherwise successful)
-	public const int FATAL_ERROR  = 4;    // Server died somehow (sad/bad/etc)
-	public const int AWESOME      = 11;   // Turn it up.
-	public const int OK           = 200;  // Everything ok - proceed
+	public interface Callback<T>
+	{
+		void OnError( Roar.RequestResult nn );
+		void OnSuccess( Roar.CallbackInfo<T> nn );
+	}
 
 <%
   _.each( data.modules, function(m,i,l) {
     var class_name = capitalizeFirst(m.name)+"Actions"
 %>
-	public interface I<%= class_name %>
+	public class <%= class_name %> 
 	{
+		public IWebAPI.I<%= class_name %> actions_;
+
+		public <%= class_name %> (IWebAPI.I<%= class_name %> actions)
+		{
+			actions_=actions;
+		}
+
 <% _.each( m.functions, function(f,j,ll) {
-     var arg = "Roar.WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Arguments"
-     var response  = "Roar.WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Response"
-     url = f.url ? f.url : (m.name+"/"+f.name);
-     obj = f.obj ? f.obj : "obj";
-     print("\t\tvoid "+fix_reserved_word(f.name)+"( "+arg+" args, ZWebAPI.Callback<"+response+"> cb);\n");
+     var arg = "WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Arguments"
+     var response  = "WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Response"
+     print("\t\tpublic void "+fix_reserved_word(f.name)+" (" + arg +" args, Callback<"+response+"> cb)\n");
+     print("\t\t{\n");
+     print("\t\t\tactions_."+fix_reserved_word(f.name)+"(args,cb);\n");
+     print("\t\t}\n\n");
 } ) %>	}
+
 <% } ) %>
+
 }
 

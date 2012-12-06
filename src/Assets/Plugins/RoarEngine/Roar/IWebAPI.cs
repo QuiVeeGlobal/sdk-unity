@@ -56,127 +56,127 @@ public abstract class IWebAPI
 
 	public interface IAdminActions
 	{
-		void delete_player( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void inrement_stat( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void _set( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void set_custom( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void view_player( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void delete_player( Roar.WebObjects.Admin.Delete_playerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.Delete_playerResponse> cb);
+		void inrement_stat( Roar.WebObjects.Admin.Inrement_statArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.Inrement_statResponse> cb);
+		void _set( Roar.WebObjects.Admin.SetArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.SetResponse> cb);
+		void set_custom( Roar.WebObjects.Admin.Set_customArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.Set_customResponse> cb);
+		void view_player( Roar.WebObjects.Admin.View_playerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.View_playerResponse> cb);
 	}
 
 	public interface IAppstoreActions
 	{
-		void buy( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void shop_list( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void buy( Roar.WebObjects.Appstore.BuyArguments args, ZWebAPI.Callback<Roar.WebObjects.Appstore.BuyResponse> cb);
+		void shop_list( Roar.WebObjects.Appstore.Shop_listArguments args, ZWebAPI.Callback<Roar.WebObjects.Appstore.Shop_listResponse> cb);
 	}
 
 	public interface IChrome_web_storeActions
 	{
-		void list( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void list( Roar.WebObjects.Chrome_web_store.ListArguments args, ZWebAPI.Callback<Roar.WebObjects.Chrome_web_store.ListResponse> cb);
 	}
 
 	public interface IFacebookActions
 	{
-		void bind_signed( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void create_oauth( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void create_signed( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void fetch_oauth_token( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void friends( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void login_oauth( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void login_signed( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void shop_list( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void bind_signed( Roar.WebObjects.Facebook.Bind_signedArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Bind_signedResponse> cb);
+		void create_oauth( Roar.WebObjects.Facebook.Create_oauthArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Create_oauthResponse> cb);
+		void create_signed( Roar.WebObjects.Facebook.Create_signedArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Create_signedResponse> cb);
+		void fetch_oauth_token( Roar.WebObjects.Facebook.Fetch_oauth_tokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Fetch_oauth_tokenResponse> cb);
+		void friends( Roar.WebObjects.Facebook.FriendsArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.FriendsResponse> cb);
+		void login_oauth( Roar.WebObjects.Facebook.Login_oauthArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Login_oauthResponse> cb);
+		void login_signed( Roar.WebObjects.Facebook.Login_signedArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Login_signedResponse> cb);
+		void shop_list( Roar.WebObjects.Facebook.Shop_listArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Shop_listResponse> cb);
 	}
 
 	public interface IFriendsActions
 	{
-		void accept( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void decline( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void invite( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void invite_info( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void list( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void remove( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void accept( Roar.WebObjects.Friends.AcceptArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.AcceptResponse> cb);
+		void decline( Roar.WebObjects.Friends.DeclineArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.DeclineResponse> cb);
+		void invite( Roar.WebObjects.Friends.InviteArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.InviteResponse> cb);
+		void invite_info( Roar.WebObjects.Friends.Invite_infoArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.Invite_infoResponse> cb);
+		void list( Roar.WebObjects.Friends.ListArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.ListResponse> cb);
+		void remove( Roar.WebObjects.Friends.RemoveArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.RemoveResponse> cb);
 	}
 
 	public interface IGoogleActions
 	{
-		void bind_user( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void bind_user_token( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void create_user( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void create_user_token( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void friends( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void login_user( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void login_user_token( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void bind_user( Roar.WebObjects.Google.Bind_userArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.Bind_userResponse> cb);
+		void bind_user_token( Roar.WebObjects.Google.Bind_user_tokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.Bind_user_tokenResponse> cb);
+		void create_user( Roar.WebObjects.Google.Create_userArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.Create_userResponse> cb);
+		void create_user_token( Roar.WebObjects.Google.Create_user_tokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.Create_user_tokenResponse> cb);
+		void friends( Roar.WebObjects.Google.FriendsArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.FriendsResponse> cb);
+		void login_user( Roar.WebObjects.Google.Login_userArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.Login_userResponse> cb);
+		void login_user_token( Roar.WebObjects.Google.Login_user_tokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.Login_user_tokenResponse> cb);
 	}
 
 	public interface IInfoActions
 	{
-		void get_bulk_player_info( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void ping( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void user( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void poll( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void get_bulk_player_info( Roar.WebObjects.Info.Get_bulk_player_infoArguments args, ZWebAPI.Callback<Roar.WebObjects.Info.Get_bulk_player_infoResponse> cb);
+		void ping( Roar.WebObjects.Info.PingArguments args, ZWebAPI.Callback<Roar.WebObjects.Info.PingResponse> cb);
+		void user( Roar.WebObjects.Info.UserArguments args, ZWebAPI.Callback<Roar.WebObjects.Info.UserResponse> cb);
+		void poll( Roar.WebObjects.Info.PollArguments args, ZWebAPI.Callback<Roar.WebObjects.Info.PollResponse> cb);
 	}
 
 	public interface IItemsActions
 	{
-		void equip( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void list( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void sell( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void _set( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void unequip( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void use( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void view( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void view_all( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void equip( Roar.WebObjects.Items.EquipArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.EquipResponse> cb);
+		void list( Roar.WebObjects.Items.ListArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.ListResponse> cb);
+		void sell( Roar.WebObjects.Items.SellArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.SellResponse> cb);
+		void _set( Roar.WebObjects.Items.SetArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.SetResponse> cb);
+		void unequip( Roar.WebObjects.Items.UnequipArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.UnequipResponse> cb);
+		void use( Roar.WebObjects.Items.UseArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.UseResponse> cb);
+		void view( Roar.WebObjects.Items.ViewArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.ViewResponse> cb);
+		void view_all( Roar.WebObjects.Items.View_allArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.View_allResponse> cb);
 	}
 
 	public interface ILeaderboardsActions
 	{
-		void list( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void view( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void list( Roar.WebObjects.Leaderboards.ListArguments args, ZWebAPI.Callback<Roar.WebObjects.Leaderboards.ListResponse> cb);
+		void view( Roar.WebObjects.Leaderboards.ViewArguments args, ZWebAPI.Callback<Roar.WebObjects.Leaderboards.ViewResponse> cb);
 	}
 
 	public interface IMailActions
 	{
-		void accept( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void send( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void what_can_i_accept( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void what_can_i_send( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void accept( Roar.WebObjects.Mail.AcceptArguments args, ZWebAPI.Callback<Roar.WebObjects.Mail.AcceptResponse> cb);
+		void send( Roar.WebObjects.Mail.SendArguments args, ZWebAPI.Callback<Roar.WebObjects.Mail.SendResponse> cb);
+		void what_can_i_accept( Roar.WebObjects.Mail.What_can_i_acceptArguments args, ZWebAPI.Callback<Roar.WebObjects.Mail.What_can_i_acceptResponse> cb);
+		void what_can_i_send( Roar.WebObjects.Mail.What_can_i_sendArguments args, ZWebAPI.Callback<Roar.WebObjects.Mail.What_can_i_sendResponse> cb);
 	}
 
 	public interface IShopActions
 	{
-		void list( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void buy( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void list( Roar.WebObjects.Shop.ListArguments args, ZWebAPI.Callback<Roar.WebObjects.Shop.ListResponse> cb);
+		void buy( Roar.WebObjects.Shop.BuyArguments args, ZWebAPI.Callback<Roar.WebObjects.Shop.BuyResponse> cb);
 	}
 
 	public interface IScriptsActions
 	{
-		void run( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void run( Roar.WebObjects.Scripts.RunArguments args, ZWebAPI.Callback<Roar.WebObjects.Scripts.RunResponse> cb);
 	}
 
 	public interface ITasksActions
 	{
-		void list( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void start( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void list( Roar.WebObjects.Tasks.ListArguments args, ZWebAPI.Callback<Roar.WebObjects.Tasks.ListResponse> cb);
+		void start( Roar.WebObjects.Tasks.StartArguments args, ZWebAPI.Callback<Roar.WebObjects.Tasks.StartResponse> cb);
 	}
 
 	public interface IUserActions
 	{
-		void achievements( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void change_name( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void change_password( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void create( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void login( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void login_facebook_oauth( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void logout( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void netdrive_save( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void netdrive_fetch( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void _set( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void view( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void achievements( Roar.WebObjects.User.AchievementsArguments args, ZWebAPI.Callback<Roar.WebObjects.User.AchievementsResponse> cb);
+		void change_name( Roar.WebObjects.User.Change_nameArguments args, ZWebAPI.Callback<Roar.WebObjects.User.Change_nameResponse> cb);
+		void change_password( Roar.WebObjects.User.Change_passwordArguments args, ZWebAPI.Callback<Roar.WebObjects.User.Change_passwordResponse> cb);
+		void create( Roar.WebObjects.User.CreateArguments args, ZWebAPI.Callback<Roar.WebObjects.User.CreateResponse> cb);
+		void login( Roar.WebObjects.User.LoginArguments args, ZWebAPI.Callback<Roar.WebObjects.User.LoginResponse> cb);
+		void login_facebook_oauth( Roar.WebObjects.User.Login_facebook_oauthArguments args, ZWebAPI.Callback<Roar.WebObjects.User.Login_facebook_oauthResponse> cb);
+		void logout( Roar.WebObjects.User.LogoutArguments args, ZWebAPI.Callback<Roar.WebObjects.User.LogoutResponse> cb);
+		void netdrive_save( Roar.WebObjects.User.Netdrive_saveArguments args, ZWebAPI.Callback<Roar.WebObjects.User.Netdrive_saveResponse> cb);
+		void netdrive_fetch( Roar.WebObjects.User.Netdrive_fetchArguments args, ZWebAPI.Callback<Roar.WebObjects.User.Netdrive_fetchResponse> cb);
+		void _set( Roar.WebObjects.User.SetArguments args, ZWebAPI.Callback<Roar.WebObjects.User.SetResponse> cb);
+		void view( Roar.WebObjects.User.ViewArguments args, ZWebAPI.Callback<Roar.WebObjects.User.ViewResponse> cb);
 	}
 
 	public interface IUrbanairshipActions
 	{
-		void ios_register( Hashtable obj, IRequestCallback<IXMLNode> cb);
-		void push( Hashtable obj, IRequestCallback<IXMLNode> cb);
+		void ios_register( Roar.WebObjects.Urbanairship.Ios_registerArguments args, ZWebAPI.Callback<Roar.WebObjects.Urbanairship.Ios_registerResponse> cb);
+		void push( Roar.WebObjects.Urbanairship.PushArguments args, ZWebAPI.Callback<Roar.WebObjects.Urbanairship.PushResponse> cb);
 	}
 
 }

@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Roar.Components
 {
@@ -44,7 +44,7 @@ namespace Roar.Components
 	     *
 	     * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	     **/
-		void Fetch (Roar.Callback callback);
+		void Fetch (Roar.Callback< IDictionary<string,Foo> > callback);
 
 		/**
 	     * Check whether any user achievements data has been obtained from the server.
@@ -63,28 +63,7 @@ namespace Roar.Components
 	     *       is called prior to the successful completion of a #fetch call,
 	     *       it will return an empty array.
 	     **/
-		ArrayList List ();
-
-		/**
-	     * Get a list of all the achievement objects for the authenticated user.
-	     *
-	     * On success:
-	     * - invokes callback with parameter *data* containing the list of Hashtable user achievements
-	     *
-	     * On failure:
-	     * - returns an empty list
-	     *
-	     * @param callback the callback function to be passed this function's result.
-	     *
-	     * @returns A list of Hashtables for each user achievement.
-	     *
-	     * @note This does _not_ make a server call. It requires the user achievements to
-	     *       have already been fetched via a call to #fetch. If this function
-	     *       is called prior to the successful completion of a #fetch call,
-	     *       it will return an empty array.
-	     **/
-		ArrayList List (Roar.Callback callback);
-
+		IList<Foo> List ();
 
 		/**
 	     * Returns the achievement object for a given key.
@@ -94,23 +73,6 @@ namespace Roar.Components
 	     * @returns the property Hashtable associated with the *key*
 	     *          or null if the achievement does not exist in the data store.
 	     **/
-		Hashtable GetAchievement (string ikey);
-
-		/**
-	     * Returns the achievement object for a given key.
-	     *
-	     * On success:
-	     * - invokes callback with parameter *data* containing the achievement Hashtable
-	     *
-	     * On failure:
-	     * - invokes callback with parameter *data* equalling null if achievement does not exist
-	     *
-	     * @param ikey the key that uniquely identifies an achievement.
-	     * @param callback the callback function to be passed this function's result.
-	     *
-	     * @returns the achievement Hashtable associated with the *ikey*
-	     *          or null if the achievement does not exist in the data store.
-	     **/
-		Hashtable GetAchievement (string ikey, Roar.Callback callback);
+		Foo GetAchievement (string ikey);
 	}
 }

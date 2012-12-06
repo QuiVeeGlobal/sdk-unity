@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+
 
 namespace Roar.Components
 {
@@ -61,7 +63,7 @@ namespace Roar.Components
 	   *
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   */
-		void Fetch (Roar.Callback callback);
+		void Fetch(Roar.Callback< IDictionary<string,Roar.DomainObjects.InventoryItem> > callback);
 
 		/**
 	   * Check whether any inventory data has been obtained from the server.
@@ -82,27 +84,7 @@ namespace Roar.Components
 	   *       is called prior to the successful completion of a #fetch call,
 	   *       it will return an empty array.
 	   **/
-		ArrayList List ();
-
-		/**
-	   * Get a list of all the inventory items for the authenticated user.
-	   *
-	   * On success:
-	   * - invokes callback with parameter *data* containing the list of Hashtable inventory items
-	   *
-	   * On failure:
-	   * - returns an empty list
-	   *
-	   * @param callback the callback function to be passed this function's result.
-	   *
-	   * @returns A list of Hashtables for each inventory item.
-	   *
-	   * @note This does _not_ make a server call. It requires the inventory to
-	   *       have already been fetched via a call to #fetch. If this function
-	   *       is called prior to the successful completion of a #fetch call,
-	   *       it will return an empty array.
-	   **/
-		ArrayList List (Roar.Callback callback);
+		IList<DomainObjects.InventoryItem> List ();
 
 		/**
 	   * Activates an item in the user's inventory.
@@ -123,7 +105,7 @@ namespace Roar.Components
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   *
 	   **/
-		void Activate (string id, Roar.Callback callback) ;
+		void Activate (string id, Roar.Callback<Roar.WebObjects.Items.EquipResponse> callback);
 
 		/**
 	   * Deactivates an item in the user's inventory.
@@ -144,7 +126,7 @@ namespace Roar.Components
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   *
 	   **/
-		void Deactivate (string id, Roar.Callback callback);
+		void Deactivate (string id, Roar.Callback<Roar.WebObjects.Items.UnequipResponse> callback);
 
 		/**
 	   * Checks if the user's inventory contains at least one of a given item.
@@ -157,22 +139,7 @@ namespace Roar.Components
 	   *       is called prior to the successful completion of a #fetch call,
 	   *       it will return false.
 	   **/
-		bool Has (string ikey);
-
-		/**
-	   * Checks if the user's inventory contains *num* units of a given item.
-	   *
-	   * @param ikey the key that identifies an inventory item.
-	   * @param num the quantity of an inventory item to check for.
-	   * @param callback the callback function to be passed this function's result.
-	   * @returns true if one or more instances of a given inventory item belong to the user.
-	   *
-	   * @note This does _not_ make a server call. It requires the inventory to
-	   *       have already been fetched via a call to #fetch. If this function
-	   *       is called prior to the successful completion of a #fetch call,
-	   *       it will return false.
-	   **/
-		bool Has (string ikey, int num, Roar.Callback callback);
+		bool Has (string ikey, int num=1);
 
 		/**
 	   * @param ikey the key that identifies an inventory item.
@@ -184,18 +151,6 @@ namespace Roar.Components
 	   *       it will return 0.
 	   **/
 		int Quantity (string ikey);
-
-		/**
-	   * @param ikey the key that identifies an inventory item.
-	   * @param callback the callback function to be passed this function's result.
-	   * @returns the quantity of a given inventory item held by the user.
-	   *
-	   * @note This does _not_ make a server call. It requires the inventory to
-	   *       have already been fetched via a call to #fetch. If this function
-	   *       is called prior to the successful completion of a #fetch call,
-	   *       it will return 0.
-	   **/
-		int Quantity (string ikey, Roar.Callback callback);
 
 		/**
 	   * Sells an item in the user's inventory.
@@ -216,7 +171,7 @@ namespace Roar.Components
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   *
 	   **/
-		void Sell (string id, Roar.Callback callback);
+		void Sell (string id, Roar.Callback<Roar.WebObjects.Items.SellResponse> callback);
 
 		/**
 	   * Consumes/uses an item in the user's inventory.
@@ -236,12 +191,12 @@ namespace Roar.Components
 	   *
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   **/
-		void Use (string id, Roar.Callback callback);
+		void Use (string id, Roar.Callback<Roar.WebObjects.Items.UseResponse> callback);
 
 		/**
 	   * The remove function for now is simply an *alias* to #sell
 	   **/
-		void Remove (string id, Roar.Callback callback);
+		void Remove (string id, Roar.Callback<Roar.WebObjects.Items.SellResponse> callback);
 
 		/**
 	   * Returns the inventory item for a given key.
@@ -251,24 +206,8 @@ namespace Roar.Components
 	   * @returns the inventory item Hashtable associated with the *id*
 	   *          or null if the inventory item does not exist in the data store.
 	   */
-		Hashtable GetGood (string id);
+		DomainObjects.InventoryItem GetGood (string id);
 
-		/**
-	   * Returns the inventory item for a given key.
-	   *
-	   * On success:
-	   * - invokes callback with parameter *data* containing the Hashtable inventory item
-	   *
-	   * On failure:
-	   * - invokes callback with parameter *data* equaling null if inventory item does not exist.
-	   *
-	   * @param id the key that uniquely identifies an inventory item.
-	   * @param callback the callback function to be passed this function's result.
-	   *
-	   * @returns the inventory item Hashtable associated with the *id*
-	   *          or null if the inventory item does not exist in the data store.
-	   */
-		Hashtable GetGood (string id, Roar.Callback callback);
 	}
 
 }
