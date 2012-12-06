@@ -8,16 +8,16 @@ namespace Roar.implementation.Components
 {
 	public class Friends : IFriends 
 	{
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		protected ILogger logger;
 
-		public Friends (DataStore dataStore, ILogger logger)
+		public Friends (IDataStore dataStore, ILogger logger)
 		{
 			this.dataStore = dataStore;
 			this.logger = logger;
 		}
 
-		public void Fetch (Roar.Callback callback)
+		public void Fetch (Roar.Callback< IDictionary<string,DomainObjects.Friend> > callback)
 		{
 			dataStore.friends.Fetch(callback);
 		}
@@ -26,26 +26,13 @@ namespace Roar.implementation.Components
 
 		public IList<Friend> List ()
 		{
-			return List (null);
+			return dataStore.friends.List();
 		}
 
-		public IList<Friend> List (Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.friends.List ()));
-			return dataStore.friends.List ();
-		}
 
 		public Friend GetFriend (string ikey)
 		{
-			return GetFriend (ikey, null);
-		}
-
-		public Friend GetFriend (string ikey, Roar.Callback callback)
-		{
-			if (callback != null)
-				callback (new Roar.CallbackInfo<object> (dataStore.friends.Get (ikey)));
-			return dataStore.friends.Get (ikey);
+			return dataStore.friends.Get(ikey);
 		}
 	}
 }

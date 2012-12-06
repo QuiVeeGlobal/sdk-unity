@@ -26,7 +26,7 @@ namespace Roar.Components
 	     *
 	     * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	     **/
-		void Fetch (Roar.Callback callback);
+		void Fetch (Roar.Callback< IDictionary<string,DomainObjects.Friend> > callback);
 
 		/**
 	     * Check whether any friend list data has been obtained from the server.
@@ -45,28 +45,7 @@ namespace Roar.Components
 	     *       is called prior to the successful completion of a #fetch call,
 	     *       it will return an empty array.
 	     **/
-		IList<Friend> List ();
-
-		/**
-	     * Get a list of all the friend objects for the authenticated user.
-	     *
-	     * On success:
-	     * - invokes callback with parameter *data* containing the list of Hashtable friends
-	     *
-	     * On failure:
-	     * - returns an empty list
-	     *
-	     * @param callback the callback function to be passed this function's result.
-	     *
-	     * @returns A list of Hashtables for each friend.
-	     *
-	     * @note This does _not_ make a server call. It requires the user friends to
-	     *       have already been fetched via a call to #fetch. If this function
-	     *       is called prior to the successful completion of a #fetch call,
-	     *       it will return an empty array.
-	     **/
-		IList<Friend> List (Roar.Callback callback);
-
+		IList<DomainObjects.Friend> List ();
 
 		/**
 	     * Returns the friend object for a given key.
@@ -76,23 +55,6 @@ namespace Roar.Components
 	     * @returns the property Hashtable associated with the *key*
 	     *          or null if the leaderboard does not exist in the data store.
 	     **/
-		Friend GetFriend (string ikey);
-
-		/**
-	     * Returns the friend object for a given key.
-	     *
-	     * On success:
-	     * - invokes callback with parameter *data* containing the friend Hashtable
-	     *
-	     * On failure:
-	     * - invokes callback with parameter *data* equalling null if friend does not exist
-	     *
-	     * @param ikey the key that uniquely identifies a friend.
-	     * @param callback the callback function to be passed this function's result.
-	     *
-	     * @returns the friend Hashtable associated with the *ikey*
-	     *          or null if the friend does not exist in the data store.
-	     **/
-		Friend GetFriend (string ikey, Roar.Callback callback);
+		DomainObjects.Friend GetFriend (string ikey);
 	}
 }
