@@ -1214,8 +1214,12 @@ namespace Roar.WebObjects
 		// Response from user/login
 		public class LoginResponse : IResponse
 		{
+			public string auth_token;
+			public string player_id;
 			public void ParseXml( IXMLNode nn )
 			{
+				auth_token = nn.GetNode("roar>0>user>0>login>0>auth_token>0").Text;
+				player_id = nn.GetNode("roar>0>user>0>login>0>player_id>0").Text;
 			}
 		}
 
