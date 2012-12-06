@@ -188,7 +188,7 @@ public class RoarLoginModule : RoarModule
 		}
 		switch (info.code)
 		{
-		case 200: // (success)
+		case IWebAPI.OK: // (success)
 			isError = false;
 			
 			// fetch the player's properties after successful login
@@ -218,7 +218,7 @@ public class RoarLoginModule : RoarModule
 			Debug.Log(string.Format("OnRoarAccountCreateComplete ({0}): {1}", info.code, info.msg));
 		switch (info.code)
 		{
-		case 200: // (success)
+		case IWebAPI.OK: // (success)
 			status = "Account successfully created. You can now log in.";
 			break;
 		case 3:
