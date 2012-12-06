@@ -24,7 +24,7 @@ public class RoarStatsWidget : RoarUIWidget
 		public string valueStyle;
 		public StatValueType valueType;
 		
-		private UserStat userStat;
+		private Property userStat;
 		private string value;
 		
 		public string Value
@@ -33,7 +33,7 @@ public class RoarStatsWidget : RoarUIWidget
 			set { this.value = value; }
 		}
 		
-		public UserStat UserStat
+		public Property UserStat
 		{
 			get { return userStat; }
 			set { userStat = value; }
@@ -87,14 +87,14 @@ public class RoarStatsWidget : RoarUIWidget
 			{
 				if (stat != null && stat.key != null && stat.key.Length > 0)
 				{
-					UserStat userStat = RoarTypesCache.UserStatByKey(stat.key);
+					Property userStat = properties.GetProperty(stat.key);
 					stat.UserStat = userStat;
 					
 					if (stat.valueFormat.Length > 0)
-						stat.Value = string.Format("{0:"+stat.valueFormat+"}", userStat.Value);
+						stat.Value = string.Format("{0:"+stat.valueFormat+"}", userStat.value);
 						//stat.Value = string.Format("{0:"+stat.valueFormat+"}", properties.GetValue(stat.key));
 					else
-						stat.Value = userStat.Value;
+						stat.Value = userStat.value;
 						//stat.Value = properties.GetValue(stat.key);
 					
 					if (stat.title == null || stat.title.Length == 0)
@@ -114,7 +114,8 @@ public class RoarStatsWidget : RoarUIWidget
 					}
 					else
 					{
-						userStat.Title = stat.title;
+						//TODO: Why was this here?
+						//userStat.Title = stat.title;
 					}
 				}
 			}

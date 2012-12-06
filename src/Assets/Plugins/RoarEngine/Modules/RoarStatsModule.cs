@@ -10,7 +10,6 @@ public class RoarStatsModule : RoarModule
 	
 	private bool isFetching;
 	private float whenLastFetched;
-	private IList<Property> stats;
 	
 	private Roar.Components.IProperties properties;
 	
@@ -37,9 +36,8 @@ public class RoarStatsModule : RoarModule
 		else
 		{
 			whenLastFetched = Time.realtimeSinceStartup;
-			stats = properties.List();
-
-			foreach (Property p in stats)
+			
+			foreach (Property p in properties.List())
 			{			
 				Debug.Log(string.Format("{0} -> {1}", p.label, p.value));
 			}
@@ -50,7 +48,6 @@ public class RoarStatsModule : RoarModule
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;
-		stats = properties.List();
 	}
 		
 	protected override void DrawGUI()
@@ -61,7 +58,7 @@ public class RoarStatsModule : RoarModule
 		}
 		else
 		{
-			if (!properties.HasDataFromServer || stats == null || stats.Count == 0)
+			if (!properties.HasDataFromServer || properties.List().Count == 0)
 			{
 				GUI.Label(new Rect(Screen.width/2f - 256,Screen.height/2f - 32,512,64), "No stats to display", "StatusNormal");
 			}
