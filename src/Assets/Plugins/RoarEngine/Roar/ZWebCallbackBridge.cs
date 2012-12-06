@@ -11,7 +11,7 @@ class CallbackBridge<T> : IRequestCallback where T : WebObjects.IResponse, new()
 	public void OnRequest( Roar.RequestResult info )
 	{
 		Prologue ();
-		if (info.code != 200) {
+		if (info.code != IWebAPI.OK) {
 			if (cb_ != null)
 				cb_.OnError( info );
 			OnFailure (info);
