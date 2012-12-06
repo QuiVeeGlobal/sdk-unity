@@ -10,7 +10,7 @@ public class RoarStatsModule : RoarModule
 	
 	private bool isFetching;
 	private float whenLastFetched;
-	private ArrayList stats;
+	private IList<Property> stats;
 	
 	private Roar.Components.IProperties properties;
 	
@@ -39,12 +39,9 @@ public class RoarStatsModule : RoarModule
 			whenLastFetched = Time.realtimeSinceStartup;
 			stats = properties.List();
 
-			foreach (Hashtable hashTable in stats)
-			{
-				foreach (DictionaryEntry kvp in hashTable)
-				{
-					Debug.Log(string.Format("{0} -> {1}", kvp.Key, kvp.Value));
-				}
+			foreach (Property p in stats)
+			{			
+				Debug.Log(string.Format("{0} -> {1}", p.label, p.value));
 			}
 		}
 	}
