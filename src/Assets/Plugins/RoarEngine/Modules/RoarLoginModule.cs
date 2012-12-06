@@ -181,7 +181,11 @@ public class RoarLoginModule : RoarModule
 	void OnRoarLoginComplete(Roar.CallbackInfo<Roar.WebObjects.User.LoginResponse> info)
 	{
 		if (Debug.isDebugBuild)
+		{
 			Debug.Log(string.Format("OnRoarLoginComplete ({0}): {1}", info.code, info.msg));
+			Debug.Log( string.Format("OnRoarLoginComplete got auth_token {0}", info.data.auth_token ) );
+			Debug.Log( string.Format("OnRoarLoginComplete got player_id {0}",  info.data.player_id ) );
+		}
 		switch (info.code)
 		{
 		case 200: // (success)
