@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using Roar.Components;
 using UnityEngine;
 
@@ -24,7 +25,7 @@ namespace Roar.implementation.Components
 			set { page = value; }
 		}
 
-		public void Fetch(Roar.Callback callback)
+		public void Fetch(Roar.Callback< IDictionary<string,Foo> > callback)
 		{
 			Hashtable data = new Hashtable();
 			data.Add("board_id", boardId);
@@ -34,18 +35,14 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return dataStore.ranking.HasDataFromServer; } }
 
-		public ArrayList List() { return List(null); }
-		public ArrayList List( Roar.Callback callback)
+		public IList<Foo> List()
 		{
-			if (callback!=null) callback( new Roar.CallbackInfo<object>( dataStore.ranking.List() ) );
 			return dataStore.ranking.List();
 		}
 
 		// Returns the ranking Hashtable associated with attribute `ikey`
-		public Hashtable GetEntry( string ikey ) { return GetEntry(ikey,null); }
-		public Hashtable GetEntry( string ikey, Roar.Callback callback )
+		public Foo GetEntry( string ikey )
 		{
-			if (callback!=null) callback( new Roar.CallbackInfo<object>( dataStore.ranking.Get(ikey) ) );
 			return dataStore.ranking.Get(ikey);
 		}
 	}
