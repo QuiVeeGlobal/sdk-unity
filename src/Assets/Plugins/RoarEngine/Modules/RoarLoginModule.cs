@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class RoarLoginModule : RoarModule
 {
@@ -177,7 +178,7 @@ public class RoarLoginModule : RoarModule
 		GUI.enabled = true;
 	}
 	
-	void OnRoarLoginComplete(Roar.CallbackInfo info)
+	void OnRoarLoginComplete(Roar.CallbackInfo<Roar.WebObjects.User.LoginResponse> info)
 	{
 		if (Debug.isDebugBuild)
 			Debug.Log(string.Format("OnRoarLoginComplete ({0}): {1}", info.code, info.msg));
@@ -207,7 +208,7 @@ public class RoarLoginModule : RoarModule
 		}
 	}
 
-	void OnRoarAccountCreateComplete(Roar.CallbackInfo info)
+	void OnRoarAccountCreateComplete(Roar.CallbackInfo<Roar.WebObjects.User.CreateResponse> info)
 	{
 		if (Debug.isDebugBuild)
 			Debug.Log(string.Format("OnRoarAccountCreateComplete ({0}): {1}", info.code, info.msg));
@@ -225,7 +226,7 @@ public class RoarLoginModule : RoarModule
 		networkActionInProgress = false;
 	}
 	
-	void OnRoarPropertiesFetched(Roar.CallbackInfo info)
+	void OnRoarPropertiesFetched(Roar.CallbackInfo< IDictionary<string,Property> > info)
 	{
 		networkActionInProgress = false;
 		uiController.CurrentModulePanel = RoarModulePanel.Off;

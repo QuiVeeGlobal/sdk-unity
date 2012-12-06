@@ -46,7 +46,7 @@ public class RoarStatsModule : RoarModule
 		}
 	}
 
-	void OnRoarFetchPropertiesComplete(Roar.CallbackInfo info)
+	void OnRoarFetchPropertiesComplete(Roar.CallbackInfo<IDictionary<string,Property>> info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;

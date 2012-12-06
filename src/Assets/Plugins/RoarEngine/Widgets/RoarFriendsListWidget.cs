@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class RoarFriendsListWidget : RoarUIWidget
 {
@@ -37,7 +38,7 @@ public class RoarFriendsListWidget : RoarUIWidget
 		friends.Fetch(OnRoarFetchFriendsComplete);
 	}
 	
-	void OnRoarFetchFriendsComplete(Roar.CallbackInfo info)
+	void OnRoarFetchFriendsComplete(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.Friend> > info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;

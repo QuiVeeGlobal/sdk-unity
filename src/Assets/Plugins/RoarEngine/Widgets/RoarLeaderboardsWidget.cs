@@ -56,7 +56,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 		boards.Fetch(OnRoarFetchLeaderboardsComplete);
 	}
 	
-	void OnRoarFetchLeaderboardsComplete(Roar.CallbackInfo info)
+	void OnRoarFetchLeaderboardsComplete(Roar.CallbackInfo<IDictionary<string,Roar.DomainObjects.Leaderboard> > info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;
