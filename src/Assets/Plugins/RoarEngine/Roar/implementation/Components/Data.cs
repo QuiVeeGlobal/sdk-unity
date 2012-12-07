@@ -56,7 +56,7 @@ public class Data : IData
     if (Data_[key] != null) 
     {
       var ret = Data_[key] as string;
-      if (callback!=null) callback( new Roar.CallbackInfo<string>(ret, IWebAPI.OK, null) );
+      if (callback!=null) callback( new Roar.CallbackInfo<string>(ret, IWebAPI.OK, ret) );
     }
     else
 	{
@@ -86,13 +86,15 @@ public class Data : IData
     string value = "";
     string str = null;
 
-    IXMLNode nd = info.data.GetNode("netdrive_field>0>data>0");
+    IXMLNode nd = info.data.GetNode("roar>0>user>0>netdrive_get>0>netdrive_field>0>data>0");
     if(nd!=null)
     {
       str = nd.Text;
     }
     if (str!=null) value = str;
 
+    data.Data_[key] = value;
+    info.msg = value;
 
     if ( value==null || value == "") 
     { 
