@@ -210,12 +210,9 @@ namespace Testing
 	[TestFixture()]
 	public class XmlToFriendTests
 	{
-		private Roar.implementation.DataConversion.XmlToFriend converter;
-
 		[SetUp]
 		public void TestInitialise()
 		{
-			converter = new Roar.implementation.DataConversion.XmlToFriend();
 		}
 
 
@@ -231,7 +228,8 @@ namespace Testing
 
 			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse( xml ).GetFirstChild("friend");
 
-			Roar.DomainObjects.Friend friend = converter.Build( nn );
+			Roar.WebObjects.Friends.Friend friend = new Roar.WebObjects.Friends.Friend();
+			friend.ParseXml( nn );
 
 			Assert.AreEqual( "ABCDEF", friend.player_id );
 			Assert.AreEqual( "some dude", friend.name );
@@ -248,8 +246,9 @@ namespace Testing
 				"</friend>";
 
 			IXMLNode nn = ( new SystemXMLNodeFactory() ).Create( xml ).GetFirstChild("friend");
-
-			Roar.DomainObjects.Friend friend = converter.Build( nn );
+			
+			Roar.WebObjects.Friends.Friend friend = new Roar.WebObjects.Friends.Friend();
+			friend.ParseXml(nn);
 
 			Assert.AreEqual( "ABCDEF", friend.player_id );
 			Assert.AreEqual( "some dude", friend.name );

@@ -60,7 +60,8 @@
           { "name":"invite" },
           { "name":"invite_info", "url":"friends/info" },
           { "name":"list" },
-          { "name":"remove" }
+          { "name":"remove" },
+          { "name":"list_invites" }
         ]
      },
      {

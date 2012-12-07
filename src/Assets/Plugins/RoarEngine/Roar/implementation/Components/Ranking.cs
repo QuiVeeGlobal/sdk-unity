@@ -10,10 +10,10 @@ namespace Roar.implementation.Components
 		protected string boardId;
 		protected int page = 1;
 
-		protected DataStore dataStore;
+		protected IDataStore dataStore;
 		protected ILogger logger;
 
-		public Ranking(string boardId, DataStore dataStore, ILogger logger)
+		public Ranking(string boardId, IDataStore dataStore, ILogger logger)
 		{
 			this.boardId = boardId;
 			this.dataStore = dataStore;

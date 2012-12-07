@@ -183,13 +183,8 @@ namespace Roar
 		};
 
 
-		public class Friend : IDomainObject
+		public class Friend
 		{
-			public bool MatchesKey( string key )
-			{
-				return player_id==key;
-			}
-
 			public string player_id;
 			public string name;
 			public int level;
@@ -243,7 +238,8 @@ namespace Roar
 			{
 				return ikey==key;
 			}
-			
+
+			public string board_id;
 			public string id;
 			public string ikey;
 			public string resource_id;

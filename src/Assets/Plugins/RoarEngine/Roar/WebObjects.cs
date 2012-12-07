@@ -370,10 +370,14 @@ namespace Roar.WebObjects
 		// Arguments to friends/accept
 		public class AcceptArguments
 		{
+			public string friends_id;
+			public string invite_id;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["friends_id"] = friends_id;
+				retval["invite_id"] = invite_id;
 				return retval;
 			}
 		}
@@ -390,9 +394,11 @@ namespace Roar.WebObjects
 		public class DeclineArguments
 		{
 
+			public string invite_id;
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["invite_id"]=invite_id;
 				return retval;
 			}
 		}
@@ -409,9 +415,13 @@ namespace Roar.WebObjects
 		public class InviteArguments
 		{
 
+			public string friend_id;
+			public string player_id; //TODO: Dont think this guy is needed!
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["friend_id"]=friend_id;
+				retval["player_id"]=player_id;
 				return retval;
 			}
 		}
@@ -423,14 +433,23 @@ namespace Roar.WebObjects
 			{
 			}
 		}
+		public class FriendInviteInfo
+		{
+			public string message;
+			public string player_id;
+			public string name;
+			public int level;
+		}
 
 		// Arguments to friends/invite_info
 		public class Invite_infoArguments
 		{
 
+			public string invite_id;
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["invite_id"] = invite_id;
 				return retval;
 			}
 		}
@@ -438,8 +457,29 @@ namespace Roar.WebObjects
 		// Response from friends/invite_info
 		public class Invite_infoResponse : IResponse
 		{
+			public FriendInviteInfo info;
+			
 			public void ParseXml( IXMLNode nn )
 			{
+				info = new FriendInviteInfo();
+				//TODO: This path suggest that we're ggtting the wrong thing back from roar
+				IXMLNode n = nn.GetNode("roar>0>friends>0>info>0");
+				IXMLNode from_node = n.GetFirstChild("from");
+				IXMLNode message_node = n.GetFirstChild("message");
+				if (from_node != null)
+				{
+					info.player_id = from_node.GetAttribute("player_id");
+					info.name = from_node.GetAttribute("name");
+					if (! System.Int32.TryParse(from_node.GetAttribute("level"), out info.level))
+					{
+						throw new  Roar.implementation.DataConversion.InvalidXMLElementException("Unable to parse level to integer");
+					}
+				}
+					
+				if (message_node != null)
+				{
+					info.message = message_node.GetAttribute("value");
+				}
 			}
 		}
 
@@ -454,11 +494,52 @@ namespace Roar.WebObjects
 			}
 		}
 		
+		public class ParseXmlTo
+		{
+			public static DomainObjects.Friend Friend( IXMLNode n )
+			{
+				DomainObjects.Friend f = new DomainObjects.Friend();
+				f.player_id = n.GetFirstChild("player_id").Text;
+				f.name = n.GetFirstChild("name").Text;
+				f.level = System.Convert.ToInt32( n.GetFirstChild("level").Text );
+				return f;
+			}
+		}
+
+		
+		
 		// Response from friends/list
+		/*
+		 * <roar tick='123' status='ok'>
+		 *   <friends>
+		 *     <list status='ok'>
+		 *       <friend>
+		 *         <player_id>123</player_id>
+		 *         <name>Brenda Lear</name>
+		 *         <level>9</level>
+		 *       </friend>
+		 *       <friend>
+		 *         <player_id>456</player_id>
+		 *         <name>Paul Barley</name>
+		 *         <level>7</level>
+		 *       </friend>
+		 *     </list>
+		 *   </friends>
+		 * </roar>
+		 */
 		public class ListResponse : IResponse
 		{
+			public List<DomainObjects.Friend> friends;
 			public void ParseXml( IXMLNode nn )
 			{
+				friends = new List<DomainObjects.Friend>();
+				
+				List<IXMLNode> friend_nodes = nn.GetNodeList("roar>0>friends>0>list>0>friend");
+				foreach( IXMLNode n in friend_nodes )
+				{
+					DomainObjects.Friend a = ParseXmlTo.Friend(n);
+					friends.Add(a);
+				}
 			}
 		}
 
@@ -466,9 +547,13 @@ namespace Roar.WebObjects
 		public class RemoveArguments
 		{
 
+			public string friend_id;
+			public string player_id; //TODO: Dont think this guy is needed!
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["friend_id"]=friend_id;
+				retval["player_id"]=player_id;
 				return retval;
 			}
 		}
@@ -478,6 +563,43 @@ namespace Roar.WebObjects
 		{
 			public void ParseXml( IXMLNode nn )
 			{
+			}
+		}
+		
+		public class FriendInvite
+		{
+			public string invite_id;
+			public string player_id;
+		}
+
+		// Arguments to friends/list_invites
+		public class List_invitesArguments
+		{
+
+			public Hashtable ToHashtable()
+			{
+				Hashtable retval = new Hashtable();
+				return retval;
+			}
+		}
+		
+		// Response from friends/list_invites
+		public class List_invitesResponse : IResponse
+		{
+			public List<FriendInvite> invites;
+			public void ParseXml( IXMLNode nn )
+			{
+				invites = new List<FriendInvite>();
+				List<IXMLNode> invite_nodes = nn.GetNodeList("roar>0>friends>0>list_invites>0>friend_invite");
+				foreach( IXMLNode n in invite_nodes )
+				{
+					FriendInvite invite = new FriendInvite();
+					Dictionary<string,string> kv = n.Attributes.ToDictionary( v => v.Key, v => v.Value );
+
+					kv.TryGetValue("invite_id",out invite.invite_id);
+					invite.player_id = n.GetFirstChild("player_id").Text;
+					invites.Add(invite);
+				}
 			}
 		}
 
