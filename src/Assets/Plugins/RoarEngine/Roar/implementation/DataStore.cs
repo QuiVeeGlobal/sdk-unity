@@ -59,11 +59,11 @@ public class LeaderboardListToLeaderboard : IDomToCache<Roar.WebObjects.Leaderbo
 	}
 }
 
-public class FriendsListToFriend : IDomToCache<Roar.WebObjects.Friends.ListResponse,Roar.WebObjects.Friends.Friend>
+public class FriendsListToFriend : IDomToCache<Roar.WebObjects.Friends.ListResponse,Roar.DomainObjects.Friend>
 {
-	public Dictionary<string, Roar.WebObjects.Friends.Friend> convert( Roar.WebObjects.Friends.ListResponse d)
+	public Dictionary<string, Roar.DomainObjects.Friend> convert( Roar.WebObjects.Friends.ListResponse d)
 	{
-		Dictionary<string,Roar.WebObjects.Friends.Friend> retval = new Dictionary<string, Roar.WebObjects.Friends.Friend>();
+		Dictionary<string,Roar.DomainObjects.Friend> retval = new Dictionary<string, Roar.DomainObjects.Friend>();
 		//TODO: Implement this
 		return retval;
 	}
@@ -187,6 +187,7 @@ namespace Roar.implementation
 		IDataModel<Foo,Foo> achievements { get; }
 		IDataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse> leaderboards { get; }
 		IDataModel<Foo,Foo> ranking { get; }
+		IDataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends { get; }
 		IDataModel<Foo,Foo> appStore { get; }
 		IItemCache cache { get; }
 	}
@@ -206,6 +207,7 @@ namespace Roar.implementation
 			achievements_ = new DataModel<Foo,Foo> ("achievements", new FooGetter(webapi), new FooToFoo(), logger);
 			leaderboards_ = new DataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse>( "leaderboards", new LeaderboardListGetter(webapi), new LeaderboardListToLeaderboard(), logger);
 			ranking_ = new DataModel<Foo,Foo> ("ranking", new FooGetter(webapi), new FooToFoo(), logger);
+			friends_ = new DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> ("friends",  new FriendsListGetter(webapi), new FriendsListToFriend(), logger);
 			cache_ = new ItemCache ("cache", new ItemsViewGetter(webapi), new ItemsViewToItemPrototype(), logger);
 			appStore_ = new DataModel<Foo,Foo> ("appstore", new FooGetter(webapi), new FooToFoo(), logger);
 		}
@@ -220,6 +222,7 @@ namespace Roar.implementation
 			achievements.Clear (x);
 			leaderboards.Clear (x);
 			ranking.Clear (x);
+			friends.Clear (x);
 			cache.Clear (x);
 			appStore.Clear (x);
 		}
@@ -234,6 +237,7 @@ namespace Roar.implementation
 		public IDataModel<Foo,Foo> achievements { get { return achievements_; } }
 		public IDataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse> leaderboards { get { return leaderboards_; } }
 		public IDataModel<Foo,Foo> ranking { get { return ranking_; } }
+		public IDataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends { get { return friends_; } }
 		public IDataModel<Foo,Foo> appStore { get { return appStore_; } }
 		public IItemCache cache { get { return cache_; } }
 		
@@ -245,6 +249,7 @@ namespace Roar.implementation
 		public DataModel<Foo,Foo> achievements_;
 		public DataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse> leaderboards_;
 		public DataModel<Foo,Foo> ranking_;
+		public DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends_;
 		public DataModel<Foo,Foo> appStore_;
 		public ItemCache cache_;
 	}

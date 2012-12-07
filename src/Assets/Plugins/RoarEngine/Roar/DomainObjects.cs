@@ -182,6 +182,15 @@ namespace Roar
 			public IList<string> tags;
 		};
 
+
+		public class Friend
+		{
+			public string player_id;
+			public string name;
+			public int level;
+		};
+
+
 		public class LeaderboardExtraProperties
 		{
 			public string ikey;

@@ -494,20 +494,18 @@ namespace Roar.WebObjects
 			}
 		}
 		
-		
-		public class Friend
+		public class ParseXmlTo
 		{
-			public string player_id;
-			public string name;
-			public int level;
-			
-			public void ParseXml( IXMLNode n )
+			public static DomainObjects.Friend Friend( IXMLNode n )
 			{
-				player_id = n.GetFirstChild("player_id").Text;
-				name = n.GetFirstChild("name").Text;
-				level = System.Convert.ToInt32( n.GetFirstChild("level").Text );
+				DomainObjects.Friend f = new DomainObjects.Friend();
+				f.player_id = n.GetFirstChild("player_id").Text;
+				f.name = n.GetFirstChild("name").Text;
+				f.level = System.Convert.ToInt32( n.GetFirstChild("level").Text );
+				return f;
 			}
 		}
+
 		
 		
 		// Response from friends/list
@@ -531,16 +529,15 @@ namespace Roar.WebObjects
 		 */
 		public class ListResponse : IResponse
 		{
-			public List<Friend> friends;
+			public List<DomainObjects.Friend> friends;
 			public void ParseXml( IXMLNode nn )
 			{
-				friends = new List<Friend>();
+				friends = new List<DomainObjects.Friend>();
 				
 				List<IXMLNode> friend_nodes = nn.GetNodeList("roar>0>friends>0>list>0>friend");
 				foreach( IXMLNode n in friend_nodes )
 				{
-					Friend a = new Friend();
-					a.ParseXml(n);
+					DomainObjects.Friend a = ParseXmlTo.Friend(n);
 					friends.Add(a);
 				}
 			}
