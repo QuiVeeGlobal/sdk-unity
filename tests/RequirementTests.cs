@@ -140,7 +140,6 @@ public class RequirementTests
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("value").Will(Return.Value("" + stat.value));
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ok").Will(Return.Value(stat.ok ? "true" : "false"));
     Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("reason").Will(Return.Value(stat.reason));
-    System.Console.Out.WriteLine("bool [" + true + "] [" + false + "]");
     
     Requirement r = parser.ParseARequirement(ixmlnode);
     mockery.VerifyAllExpectationsHaveBeenMet();
