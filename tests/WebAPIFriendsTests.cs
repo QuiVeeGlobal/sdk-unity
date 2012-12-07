@@ -134,14 +134,17 @@ public class WebAPIFriendsTests : ComponentTests
     </roar>";
     requestSender.addMockResponse("friends/list", friend_list);
     bool callback_executed = false;
-    Roar.Callback<Roar.WebObjects.Friends.ListResponse> cb = (Roar.CallbackInfo<Roar.WebObjects.Friends.ListResponse> cb_info) => {
+    Roar.Callback< IDictionary<string,Roar.DomainObjects.Friend> > cb = (Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.Friend> > cb_info) => {
       callback_executed = true;
       Assert.AreEqual(cb_info.code, IWebAPI.OK);
       Assert.IsNotNull(cb_info.data);
-      Assert.AreEqual (2, cb_info.data.friends.Count);
+      Assert.AreEqual (2, cb_info.data.Count);
     };
 
-    friends.ListFriends(cb);
+    friends.Fetch(cb);
+
+    IList<Roar.DomainObjects.Friend> friends_list = friends.List();
+    Assert.AreEqual (2, friends_list.Count);
     Assert.IsTrue(callback_executed);
   }
   

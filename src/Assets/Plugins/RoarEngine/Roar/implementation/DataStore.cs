@@ -64,7 +64,10 @@ public class FriendsListToFriend : IDomToCache<Roar.WebObjects.Friends.ListRespo
 	public Dictionary<string, Roar.DomainObjects.Friend> convert( Roar.WebObjects.Friends.ListResponse d)
 	{
 		Dictionary<string,Roar.DomainObjects.Friend> retval = new Dictionary<string, Roar.DomainObjects.Friend>();
-		//TODO: Implement this
+		foreach( Roar.DomainObjects.Friend f in d.friends )
+		{
+			retval[ f.player_id ] = f;
+		}
 		return retval;
 	}
 }

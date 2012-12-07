@@ -228,8 +228,7 @@ namespace Testing
 
 			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse( xml ).GetFirstChild("friend");
 
-			Roar.WebObjects.Friends.Friend friend = new Roar.WebObjects.Friends.Friend();
-			friend.ParseXml( nn );
+			Roar.DomainObjects.Friend friend = Roar.WebObjects.Friends.ParseXmlTo.Friend(nn);
 
 			Assert.AreEqual( "ABCDEF", friend.player_id );
 			Assert.AreEqual( "some dude", friend.name );
@@ -247,8 +246,7 @@ namespace Testing
 
 			IXMLNode nn = ( new SystemXMLNodeFactory() ).Create( xml ).GetFirstChild("friend");
 			
-			Roar.WebObjects.Friends.Friend friend = new Roar.WebObjects.Friends.Friend();
-			friend.ParseXml(nn);
+			Roar.DomainObjects.Friend friend = Roar.WebObjects.Friends.ParseXmlTo.Friend(nn);;
 
 			Assert.AreEqual( "ABCDEF", friend.player_id );
 			Assert.AreEqual( "some dude", friend.name );
