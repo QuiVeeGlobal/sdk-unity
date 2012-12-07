@@ -34,7 +34,7 @@ public class RoarLeaderboardsModule : RoarModule
 	private Mode mode = Mode.Leaderboards;
 	private bool isFetching;
 	private float whenLastFetched;
-	private ArrayList leaderboardsRaw;
+	private IList<Roar.DomainObjects.Leaderboard> leaderboardsRaw;
 		// each leaderboard has this data:
 		// <board board_id="int" ikey="string" resource_id="int" label="string" />	
 	private Roar.Components.ILeaderboards boards;	
@@ -52,7 +52,7 @@ public class RoarLeaderboardsModule : RoarModule
 
 		public float whenLastFetched;
 		public Roar.Components.IRanking ranking;
-		public ArrayList rankingRaw;
+		public IList<Foo> rankingRaw;
 		public int offset;
 		public int numResults;
 		public int page;
@@ -187,7 +187,7 @@ public class RoarLeaderboardsModule : RoarModule
 		boards.Fetch(OnRoarFetchLeaderboardsComplete);
 	}
 	
-	void OnRoarFetchLeaderboardsComplete(Roar.CallbackInfo info)
+	void OnRoarFetchLeaderboardsComplete(Roar.CallbackInfo<IDictionary<string,Roar.DomainObjects.Leaderboard>> info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;
@@ -195,12 +195,12 @@ public class RoarLeaderboardsModule : RoarModule
 		
 		leaderboards = new List<Leaderboard>(leaderboardsRaw.Count);
 		Leaderboard leaderboard;
-		foreach (Hashtable data in leaderboardsRaw)
+		foreach ( Roar.DomainObjects.Leaderboard data in leaderboardsRaw)
 		{
 			leaderboard = new Leaderboard();
-			leaderboard.id = data["board_id"] as string;
-			leaderboard.key = data["ikey"] as string;
-			leaderboard.label = data["label"] as string;
+			leaderboard.id = data.board_id;
+			leaderboard.key = data.ikey;
+			leaderboard.label = data.label;
 			if (leaderboard.label.Length == 0)
 				leaderboard.label = string.Format("Leaderboard{0}", leaderboard.id);
 			leaderboard.ranking = new Roar.implementation.Components.Ranking(leaderboard.id, roar.DataStore, roar.Logger);
@@ -275,63 +275,17 @@ public class RoarLeaderboardsModule : RoarModule
 		leaderboard.ranking.Fetch(OnRoarFetchRankingsComplete);
 	}
 
-	void OnRoarFetchRankingsComplete(Roar.CallbackInfo info)
+	void OnRoarFetchRankingsComplete(Roar.CallbackInfo<IDictionary<string,Foo>> info)
 	{
 		activeLeaderboard.whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;
 		activeLeaderboard.rankingRaw = activeLeaderboard.ranking.List();
-		foreach (Hashtable data in activeLeaderboard.rankingRaw)
+		foreach (Foo data in activeLeaderboard.rankingRaw)
 		{
-			foreach (DictionaryEntry datum in data)
-			{
-				//Debug.Log(string.Format("{0} => {1}", entry.Key, entry.Value));
-				if ((string)datum.Key == "entries")
-				{
-					ArrayList entries = (ArrayList)datum.Value;
-					activeLeaderboard.ranks = new List<Rank>(entries.Count);
-					Rank rank;
-					foreach (Hashtable entry in entries)
-					{
-						rank = new Rank();
-						foreach (DictionaryEntry kv in entry)
-						{
-							//Debug.Log(string.Format("{0} => {1}", kv.Key, kv.Value));
-							string k = kv.Key as string;
-							if (k == "rank")
-							{
-								rank.rank = System.Convert.ToInt32(kv.Value);
-							}
-							else if (k == "player_id")
-							{
-								rank.playerId = kv.Value as string;
-							}
-							else if (k == "player_name")
-							{
-								rank.playerName = kv.Value as string;
-							}
-							else if (k == "value")
-							{
-								rank.value = kv.Value as string;
-							}
-						}
-						activeLeaderboard.ranks.Add(rank);
-					}
-				}
-				else if ((string)datum.Key == "properties")
-				{
-					Hashtable properties = (Hashtable)datum.Value;
-					if (properties.ContainsKey("page"))
-						activeLeaderboard.page = System.Convert.ToInt32(properties["page"]);
-					if (properties.ContainsKey("num_results"))
-						activeLeaderboard.numResults = System.Convert.ToInt32(properties["num_results"]);
-					if (properties.ContainsKey("offset"))
-						activeLeaderboard.offset = System.Convert.ToInt32(properties["offset"]);
-					if (properties.ContainsKey("low_is_high"))
-						activeLeaderboard.lowIsHigh = System.Convert.ToBoolean(properties["low_is_high"]);
-				}
-			}
+			//DELETED.
 		}
 	}
+		
 	
 	void DrawRankingsGUI()
 	{

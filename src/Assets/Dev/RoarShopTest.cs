@@ -1,24 +1,25 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class RoarShopTest : MonoBehaviour {
 
-	static void onShopFetch( Roar.CallbackInfo info )
+	static void onShopFetch( Roar.CallbackInfo< IDictionary<string, Roar.DomainObjects.ShopEntry> > info )
 	{
 		Debug.Log( "onShopFetch Called" );
 		Debug.Log(info);
 		Debug.Log(info.code);
 		Debug.Log(info.msg);
-		Debug.Log(info.d);	
+		Debug.Log(info.data);	
 	}
 	
-	static void onLogin( Roar.CallbackInfo info )
+	static void onLogin( Roar.CallbackInfo< Roar.WebObjects.User.LoginResponse > info )
 	{
 		Debug.Log( "onLogin Called" );
 		Debug.Log(info);
 		Debug.Log(info.code);
 		Debug.Log(info.msg);
-		Debug.Log(info.d);
+		Debug.Log(info.data);
 		IRoar roar = DefaultRoar.Instance;
 		roar.Shop.Fetch( onShopFetch );
 	}

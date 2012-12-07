@@ -1,5 +1,7 @@
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class RoarShopWidget : RoarUIWidget
 {
@@ -37,7 +39,7 @@ public class RoarShopWidget : RoarUIWidget
 		shop.Fetch(OnRoarFetchShopComplete);
 	}
 	
-	void OnRoarFetchShopComplete(Roar.CallbackInfo info)
+	void OnRoarFetchShopComplete(Roar.CallbackInfo<IDictionary<string,Roar.DomainObjects.ShopEntry>> info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;

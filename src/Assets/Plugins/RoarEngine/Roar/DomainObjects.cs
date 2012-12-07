@@ -238,8 +238,13 @@ namespace Roar
 			{
 				return ikey==key;
 			}
-
+			
+			public string board_id;
+			public string id;
 			public string ikey;
+			public string resource_id;
+			public string label;
+			
 			public int offset;
 			public int num_results;
 			public int page;
