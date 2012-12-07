@@ -56,5 +56,12 @@ namespace Roar.Components
 	     *          or null if the leaderboard does not exist in the data store.
 	     **/
 		DomainObjects.Friend GetFriend (string ikey);
+
+		void AcceptFriendInvite (string friend_id, string invite_id, Roar.Callback<WebObjects.Friends.AcceptResponse> callback);
+		void DeclineFriendInvite (string invite_id, Roar.Callback<WebObjects.Friends.DeclineResponse> callback);
+		void InviteFriend (string friend_id, string player_id, Roar.Callback<WebObjects.Friends.InviteResponse> callback);
+		void RemoveFriend (string friend_id, string player_id, Roar.Callback<WebObjects.Friends.RemoveResponse> callback);
+		void ListFriendInvites (Roar.Callback<WebObjects.Friends.List_invitesResponse> callback);
+		void FriendInviteInfo (string invite_id, Roar.Callback<WebObjects.Friends.Invite_infoResponse> callback);
 	}
 }
