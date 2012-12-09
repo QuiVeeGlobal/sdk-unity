@@ -35,8 +35,8 @@ namespace Roar.WebObjects
 			}
 		}
 
-		// Arguments to admin/inrement_stat
-		public class Inrement_statArguments
+		// Arguments to admin/increment_stat
+		public class Increment_statArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -46,8 +46,8 @@ namespace Roar.WebObjects
 			}
 		}
 		
-		// Response from admin/inrement_stat
-		public class Inrement_statResponse : IResponse
+		// Response from admin/increment_stat
+		public class Increment_statResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{

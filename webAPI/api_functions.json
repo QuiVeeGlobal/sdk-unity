@@ -9,7 +9,7 @@
         "functions":
         [
            { "name":"delete_player" },
-           { "name":"inrement_stat" },
+           { "name":"increment_stat" },
            { "name":"set" },
            { "name":"set_custom" },
            { "name":"view_player" }

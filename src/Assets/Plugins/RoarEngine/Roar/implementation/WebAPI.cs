@@ -137,9 +137,9 @@ public class WebAPI : IWebAPI
 			api.MakeCall ("admin/delete_player", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Admin.Delete_playerResponse>(cb));
 		}
 
-		public void inrement_stat( Roar.WebObjects.Admin.Inrement_statArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.Inrement_statResponse> cb)
+		public void increment_stat( Roar.WebObjects.Admin.Increment_statArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.Increment_statResponse> cb)
 		{
-			api.MakeCall ("admin/inrement_stat", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Admin.Inrement_statResponse>(cb));
+			api.MakeCall ("admin/increment_stat", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Admin.Increment_statResponse>(cb));
 		}
 
 		public void _set( Roar.WebObjects.Admin.SetArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.SetResponse> cb)
