@@ -312,6 +312,7 @@ namespace Roar.WebObjects
 		public class Login_oauthArguments
 		{
 			public string oauth_token;
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -398,12 +399,12 @@ namespace Roar.WebObjects
 		// Arguments to friends/decline
 		public class DeclineArguments
 		{
-
 			public string invite_id;
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval["invite_id"]=invite_id;
+				retval["invite_id"] = invite_id;
 				return retval;
 			}
 		}
@@ -419,14 +420,14 @@ namespace Roar.WebObjects
 		// Arguments to friends/invite
 		public class InviteArguments
 		{
-
 			public string friend_id;
-			public string player_id; //TODO: Dont think this guy is needed!
+			public string player_id; // TODO: This argument may not be needed 
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval["friend_id"]=friend_id;
-				retval["player_id"]=player_id;
+				retval["friend_id"] = friend_id;
+				retval["player_id"] = player_id;
 				return retval;
 			}
 		}
@@ -449,8 +450,8 @@ namespace Roar.WebObjects
 		// Arguments to friends/invite_info
 		public class Invite_infoArguments
 		{
-
 			public string invite_id;
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
@@ -551,14 +552,14 @@ namespace Roar.WebObjects
 		// Arguments to friends/remove
 		public class RemoveArguments
 		{
-
 			public string friend_id;
-			public string player_id; //TODO: Dont think this guy is needed!
+			public string player_id; // TODO: This argument may not be needed 
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval["friend_id"]=friend_id;
-				retval["player_id"]=player_id;
+				retval["friend_id"] = friend_id;
+				retval["player_id"] = player_id;
 				return retval;
 			}
 		}
@@ -1220,12 +1221,12 @@ namespace Roar.WebObjects
 		// Arguments to tasks/start
 		public class StartArguments
 		{
-			public string ikey;
-			
+			public string task_ikey;
+
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
-				retval["task_ikey"] = ikey;
+				retval["task_ikey"] = task_ikey;
 				return retval;
 			}
 		}

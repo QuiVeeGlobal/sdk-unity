@@ -22,7 +22,7 @@ namespace Roar.WebObjects
 		public class <%= capitalizeFirst(f.name) %>Arguments
 		{
 <% _.each( f.arguments, function(arg, k, lll) {
-%>			public <%= arg.type %> <%= arg.name %>;
+%>			public <%= arg.type %> <%= arg.name %>;<% if("note" in arg) { %> // <%= arg.note %> <% } %>
 <% } ) %>
 			public Hashtable ToHashtable()
 			{

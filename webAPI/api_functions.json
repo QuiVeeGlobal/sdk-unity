@@ -42,11 +42,24 @@
        "functions":
        [
           { "name":"bind_signed" },
-          { "name":"create_oauth" },
+          {
+            "name":"create_oauth",
+            "arguments":
+            [
+              { "name":"oauth_token", "type":"string" },
+              { "name":"name", "type":"string" }
+            ]
+          },
           { "name":"create_signed" },
           { "name":"fetch_oauth_token" },
           { "name":"friends" },
-          { "name":"login_oauth" },
+          {
+            "name":"login_oauth",
+            "arguments":
+            [
+              { "name":"oauth_token", "type":"string" }
+            ]
+          },
           { "name":"login_signed" },
           { "name":"shop_list" }
        ]
@@ -55,12 +68,46 @@
         "name":"friends",
         "functions":
         [
-          { "name":"accept" },
-          { "name":"decline" },
-          { "name":"invite" },
-          { "name":"invite_info", "url":"friends/info" },
+          {
+            "name":"accept",
+            "arguments":
+            [
+              { "name":"friends_id", "type":"string" },
+              { "name":"invite_id", "type":"string" }
+            ]
+          },
+          {
+            "name":"decline",
+            "arguments":
+            [
+              { "name":"invite_id", "type":"string" }
+            ]
+          },
+          {
+            "name":"invite",
+            "arguments":
+            [
+              { "name":"friend_id", "type":"string" },
+              { "name":"player_id", "type":"string", "note":"TODO: This argument may not be needed" }
+            ]
+          },
+          {
+            "name":"invite_info",
+            "url":"friends/info",
+            "arguments":
+            [
+              { "name":"invite_id", "type":"string" }
+            ]
+          },
           { "name":"list" },
-          { "name":"remove" },
+          {
+            "name":"remove",
+            "arguments":
+            [
+              { "name":"friend_id", "type":"string" },
+              { "name":"player_id", "type":"string", "note":"TODO: This argument may not be needed" }
+            ]
+          },
           { "name":"list_invites" }
         ]
      },
