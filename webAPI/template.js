@@ -71,19 +71,6 @@ function build_iweb_api_cs()
   fs.writeFile(filename,output, report_err);
 }
 
-function build_zweb_api_cs()
-{
-  api_functions = require("./api_functions.json")
-  js_template = fs.readFileSync('src/ZWebAPI.template.cs',"utf8");
-  augment_template( api_functions )
-
-  var output = _.template(js_template, api_functions)
-
-  var filename = "../src/Assets/Plugins/RoarEngine/Roar/ZWebAPI.cs";
-  console.log(filename);
-  fs.writeFile(filename,output, report_err);
-}
-
 function build_web_objects_cs()
 {
   api_functions = require("./api_functions.json")
@@ -130,6 +117,5 @@ function build_event_manager()
 console.log("\nbuilding roar unity source files from template\n")
 build_web_api_cs();
 build_iweb_api_cs();
-build_zweb_api_cs();
 build_web_objects_cs();
 build_event_manager();
