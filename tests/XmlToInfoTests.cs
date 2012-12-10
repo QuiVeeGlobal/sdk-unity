@@ -32,6 +32,24 @@ namespace Testing
 			Assert.AreEqual(ping_response.text, "hello");			
 		}
 	
+		[Test()]
+		public void TestPollInfoXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""135510457230"">
+				<info>
+					<poll status=""ok""/>
+				</info>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("roar");
+			
+			PollResponse poll_response = (new Roar.DataConversion.Responses.Info.Poll()).Build(nn);
+			
+			Assert.IsNotNull( poll_response );
+			
+		}
+
 	}
 	
 }
