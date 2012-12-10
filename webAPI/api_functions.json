@@ -165,7 +165,14 @@
         "functions":
         [
           { "name":"get_bulk_player_info" },
-          { "name":"ping", "obj":"null" },
+          {
+            "name":"ping",
+            "obj":"null",
+            "response":{
+              "members":[
+              { "name":"text", "type":"string" }
+            ] }
+          },
           { "name":"user" },
           { "name":"poll", "obj":"null" }
         ]

@@ -427,7 +427,11 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Info.PingResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Info.PingResponse retval = new Roar.WebObjects.Info.PingResponse();
-				//TODO: Implement me
+				IXMLNode ping_node = n.GetNode("info>0>ping>0");
+				if (ping_node != null)
+				{
+					retval.text = ping_node.GetNode("text>0").Text;
+				}
 				return retval;
 			}
 		}

@@ -617,6 +617,7 @@ namespace Roar.WebObjects
 		// Response from info/ping
 		public class PingResponse
 		{
+			public string text;
 
 		}
 
