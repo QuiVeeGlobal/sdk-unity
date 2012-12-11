@@ -319,7 +319,17 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Friends.ListInvitesResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Friends.ListInvitesResponse retval = new Roar.WebObjects.Friends.ListInvitesResponse();
-				//TODO: Implement me
+				retval.invites = new List<DomainObjects.FriendInvite>();
+				List<IXMLNode> invite_nodes = n.GetNodeList("roar>0>friends>0>list_invites>0>friend_invite");
+				foreach( IXMLNode invite_node in invite_nodes )
+				{
+					DomainObjects.FriendInvite invite = new DomainObjects.FriendInvite();
+					Dictionary<string,string> kv = invite_node.Attributes.ToDictionary( v => v.Key, v => v.Value );
+
+					kv.TryGetValue("invite_id",out invite.invite_id);
+					invite.player_id = invite_node.GetFirstChild("player_id").Text;
+					retval.invites.Add(invite);
+				}
 				return retval;
 			}
 		}

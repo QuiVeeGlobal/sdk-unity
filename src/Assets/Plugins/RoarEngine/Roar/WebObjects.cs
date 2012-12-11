@@ -467,20 +467,6 @@ namespace Roar.WebObjects
 		{
 			public List<DomainObjects.FriendInvite> invites;
 
-			public void ParseXml( IXMLNode nn )
-			{
-				invites = new List<DomainObjects.FriendInvite>();
-				List<IXMLNode> invite_nodes = nn.GetNodeList("roar>0>friends>0>list_invites>0>friend_invite");
-				foreach( IXMLNode n in invite_nodes )
-				{
-					DomainObjects.FriendInvite invite = new DomainObjects.FriendInvite();
-					Dictionary<string,string> kv = n.Attributes.ToDictionary( v => v.Key, v => v.Value );
-
-					kv.TryGetValue("invite_id",out invite.invite_id);
-					invite.player_id = n.GetFirstChild("player_id").Text;
-					invites.Add(invite);
-				}
-			}
 		}
 
 	}
