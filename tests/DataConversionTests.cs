@@ -39,11 +39,6 @@ public class DataConversionTests
 		mocks = new NMock2.Mockery();
 	}
 
-	[Test]
-	public void CheckKey()
-	{
-		Assert.AreEqual("convert_premium_to_ingame", ee.GetKey(n) );
-	}
 
 	[Test]
 	public void CheckLabel()

@@ -55,14 +55,11 @@ namespace Roar.DataConversion
 	public interface IXmlToObject<T>
 	{
 		T Build( IXMLNode n);
-		string GetKey( IXMLNode n);
 	}
 
 	public interface IXmlToHashtable
 	{
 		Hashtable BuildHashtable (IXMLNode n);
-
-		string GetKey (IXMLNode n);
 	};
 
 	public interface ICRMParser
@@ -470,11 +467,6 @@ namespace Roar.DataConversion
 			CrmParser_ = new CRMParser ();
 		}
 
-		public string GetKey (IXMLNode n)
-		{
-			return n.GetAttribute ("ikey");
-		}
-
 		public Hashtable BuildHashtable (IXMLNode n)
 		{
 			Hashtable retval = new Hashtable ();
@@ -519,11 +511,6 @@ namespace Roar.DataConversion
 		public XmlToInventoryItemHashtable ()
 		{
 			CrmParser_ = new CRMParser ();
-		}
-
-		public virtual string GetKey (IXMLNode n)
-		{
-			return n.GetAttribute ("id");
 		}
 
 		public DomainObjects.InventoryItem Build (IXMLNode n)
@@ -574,11 +561,6 @@ namespace Roar.DataConversion
 		public XmlToShopEntry ()
 		{
 			CrmParser_ = new XCRMParser ();
-		}
-
-		public string GetKey (IXMLNode n)
-		{
-			return n.GetAttribute ("ikey");
 		}
 
 		public ShopEntry Build(IXMLNode n)
@@ -649,14 +631,6 @@ namespace Roar.DataConversion
 		{
 		}
 
-		public string GetKey (IXMLNode n)
-		{
-			string key = n.GetAttribute ("ikey");
-			if (key != null)
-				return key;
-			return n.GetAttribute ("name");
-		}
-
 		public Hashtable BuildHashtable (IXMLNode n)
 		{
 			Hashtable retval = new Hashtable ();
@@ -669,10 +643,6 @@ namespace Roar.DataConversion
 
 	public class XMLToItemHashtable : XmlToInventoryItemHashtable
 	{
-		public override string GetKey (IXMLNode n)
-		{
-			return n.GetAttribute ("ikey");
-		}
 	}
 
 	public class XmlToAchievementHashtable : IXmlToHashtable
@@ -680,11 +650,6 @@ namespace Roar.DataConversion
 
 		public XmlToAchievementHashtable ()
 		{
-		}
-
-		public string GetKey (IXMLNode n)
-		{
-			return n.GetAttribute ("ikey");
 		}
 
 		public Hashtable BuildHashtable (IXMLNode n)
@@ -704,11 +669,6 @@ namespace Roar.DataConversion
 		{
 			return new Foo();
 		}
-		
-		public string GetKey (IXMLNode n)
-		{
-			return "monkey";
-		}
 	}
 
 	public class XmlToLeaderboard : IXmlToObject<DomainObjects.Leaderboard>
@@ -716,11 +676,6 @@ namespace Roar.DataConversion
 
 		public XmlToLeaderboard()
 		{
-		}
-
-		public string GetKey (IXMLNode n)
-		{
-			return n.GetAttribute ("ikey");
 		}
 
 		public DomainObjects.Leaderboard Build(IXMLNode n)
@@ -857,11 +812,6 @@ namespace Roar.DataConversion
 		{
 		}
 
-		public string GetKey (IXMLNode n)
-		{
-			return n.GetAttribute ("ikey");
-		}
-
 		public Hashtable BuildHashtable (IXMLNode n)
 		{
 			Hashtable retval = new Hashtable ();
@@ -916,11 +866,6 @@ namespace Roar.DataConversion
 		{
 		}
 
-		public string GetKey (IXMLNode n)
-		{
-			return n.GetAttribute ("ikey");
-		}
-
 		public Hashtable BuildHashtable (IXMLNode n)
 		{
 			Hashtable retval = new Hashtable ();
@@ -938,11 +883,6 @@ namespace Roar.DataConversion
 		public XmlToAppstoreItemHashtable ()
 		{
 			CrmParser_ = new CRMParser ();
-		}
-
-		public string GetKey (IXMLNode n)
-		{
-			return n.GetAttribute ("product_identifier");
 		}
 
 		public Hashtable BuildHashtable (IXMLNode n)
@@ -973,11 +913,6 @@ namespace Roar.DataConversion
 		public XmlToGiftHashtable ()
 		{
 			CrmParser_ = new CRMParser ();
-		}
-
-		public string GetKey (IXMLNode n)
-		{
-			return n.GetAttribute ("id");
 		}
 
 		public Hashtable BuildHashtable (IXMLNode n)
