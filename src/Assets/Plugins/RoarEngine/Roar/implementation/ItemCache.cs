@@ -3,14 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 
 //TODO: Remove this!
-public class Foo : Roar.DomainObjects.IDomainObject
+public class Foo
 {
 	//TODO: Fix thio
 	public string value;
-	public bool MatchesKey(string s)
-	{
-		return true;
-	}
 }
 
 namespace Roar.implementation

@@ -161,15 +161,9 @@ namespace Roar
 		}
 		
 		
-		public interface IDomainObject
-		{
-			bool MatchesKey( string key );
-		}
-		
-		public class ShopEntry : IDomainObject
+		public class ShopEntry
 		{
 			public string as_json() { return "{}"; }
-			public bool MatchesKey( string key ) { return ikey==key; } //Should check id, ikey, shop_ikey etc.
 			
 			public string ikey;
 			public string label;
@@ -232,13 +226,8 @@ namespace Roar
 		 * </leaderboards>
 		 */
 
-		public class Leaderboard : IDomainObject
+		public class Leaderboard
 		{
-			public bool MatchesKey( string key )
-			{
-				return ikey==key;
-			}
-
 			public string board_id;
 			public string id;
 			public string ikey;
@@ -254,13 +243,8 @@ namespace Roar
 
 		}
 		
-		public class InventoryItem : IDomainObject
+		public class InventoryItem
 		{
-			public bool MatchesKey( string key )
-			{
-				return ikey==key;
-			}
-
 			public string id;
 			public string ikey;
 			public bool sellable;
@@ -270,12 +254,8 @@ namespace Roar
 			public ItemPrototype item_prototype;
 		}
 		
-		public class ItemPrototype : IDomainObject
+		public class ItemPrototype
 		{
-			public bool MatchesKey( string key )
-			{
-				return ikey==key;
-			}
 			public string ikey;
 		}
 		
