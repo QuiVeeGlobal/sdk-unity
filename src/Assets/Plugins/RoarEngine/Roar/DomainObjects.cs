@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Roar
 {
@@ -273,6 +274,35 @@ namespace Roar
 			public string ikey;
 		}
 		
+		
+		public class PlayerAttribute
+		{
+			public string ikey = null;
+			public string name = null;
+			public string label = null;
+			public string value = null;
+			public string type = null;
+			public string min = null;
+			public string max = null;
+			public string regen_amount = null;
+			public string regen_every = null;
+			
+			public void ParseXml( IXMLNode nn )
+			{
+				Dictionary<string,string> kv = nn.Attributes.ToDictionary( v => v.Key, v => v.Value );
+				kv.TryGetValue("ikey",out ikey);
+				kv.TryGetValue("name",out name);
+				if( ikey == null ) { ikey = name;} 
+
+				kv.TryGetValue("label",out label);
+				kv.TryGetValue("value",out value);
+				kv.TryGetValue("type",out type);
+				kv.TryGetValue("min",out min);
+				kv.TryGetValue("max",out max);
+				kv.TryGetValue("regen_amount",out regen_amount);
+				kv.TryGetValue("regen_every",out regen_every);
+			}
+		}
 		
 
 

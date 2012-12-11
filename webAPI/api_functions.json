@@ -305,7 +305,7 @@
             "obj":"null",
             "response":{
               "members":[
-              {"name":"attributes", "type":"List<PlayerAttribute>"}
+              {"name":"attributes", "type":"List<DomainObjects.PlayerAttribute>"}
             ] }
           }
         ]

@@ -16,7 +16,7 @@ public class UserViewToProperty : IDomToCache<Roar.WebObjects.User.ViewResponse,
 		Dictionary<string,Property> retval = new Dictionary<string, Property>();
 		//TODO: Duplication between PlayerAttribute class and Property class is not usefull
 		//      we probably only need one.
-		foreach( Roar.WebObjects.User.PlayerAttribute p in d.attributes)
+		foreach( Roar.DomainObjects.PlayerAttribute p in d.attributes)
 		{
 			Property pp = new Property();
 			pp.label = p.label;

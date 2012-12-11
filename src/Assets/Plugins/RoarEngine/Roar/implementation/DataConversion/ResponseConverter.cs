@@ -758,7 +758,14 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.User.ViewResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.User.ViewResponse retval = new Roar.WebObjects.User.ViewResponse();
-				//TODO: Implement me
+				retval.attributes = new List<PlayerAttribute>();
+				List<IXMLNode> attribute_nodes = n.GetNodeList("roar>0>user>0>view>0>attribute");
+				foreach( IXMLNode attribute_node in attribute_nodes )
+				{
+					PlayerAttribute a = new PlayerAttribute();
+					a.ParseXml(attribute_node);
+					retval.attributes.Add(a);
+				}
 				return retval;
 			}
 		}
