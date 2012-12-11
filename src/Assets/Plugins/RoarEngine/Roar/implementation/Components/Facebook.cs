@@ -21,22 +21,22 @@ namespace Roar.implementation.Components
 		// ---- Access Methods ----
 		// ------------------------
 
-		public void LoginOAuth (string oauth_token, Roar.Callback<WebObjects.Facebook.Login_oauthResponse> cb)
+		public void LoginOAuth (string oauth_token, Roar.Callback<WebObjects.Facebook.LoginOauthResponse> cb)
 		{
 			if (oauth_token == "") {
 				logger.DebugLog ("[roar] -- Must specify oauth_token for facebook login");
 				return;
 			}
 			
-			Roar.WebObjects.Facebook.Login_oauthArguments args = new Roar.WebObjects.Facebook.Login_oauthArguments();
+			Roar.WebObjects.Facebook.LoginOauthArguments args = new Roar.WebObjects.Facebook.LoginOauthArguments();
 			args.oauth_token = oauth_token;
 
 			facebook.login_oauth (args, new LoginOAuthCallback (cb));
 		}
 
-		class LoginOAuthCallback : CBBase<WebObjects.Facebook.Login_oauthResponse>
+		class LoginOAuthCallback : CBBase<WebObjects.Facebook.LoginOauthResponse>
 		{
-			public LoginOAuthCallback (Roar.Callback<WebObjects.Facebook.Login_oauthResponse> in_cb) : base( in_cb )
+			public LoginOAuthCallback (Roar.Callback<WebObjects.Facebook.LoginOauthResponse> in_cb) : base( in_cb )
 			{
 			}
 
@@ -45,7 +45,7 @@ namespace Roar.implementation.Components
 				RoarManager.OnLogInFailed (info.msg);
 			}
 
-			public override void HandleSuccess (CallbackInfo<WebObjects.Facebook.Login_oauthResponse> info)
+			public override void HandleSuccess (CallbackInfo<WebObjects.Facebook.LoginOauthResponse> info)
 			{
 				RoarManager.OnLoggedIn ();
 				// @todo Perform auto loading of game and player data
@@ -53,14 +53,14 @@ namespace Roar.implementation.Components
 		}
 
 
-		public void CreateOAuth (string name, string oAuthToken, Roar.Callback<WebObjects.Facebook.Create_oauthResponse> cb)
+		public void CreateOAuth (string name, string oAuthToken, Roar.Callback<WebObjects.Facebook.CreateOauthResponse> cb)
 		{
 			if (name == "" || oAuthToken == "") {
 				logger.DebugLog ("[roar] -- Must specify username and oauthToken for creation");
 				return;
 			}
 			
-			Roar.WebObjects.Facebook.Create_oauthArguments args = new Roar.WebObjects.Facebook.Create_oauthArguments();
+			Roar.WebObjects.Facebook.CreateOauthArguments args = new Roar.WebObjects.Facebook.CreateOauthArguments();
 			args.name = name;
 			args.oauth_token = oAuthToken;
 
@@ -68,10 +68,10 @@ namespace Roar.implementation.Components
 		}
 
 
-		protected class CreateOAuthCallback : CBBase<WebObjects.Facebook.Create_oauthResponse>
+		protected class CreateOAuthCallback : CBBase<WebObjects.Facebook.CreateOauthResponse>
 		{
 
-			public CreateOAuthCallback (Roar.Callback<WebObjects.Facebook.Create_oauthResponse> in_cb) : base(in_cb)
+			public CreateOAuthCallback (Roar.Callback<WebObjects.Facebook.CreateOauthResponse> in_cb) : base(in_cb)
 			{
 			}
 
@@ -80,7 +80,7 @@ namespace Roar.implementation.Components
 				RoarManager.OnCreateUserFailed (info.msg);
 			}
 
-			public override void HandleSuccess (CallbackInfo<WebObjects.Facebook.Create_oauthResponse> info)
+			public override void HandleSuccess (CallbackInfo<WebObjects.Facebook.CreateOauthResponse> info)
 			{
 				RoarManager.OnCreatedUser ();
 				RoarManager.OnLoggedIn ();

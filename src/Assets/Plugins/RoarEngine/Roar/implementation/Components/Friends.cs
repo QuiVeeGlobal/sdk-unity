@@ -119,21 +119,21 @@ namespace Roar.implementation.Components
 			public RemoveFriendCallback (Roar.Callback<WebObjects.Friends.RemoveResponse> in_cb) : base (in_cb) {}
 		}
 
-		public void ListFriendInvites (Roar.Callback<WebObjects.Friends.List_invitesResponse> cb)
+		public void ListFriendInvites (Roar.Callback<WebObjects.Friends.ListInvitesResponse> cb)
 		{
-			friendsActions.list_invites( new WebObjects.Friends.List_invitesArguments(), new CBBase<WebObjects.Friends.List_invitesResponse>(cb) );
+			friendsActions.list_invites( new WebObjects.Friends.ListInvitesArguments(), new CBBase<WebObjects.Friends.ListInvitesResponse>(cb) );
 		}
 
-		public void FriendInviteInfo (string invite_id, Roar.Callback<WebObjects.Friends.Invite_infoResponse> cb)
+		public void FriendInviteInfo (string invite_id, Roar.Callback<WebObjects.Friends.InviteInfoResponse> cb)
 		{
 			if (invite_id == "")
 			{
 				logger.DebugLog("[roar] -- Must specify invite_id for fetch invite info.");
 			}
 
-			WebObjects.Friends.Invite_infoArguments args = new WebObjects.Friends.Invite_infoArguments();
+			WebObjects.Friends.InviteInfoArguments args = new WebObjects.Friends.InviteInfoArguments();
 			args.invite_id = invite_id;
-			friendsActions.invite_info(args, new CBBase<WebObjects.Friends.Invite_infoResponse>(cb));
+			friendsActions.invite_info(args, new CBBase<WebObjects.Friends.InviteInfoResponse>(cb));
 		}
 
 	}

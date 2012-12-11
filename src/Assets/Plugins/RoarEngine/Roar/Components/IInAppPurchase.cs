@@ -18,7 +18,7 @@ namespace Roar.Components
 	     * Fetch appstore product keys from the roar server.
 	     * followed by product details from the appstore.
 	     **/
-		void Fetch (Roar.Callback<WebObjects.Appstore.Shop_listResponse> callback);
+		void Fetch (Roar.Callback<WebObjects.Appstore.ShopListResponse> callback);
 
 		/**
 	     * Check whether appstore product keys have been obtained from the roar server

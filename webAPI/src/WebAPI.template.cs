@@ -38,13 +38,13 @@ public class WebAPI : IWebAPI
 		requestSender_ = requestSender;
 
 <% _.each( data.modules, function(m,i,l) {
-     print( "\t\t" +m.name + "_ = new " + capitalizeFirst(m.name)+"Actions (requestSender);\n" );
+     print( "\t\t" +m.name + "_ = new " + underscoreToCamel(m.name)+"Actions (requestSender);\n" );
      } );
 %>	}
 
 <% _.each( data.modules, function(m,i,l) {
-     print( "\tpublic override I" + capitalizeFirst(m.name) + "Actions "+m.name+" { get { return "+m.name+"_; } }\n\n" );
-     print( "\tpublic " + capitalizeFirst(m.name)+"Actions " +m.name + "_;\n\n" );
+     print( "\tpublic override I" + underscoreToCamel(m.name) + "Actions "+m.name+" { get { return "+m.name+"_; } }\n\n" );
+     print( "\tpublic " + underscoreToCamel(m.name)+"Actions " +m.name + "_;\n\n" );
      } );
 %>
 
@@ -59,7 +59,7 @@ public class WebAPI : IWebAPI
 	}
 <%
   _.each( data.modules, function(m,i,l) {
-    var class_name = capitalizeFirst(m.name)+"Actions"
+    var class_name = underscoreToCamel(m.name)+"Actions"
 %>
 	public class <%= class_name %> : APIBridge, I<%= class_name %>
 	{
@@ -68,8 +68,8 @@ public class WebAPI : IWebAPI
 		}
 
 <% _.each( m.functions, function(f,j,ll) {
-     var arg = "Roar.WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Arguments"
-     var response  = "Roar.WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Response"
+     var arg = "Roar.WebObjects."+underscoreToCamel(m.name)+"."+underscoreToCamel(f.name)+"Arguments"
+     var response  = "Roar.WebObjects."+underscoreToCamel(m.name)+"."+underscoreToCamel(f.name)+"Response"
      url = f.url ? f.url : (m.name+"/"+f.name);
      obj = f.obj ? f.obj : "obj";
      print("\t\tpublic void "+fix_reserved_word(f.name)+"( "+arg+" args, ZWebAPI.Callback<"+response+"> cb)\n");

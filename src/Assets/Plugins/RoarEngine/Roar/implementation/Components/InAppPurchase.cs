@@ -43,7 +43,7 @@ namespace Roar.implementation.Components
 	     * 1. Retrieve the appstore product ids from roar.
 	     * 2. Use the product ids to retrieve the product details from the appstore.
 	     **/
-		public void Fetch (Roar.Callback<WebObjects.Appstore.Shop_listResponse> callback)
+		public void Fetch (Roar.Callback<WebObjects.Appstore.ShopListResponse> callback)
 		{
 			if (isServerCalling) {
 				return;
@@ -51,21 +51,21 @@ namespace Roar.implementation.Components
 			isServerCalling = false;
 			productsMap.Clear ();
 			productsList.Clear ();
-			actions.shop_list ( new Roar.WebObjects.Appstore.Shop_listArguments(), new AppstoreListCallback (callback, this));
+			actions.shop_list ( new Roar.WebObjects.Appstore.ShopListArguments(), new AppstoreListCallback (callback, this));
 		}
 
-		class AppstoreListCallback : ZWebAPI.Callback<WebObjects.Appstore.Shop_listResponse>
+		class AppstoreListCallback : ZWebAPI.Callback<WebObjects.Appstore.ShopListResponse>
 		{
 			InAppPurchase appstore;
-			Roar.Callback<WebObjects.Appstore.Shop_listResponse> cb_;
+			Roar.Callback<WebObjects.Appstore.ShopListResponse> cb_;
 
-			public AppstoreListCallback (Roar.Callback<WebObjects.Appstore.Shop_listResponse> in_cb, InAppPurchase in_appstore)
+			public AppstoreListCallback (Roar.Callback<WebObjects.Appstore.ShopListResponse> in_cb, InAppPurchase in_appstore)
 			{
 				appstore = in_appstore;
 				cb_ = in_cb;
 			}
 
-			public void OnSuccess (Roar.CallbackInfo<WebObjects.Appstore.Shop_listResponse> info)
+			public void OnSuccess (Roar.CallbackInfo<WebObjects.Appstore.ShopListResponse> info)
 			{
 				appstore.isServerCalling = false;
 				appstore.logger.DebugLog (string.Format ("onAppstoreList.onSuccess() called with: {0}", info.data.ToString()));
@@ -81,7 +81,7 @@ namespace Roar.implementation.Components
 			public void OnError( RequestResult info )
 			{
 				appstore.isServerCalling = false;
-				cb_( new CallbackInfo<WebObjects.Appstore.Shop_listResponse>( null, info.code, info.msg) );
+				cb_( new CallbackInfo<WebObjects.Appstore.ShopListResponse>( null, info.code, info.msg) );
 
 			}
 		}

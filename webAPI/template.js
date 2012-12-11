@@ -31,6 +31,11 @@ function capitalizeFirst( s )
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+function underscoreToCamel(s)
+{
+  return _.map( s.split("_"), function(v) { return capitalizeFirst(v); } ).join("");
+}
+
 function fix_reserved_word( w )
 {
   if( w==="set" ) return "_set";
@@ -43,6 +48,7 @@ function augment_template( t )
   t.pad_left = pad_left
   t.pad_right = pad_right
   t.capitalizeFirst = capitalizeFirst
+  t.underscoreToCamel = underscoreToCamel
 }
 
 function build_web_api_cs()

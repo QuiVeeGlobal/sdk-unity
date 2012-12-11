@@ -29,7 +29,7 @@ using System.Collections;
 public abstract class IWebAPI
 {
 <% _.each( data.modules, function(m,i,l) {
-     print( "\tpublic abstract I" + capitalizeFirst(m.name) + "Actions "+m.name+" { get; }\n" );
+     print( "\tpublic abstract I" + underscoreToCamel(m.name) + "Actions "+m.name+" { get; }\n" );
      } );
 %>
 
@@ -43,13 +43,13 @@ public abstract class IWebAPI
 
 <%
   _.each( data.modules, function(m,i,l) {
-    var class_name = capitalizeFirst(m.name)+"Actions"
+    var class_name = underscoreToCamel(m.name)+"Actions"
 %>
 	public interface I<%= class_name %>
 	{
 <% _.each( m.functions, function(f,j,ll) {
-     var arg = "Roar.WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Arguments"
-     var response  = "Roar.WebObjects."+capitalizeFirst(m.name)+"."+capitalizeFirst(f.name)+"Response"
+     var arg = "Roar.WebObjects."+underscoreToCamel(m.name)+"."+underscoreToCamel(f.name)+"Arguments"
+     var response  = "Roar.WebObjects."+underscoreToCamel(m.name)+"."+underscoreToCamel(f.name)+"Response"
      url = f.url ? f.url : (m.name+"/"+f.name);
      obj = f.obj ? f.obj : "obj";
      print("\t\tvoid "+fix_reserved_word(f.name)+"( "+arg+" args, ZWebAPI.Callback<"+response+"> cb);\n");

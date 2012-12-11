@@ -30,7 +30,7 @@ public abstract class IWebAPI
 {
 	public abstract IAdminActions admin { get; }
 	public abstract IAppstoreActions appstore { get; }
-	public abstract IChrome_web_storeActions chrome_web_store { get; }
+	public abstract IChromeWebStoreActions chrome_web_store { get; }
 	public abstract IFacebookActions facebook { get; }
 	public abstract IFriendsActions friends { get; }
 	public abstract IGoogleActions google { get; }
@@ -56,34 +56,34 @@ public abstract class IWebAPI
 
 	public interface IAdminActions
 	{
-		void delete_player( Roar.WebObjects.Admin.Delete_playerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.Delete_playerResponse> cb);
-		void increment_stat( Roar.WebObjects.Admin.Increment_statArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.Increment_statResponse> cb);
+		void delete_player( Roar.WebObjects.Admin.DeletePlayerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.DeletePlayerResponse> cb);
+		void increment_stat( Roar.WebObjects.Admin.IncrementStatArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.IncrementStatResponse> cb);
 		void _set( Roar.WebObjects.Admin.SetArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.SetResponse> cb);
-		void set_custom( Roar.WebObjects.Admin.Set_customArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.Set_customResponse> cb);
-		void view_player( Roar.WebObjects.Admin.View_playerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.View_playerResponse> cb);
+		void set_custom( Roar.WebObjects.Admin.SetCustomArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.SetCustomResponse> cb);
+		void view_player( Roar.WebObjects.Admin.ViewPlayerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.ViewPlayerResponse> cb);
 	}
 
 	public interface IAppstoreActions
 	{
 		void buy( Roar.WebObjects.Appstore.BuyArguments args, ZWebAPI.Callback<Roar.WebObjects.Appstore.BuyResponse> cb);
-		void shop_list( Roar.WebObjects.Appstore.Shop_listArguments args, ZWebAPI.Callback<Roar.WebObjects.Appstore.Shop_listResponse> cb);
+		void shop_list( Roar.WebObjects.Appstore.ShopListArguments args, ZWebAPI.Callback<Roar.WebObjects.Appstore.ShopListResponse> cb);
 	}
 
-	public interface IChrome_web_storeActions
+	public interface IChromeWebStoreActions
 	{
-		void list( Roar.WebObjects.Chrome_web_store.ListArguments args, ZWebAPI.Callback<Roar.WebObjects.Chrome_web_store.ListResponse> cb);
+		void list( Roar.WebObjects.ChromeWebStore.ListArguments args, ZWebAPI.Callback<Roar.WebObjects.ChromeWebStore.ListResponse> cb);
 	}
 
 	public interface IFacebookActions
 	{
-		void bind_signed( Roar.WebObjects.Facebook.Bind_signedArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Bind_signedResponse> cb);
-		void create_oauth( Roar.WebObjects.Facebook.Create_oauthArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Create_oauthResponse> cb);
-		void create_signed( Roar.WebObjects.Facebook.Create_signedArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Create_signedResponse> cb);
-		void fetch_oauth_token( Roar.WebObjects.Facebook.Fetch_oauth_tokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Fetch_oauth_tokenResponse> cb);
+		void bind_signed( Roar.WebObjects.Facebook.BindSignedArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.BindSignedResponse> cb);
+		void create_oauth( Roar.WebObjects.Facebook.CreateOauthArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.CreateOauthResponse> cb);
+		void create_signed( Roar.WebObjects.Facebook.CreateSignedArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.CreateSignedResponse> cb);
+		void fetch_oauth_token( Roar.WebObjects.Facebook.FetchOauthTokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.FetchOauthTokenResponse> cb);
 		void friends( Roar.WebObjects.Facebook.FriendsArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.FriendsResponse> cb);
-		void login_oauth( Roar.WebObjects.Facebook.Login_oauthArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Login_oauthResponse> cb);
-		void login_signed( Roar.WebObjects.Facebook.Login_signedArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Login_signedResponse> cb);
-		void shop_list( Roar.WebObjects.Facebook.Shop_listArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.Shop_listResponse> cb);
+		void login_oauth( Roar.WebObjects.Facebook.LoginOauthArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.LoginOauthResponse> cb);
+		void login_signed( Roar.WebObjects.Facebook.LoginSignedArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.LoginSignedResponse> cb);
+		void shop_list( Roar.WebObjects.Facebook.ShopListArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.ShopListResponse> cb);
 	}
 
 	public interface IFriendsActions
@@ -91,26 +91,26 @@ public abstract class IWebAPI
 		void accept( Roar.WebObjects.Friends.AcceptArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.AcceptResponse> cb);
 		void decline( Roar.WebObjects.Friends.DeclineArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.DeclineResponse> cb);
 		void invite( Roar.WebObjects.Friends.InviteArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.InviteResponse> cb);
-		void invite_info( Roar.WebObjects.Friends.Invite_infoArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.Invite_infoResponse> cb);
+		void invite_info( Roar.WebObjects.Friends.InviteInfoArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.InviteInfoResponse> cb);
 		void list( Roar.WebObjects.Friends.ListArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.ListResponse> cb);
 		void remove( Roar.WebObjects.Friends.RemoveArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.RemoveResponse> cb);
-		void list_invites( Roar.WebObjects.Friends.List_invitesArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.List_invitesResponse> cb);
+		void list_invites( Roar.WebObjects.Friends.ListInvitesArguments args, ZWebAPI.Callback<Roar.WebObjects.Friends.ListInvitesResponse> cb);
 	}
 
 	public interface IGoogleActions
 	{
-		void bind_user( Roar.WebObjects.Google.Bind_userArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.Bind_userResponse> cb);
-		void bind_user_token( Roar.WebObjects.Google.Bind_user_tokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.Bind_user_tokenResponse> cb);
-		void create_user( Roar.WebObjects.Google.Create_userArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.Create_userResponse> cb);
-		void create_user_token( Roar.WebObjects.Google.Create_user_tokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.Create_user_tokenResponse> cb);
+		void bind_user( Roar.WebObjects.Google.BindUserArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.BindUserResponse> cb);
+		void bind_user_token( Roar.WebObjects.Google.BindUserTokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.BindUserTokenResponse> cb);
+		void create_user( Roar.WebObjects.Google.CreateUserArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.CreateUserResponse> cb);
+		void create_user_token( Roar.WebObjects.Google.CreateUserTokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.CreateUserTokenResponse> cb);
 		void friends( Roar.WebObjects.Google.FriendsArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.FriendsResponse> cb);
-		void login_user( Roar.WebObjects.Google.Login_userArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.Login_userResponse> cb);
-		void login_user_token( Roar.WebObjects.Google.Login_user_tokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.Login_user_tokenResponse> cb);
+		void login_user( Roar.WebObjects.Google.LoginUserArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.LoginUserResponse> cb);
+		void login_user_token( Roar.WebObjects.Google.LoginUserTokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.LoginUserTokenResponse> cb);
 	}
 
 	public interface IInfoActions
 	{
-		void get_bulk_player_info( Roar.WebObjects.Info.Get_bulk_player_infoArguments args, ZWebAPI.Callback<Roar.WebObjects.Info.Get_bulk_player_infoResponse> cb);
+		void get_bulk_player_info( Roar.WebObjects.Info.GetBulkPlayerInfoArguments args, ZWebAPI.Callback<Roar.WebObjects.Info.GetBulkPlayerInfoResponse> cb);
 		void ping( Roar.WebObjects.Info.PingArguments args, ZWebAPI.Callback<Roar.WebObjects.Info.PingResponse> cb);
 		void user( Roar.WebObjects.Info.UserArguments args, ZWebAPI.Callback<Roar.WebObjects.Info.UserResponse> cb);
 		void poll( Roar.WebObjects.Info.PollArguments args, ZWebAPI.Callback<Roar.WebObjects.Info.PollResponse> cb);
@@ -125,7 +125,7 @@ public abstract class IWebAPI
 		void unequip( Roar.WebObjects.Items.UnequipArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.UnequipResponse> cb);
 		void use( Roar.WebObjects.Items.UseArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.UseResponse> cb);
 		void view( Roar.WebObjects.Items.ViewArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.ViewResponse> cb);
-		void view_all( Roar.WebObjects.Items.View_allArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.View_allResponse> cb);
+		void view_all( Roar.WebObjects.Items.ViewAllArguments args, ZWebAPI.Callback<Roar.WebObjects.Items.ViewAllResponse> cb);
 	}
 
 	public interface ILeaderboardsActions
@@ -138,8 +138,8 @@ public abstract class IWebAPI
 	{
 		void accept( Roar.WebObjects.Mail.AcceptArguments args, ZWebAPI.Callback<Roar.WebObjects.Mail.AcceptResponse> cb);
 		void send( Roar.WebObjects.Mail.SendArguments args, ZWebAPI.Callback<Roar.WebObjects.Mail.SendResponse> cb);
-		void what_can_i_accept( Roar.WebObjects.Mail.What_can_i_acceptArguments args, ZWebAPI.Callback<Roar.WebObjects.Mail.What_can_i_acceptResponse> cb);
-		void what_can_i_send( Roar.WebObjects.Mail.What_can_i_sendArguments args, ZWebAPI.Callback<Roar.WebObjects.Mail.What_can_i_sendResponse> cb);
+		void what_can_i_accept( Roar.WebObjects.Mail.WhatCanIAcceptArguments args, ZWebAPI.Callback<Roar.WebObjects.Mail.WhatCanIAcceptResponse> cb);
+		void what_can_i_send( Roar.WebObjects.Mail.WhatCanISendArguments args, ZWebAPI.Callback<Roar.WebObjects.Mail.WhatCanISendResponse> cb);
 	}
 
 	public interface IShopActions
@@ -162,21 +162,21 @@ public abstract class IWebAPI
 	public interface IUserActions
 	{
 		void achievements( Roar.WebObjects.User.AchievementsArguments args, ZWebAPI.Callback<Roar.WebObjects.User.AchievementsResponse> cb);
-		void change_name( Roar.WebObjects.User.Change_nameArguments args, ZWebAPI.Callback<Roar.WebObjects.User.Change_nameResponse> cb);
-		void change_password( Roar.WebObjects.User.Change_passwordArguments args, ZWebAPI.Callback<Roar.WebObjects.User.Change_passwordResponse> cb);
+		void change_name( Roar.WebObjects.User.ChangeNameArguments args, ZWebAPI.Callback<Roar.WebObjects.User.ChangeNameResponse> cb);
+		void change_password( Roar.WebObjects.User.ChangePasswordArguments args, ZWebAPI.Callback<Roar.WebObjects.User.ChangePasswordResponse> cb);
 		void create( Roar.WebObjects.User.CreateArguments args, ZWebAPI.Callback<Roar.WebObjects.User.CreateResponse> cb);
 		void login( Roar.WebObjects.User.LoginArguments args, ZWebAPI.Callback<Roar.WebObjects.User.LoginResponse> cb);
-		void login_facebook_oauth( Roar.WebObjects.User.Login_facebook_oauthArguments args, ZWebAPI.Callback<Roar.WebObjects.User.Login_facebook_oauthResponse> cb);
+		void login_facebook_oauth( Roar.WebObjects.User.LoginFacebookOauthArguments args, ZWebAPI.Callback<Roar.WebObjects.User.LoginFacebookOauthResponse> cb);
 		void logout( Roar.WebObjects.User.LogoutArguments args, ZWebAPI.Callback<Roar.WebObjects.User.LogoutResponse> cb);
-		void netdrive_save( Roar.WebObjects.User.Netdrive_saveArguments args, ZWebAPI.Callback<Roar.WebObjects.User.Netdrive_saveResponse> cb);
-		void netdrive_fetch( Roar.WebObjects.User.Netdrive_fetchArguments args, ZWebAPI.Callback<Roar.WebObjects.User.Netdrive_fetchResponse> cb);
+		void netdrive_save( Roar.WebObjects.User.NetdriveSaveArguments args, ZWebAPI.Callback<Roar.WebObjects.User.NetdriveSaveResponse> cb);
+		void netdrive_fetch( Roar.WebObjects.User.NetdriveFetchArguments args, ZWebAPI.Callback<Roar.WebObjects.User.NetdriveFetchResponse> cb);
 		void _set( Roar.WebObjects.User.SetArguments args, ZWebAPI.Callback<Roar.WebObjects.User.SetResponse> cb);
 		void view( Roar.WebObjects.User.ViewArguments args, ZWebAPI.Callback<Roar.WebObjects.User.ViewResponse> cb);
 	}
 
 	public interface IUrbanairshipActions
 	{
-		void ios_register( Roar.WebObjects.Urbanairship.Ios_registerArguments args, ZWebAPI.Callback<Roar.WebObjects.Urbanairship.Ios_registerResponse> cb);
+		void ios_register( Roar.WebObjects.Urbanairship.IosRegisterArguments args, ZWebAPI.Callback<Roar.WebObjects.Urbanairship.IosRegisterResponse> cb);
 		void push( Roar.WebObjects.Urbanairship.PushArguments args, ZWebAPI.Callback<Roar.WebObjects.Urbanairship.PushResponse> cb);
 	}
 

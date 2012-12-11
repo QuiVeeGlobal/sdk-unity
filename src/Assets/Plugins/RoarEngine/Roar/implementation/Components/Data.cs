@@ -60,13 +60,13 @@ public class Data : IData
     }
     else
 	{
-		WebObjects.User.Netdrive_fetchArguments args = new Roar.WebObjects.User.Netdrive_fetchArguments();
+		WebObjects.User.NetdriveFetchArguments args = new Roar.WebObjects.User.NetdriveFetchArguments();
 		args.ikey =  key;
 
 		user_actions_.netdrive_fetch( args, new OnGetData( callback, this, key ) );
 	}
   }
-  class OnGetData : CBBase<WebObjects.User.Netdrive_fetchResponse>
+  class OnGetData : CBBase<WebObjects.User.NetdriveFetchResponse>
   {
     protected Data data;
     protected string key;
@@ -79,9 +79,9 @@ public class Data : IData
       cbx = in_cb;
     }
   
-  public override void HandleSuccess( CallbackInfo<WebObjects.User.Netdrive_fetchResponse> info )
+  public override void HandleSuccess( CallbackInfo<WebObjects.User.NetdriveFetchResponse> info )
   {
-    //TODO: Move this into the ParseXML function in Netdrive_fetchResponse
+    //TODO: Move this into the ParseXML function in NetdriveFetchResponse
     /*
     string value = "";
     string str = null;
@@ -116,31 +116,31 @@ public class Data : IData
 
   // UNITY Note: Data is forced to a string to save us having to
   // manually 'stringify' anything.
-  public void save( string key, string val, Roar.Callback<WebObjects.User.Netdrive_saveResponse> callback)
+  public void save( string key, string val, Roar.Callback<WebObjects.User.NetdriveSaveResponse> callback)
   {
     Data_[ key ] = val;
 
-	WebObjects.User.Netdrive_saveArguments args = new Roar.WebObjects.User.Netdrive_saveArguments();
+	WebObjects.User.NetdriveSaveArguments args = new Roar.WebObjects.User.NetdriveSaveArguments();
 	args.ikey=key;
 	args.data=val;
 		
     user_actions_.netdrive_save( args, new OnSetData(callback, this, key, val) );
   }
   
-  class OnSetData : CBBase<WebObjects.User.Netdrive_saveResponse>
+  class OnSetData : CBBase<WebObjects.User.NetdriveSaveResponse>
   {
     protected Data data;
     protected string key;
     protected string value;
 
-    public OnSetData( Roar.Callback<WebObjects.User.Netdrive_saveResponse> in_cb, Data in_data, string in_key, string in_value) : base(in_cb)
+    public OnSetData( Roar.Callback<WebObjects.User.NetdriveSaveResponse> in_cb, Data in_data, string in_key, string in_value) : base(in_cb)
     {
       data = in_data;
       key = in_key;
       value = in_value;
     }
 
-    public override void HandleSuccess( CallbackInfo<WebObjects.User.Netdrive_saveResponse> info )
+    public override void HandleSuccess( CallbackInfo<WebObjects.User.NetdriveSaveResponse> info )
     {
       RoarManager.OnDataSaved(key, value);
     }

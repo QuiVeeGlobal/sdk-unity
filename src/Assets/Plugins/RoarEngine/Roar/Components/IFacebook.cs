@@ -23,7 +23,7 @@ namespace Roar.Components
 		 * @param oauth_token the OAuth token.
 		 * @param cb the callback function to be passed the result of doLogin.
 		 **/
-		void LoginOAuth(string oauth_token, Roar.Callback<WebObjects.Facebook.Login_oauthResponse> cb);
+		void LoginOAuth(string oauth_token, Roar.Callback<WebObjects.Facebook.LoginOauthResponse> cb);
 
 
 		/**
@@ -43,6 +43,6 @@ namespace Roar.Components
 		 * @param the players facebook signed auth
 		 * @param cb the callback function to be passed the result of doCreate.
 		 */
-		void CreateOAuth(string name, string oAuthToken, Roar.Callback<WebObjects.Facebook.Create_oauthResponse> cb);
+		void CreateOAuth(string name, string oAuthToken, Roar.Callback<WebObjects.Facebook.CreateOauthResponse> cb);
 	}
 }

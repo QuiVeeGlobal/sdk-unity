@@ -46,7 +46,7 @@ namespace Roar.Components
 		 *
 		 * @param ikey the data key
 		 */
-		void save( string ikey, string data, Roar.Callback<WebObjects.User.Netdrive_saveResponse> cb );
+		void save( string ikey, string data, Roar.Callback<WebObjects.User.NetdriveSaveResponse> cb );
   }
 
 }

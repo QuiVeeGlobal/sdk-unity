@@ -17,7 +17,7 @@ namespace Roar.WebObjects
 	{
 
 		// Arguments to admin/delete_player
-		public class Delete_playerArguments
+		public class DeletePlayerArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -28,7 +28,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from admin/delete_player
-		public class Delete_playerResponse : IResponse
+		public class DeletePlayerResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -36,7 +36,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to admin/increment_stat
-		public class Increment_statArguments
+		public class IncrementStatArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -47,7 +47,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from admin/increment_stat
-		public class Increment_statResponse : IResponse
+		public class IncrementStatResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -74,7 +74,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to admin/set_custom
-		public class Set_customArguments
+		public class SetCustomArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -85,7 +85,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from admin/set_custom
-		public class Set_customResponse : IResponse
+		public class SetCustomResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -93,7 +93,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to admin/view_player
-		public class View_playerArguments
+		public class ViewPlayerArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -104,7 +104,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from admin/view_player
-		public class View_playerResponse : IResponse
+		public class ViewPlayerResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -141,7 +141,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to appstore/shop_list
-		public class Shop_listArguments
+		public class ShopListArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -152,7 +152,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from appstore/shop_list
-		public class Shop_listResponse : IResponse
+		public class ShopListResponse : IResponse
 		{
 			public List<string> productIdentifiers;
 			
@@ -181,7 +181,7 @@ namespace Roar.WebObjects
 	}
 
 	//Namespace for typesafe arguments and responses to Roars chrome_web_store/foo calls.
-	namespace Chrome_web_store
+	namespace ChromeWebStore
 	{
 
 		// Arguments to chrome_web_store/list
@@ -210,7 +210,7 @@ namespace Roar.WebObjects
 	{
 
 		// Arguments to facebook/bind_signed
-		public class Bind_signedArguments
+		public class BindSignedArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -221,7 +221,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/bind_signed
-		public class Bind_signedResponse : IResponse
+		public class BindSignedResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -229,7 +229,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to facebook/create_oauth
-		public class Create_oauthArguments
+		public class CreateOauthArguments
 		{
 			public string oauth_token;
 			public string name;
@@ -244,7 +244,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/create_oauth
-		public class Create_oauthResponse : IResponse
+		public class CreateOauthResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -252,7 +252,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to facebook/create_signed
-		public class Create_signedArguments
+		public class CreateSignedArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -263,7 +263,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/create_signed
-		public class Create_signedResponse : IResponse
+		public class CreateSignedResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -271,7 +271,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to facebook/fetch_oauth_token
-		public class Fetch_oauth_tokenArguments
+		public class FetchOauthTokenArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -282,7 +282,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/fetch_oauth_token
-		public class Fetch_oauth_tokenResponse : IResponse
+		public class FetchOauthTokenResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -309,7 +309,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to facebook/login_oauth
-		public class Login_oauthArguments
+		public class LoginOauthArguments
 		{
 			public string oauth_token;
 
@@ -322,7 +322,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/login_oauth
-		public class Login_oauthResponse : IResponse
+		public class LoginOauthResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -330,7 +330,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to facebook/login_signed
-		public class Login_signedArguments
+		public class LoginSignedArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -341,7 +341,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/login_signed
-		public class Login_signedResponse : IResponse
+		public class LoginSignedResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -349,7 +349,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to facebook/shop_list
-		public class Shop_listArguments
+		public class ShopListArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -360,7 +360,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/shop_list
-		public class Shop_listResponse : IResponse
+		public class ShopListResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -448,7 +448,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to friends/invite_info
-		public class Invite_infoArguments
+		public class InviteInfoArguments
 		{
 			public string invite_id;
 
@@ -461,7 +461,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from friends/invite_info
-		public class Invite_infoResponse : IResponse
+		public class InviteInfoResponse : IResponse
 		{
 			public FriendInviteInfo info;
 			
@@ -579,7 +579,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to friends/list_invites
-		public class List_invitesArguments
+		public class ListInvitesArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -590,7 +590,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from friends/list_invites
-		public class List_invitesResponse : IResponse
+		public class ListInvitesResponse : IResponse
 		{
 			public List<FriendInvite> invites;
 			public void ParseXml( IXMLNode nn )
@@ -616,7 +616,7 @@ namespace Roar.WebObjects
 	{
 
 		// Arguments to google/bind_user
-		public class Bind_userArguments
+		public class BindUserArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -627,7 +627,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/bind_user
-		public class Bind_userResponse : IResponse
+		public class BindUserResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -635,7 +635,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to google/bind_user_token
-		public class Bind_user_tokenArguments
+		public class BindUserTokenArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -646,7 +646,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/bind_user_token
-		public class Bind_user_tokenResponse : IResponse
+		public class BindUserTokenResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -654,7 +654,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to google/create_user
-		public class Create_userArguments
+		public class CreateUserArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -665,7 +665,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/create_user
-		public class Create_userResponse : IResponse
+		public class CreateUserResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -673,7 +673,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to google/create_user_token
-		public class Create_user_tokenArguments
+		public class CreateUserTokenArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -684,7 +684,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/create_user_token
-		public class Create_user_tokenResponse : IResponse
+		public class CreateUserTokenResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -711,7 +711,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to google/login_user
-		public class Login_userArguments
+		public class LoginUserArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -722,7 +722,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/login_user
-		public class Login_userResponse : IResponse
+		public class LoginUserResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -730,7 +730,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to google/login_user_token
-		public class Login_user_tokenArguments
+		public class LoginUserTokenArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -741,7 +741,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/login_user_token
-		public class Login_user_tokenResponse : IResponse
+		public class LoginUserTokenResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -755,7 +755,7 @@ namespace Roar.WebObjects
 	{
 
 		// Arguments to info/get_bulk_player_info
-		public class Get_bulk_player_infoArguments
+		public class GetBulkPlayerInfoArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -766,7 +766,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from info/get_bulk_player_info
-		public class Get_bulk_player_infoResponse : IResponse
+		public class GetBulkPlayerInfoResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -978,7 +978,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to items/view_all
-		public class View_allArguments
+		public class ViewAllArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -989,7 +989,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from items/view_all
-		public class View_allResponse : IResponse
+		public class ViewAllResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -1085,7 +1085,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to mail/what_can_i_accept
-		public class What_can_i_acceptArguments
+		public class WhatCanIAcceptArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -1096,7 +1096,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from mail/what_can_i_accept
-		public class What_can_i_acceptResponse : IResponse
+		public class WhatCanIAcceptResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -1104,7 +1104,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to mail/what_can_i_send
-		public class What_can_i_sendArguments
+		public class WhatCanISendArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -1115,7 +1115,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from mail/what_can_i_send
-		public class What_can_i_sendResponse : IResponse
+		public class WhatCanISendResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -1265,7 +1265,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to user/change_name
-		public class Change_nameArguments
+		public class ChangeNameArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -1276,7 +1276,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/change_name
-		public class Change_nameResponse : IResponse
+		public class ChangeNameResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -1284,7 +1284,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to user/change_password
-		public class Change_passwordArguments
+		public class ChangePasswordArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -1295,7 +1295,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/change_password
-		public class Change_passwordResponse : IResponse
+		public class ChangePasswordResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -1353,7 +1353,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to user/login_facebook_oauth
-		public class Login_facebook_oauthArguments
+		public class LoginFacebookOauthArguments
 		{
 			public string oauth_token;
 
@@ -1366,7 +1366,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/login_facebook_oauth
-		public class Login_facebook_oauthResponse : IResponse
+		public class LoginFacebookOauthResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -1393,7 +1393,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to user/netdrive_save
-		public class Netdrive_saveArguments
+		public class NetdriveSaveArguments
 		{
 			public string ikey;
 			public string data;
@@ -1408,7 +1408,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/netdrive_save
-		public class Netdrive_saveResponse : IResponse
+		public class NetdriveSaveResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{
@@ -1416,7 +1416,7 @@ namespace Roar.WebObjects
 		}
 
 		// Arguments to user/netdrive_fetch
-		public class Netdrive_fetchArguments
+		public class NetdriveFetchArguments
 		{
 			public string ikey;
 
@@ -1429,7 +1429,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/netdrive_fetch
-		public class Netdrive_fetchResponse : IResponse
+		public class NetdriveFetchResponse : IResponse
 		{
 			public string data;
 			public void ParseXml( IXMLNode nn )
@@ -1537,7 +1537,7 @@ namespace Roar.WebObjects
 	{
 
 		// Arguments to urbanairship/ios_register
-		public class Ios_registerArguments
+		public class IosRegisterArguments
 		{
 
 			public Hashtable ToHashtable()
@@ -1548,7 +1548,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from urbanairship/ios_register
-		public class Ios_registerResponse : IResponse
+		public class IosRegisterResponse : IResponse
 		{
 			public void ParseXml( IXMLNode nn )
 			{

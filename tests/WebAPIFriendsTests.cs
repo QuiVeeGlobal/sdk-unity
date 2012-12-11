@@ -162,9 +162,9 @@ public class WebAPIFriendsTests : ComponentTests
     </roar>";
     requestSender.addMockResponse("friends/info", invite_info);
     bool callback_executed = false;
-    Roar.Callback<Roar.WebObjects.Friends.Invite_infoResponse> cb = (Roar.CallbackInfo<Roar.WebObjects.Friends.Invite_infoResponse> info) => {
+    Roar.Callback<Roar.WebObjects.Friends.InviteInfoResponse> cb = (Roar.CallbackInfo<Roar.WebObjects.Friends.InviteInfoResponse> info) => {
       callback_executed = true;
-      Roar.WebObjects.Friends.Invite_infoResponse friend_info = info.data;
+      Roar.WebObjects.Friends.InviteInfoResponse friend_info = info.data;
        Assert.AreEqual("234", friend_info.info.player_id);
        Assert.AreEqual("Brenda Lear", friend_info.info.name);
        Assert.AreEqual(9, friend_info.info.level);
@@ -192,7 +192,7 @@ public class WebAPIFriendsTests : ComponentTests
     </roar>";
     requestSender.addMockResponse("friends/list_invites", invite_list);
     bool callback_executed = false;
-    Roar.Callback<Roar.WebObjects.Friends.List_invitesResponse> cb = (Roar.CallbackInfo<Roar.WebObjects.Friends.List_invitesResponse> cb_info) => {
+    Roar.Callback<Roar.WebObjects.Friends.ListInvitesResponse> cb = (Roar.CallbackInfo<Roar.WebObjects.Friends.ListInvitesResponse> cb_info) => {
       callback_executed = true;
       Assert.AreEqual(cb_info.code, IWebAPI.OK);
       Assert.IsNotNull(cb_info.data);
