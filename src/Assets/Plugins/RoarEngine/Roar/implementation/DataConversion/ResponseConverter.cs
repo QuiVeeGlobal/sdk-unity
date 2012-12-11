@@ -292,7 +292,14 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Friends.ListResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Friends.ListResponse retval = new Roar.WebObjects.Friends.ListResponse();
-				//TODO: Implement me
+				retval.friends = new List<DomainObjects.Friend>();
+				
+				List<IXMLNode> friend_nodes = n.GetNodeList("roar>0>friends>0>list>0>friend");
+				foreach( IXMLNode friend_node in friend_nodes )
+				{
+					DomainObjects.Friend a = Roar.WebObjects.Friends.ParseXmlTo.Friend(friend_node);
+					retval.friends.Add(a);
+				}
 				return retval;
 			}
 		}

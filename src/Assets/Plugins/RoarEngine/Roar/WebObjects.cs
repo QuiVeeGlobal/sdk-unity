@@ -424,39 +424,10 @@ namespace Roar.WebObjects
 		
 		
 		// Response from friends/list
-		/*
-		 * <roar tick='123' status='ok'>
-		 *   <friends>
-		 *     <list status='ok'>
-		 *       <friend>
-		 *         <player_id>123</player_id>
-		 *         <name>Brenda Lear</name>
-		 *         <level>9</level>
-		 *       </friend>
-		 *       <friend>
-		 *         <player_id>456</player_id>
-		 *         <name>Paul Barley</name>
-		 *         <level>7</level>
-		 *       </friend>
-		 *     </list>
-		 *   </friends>
-		 * </roar>
-		 */
 		public class ListResponse
 		{
 			public List<DomainObjects.Friend> friends;
 
-			public void ParseXml( IXMLNode nn )
-			{
-				friends = new List<DomainObjects.Friend>();
-				
-				List<IXMLNode> friend_nodes = nn.GetNodeList("roar>0>friends>0>list>0>friend");
-				foreach( IXMLNode n in friend_nodes )
-				{
-					DomainObjects.Friend a = ParseXmlTo.Friend(n);
-					friends.Add(a);
-				}
-			}
 		}
 
 		// Arguments to friends/remove
