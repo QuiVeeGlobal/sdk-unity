@@ -184,6 +184,20 @@ namespace Roar
 			public int level;
 		};
 
+		public class FriendInviteInfo
+		{
+			public string message;
+			public string player_id;
+			public string name;
+			public int level;
+		}
+		
+		public class FriendInvite
+		{
+			public string invite_id;
+			public string player_id;
+		}
+
 
 		public class LeaderboardExtraProperties
 		{

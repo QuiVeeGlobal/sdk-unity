@@ -457,13 +457,6 @@ namespace Roar.WebObjects
 			{
 			}
 		}
-		public class FriendInviteInfo
-		{
-			public string message;
-			public string player_id;
-			public string name;
-			public int level;
-		}
 
 		// Arguments to friends/invite_info
 		public class InviteInfoArguments
@@ -481,11 +474,11 @@ namespace Roar.WebObjects
 		// Response from friends/invite_info
 		public class InviteInfoResponse : IResponse
 		{
-			public FriendInviteInfo info;
-			
+			public DomainObjects.FriendInviteInfo info;
+
 			public void ParseXml( IXMLNode nn )
 			{
-				info = new FriendInviteInfo();
+				info = new DomainObjects.FriendInviteInfo();
 				//TODO: This path suggest that we're ggtting the wrong thing back from roar
 				IXMLNode n = nn.GetNode("roar>0>friends>0>info>0");
 				IXMLNode from_node = n.GetFirstChild("from");
@@ -591,12 +584,6 @@ namespace Roar.WebObjects
 			{
 			}
 		}
-		
-		public class FriendInvite
-		{
-			public string invite_id;
-			public string player_id;
-		}
 
 		// Arguments to friends/list_invites
 		public class ListInvitesArguments
@@ -612,15 +599,15 @@ namespace Roar.WebObjects
 		// Response from friends/list_invites
 		public class ListInvitesResponse : IResponse
 		{
-			public List<FriendInvite> invites;
+			public List<DomainObjects.FriendInvite> invites;
 
 			public void ParseXml( IXMLNode nn )
 			{
-				invites = new List<FriendInvite>();
+				invites = new List<DomainObjects.FriendInvite>();
 				List<IXMLNode> invite_nodes = nn.GetNodeList("roar>0>friends>0>list_invites>0>friend_invite");
 				foreach( IXMLNode n in invite_nodes )
 				{
-					FriendInvite invite = new FriendInvite();
+					DomainObjects.FriendInvite invite = new DomainObjects.FriendInvite();
 					Dictionary<string,string> kv = n.Attributes.ToDictionary( v => v.Key, v => v.Value );
 
 					kv.TryGetValue("invite_id",out invite.invite_id);

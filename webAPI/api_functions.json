@@ -113,7 +113,7 @@
             {
               "members":
               [
-                { "name":"info", "type":"FriendInviteInfo" }
+                { "name":"info", "type":"DomainObjects.FriendInviteInfo" }
               ]
             }
           },
@@ -141,7 +141,7 @@
             {
               "members":
               [
-                { "name":"invites", "type":"List<FriendInvite>" }
+                { "name":"invites", "type":"List<DomainObjects.FriendInvite>" }
               ]
             }
           }
