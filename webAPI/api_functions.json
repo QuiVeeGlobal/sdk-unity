@@ -27,7 +27,18 @@
               {"name":"sandbox","type":"bool"}
             ]
           },
-          { "name":"shop_list" }
+          {
+            "name":"shop_list",
+            "response":
+            {
+              "members":[
+                {
+                  "name":"productIdentifiers",
+                  "type":"List<string>"
+                }
+              ]
+            }
+          }
         ]
      },
      {
@@ -97,9 +108,25 @@
             "arguments":
             [
               { "name":"invite_id", "type":"string" }
-            ]
+            ],
+            "response":
+            {
+              "members":
+              [
+                { "name":"info", "type":"FriendInviteInfo" }
+              ]
+            }
           },
-          { "name":"list" },
+          {
+            "name":"list",
+            "response":
+            {
+              "members":
+              [
+                { "name":"friends", "type":"List<DomainObjects.Friend>" }
+              ]
+            }
+          },
           {
             "name":"remove",
             "arguments":
@@ -108,7 +135,16 @@
               { "name":"player_id", "type":"string", "note":"TODO: This argument may not be needed" }
             ]
           },
-          { "name":"list_invites" }
+          {
+            "name":"list_invites",
+            "response":
+            {
+              "members":
+              [
+                { "name":"invites", "type":"List<FriendInvite>" }
+              ]
+            }
+          }
         ]
      },
      {
@@ -231,7 +267,13 @@
             "arguments":[
               {"name":"name","type":"string"},
               {"name":"hash","type":"string"}
-            ] },
+            ],
+              "response":{
+                "members":[
+                {"name":"auth_token", "type":"string"},
+                {"name":"player_id", "type":"string"}
+                ] }
+          },
           {
             "name":"login_facebook_oauth",
             "url":"facebook/login_oauth",
@@ -251,9 +293,21 @@
             "url":"user/netdrive_get",
             "arguments":[
               {"name":"ikey", "type":"string"}
-            ]},
+            ],
+            "response":{
+              "members":[
+              { "name":"data", "type":"string" }
+            ] }
+          },
           {"name":"set"},
-          {"name":"view", "obj":"null"}
+          {
+            "name":"view",
+            "obj":"null",
+            "response":{
+              "members":[
+              {"name":"attributes", "type":"List<PlayerAttribute>"}
+            ] }
+          }
         ]
       },
       {

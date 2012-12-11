@@ -30,6 +30,7 @@ namespace Roar.WebObjects
 		// Response from admin/delete_player
 		public class DeletePlayerResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -49,6 +50,7 @@ namespace Roar.WebObjects
 		// Response from admin/increment_stat
 		public class IncrementStatResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -68,6 +70,7 @@ namespace Roar.WebObjects
 		// Response from admin/set
 		public class SetResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -87,6 +90,7 @@ namespace Roar.WebObjects
 		// Response from admin/set_custom
 		public class SetCustomResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -106,6 +110,7 @@ namespace Roar.WebObjects
 		// Response from admin/view_player
 		public class ViewPlayerResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -135,6 +140,7 @@ namespace Roar.WebObjects
 		// Response from appstore/buy
 		public class BuyResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -155,7 +161,7 @@ namespace Roar.WebObjects
 		public class ShopListResponse : IResponse
 		{
 			public List<string> productIdentifiers;
-			
+
 			public void ParseXml( IXMLNode nn )
 			{
 				productIdentifiers = new List<string>();
@@ -198,6 +204,7 @@ namespace Roar.WebObjects
 		// Response from chrome_web_store/list
 		public class ListResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -223,6 +230,7 @@ namespace Roar.WebObjects
 		// Response from facebook/bind_signed
 		public class BindSignedResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -246,6 +254,7 @@ namespace Roar.WebObjects
 		// Response from facebook/create_oauth
 		public class CreateOauthResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -265,6 +274,7 @@ namespace Roar.WebObjects
 		// Response from facebook/create_signed
 		public class CreateSignedResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -284,6 +294,7 @@ namespace Roar.WebObjects
 		// Response from facebook/fetch_oauth_token
 		public class FetchOauthTokenResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -303,6 +314,7 @@ namespace Roar.WebObjects
 		// Response from facebook/friends
 		public class FriendsResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -324,6 +336,7 @@ namespace Roar.WebObjects
 		// Response from facebook/login_oauth
 		public class LoginOauthResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -343,6 +356,7 @@ namespace Roar.WebObjects
 		// Response from facebook/login_signed
 		public class LoginSignedResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -362,6 +376,7 @@ namespace Roar.WebObjects
 		// Response from facebook/shop_list
 		public class ShopListResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -391,6 +406,7 @@ namespace Roar.WebObjects
 		// Response from friends/accept
 		public class AcceptResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -412,6 +428,7 @@ namespace Roar.WebObjects
 		// Response from friends/decline
 		public class DeclineResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -435,6 +452,7 @@ namespace Roar.WebObjects
 		// Response from friends/invite
 		public class InviteResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -536,6 +554,7 @@ namespace Roar.WebObjects
 		public class ListResponse : IResponse
 		{
 			public List<DomainObjects.Friend> friends;
+
 			public void ParseXml( IXMLNode nn )
 			{
 				friends = new List<DomainObjects.Friend>();
@@ -567,6 +586,7 @@ namespace Roar.WebObjects
 		// Response from friends/remove
 		public class RemoveResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -593,6 +613,7 @@ namespace Roar.WebObjects
 		public class ListInvitesResponse : IResponse
 		{
 			public List<FriendInvite> invites;
+
 			public void ParseXml( IXMLNode nn )
 			{
 				invites = new List<FriendInvite>();
@@ -629,6 +650,7 @@ namespace Roar.WebObjects
 		// Response from google/bind_user
 		public class BindUserResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -648,6 +670,7 @@ namespace Roar.WebObjects
 		// Response from google/bind_user_token
 		public class BindUserTokenResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -667,6 +690,7 @@ namespace Roar.WebObjects
 		// Response from google/create_user
 		public class CreateUserResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -686,6 +710,7 @@ namespace Roar.WebObjects
 		// Response from google/create_user_token
 		public class CreateUserTokenResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -705,6 +730,7 @@ namespace Roar.WebObjects
 		// Response from google/friends
 		public class FriendsResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -724,6 +750,7 @@ namespace Roar.WebObjects
 		// Response from google/login_user
 		public class LoginUserResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -743,6 +770,7 @@ namespace Roar.WebObjects
 		// Response from google/login_user_token
 		public class LoginUserTokenResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -768,6 +796,7 @@ namespace Roar.WebObjects
 		// Response from info/get_bulk_player_info
 		public class GetBulkPlayerInfoResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -787,6 +816,7 @@ namespace Roar.WebObjects
 		// Response from info/ping
 		public class PingResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -806,6 +836,7 @@ namespace Roar.WebObjects
 		// Response from info/user
 		public class UserResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -825,6 +856,7 @@ namespace Roar.WebObjects
 		// Response from info/poll
 		public class PollResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -852,6 +884,7 @@ namespace Roar.WebObjects
 		// Response from items/equip
 		public class EquipResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -871,6 +904,7 @@ namespace Roar.WebObjects
 		// Response from items/list
 		public class ListResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -892,6 +926,7 @@ namespace Roar.WebObjects
 		// Response from items/sell
 		public class SellResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -911,6 +946,7 @@ namespace Roar.WebObjects
 		// Response from items/set
 		public class SetResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -932,6 +968,7 @@ namespace Roar.WebObjects
 		// Response from items/unequip
 		public class UnequipResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -953,6 +990,7 @@ namespace Roar.WebObjects
 		// Response from items/use
 		public class UseResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -972,6 +1010,7 @@ namespace Roar.WebObjects
 		// Response from items/view
 		public class ViewResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -991,6 +1030,7 @@ namespace Roar.WebObjects
 		// Response from items/view_all
 		public class ViewAllResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1016,6 +1056,7 @@ namespace Roar.WebObjects
 		// Response from leaderboards/list
 		public class ListResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1035,6 +1076,7 @@ namespace Roar.WebObjects
 		// Response from leaderboards/view
 		public class ViewResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1060,6 +1102,7 @@ namespace Roar.WebObjects
 		// Response from mail/accept
 		public class AcceptResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1079,6 +1122,7 @@ namespace Roar.WebObjects
 		// Response from mail/send
 		public class SendResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1098,6 +1142,7 @@ namespace Roar.WebObjects
 		// Response from mail/what_can_i_accept
 		public class WhatCanIAcceptResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1117,6 +1162,7 @@ namespace Roar.WebObjects
 		// Response from mail/what_can_i_send
 		public class WhatCanISendResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1142,6 +1188,7 @@ namespace Roar.WebObjects
 		// Response from shop/list
 		public class ListResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1163,6 +1210,7 @@ namespace Roar.WebObjects
 		// Response from shop/buy
 		public class BuyResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1188,6 +1236,7 @@ namespace Roar.WebObjects
 		// Response from scripts/run
 		public class RunResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1213,6 +1262,7 @@ namespace Roar.WebObjects
 		// Response from tasks/list
 		public class ListResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1234,6 +1284,7 @@ namespace Roar.WebObjects
 		// Response from tasks/start
 		public class StartResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1259,6 +1310,7 @@ namespace Roar.WebObjects
 		// Response from user/achievements
 		public class AchievementsResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1278,6 +1330,7 @@ namespace Roar.WebObjects
 		// Response from user/change_name
 		public class ChangeNameResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1297,6 +1350,7 @@ namespace Roar.WebObjects
 		// Response from user/change_password
 		public class ChangePasswordResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1320,6 +1374,7 @@ namespace Roar.WebObjects
 		// Response from user/create
 		public class CreateResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1345,6 +1400,7 @@ namespace Roar.WebObjects
 		{
 			public string auth_token;
 			public string player_id;
+
 			public void ParseXml( IXMLNode nn )
 			{
 				auth_token = nn.GetNode("roar>0>user>0>login>0>auth_token>0").Text;
@@ -1368,6 +1424,7 @@ namespace Roar.WebObjects
 		// Response from user/login_facebook_oauth
 		public class LoginFacebookOauthResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1387,6 +1444,7 @@ namespace Roar.WebObjects
 		// Response from user/logout
 		public class LogoutResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1410,6 +1468,7 @@ namespace Roar.WebObjects
 		// Response from user/netdrive_save
 		public class NetdriveSaveResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1432,6 +1491,7 @@ namespace Roar.WebObjects
 		public class NetdriveFetchResponse : IResponse
 		{
 			public string data;
+
 			public void ParseXml( IXMLNode nn )
 			{
 				//TODO: Implement me!
@@ -1452,6 +1512,7 @@ namespace Roar.WebObjects
 		// Response from user/set
 		public class SetResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1517,9 +1578,11 @@ namespace Roar.WebObjects
 		
 		public class ViewResponse : IResponse
 		{
-			public List<PlayerAttribute> attributes = new List<PlayerAttribute>();
+			public List<PlayerAttribute> attributes;
+
 			public void ParseXml( IXMLNode nn )
 			{
+				attributes = new List<PlayerAttribute>();
 				List<IXMLNode> attribute_nodes = nn.GetNodeList("roar>0>user>0>view>0>attribute");
 				foreach( IXMLNode n in attribute_nodes )
 				{
@@ -1550,6 +1613,7 @@ namespace Roar.WebObjects
 		// Response from urbanairship/ios_register
 		public class IosRegisterResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}
@@ -1569,6 +1633,7 @@ namespace Roar.WebObjects
 		// Response from urbanairship/push
 		public class PushResponse : IResponse
 		{
+
 			public void ParseXml( IXMLNode nn )
 			{
 			}

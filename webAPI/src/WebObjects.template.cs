@@ -44,6 +44,10 @@ if( arg.type == "string" )
 		// Response from <%= m.name %>/<%= f.name %>
 		public class <%= underscoreToCamel(f.name) %>Response : IResponse
 		{
+<%
+  if( "response" in f ) { _.each( f.response.members, function( member, member_index ){
+%>			public <%= member.type %> <%= member.name %>;
+<% } ) } %>
 			public void ParseXml( IXMLNode nn )
 			{
 			}
