@@ -15,6 +15,49 @@ namespace Testing
 		}
 		
 		[Test()]
+		public void TestGet_bulk_playerInfoXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""130081353655"">
+				<info>
+					<get_bulk_player_info status=""ok"">
+						<player_info id=""748994158"">
+							<stats>
+								<stat ikey=""health"" value=""100""/>
+								<stat ikey=""cash"" value=""10""/>
+							</stats>
+							<properties>
+								<property ikey=""player_bio"" value=""Scary hobo dude""/>
+							</properties>
+						</player_info>
+						<player_info id=""1706065893"">
+							<stats>
+								<stat ikey=""health"" value=""80""/>
+								<stat ikey=""cash"" value=""100""/>
+							</stats>
+							<properties>
+								<property ikey=""player_bio"" value=""Some punk""/>
+							</properties>
+						</player_info>
+					</get_bulk_player_info>
+				</info>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("roar");
+			
+			GetBulkPlayerInfoResponse response = (new Roar.DataConversion.Responses.Info.GetBulkPlayerInfo()).Build(nn);
+			
+			Assert.IsNotNull(response.players);
+			Assert.AreEqual(response.players.Count, 2);
+			Assert.AreEqual(response.players["748994158"].stats["health"], "100");
+			Assert.AreEqual(response.players["748994158"].stats["cash"], "10");
+			Assert.AreEqual(response.players["748994158"].properties["player_bio"], "Scary hobo dude");
+			Assert.AreEqual(response.players["1706065893"].stats["health"], "80");
+			Assert.AreEqual(response.players["1706065893"].stats["cash"], "100");
+			Assert.AreEqual(response.players["1706065893"].properties["player_bio"], "Some punk");
+		}
+		
+		[Test()]
 		public void TestPingInfoXmlGetAttributes ()
 		{
 			string xml =

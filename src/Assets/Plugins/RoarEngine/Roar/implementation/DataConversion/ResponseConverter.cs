@@ -417,7 +417,23 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Info.GetBulkPlayerInfoResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Info.GetBulkPlayerInfoResponse retval = new Roar.WebObjects.Info.GetBulkPlayerInfoResponse();
-				//TODO: Implement me
+				retval.players = new Dictionary<string, Roar.DomainObjects.BulkPlayerInfo>();
+				List<IXMLNode> player_nodes = n.GetNodeList("info>0>get_bulk_player_info>0>player_info");
+				foreach (IXMLNode pn in player_nodes)
+				{
+					Roar.DomainObjects.BulkPlayerInfo player = new Roar.DomainObjects.BulkPlayerInfo();
+					List<IXMLNode> stat_nodes = pn.GetNodeList("stats>0>stat");
+					foreach (IXMLNode stat_node in stat_nodes)
+					{
+						player.stats.Add(stat_node.GetAttribute("ikey"), stat_node.GetAttribute("value"));
+					}
+					List<IXMLNode> property_nodes = pn.GetNodeList("properties>0>property");
+					foreach (IXMLNode property_node in property_nodes)
+					{
+						player.properties.Add(property_node.GetAttribute("ikey"), property_node.GetAttribute("value"));
+					}
+					retval.players.Add(pn.GetAttribute("id"), player);
+				}
 				return retval;
 			}
 		}

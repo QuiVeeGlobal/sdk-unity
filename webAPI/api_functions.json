@@ -164,7 +164,20 @@
         "name":"info",
         "functions":
         [
-          { "name":"get_bulk_player_info" },
+          {
+            "name":"get_bulk_player_info",
+            "arguments":[
+              {"name":"admin_token", "type":"string"},
+              {"name":"player_ids", "type":"string", "note":"This type is not dev-friendly"},
+              {"name":"stats", "type":"string", "note":"This type is not dev-friendly"},
+              {"name":"properties", "type":"string", "note":"This type is not dev-friendly"}
+            ],
+            "response":{
+              "members":[
+                { "name":"players", "type":"Dictionary<string, Roar.DomainObjects.BulkPlayerInfo>" }
+              ]
+            }
+          },
           {
             "name":"ping",
             "obj":"null",

@@ -589,10 +589,18 @@ namespace Roar.WebObjects
 		// Arguments to info/get_bulk_player_info
 		public class GetBulkPlayerInfoArguments
 		{
+			public string admin_token;
+			public string player_ids; // This type is not dev-friendly 
+			public string stats; // This type is not dev-friendly 
+			public string properties; // This type is not dev-friendly 
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["admin_token"] = admin_token;
+				retval["player_ids"] = player_ids;
+				retval["stats"] = stats;
+				retval["properties"] = properties;
 				return retval;
 			}
 		}
@@ -600,6 +608,7 @@ namespace Roar.WebObjects
 		// Response from info/get_bulk_player_info
 		public class GetBulkPlayerInfoResponse
 		{
+			public Dictionary<string, Roar.DomainObjects.BulkPlayerInfo> players;
 
 		}
 

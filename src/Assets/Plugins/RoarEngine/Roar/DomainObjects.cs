@@ -235,6 +235,12 @@ namespace Roar
 			public Dictionary<string, PlayerAttribute> attributes = new Dictionary<string, PlayerAttribute>();
 		};
 
+		public class BulkPlayerInfo
+		{
+			public Dictionary<string, string> stats = new Dictionary<string, string>();
+			public Dictionary<string, string> properties = new Dictionary<string, string>();
+		};
+
 		public class LeaderboardExtraProperties
 		{
 			public string ikey;
