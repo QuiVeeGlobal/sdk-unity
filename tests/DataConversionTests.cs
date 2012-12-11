@@ -3,7 +3,7 @@ using System.Collections;
 using NUnit.Framework;
 using NMock2;
 
-using DC = Roar.implementation.DataConversion;
+using DC = Roar.DataConversion;
 using Roar;
 
 [TestFixture]

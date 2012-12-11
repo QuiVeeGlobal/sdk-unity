@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using Roar.DomainObjects;
 
-namespace Roar.implementation.DataConversion
+namespace Roar.DataConversion
 {
 
 	//TODO: Should the Exceptions share a common base class?

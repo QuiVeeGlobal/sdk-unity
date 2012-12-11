@@ -1,7 +1,7 @@
 using System;
 using NUnit.Framework;
 using NMock2;
-using Roar.implementation.DataConversion;
+using Roar.DataConversion;
 using Roar.DomainObjects;
 using Roar.DomainObjects.Costs;
 

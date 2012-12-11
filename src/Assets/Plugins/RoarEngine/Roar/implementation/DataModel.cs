@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using DC = Roar.implementation.DataConversion;
+using DC = Roar.DataConversion;
 using Roar.DomainObjects;
 
 public interface IDataModel<CT,DT> where DT:class

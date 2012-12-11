@@ -12,7 +12,7 @@ namespace Testing
 	{
 	
 		private Mockery mockery = null;
-		private Roar.implementation.DataConversion.XmlToShopEntry converter;
+		private Roar.DataConversion.XmlToShopEntry converter;
 		private IXMLNode ixmlnode;
 		private List< KeyValuePair<string,string> > attributes;
 		private List< IXMLNode > children;
@@ -21,7 +21,7 @@ namespace Testing
 		public void TestInitialise()
 		{
 			this.mockery = new Mockery();
-			converter = new Roar.implementation.DataConversion.XmlToShopEntry();
+			converter = new Roar.DataConversion.XmlToShopEntry();
 			ixmlnode = mockery.NewMock<IXMLNode>();
 			attributes = new List< KeyValuePair<string,string> >();
 			children = new List<IXMLNode>();
@@ -76,7 +76,7 @@ namespace Testing
 				converter.Build(ixmlnode);
 				Assert.Fail("Should have thrown");
 			}
-			catch( Roar.implementation.DataConversion.UnexpectedXMLElementException ue )
+			catch( Roar.DataConversion.UnexpectedXMLElementException ue )
 			{
 				Assert.AreEqual("unexpected attribute, \"unexpected\", on ShopEntry", ue.Message );
 			}
@@ -95,7 +95,7 @@ namespace Testing
 				converter.Build(ixmlnode);
 				Assert.Fail("Should have thrown");
 			}
-			catch( Roar.implementation.DataConversion.MissingXMLElementException ue )
+			catch( Roar.DataConversion.MissingXMLElementException ue )
 			{
 				Assert.AreEqual("missing attribute, \"ikey\", on ShopEntry", ue.Message );
 			}
@@ -137,7 +137,7 @@ namespace Testing
 			attributes.Add( new KeyValuePair<string, string>("label","Shop item 1") );
 			attributes.Add( new KeyValuePair<string, string>("description","Lorem Ipsum") );
 			
-			converter.CrmParser_ = mockery.NewMock<Roar.implementation.DataConversion.IXCRMParser>();
+			converter.CrmParser_ = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
 			children.Add( mockery.NewMock<IXMLNode>("costs") );
 			Expect.AtLeast(1).On( children[0] ).GetProperty("Name").Will( Return.Value("costs") );
 			List<Roar.DomainObjects.Cost> costs = new List<Roar.DomainObjects.Cost>();
@@ -155,7 +155,7 @@ namespace Testing
 			attributes.Add( new KeyValuePair<string, string>("label","Shop item 1") );
 			attributes.Add( new KeyValuePair<string, string>("description","Lorem Ipsum") );
 			
-			converter.CrmParser_ = mockery.NewMock<Roar.implementation.DataConversion.IXCRMParser>();
+			converter.CrmParser_ = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
 			children.Add( mockery.NewMock<IXMLNode>("modifiers") );
 			Expect.AtLeast(1).On( children[0] ).GetProperty("Name").Will( Return.Value("modifiers") );
 			List<Roar.DomainObjects.Modifier> mods = new List<Roar.DomainObjects.Modifier>();
@@ -173,7 +173,7 @@ namespace Testing
 			attributes.Add( new KeyValuePair<string, string>("label","Shop item 1") );
 			attributes.Add( new KeyValuePair<string, string>("description","Lorem Ipsum") );
 			
-			converter.CrmParser_ = mockery.NewMock<Roar.implementation.DataConversion.IXCRMParser>();
+			converter.CrmParser_ = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
 			children.Add( mockery.NewMock<IXMLNode>("requirements") );
 			Expect.AtLeast(1).On( children[0] ).GetProperty("Name").Will( Return.Value("requirements") );
 			List<Roar.DomainObjects.Requirement> reqs = new List<Roar.DomainObjects.Requirement>();
@@ -191,7 +191,7 @@ namespace Testing
 			attributes.Add( new KeyValuePair<string, string>("label","Shop item 1") );
 			attributes.Add( new KeyValuePair<string, string>("description","Lorem Ipsum") );
 			
-			converter.CrmParser_ = mockery.NewMock<Roar.implementation.DataConversion.IXCRMParser>();
+			converter.CrmParser_ = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
 			children.Add( mockery.NewMock<IXMLNode>("tags") );
 			Expect.AtLeast(1).On( children[0] ).GetProperty("Name").Will( Return.Value("tags") );
 			List<string> tags = new List<string>();
@@ -257,12 +257,12 @@ namespace Testing
 	[TestFixture()]
 	public class XmlToLeaderboardTests
 	{
-		private Roar.implementation.DataConversion.XmlToLeaderboard converter;
+		private Roar.DataConversion.XmlToLeaderboard converter;
 
 		[SetUp]
 		public void TestInitialise()
 		{
-			converter = new Roar.implementation.DataConversion.XmlToLeaderboard();
+			converter = new Roar.DataConversion.XmlToLeaderboard();
 		}
 
 		[Test()]

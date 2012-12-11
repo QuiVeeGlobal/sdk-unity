@@ -6,7 +6,7 @@ using NMock2;
 using Roar.Components;
 using Roar.DomainObjects;
 using Roar.DomainObjects.Modifiers;
-using Roar.implementation.DataConversion;
+using Roar.DataConversion;
 
 /**
  * Test cases for the Modifier components
