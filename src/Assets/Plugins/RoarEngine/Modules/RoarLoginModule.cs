@@ -183,8 +183,15 @@ public class RoarLoginModule : RoarModule
 		if (Debug.isDebugBuild)
 		{
 			Debug.Log(string.Format("OnRoarLoginComplete ({0}): {1}", info.code, info.msg));
+			if( info.data!= null)
+			{
 			Debug.Log( string.Format("OnRoarLoginComplete got auth_token {0}", info.data.auth_token ) );
 			Debug.Log( string.Format("OnRoarLoginComplete got player_id {0}",  info.data.player_id ) );
+			}
+			else
+			{
+				Debug.Log("OnRoarLogingComplete got null data");
+			}
 		}
 		switch (info.code)
 		{
