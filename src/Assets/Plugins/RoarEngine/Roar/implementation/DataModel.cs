@@ -125,7 +125,7 @@ public class DataModel<CT,DT> : IDataModel<CT,DT> where DT:class
 		{
 			// Reset this function call
 			model.isServerCalling = false;
-			cb( new Roar.CallbackInfo< IDictionary<string,CT> >(null, info.code, info.msg ) );
+			if(cb!=null) cb( new Roar.CallbackInfo< IDictionary<string,CT> >(null, info.code, info.msg ) );
 		}
 
 		public void OnSuccess(Roar.CallbackInfo<DT> info)
