@@ -21,7 +21,10 @@ public class UserViewToProperty : IDomToCache<Roar.WebObjects.User.ViewResponse,
 			Property pp = new Property();
 			pp.label = p.label;
 			pp.value = p.value;
-			//TODO: Copy the data across.
+			pp.type = p.type;
+			pp.max = p.max;
+			pp.min = p.min;
+			pp.regen_every = p.regen_every;
 			retval[p.ikey] = pp;
 		}
 		//TODO: Implement this
