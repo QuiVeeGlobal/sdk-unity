@@ -264,7 +264,25 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Friends.InviteInfoResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Friends.InviteInfoResponse retval = new Roar.WebObjects.Friends.InviteInfoResponse();
-				//TODO: Implement me
+				retval.info = new DomainObjects.FriendInviteInfo();
+				//TODO: This path suggest that we're ggtting the wrong thing back from roar
+				IXMLNode info_node = n.GetNode("roar>0>friends>0>info>0");
+				IXMLNode from_node = info_node.GetFirstChild("from");
+				IXMLNode message_node = info_node.GetFirstChild("message");
+				if (from_node != null)
+				{
+					retval.info.player_id = from_node.GetAttribute("player_id");
+					retval.info.name = from_node.GetAttribute("name");
+					if (! System.Int32.TryParse(from_node.GetAttribute("level"), out retval.info.level))
+					{
+						throw new  Roar.DataConversion.InvalidXMLElementException("Unable to parse level to integer");
+					}
+				}
+					
+				if (message_node != null)
+				{
+					retval.info.message = message_node.GetAttribute("value");
+				}
 				return retval;
 			}
 		}

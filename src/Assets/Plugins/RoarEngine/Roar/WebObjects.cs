@@ -397,28 +397,6 @@ namespace Roar.WebObjects
 		{
 			public DomainObjects.FriendInviteInfo info;
 
-			public void ParseXml( IXMLNode nn )
-			{
-				info = new DomainObjects.FriendInviteInfo();
-				//TODO: This path suggest that we're ggtting the wrong thing back from roar
-				IXMLNode n = nn.GetNode("roar>0>friends>0>info>0");
-				IXMLNode from_node = n.GetFirstChild("from");
-				IXMLNode message_node = n.GetFirstChild("message");
-				if (from_node != null)
-				{
-					info.player_id = from_node.GetAttribute("player_id");
-					info.name = from_node.GetAttribute("name");
-					if (! System.Int32.TryParse(from_node.GetAttribute("level"), out info.level))
-					{
-						throw new  Roar.DataConversion.InvalidXMLElementException("Unable to parse level to integer");
-					}
-				}
-					
-				if (message_node != null)
-				{
-					info.message = message_node.GetAttribute("value");
-				}
-			}
 		}
 
 		// Arguments to friends/list
