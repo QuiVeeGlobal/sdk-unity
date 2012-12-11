@@ -164,8 +164,6 @@ namespace Roar
 		
 		public class ShopEntry
 		{
-			public string as_json() { return "{}"; }
-			
 			public string ikey;
 			public string label;
 			public string description;
@@ -175,6 +173,20 @@ namespace Roar
 			public IList<Requirement> requirements;
 			
 			public IList<string> tags;
+			
+			public static ShopEntry CreateFromXml( IXMLNode n )
+			{
+				ShopEntry retval = new ShopEntry();
+				
+				Dictionary<string,string> kv = n.Attributes.ToDictionary( v => v.Key, v => v.Value );
+				kv.TryGetValue("ikey",out retval.ikey);
+				kv.TryGetValue("label", out retval.label);
+				kv.TryGetValue("description", out retval.description);
+				
+				//TODO: Handle the costs, modifiers and requirements and tags!
+				
+				return retval;
+			}
 		};
 
 

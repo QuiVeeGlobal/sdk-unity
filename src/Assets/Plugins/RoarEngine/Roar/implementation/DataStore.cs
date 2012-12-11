@@ -44,7 +44,10 @@ public class ShopListToShopEntry : IDomToCache<Roar.WebObjects.Shop.ListResponse
 	public Dictionary<string, Roar.DomainObjects.ShopEntry> convert( Roar.WebObjects.Shop.ListResponse d)
 	{
 		Dictionary<string,Roar.DomainObjects.ShopEntry> retval = new Dictionary<string, Roar.DomainObjects.ShopEntry>();
-		//TODO: Implement this
+		foreach( Roar.DomainObjects.ShopEntry x in d.shop_entries )
+		{
+			retval[x.ikey] = x;
+		}
 		return retval;
 	}
 }

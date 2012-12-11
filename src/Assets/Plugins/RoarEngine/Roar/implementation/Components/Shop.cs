@@ -53,7 +53,7 @@ namespace Roar.implementation.Components
 				logger.DebugLog ("[roar] -- Cannot find to purchase: " + shop_ikey);
 				return;
 			}
-			logger.DebugLog ("trying to buy me a : " + shop_item.as_json() );
+			logger.DebugLog ("trying to buy me a : " + shop_item.ikey + ":" + shop_item.label );
 
 			WebObjects.Shop.BuyArguments args = new Roar.WebObjects.Shop.BuyArguments();
 			args.shop_item_ikey = shop_item.ikey;

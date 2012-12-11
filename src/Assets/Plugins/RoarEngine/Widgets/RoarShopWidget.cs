@@ -62,61 +62,23 @@ public class RoarShopWidget : RoarUIWidget
 	void OnRoarFetchShopComplete(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.ShopEntry> > info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
-		isFetching = false;		
+		isFetching = false;
 		shopEntries = shop.List();
 		
-		/*
-		int cnt = 0;
-		foreach (Hashtable item in list)
+		if( info.code!=IWebAPI.OK)
 		{
-			//Debug.Log("======================================");
-			//foreach (DictionaryEntry kv in item)
-			//	Debug.Log(string.Format("{0} => {1}", kv.Key, kv.Value));
-			
-			// base info
-			ShopItem shopItem = new ShopItem();
-			shopItem.key = item["shop_ikey"] as string;
-			shopItem.label = item["label"] as string;
-			shopItem.description = item["description"] as string;
-			
-			RoarTypesCache.AddShopItem(shopItem);
-			cnt++;
-			
-			// item costs
-			foreach (Hashtable costs in item["costs"] as ArrayList)
-			{
-				//foreach (DictionaryEntry kv in costs)
-				//	Debug.Log(string.Format("{0} => {1}", kv.Key, kv.Value));
-				ItemCost cost = new ItemCost();
-				cost.key = costs["ikey"] as string;
-				cost.type = costs["type"] as string;
-				cost.amount = System.Convert.ToInt32(costs["value"] as string);
-				cost.ok = System.Convert.ToBoolean(costs["bool"] as string);
-				shopItem.costs.Add(cost);
-			}
-			
-			// item modifiers
-			foreach (Hashtable modifiers in item["modifiers"] as ArrayList)
-			{
-				//Debug.Log("=========== MODIFIERS ===========================");
-				//foreach (DictionaryEntry kv in modifiers)
-				//	Debug.Log(string.Format("{0} => {1}", kv.Key, kv.Value));
-				
-				ItemModifier modifier = new ItemModifier();
-				modifier.key = modifiers["ikey"] as string;
-				modifier.name = modifiers["name"] as string;
-				if (modifiers.ContainsKey("type"))
-					modifier.type = modifiers["type"] as string;
-				else
-					modifier.type = "item";
-				if (modifiers.ContainsKey("value"))
-					modifier.amount = System.Convert.ToInt32(modifiers["value"] as string);
-				else
-					modifier.amount = 1;
-				shopItem.modifiers.Add(modifier);
-			}
+			Debug.Log ( string.Format("Error loading shop:{0}:{1}", info.code, info.msg) );
+			return;
 		}
-		*/
+		
+		int cnt = 0;
+		
+		Debug.Log("======================================");
+		foreach ( KeyValuePair<string,Roar.DomainObjects.ShopEntry> item in info.data)
+		{
+			Debug.Log( string.Format("{0}:{1}:{2}", cnt, item.Key, item.Value.label) );
+		}
+		Debug.Log("======================================");
 		
 		ScrollViewContentWidth = shopItemBounds.width;
 		ScrollViewContentHeight = shopEntries.Count * (shopItemBounds.height + shopItemSpacing);

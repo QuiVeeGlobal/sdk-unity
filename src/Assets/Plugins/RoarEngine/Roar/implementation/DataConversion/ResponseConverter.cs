@@ -613,7 +613,12 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Shop.ListResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Shop.ListResponse retval = new Roar.WebObjects.Shop.ListResponse();
-				//TODO: Implement me
+				retval.shop_entries = new List<Roar.DomainObjects.ShopEntry>();
+				List<IXMLNode> shopitem_nodes = n.GetNodeList("roar>0>shop>0>list>0>shopitem");
+				foreach( IXMLNode nn in shopitem_nodes )
+				{
+					retval.shop_entries.Add( Roar.DomainObjects.ShopEntry.CreateFromXml(nn) );
+				}
 				return retval;
 			}
 		}
