@@ -115,7 +115,8 @@ public class SystemXMLNode : IXMLNode
 
 	public List<IXMLNode> GetNodeList(string path)
 	{
-		return GetObject(path) as List<IXMLNode>;
+		List<IXMLNode> retval = GetObject(path) as List<IXMLNode>;
+		return (retval!=null)?retval:(new List<IXMLNode>() );
 	}
 
 	public IXMLNode GetNode(string path)
