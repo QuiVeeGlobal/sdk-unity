@@ -183,6 +183,14 @@ namespace Roar
 			public string player_id;
 			public string name;
 			public int level;
+			public static Friend CreateFromXml( IXMLNode n )
+			{
+				Friend f = new Friend();
+				f.player_id = n.GetFirstChild("player_id").Text;
+				f.name = n.GetFirstChild("name").Text;
+				f.level = System.Convert.ToInt32( n.GetFirstChild("level").Text );
+				return f;
+			}
 		};
 
 		public class FriendInviteInfo

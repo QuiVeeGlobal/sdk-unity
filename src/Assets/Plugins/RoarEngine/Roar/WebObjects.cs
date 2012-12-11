@@ -409,20 +409,6 @@ namespace Roar.WebObjects
 			}
 		}
 		
-		public class ParseXmlTo
-		{
-			public static DomainObjects.Friend Friend( IXMLNode n )
-			{
-				DomainObjects.Friend f = new DomainObjects.Friend();
-				f.player_id = n.GetFirstChild("player_id").Text;
-				f.name = n.GetFirstChild("name").Text;
-				f.level = System.Convert.ToInt32( n.GetFirstChild("level").Text );
-				return f;
-			}
-		}
-
-		
-		
 		// Response from friends/list
 		public class ListResponse
 		{
