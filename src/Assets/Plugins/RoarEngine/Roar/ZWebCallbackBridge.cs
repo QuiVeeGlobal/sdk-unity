@@ -1,12 +1,14 @@
 using WebObjects = Roar.WebObjects;
 
-
-class CallbackBridge<T> : IRequestCallback where T : WebObjects.IResponse, new()
+class CallbackBridge<T> : IRequestCallback where T : class
 {
 	public ZWebAPI.Callback<T> cb_;
-	public CallbackBridge( ZWebAPI.Callback<T> cb )
+	public Roar.DataConversion.IXmlToObject<T> converter_;
+	
+	public CallbackBridge( ZWebAPI.Callback<T> cb, Roar.DataConversion.IXmlToObject<T> converter)
 	{
 		cb_ = cb;
+		converter_ = converter;
 	}
 	public void OnRequest( Roar.RequestResult info )
 	{
@@ -16,8 +18,7 @@ class CallbackBridge<T> : IRequestCallback where T : WebObjects.IResponse, new()
 				cb_.OnError( info );
 			OnFailure (info);
 		} else {
-			T result_data = new T();
-			result_data.ParseXml( info.data );
+			T result_data = converter_.Build(info.data);
 			Roar.CallbackInfo<T> result = new Roar.CallbackInfo<T> (result_data, info.code, info.msg);
 			if (cb_ != null)
 				cb_.OnSuccess( result );

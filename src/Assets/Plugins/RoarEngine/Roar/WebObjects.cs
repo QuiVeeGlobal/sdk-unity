@@ -6,11 +6,6 @@ using System.Linq;
 
 namespace Roar.WebObjects
 {
-	public interface IResponse
-	{
-		void ParseXml( IXMLNode nn );
-	}
-
 
 	//Namespace for typesafe arguments and responses to Roars admin/foo calls.
 	namespace Admin
@@ -28,12 +23,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from admin/delete_player
-		public class DeletePlayerResponse : IResponse
+		public class DeletePlayerResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to admin/increment_stat
@@ -48,12 +40,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from admin/increment_stat
-		public class IncrementStatResponse : IResponse
+		public class IncrementStatResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to admin/set
@@ -68,12 +57,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from admin/set
-		public class SetResponse : IResponse
+		public class SetResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to admin/set_custom
@@ -88,12 +74,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from admin/set_custom
-		public class SetCustomResponse : IResponse
+		public class SetCustomResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to admin/view_player
@@ -108,12 +91,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from admin/view_player
-		public class ViewPlayerResponse : IResponse
+		public class ViewPlayerResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 	}
@@ -138,12 +118,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from appstore/buy
-		public class BuyResponse : IResponse
+		public class BuyResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to appstore/shop_list
@@ -158,7 +135,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from appstore/shop_list
-		public class ShopListResponse : IResponse
+		public class ShopListResponse
 		{
 			public List<string> productIdentifiers;
 
@@ -202,12 +179,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from chrome_web_store/list
-		public class ListResponse : IResponse
+		public class ListResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 	}
@@ -228,12 +202,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/bind_signed
-		public class BindSignedResponse : IResponse
+		public class BindSignedResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to facebook/create_oauth
@@ -252,12 +223,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/create_oauth
-		public class CreateOauthResponse : IResponse
+		public class CreateOauthResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to facebook/create_signed
@@ -272,12 +240,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/create_signed
-		public class CreateSignedResponse : IResponse
+		public class CreateSignedResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to facebook/fetch_oauth_token
@@ -292,12 +257,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/fetch_oauth_token
-		public class FetchOauthTokenResponse : IResponse
+		public class FetchOauthTokenResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to facebook/friends
@@ -312,12 +274,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/friends
-		public class FriendsResponse : IResponse
+		public class FriendsResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to facebook/login_oauth
@@ -334,12 +293,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/login_oauth
-		public class LoginOauthResponse : IResponse
+		public class LoginOauthResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to facebook/login_signed
@@ -354,12 +310,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/login_signed
-		public class LoginSignedResponse : IResponse
+		public class LoginSignedResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to facebook/shop_list
@@ -374,12 +327,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from facebook/shop_list
-		public class ShopListResponse : IResponse
+		public class ShopListResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 	}
@@ -404,12 +354,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from friends/accept
-		public class AcceptResponse : IResponse
+		public class AcceptResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to friends/decline
@@ -426,12 +373,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from friends/decline
-		public class DeclineResponse : IResponse
+		public class DeclineResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to friends/invite
@@ -450,12 +394,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from friends/invite
-		public class InviteResponse : IResponse
+		public class InviteResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to friends/invite_info
@@ -472,7 +413,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from friends/invite_info
-		public class InviteInfoResponse : IResponse
+		public class InviteInfoResponse
 		{
 			public DomainObjects.FriendInviteInfo info;
 
@@ -489,7 +430,7 @@ namespace Roar.WebObjects
 					info.name = from_node.GetAttribute("name");
 					if (! System.Int32.TryParse(from_node.GetAttribute("level"), out info.level))
 					{
-						throw new  Roar.implementation.DataConversion.InvalidXMLElementException("Unable to parse level to integer");
+						throw new  Roar.DataConversion.InvalidXMLElementException("Unable to parse level to integer");
 					}
 				}
 					
@@ -544,7 +485,7 @@ namespace Roar.WebObjects
 		 *   </friends>
 		 * </roar>
 		 */
-		public class ListResponse : IResponse
+		public class ListResponse
 		{
 			public List<DomainObjects.Friend> friends;
 
@@ -577,12 +518,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from friends/remove
-		public class RemoveResponse : IResponse
+		public class RemoveResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to friends/list_invites
@@ -597,7 +535,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from friends/list_invites
-		public class ListInvitesResponse : IResponse
+		public class ListInvitesResponse
 		{
 			public List<DomainObjects.FriendInvite> invites;
 
@@ -635,12 +573,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/bind_user
-		public class BindUserResponse : IResponse
+		public class BindUserResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to google/bind_user_token
@@ -655,12 +590,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/bind_user_token
-		public class BindUserTokenResponse : IResponse
+		public class BindUserTokenResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to google/create_user
@@ -675,12 +607,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/create_user
-		public class CreateUserResponse : IResponse
+		public class CreateUserResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to google/create_user_token
@@ -695,12 +624,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/create_user_token
-		public class CreateUserTokenResponse : IResponse
+		public class CreateUserTokenResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to google/friends
@@ -715,12 +641,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/friends
-		public class FriendsResponse : IResponse
+		public class FriendsResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to google/login_user
@@ -735,12 +658,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/login_user
-		public class LoginUserResponse : IResponse
+		public class LoginUserResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to google/login_user_token
@@ -755,12 +675,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from google/login_user_token
-		public class LoginUserTokenResponse : IResponse
+		public class LoginUserTokenResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 	}
@@ -781,12 +698,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from info/get_bulk_player_info
-		public class GetBulkPlayerInfoResponse : IResponse
+		public class GetBulkPlayerInfoResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to info/ping
@@ -801,12 +715,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from info/ping
-		public class PingResponse : IResponse
+		public class PingResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to info/user
@@ -821,12 +732,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from info/user
-		public class UserResponse : IResponse
+		public class UserResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to info/poll
@@ -841,12 +749,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from info/poll
-		public class PollResponse : IResponse
+		public class PollResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 	}
@@ -869,12 +774,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from items/equip
-		public class EquipResponse : IResponse
+		public class EquipResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to items/list
@@ -889,12 +791,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from items/list
-		public class ListResponse : IResponse
+		public class ListResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to items/sell
@@ -911,12 +810,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from items/sell
-		public class SellResponse : IResponse
+		public class SellResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to items/set
@@ -931,12 +827,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from items/set
-		public class SetResponse : IResponse
+		public class SetResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to items/unequip
@@ -953,12 +846,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from items/unequip
-		public class UnequipResponse : IResponse
+		public class UnequipResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to items/use
@@ -975,12 +865,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from items/use
-		public class UseResponse : IResponse
+		public class UseResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to items/view
@@ -995,12 +882,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from items/view
-		public class ViewResponse : IResponse
+		public class ViewResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to items/view_all
@@ -1015,12 +899,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from items/view_all
-		public class ViewAllResponse : IResponse
+		public class ViewAllResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 	}
@@ -1041,12 +922,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from leaderboards/list
-		public class ListResponse : IResponse
+		public class ListResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to leaderboards/view
@@ -1061,12 +939,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from leaderboards/view
-		public class ViewResponse : IResponse
+		public class ViewResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 	}
@@ -1087,12 +962,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from mail/accept
-		public class AcceptResponse : IResponse
+		public class AcceptResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to mail/send
@@ -1107,12 +979,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from mail/send
-		public class SendResponse : IResponse
+		public class SendResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to mail/what_can_i_accept
@@ -1127,12 +996,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from mail/what_can_i_accept
-		public class WhatCanIAcceptResponse : IResponse
+		public class WhatCanIAcceptResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to mail/what_can_i_send
@@ -1147,12 +1013,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from mail/what_can_i_send
-		public class WhatCanISendResponse : IResponse
+		public class WhatCanISendResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 	}
@@ -1173,12 +1036,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from shop/list
-		public class ListResponse : IResponse
+		public class ListResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to shop/buy
@@ -1195,12 +1055,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from shop/buy
-		public class BuyResponse : IResponse
+		public class BuyResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 	}
@@ -1221,12 +1078,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from scripts/run
-		public class RunResponse : IResponse
+		public class RunResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 	}
@@ -1247,12 +1101,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from tasks/list
-		public class ListResponse : IResponse
+		public class ListResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to tasks/start
@@ -1269,12 +1120,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from tasks/start
-		public class StartResponse : IResponse
+		public class StartResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 	}
@@ -1295,12 +1143,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/achievements
-		public class AchievementsResponse : IResponse
+		public class AchievementsResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to user/change_name
@@ -1315,12 +1160,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/change_name
-		public class ChangeNameResponse : IResponse
+		public class ChangeNameResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to user/change_password
@@ -1335,12 +1177,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/change_password
-		public class ChangePasswordResponse : IResponse
+		public class ChangePasswordResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to user/create
@@ -1359,12 +1198,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/create
-		public class CreateResponse : IResponse
+		public class CreateResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to user/login
@@ -1383,7 +1219,7 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/login
-		public class LoginResponse : IResponse
+		public class LoginResponse
 		{
 			public string auth_token;
 			public string player_id;
@@ -1409,12 +1245,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/login_facebook_oauth
-		public class LoginFacebookOauthResponse : IResponse
+		public class LoginFacebookOauthResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to user/logout
@@ -1429,12 +1262,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/logout
-		public class LogoutResponse : IResponse
+		public class LogoutResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to user/netdrive_save
@@ -1453,12 +1283,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/netdrive_save
-		public class NetdriveSaveResponse : IResponse
+		public class NetdriveSaveResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to user/netdrive_fetch
@@ -1475,14 +1302,10 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/netdrive_fetch
-		public class NetdriveFetchResponse : IResponse
+		public class NetdriveFetchResponse
 		{
 			public string data;
 
-			public void ParseXml( IXMLNode nn )
-			{
-				//TODO: Implement me!
-			}
 		}
 
 		// Arguments to user/set
@@ -1497,12 +1320,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from user/set
-		public class SetResponse : IResponse
+		public class SetResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to user/view
@@ -1563,7 +1383,7 @@ namespace Roar.WebObjects
 			}
 		}
 		
-		public class ViewResponse : IResponse
+		public class ViewResponse
 		{
 			public List<PlayerAttribute> attributes;
 
@@ -1598,12 +1418,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from urbanairship/ios_register
-		public class IosRegisterResponse : IResponse
+		public class IosRegisterResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 		// Arguments to urbanairship/push
@@ -1618,12 +1435,9 @@ namespace Roar.WebObjects
 		}
 		
 		// Response from urbanairship/push
-		public class PushResponse : IResponse
+		public class PushResponse
 		{
 
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 
 	}

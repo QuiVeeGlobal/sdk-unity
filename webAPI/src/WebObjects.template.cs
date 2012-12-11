@@ -5,11 +5,6 @@ using System.Collections.Generic;
 
 namespace Roar.WebObjects
 {
-	public interface IResponse
-	{
-		void ParseXml( IXMLNode nn );
-	}
-
 <%
   _.each( data.modules, function(m,i,l) {
     var ns_name = underscoreToCamel(m.name)
@@ -42,15 +37,12 @@ if( arg.type == "string" )
 		}
 		
 		// Response from <%= m.name %>/<%= f.name %>
-		public class <%= underscoreToCamel(f.name) %>Response : IResponse
+		public class <%= underscoreToCamel(f.name) %>Response
 		{
 <%
   if( "response" in f ) { _.each( f.response.members, function( member, member_index ){
 %>			public <%= member.type %> <%= member.name %>;
 <% } ) } %>
-			public void ParseXml( IXMLNode nn )
-			{
-			}
 		}
 <% } ) %>
 	}

@@ -63,8 +63,19 @@ public class WebAPI : IWebAPI
 %>
 	public class <%= class_name %> : APIBridge, I<%= class_name %>
 	{
+<% _.each( m.functions, function(f,j,ll) {
+     var response  = "Roar.WebObjects."+underscoreToCamel(m.name)+"."+underscoreToCamel(f.name)+"Response"
+     var converter = f.name + "_response_parser";
+%>		public Roar.DataConversion.IXmlToObject<<%= response %>> <%= converter %>;
+<% } ) %>
 		public <%= class_name %> (IRequestSender caller) : base(caller)
 		{
+<% _.each( m.functions, function(f,j,ll) {
+     var response  = "Roar.WebObjects."+underscoreToCamel(m.name)+"."+underscoreToCamel(f.name)+"Response"
+     var converter = f.name + "_response_parser";
+     var converter_type = "Roar.DataConversion.Responses."+underscoreToCamel(m.name)+"."+underscoreToCamel(f.name)
+%>			<%= converter %> = new <%= converter_type %>();
+<% } ) %>
 		}
 
 <% _.each( m.functions, function(f,j,ll) {
@@ -72,11 +83,13 @@ public class WebAPI : IWebAPI
      var response  = "Roar.WebObjects."+underscoreToCamel(m.name)+"."+underscoreToCamel(f.name)+"Response"
      url = f.url ? f.url : (m.name+"/"+f.name);
      obj = f.obj ? f.obj : "obj";
-     print("\t\tpublic void "+fix_reserved_word(f.name)+"( "+arg+" args, ZWebAPI.Callback<"+response+"> cb)\n");
-     print("\t\t{\n");
-     print("\t\t\tapi.MakeCall (\""+url+"\", args.ToHashtable(), new CallbackBridge<"+response+">(cb));\n");
-     print("\t\t}\n\n");
-} ) %>	}
+     var converter = f.name + "_response_parser";
+%>		public void <%= fix_reserved_word(f.name) %>( <%= arg %> args, ZWebAPI.Callback<<%= response %>> cb)
+		{
+			api.MakeCall ("<%= url %>", args.ToHashtable(), new CallbackBridge<<%= response %>>(cb, <%= converter %>));
+		}
+
+<% } ) %>	}
 <% } ) %>
 
 }

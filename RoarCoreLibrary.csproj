@@ -89,6 +89,7 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Friends.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IFacebook.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Facebook.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\DataConversion\ResponseConverter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

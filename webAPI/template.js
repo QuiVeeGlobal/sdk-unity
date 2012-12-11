@@ -90,6 +90,20 @@ function build_web_objects_cs()
   fs.writeFile(filename,output, report_err);
 }
 
+function build_response_converter_cs()
+{
+  api_functions = require("./api_functions.json")
+  js_template = fs.readFileSync('src/ResponseConverters.template.cs',"utf8");
+  augment_template( api_functions )
+
+  var output = _.template(js_template, api_functions)
+
+  var filename = "output/ResponseConverters.cs";
+  console.log(filename);
+  console.log("You will need to manually merge any changes to output/ResponseConverters.cs into the appropriate file")
+  fs.writeFile(filename,output, report_err);
+}
+
 function build_event_manager()
 {
   events = require("./data/events.json")
@@ -125,3 +139,4 @@ build_web_api_cs();
 build_iweb_api_cs();
 build_web_objects_cs();
 build_event_manager();
+build_response_converter_cs();
