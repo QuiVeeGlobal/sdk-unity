@@ -139,26 +139,6 @@ namespace Roar.WebObjects
 		{
 			public List<string> productIdentifiers;
 
-			public void ParseXml( IXMLNode nn )
-			{
-				productIdentifiers = new List<string>();
-				
-				// extract the product identifiers from the xml
-				string path = "roar>0>appstore>0>shop_list>0>shopitem";
-				List<IXMLNode> products = nn.GetNodeList (path);
-				if (products == null) {
-					return;
-					// TODO: Reinstate some logging here
-					// logger.DebugLog (string.Format ("data.GetNodeList('{0}') return null", path));
-				}
-				foreach (IXMLNode product in products)
-				{
-					string pid = product.GetAttribute ("product_identifier");
-					if (!string.IsNullOrEmpty (pid)) {
-						productIdentifiers.Add (pid);
-					}
-				}
-			}
 		}
 
 	}
