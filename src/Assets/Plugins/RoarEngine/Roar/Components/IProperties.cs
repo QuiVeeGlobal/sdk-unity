@@ -44,7 +44,7 @@ namespace Roar.Components
 	     *
 	     * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	     **/
-		void Fetch (Roar.Callback< IDictionary<string,Property> > callback);
+		void Fetch (Roar.Callback< IDictionary<string,DomainObjects.PlayerAttribute> > callback);
 
 		/**
 	     * Check whether any user properties data has been obtained from the server.
@@ -63,7 +63,7 @@ namespace Roar.Components
 	     *       is called prior to the successful completion of a #fetch call,
 	     *       it will return an empty array.
 	     **/
-		IList<Property> List ();
+		IList<DomainObjects.PlayerAttribute> List ();
 
 		/**
 	     * Returns the property object for a given key.
@@ -73,7 +73,7 @@ namespace Roar.Components
 	     * @returns the property Hashtable associated with the *key*
 	     *          or null if the property does not exist in the data store.
 	     **/
-		Property GetProperty (string key);
+		DomainObjects.PlayerAttribute GetProperty (string key);
 
 		/**
 	     * Returns the *value* attribute of a property object.

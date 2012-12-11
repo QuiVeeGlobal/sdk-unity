@@ -9,25 +9,15 @@ public interface IDomToCache<DT,CT>
 	Dictionary<string,CT> convert(DT d);
 }
 
-public class UserViewToProperty : IDomToCache<Roar.WebObjects.User.ViewResponse, Property>
+public class UserViewToProperty : IDomToCache<Roar.WebObjects.User.ViewResponse, Roar.DomainObjects.PlayerAttribute>
 {
-	public Dictionary<string,Property> convert(Roar.WebObjects.User.ViewResponse d)
+	public Dictionary<string,Roar.DomainObjects.PlayerAttribute> convert(Roar.WebObjects.User.ViewResponse d)
 	{
-		Dictionary<string,Property> retval = new Dictionary<string, Property>();
-		//TODO: Duplication between PlayerAttribute class and Property class is not usefull
-		//      we probably only need one.
+		Dictionary<string,Roar.DomainObjects.PlayerAttribute> retval = new Dictionary<string, Roar.DomainObjects.PlayerAttribute>();
 		foreach( Roar.DomainObjects.PlayerAttribute p in d.attributes)
 		{
-			Property pp = new Property();
-			pp.label = p.label;
-			pp.value = p.value;
-			pp.type = p.type;
-			pp.max = p.max;
-			pp.min = p.min;
-			pp.regen_every = p.regen_every;
-			retval[p.ikey] = pp;
+			retval[p.ikey] = p;
 		}
-		//TODO: Implement this
 		return retval;
 	}
 }
@@ -169,18 +159,6 @@ public class FooGetter : IDomGetter<Foo>
 	}
 }
 
-public class Property
-{
-//TODO: Fix up the types in here!
-	public string value;
-	public string type;
-	public string max;
-	public string min;
-	public string regen_every;
-	public string label;
-	
-}
-
 
 namespace Roar.implementation
 {
@@ -188,7 +166,7 @@ namespace Roar.implementation
 	{
 		void Clear (bool x);
 		
-		IDataModel<Property,Roar.WebObjects.User.ViewResponse> properties { get; }
+		IDataModel<DomainObjects.PlayerAttribute,Roar.WebObjects.User.ViewResponse> properties { get; }
 		IDataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory { get; }
 		IDataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop { get; }
 		IDataModel<Foo,Foo> actions { get; }
@@ -208,7 +186,7 @@ namespace Roar.implementation
 		{
 			//This should convert from the response type to key-value pairs
 			
-			properties_ = new DataModel<Property,Roar.WebObjects.User.ViewResponse> ("properties", new UserViewGetter(webapi), new UserViewToProperty(), logger);
+			properties_ = new DataModel<DomainObjects.PlayerAttribute,Roar.WebObjects.User.ViewResponse> ("properties", new UserViewGetter(webapi), new UserViewToProperty(), logger);
 			inventory_ = new DataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> ("inventory", new ItemsListGetter(webapi), new ItemsListToItem(), logger);
 			shop_ = new DataModel<DomainObjects.ShopEntry,WebObjects.Shop.ListResponse>("shop", new ShopListGetter(webapi), new ShopListToShopEntry(), logger);
 			actions_ = new DataModel<Foo,Foo> ("tasks", new FooGetter(webapi), new FooToFoo(), logger);
@@ -238,7 +216,7 @@ namespace Roar.implementation
 		
 		
 
-		public IDataModel<Property,Roar.WebObjects.User.ViewResponse> properties { get { return properties_; } }
+		public IDataModel<DomainObjects.PlayerAttribute,Roar.WebObjects.User.ViewResponse> properties { get { return properties_; } }
 		public IDataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory { get { return inventory_; } }
 		public IDataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop { get { return shop_; } }
 		public IDataModel<Foo,Foo> actions { get { return actions_; } }
@@ -250,7 +228,7 @@ namespace Roar.implementation
 		public IDataModel<Foo,Foo> appStore { get { return appStore_; } }
 		public IItemCache cache { get { return cache_; } }
 		
-		public DataModel<Property,Roar.WebObjects.User.ViewResponse> properties_;
+		public DataModel<DomainObjects.PlayerAttribute,Roar.WebObjects.User.ViewResponse> properties_;
 		public DataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory_;
 		public DataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop_;
 		public DataModel<Foo,Foo> actions_;

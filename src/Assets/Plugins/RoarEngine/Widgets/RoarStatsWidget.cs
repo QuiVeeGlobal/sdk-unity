@@ -24,7 +24,7 @@ public class RoarStatsWidget : RoarUIWidget
 		public string valueStyle;
 		public StatValueType valueType;
 		
-		private Property userStat;
+		private Roar.DomainObjects.PlayerAttribute userStat;
 		private string value;
 		
 		public string Value
@@ -33,7 +33,7 @@ public class RoarStatsWidget : RoarUIWidget
 			set { this.value = value; }
 		}
 		
-		public Property UserStat
+		public Roar.DomainObjects.PlayerAttribute UserStat
 		{
 			get { return userStat; }
 			set { userStat = value; }
@@ -87,7 +87,7 @@ public class RoarStatsWidget : RoarUIWidget
 			{
 				if (stat != null && stat.key != null && stat.key.Length > 0)
 				{
-					Property userStat = properties.GetProperty(stat.key);
+					Roar.DomainObjects.PlayerAttribute userStat = properties.GetProperty(stat.key);
 					stat.UserStat = userStat;
 					
 					if (stat.valueFormat.Length > 0)

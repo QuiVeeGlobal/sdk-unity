@@ -37,14 +37,14 @@ public class RoarStatsModule : RoarModule
 		{
 			whenLastFetched = Time.realtimeSinceStartup;
 			
-			foreach (Property p in properties.List())
+			foreach (Roar.DomainObjects.PlayerAttribute p in properties.List())
 			{			
 				Debug.Log(string.Format("{0} -> {1}", p.label, p.value));
 			}
 		}
 	}
 
-	void OnRoarFetchPropertiesComplete(Roar.CallbackInfo<IDictionary<string,Property>> info)
+	void OnRoarFetchPropertiesComplete(Roar.CallbackInfo<IDictionary<string,Roar.DomainObjects.PlayerAttribute>> info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;

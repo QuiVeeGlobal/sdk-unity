@@ -49,7 +49,7 @@ public class PropertiesTests : ComponentTests
     Assert.IsFalse(properties.HasDataFromServer);
   }
   
-  protected void mockFetch(string mockResponse, Roar.Callback< IDictionary<string,Property> > cb) {
+  protected void mockFetch(string mockResponse, Roar.Callback< IDictionary<string,Roar.DomainObjects.PlayerAttribute> > cb) {
     requestSender.addMockResponse("user/view", mockResponse);
     properties.Fetch(cb);
   }
@@ -57,7 +57,7 @@ public class PropertiesTests : ComponentTests
   [Test]
   public void testFetchSuccess() {
     bool callbackExecuted = false;
-    Roar.Callback< IDictionary<string,Property> > roarCallback = (Roar.CallbackInfo< IDictionary<string,Property>> callbackInfo) => { 
+    Roar.Callback< IDictionary<string,Roar.DomainObjects.PlayerAttribute> > roarCallback = (Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.PlayerAttribute>> callbackInfo) => { 
       callbackExecuted=true;
       Assert.AreEqual(IWebAPI.OK, callbackInfo.code);
       Assert.IsNotNull(callbackInfo.data);
@@ -102,7 +102,7 @@ public class PropertiesTests : ComponentTests
     
     //returns a list of properties with the expected data structure
     int expectedPropertyCount = 15;
-    IList<Property> propertyHashtables = properties.List();
+    IList<Roar.DomainObjects.PlayerAttribute> propertyHashtables = properties.List();
     Assert.AreEqual(expectedPropertyCount, propertyHashtables.Count);
     
 
@@ -119,7 +119,7 @@ public class PropertiesTests : ComponentTests
     mockFetch(userView, null);
     
     //returns Hashtable of property if exists
-    Property staminaProperty = properties.GetProperty("stamina");
+    Roar.DomainObjects.PlayerAttribute staminaProperty = properties.GetProperty("stamina");
     Assert.IsNotNull( staminaProperty );
     StringAssert.IsMatch("5", staminaProperty.value);
     StringAssert.IsMatch("resource", staminaProperty.type);

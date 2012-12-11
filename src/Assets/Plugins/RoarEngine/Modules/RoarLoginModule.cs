@@ -237,7 +237,7 @@ public class RoarLoginModule : RoarModule
 		networkActionInProgress = false;
 	}
 	
-	void OnRoarPropertiesFetched(Roar.CallbackInfo< IDictionary<string,Property> > info)
+	void OnRoarPropertiesFetched(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.PlayerAttribute> > info)
 	{
 		networkActionInProgress = false;
 		uiController.CurrentModulePanel = RoarModulePanel.Off;
