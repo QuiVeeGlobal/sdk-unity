@@ -219,6 +219,21 @@ namespace Roar
 			public string player_id;
 		}
 
+		public class XPAttributes
+		{
+			public int value;
+			public int next_level;
+			public int level_start;
+		};
+		
+		public class Player
+		{
+			public string id;
+			public string name;
+			public int level;
+			public XPAttributes xp = new XPAttributes();
+			public Dictionary<string, PlayerAttribute> attributes = new Dictionary<string, PlayerAttribute>();
+		};
 
 		public class LeaderboardExtraProperties
 		{

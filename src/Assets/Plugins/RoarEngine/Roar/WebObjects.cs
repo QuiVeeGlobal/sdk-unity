@@ -624,10 +624,12 @@ namespace Roar.WebObjects
 		// Arguments to info/user
 		public class UserArguments
 		{
+			public string id;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["id"] = id;
 				return retval;
 			}
 		}
@@ -635,6 +637,7 @@ namespace Roar.WebObjects
 		// Response from info/user
 		public class UserResponse
 		{
+			public Roar.DomainObjects.Player player;
 
 		}
 

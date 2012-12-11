@@ -173,7 +173,17 @@
               { "name":"text", "type":"string" }
             ] }
           },
-          { "name":"user" },
+          {
+            "name":"user",
+            "arguments":
+              [
+              { "name":"id", "type":"string" }
+            ],
+            "response":{
+              "members":[
+                { "name":"player", "type":"Roar.DomainObjects.Player" }
+              ] }
+          },
           { "name":"poll", "obj":"null" }
         ]
       },
