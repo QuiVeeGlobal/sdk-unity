@@ -113,7 +113,12 @@
             "arguments":
             [
               { "name":"oauth_token", "type":"string" }
-            ]
+            ],
+            "response":{
+              "members":[
+                {"name":"auth_token", "type":"string"},
+                {"name":"player_id", "type":"string"}
+            ] }
           },
           { "name":"login_signed" },
           { "name":"shop_list" }

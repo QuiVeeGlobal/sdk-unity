@@ -210,7 +210,8 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.LoginOauthResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.LoginOauthResponse retval = new Roar.WebObjects.Facebook.LoginOauthResponse();
-				//TODO: Implement me
+				retval.auth_token = n.GetNode("roar>0>facebook>0>login_oauth>0>auth_token>0").Text;
+				retval.player_id = n.GetNode("roar>0>facebook>0>login_oauth>0>player_id>0").Text;
 				return retval;
 			}
 		}

@@ -113,6 +113,29 @@ namespace Testing
 			Assert.AreEqual( "104271466587092|1.mYu275YylcGHf6vC ... hxrk63ouytUiBdBc", response.oauth_token );
 		}
 		
+		[Test()]
+		public void TestParseFacebookLoginOauthResponse()
+		{
+			string xml =
+			@"<roar tick=""127055503865""> 
+				<facebook> 
+					<login_oauth status=""ok""> 
+						<auth_token>2144869762</auth_token>
+						<player_id>1231231</player_id>
+					</login_oauth> 
+				</facebook> 
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Assert.IsNotNull( nn );
+
+			Roar.WebObjects.Facebook.LoginOauthResponse response = (new Roar.DataConversion.Responses.Facebook.LoginOauth()).Build(nn);
+			
+			Assert.IsNotNull( response );
+			Assert.AreEqual( "2144869762", response.auth_token );
+			Assert.AreEqual( "1231231", response.player_id );
+		}
+		
 	}
 }
 
