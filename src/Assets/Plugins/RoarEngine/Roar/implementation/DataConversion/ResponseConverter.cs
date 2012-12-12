@@ -240,10 +240,22 @@ namespace Roar.DataConversion.Responses
 		//Response from facebook/shop_list
 		public class ShopList : IXmlToObject< Roar.WebObjects.Facebook.ShopListResponse >
 		{
+			public IXCRMParser ixcrm_parser;
+			
+			public ShopList()
+			{
+				this.ixcrm_parser = new XCRMParser();
+			}
+			
 			public Roar.WebObjects.Facebook.ShopListResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.ShopListResponse retval = new Roar.WebObjects.Facebook.ShopListResponse();
-				//TODO: Implement me
+				retval.shop_list = new List<DomainObjects.FacebookShopEntry>();
+				List<IXMLNode> shop_item_nodes = n.GetNodeList("roar>0>facebook>0>shop_list>0>fbshopitem");
+				foreach( IXMLNode shop_item_node in shop_item_nodes )
+				{
+					retval.shop_list.Add( DomainObjects.FacebookShopEntry.CreateFromXml( shop_item_node, ixcrm_parser ) );
+				}
 				return retval;
 			}
 		}

@@ -353,6 +353,40 @@ namespace Roar
 			public string id; //Only non-null if the player is a user in the current game
 		}
 		
+		public class FacebookShopEntry
+		{
+			public string ikey;
+			public string description;
+			public string label;
+			public string price;
+			public string product_url;
+			public string image_url;
+			public IList<Modifier> modifiers;
+			
+			public static FacebookShopEntry CreateFromXml( IXMLNode n, Roar.DataConversion.IXCRMParser ixcrm_parser )
+			{
+				FacebookShopEntry retval = new FacebookShopEntry();
+				Dictionary<string,string> kv = n.Attributes.ToDictionary( v => v.Key, v => v.Value );
+				kv.TryGetValue("ikey",out retval.ikey);
+				kv.TryGetValue("description",out retval.description);
+				kv.TryGetValue("label",out retval.label);
+				kv.TryGetValue("price",out retval.price);
+				kv.TryGetValue("product_url",out retval.product_url);
+				kv.TryGetValue("image_url", out retval.image_url);
+				List<IXMLNode> modifier_nodes = n.GetNodeList("modifiers");
+				if( modifier_nodes.Count > 0 )
+				{
+					retval.modifiers = ixcrm_parser.ParseModifierList( modifier_nodes[0] );
+				}
+				else
+				{
+					retval.modifiers = new List<Modifier>();
+				}
+				
+				return retval;
+			}
+		}
+		
 
 
 	}

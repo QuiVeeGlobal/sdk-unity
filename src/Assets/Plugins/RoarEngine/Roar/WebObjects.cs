@@ -347,6 +347,7 @@ namespace Roar.WebObjects
 		// Response from facebook/shop_list
 		public class ShopListResponse
 		{
+			public List<DomainObjects.FacebookShopEntry> shop_list;
 
 		}
 

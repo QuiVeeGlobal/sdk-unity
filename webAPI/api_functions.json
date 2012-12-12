@@ -139,7 +139,14 @@
                 {"name":"player_id", "type":"string"}
             ] }
           },
-          { "name":"shop_list" }
+          {
+            "name":"shop_list",
+            "arguments":[],
+            "response":{
+              "members":[
+                {"name":"shop_list", "type":"List<DomainObjects.FacebookShopEntry>"}
+            ] }
+          }
        ]
      },
      {

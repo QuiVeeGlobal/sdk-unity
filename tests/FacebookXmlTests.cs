@@ -1,5 +1,8 @@
 using System;
+using System.Collections.Generic;
 using NUnit.Framework;
+using NMock2;
+using System.Reflection;
 
 namespace Testing
 {
@@ -198,6 +201,87 @@ namespace Testing
 			Assert.IsNull( response.facebook_friends[2].id );
 			
 		}
+
+		[Test()]
+		public void TestParseFacebookShopListResponse()
+		{
+			string xml =
+			@"<roar tick=""130695522924"">
+				<facebook>\
+					<shop_list>
+						<fbshopitem
+							ikey=""shop_item_ikey1""
+							description=""Blah Blah""
+							label=""label""
+							price=""2""
+							product_url=""http://foo.bar""
+							image_url=""http://foo.bar/baz.png""
+						>
+							<modifiers>
+								<grant_item ikey=""item_ikey_1""/>
+							</modifiers>
+						</fbshopitem>
+						<fbshopitem
+							ikey=""shop_item_ikey2""
+							description=""Blah Boo""
+							label=""item2""
+							price=""4""
+							product_url=""ABC""
+							image_url=""...""
+						>
+							<modifiers>
+								<grant_item ikey=""item_ikey_2""/>
+							</modifiers>
+						</fbshopitem>
+					</shop_list>
+				</facebook>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Assert.IsNotNull( nn );
+			
+			Assert.AreEqual(2, nn.GetNodeList("roar>0>facebook>0>shop_list>0>fbshopitem").Count );
+			
+			Mockery mockery = new Mockery();
+			Roar.DataConversion.IXCRMParser ixcrm_parser = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
+			List<Roar.DomainObjects.Modifier> modifier_list = new List<Roar.DomainObjects.Modifier>();
+			List<Roar.DomainObjects.Modifier> modifier_list1 = new List<Roar.DomainObjects.Modifier>();
+
+			IXMLNode modifier_node0 = nn.GetNode ("roar>0>facebook>0>shop_list>0>fbshopitem>0>modifiers>0");
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(modifier_node0).Will( Return.Value( modifier_list ) );
+			
+			IXMLNode modifier_node1 = nn.GetNode ("roar>0>facebook>0>shop_list>0>fbshopitem>1>modifiers>0");
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(modifier_node1).Will( Return.Value( modifier_list1 ) );
+			
+			Roar.DataConversion.Responses.Facebook.ShopList shoplist_response_parser = new Roar.DataConversion.Responses.Facebook.ShopList();
+			shoplist_response_parser.ixcrm_parser = ixcrm_parser;
+
+			Roar.WebObjects.Facebook.ShopListResponse response = shoplist_response_parser.Build(nn);
+			
+			Assert.IsNotNull( response );
+			Assert.AreEqual( 2, response.shop_list.Count );
+			Roar.DomainObjects.FacebookShopEntry e0 = response.shop_list[0];
+			Assert.AreEqual( "shop_item_ikey1", e0.ikey );
+			Assert.AreEqual( "Blah Blah", e0.description);
+			Assert.AreEqual( "label", e0.label );
+			Assert.AreEqual( "2", e0.price );
+			Assert.AreEqual( "http://foo.bar", e0.product_url );
+			Assert.AreEqual( "http://foo.bar/baz.png", e0.image_url );
+			Assert.AreSame( modifier_list, e0.modifiers );
+			
+			Roar.DomainObjects.FacebookShopEntry e1 = response.shop_list[1];
+			Assert.AreEqual( "shop_item_ikey2", e1.ikey );
+			Assert.AreEqual( "Blah Boo", e1.description);
+			Assert.AreEqual( "item2", e1.label );
+			Assert.AreEqual( "4", e1.price );
+			Assert.AreEqual( "ABC", e1.product_url );
+			Assert.AreEqual( "...", e1.image_url );
+			Assert.AreSame( modifier_list1, e1.modifiers );
+			
+			mockery.VerifyAllExpectationsHaveBeenMet();
+			
+		}
+		
 		
 	}
 }
