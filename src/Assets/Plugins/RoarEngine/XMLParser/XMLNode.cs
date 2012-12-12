@@ -256,6 +256,8 @@ public class XMLNode : IXMLNode
 	private const char LT='<';
 	private const char GT='>';
 	private const char SPACE=' ';
+	private const char NEWLINE='\n';
+	private const char TAB='\t';
 	private const char QUOTE='\"';
 	private const char SLASH='/';
 	private const char QMARK='?';
@@ -376,7 +378,7 @@ public class XMLNode : IXMLNode
 				// Retrieving <NODE> name
 				if(collectNodeName)
 				{
-					if(c==SPACE)
+					if(c==SPACE || c == NEWLINE || c == TAB)
 					{
 						collectNodeName=false;
 					}
@@ -486,7 +488,7 @@ public class XMLNode : IXMLNode
 						// 3.a. Add to the attribute name
 						if(collectAttributeName)
 						{
-							if(c==SPACE || c==EQUALS)
+							if(c==SPACE || c==EQUALS || c==NEWLINE || c==TAB)
 							{
 								collectAttributeName=false;
 								collectAttributeValue=true;
@@ -527,7 +529,7 @@ public class XMLNode : IXMLNode
 								{
 									// And the character is a space, reset
 									// the attribute register
-									if(c==SPACE)
+									if(c==SPACE || c==NEWLINE || c==TAB)
 									{
 										collectAttributeValue=false;
 										//currentNode[ATTRIB_APPEND+attName]=attValue;
@@ -540,7 +542,7 @@ public class XMLNode : IXMLNode
 						}
 
 						// 3.c. If it's a space, do NOTHING
-						else if(c==SPACE){}
+						else if(c==SPACE || c==NEWLINE || c==TAB){}
 
 						// 3.d. For anything else, switch to Grab Attribute mode
 						else
