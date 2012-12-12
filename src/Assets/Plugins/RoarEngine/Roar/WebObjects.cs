@@ -939,6 +939,7 @@ namespace Roar.WebObjects
 		public class ListResponse
 		{
 			public List<DomainObjects.ShopEntry> shop_entries;
+
 		}
 
 		// Arguments to shop/buy

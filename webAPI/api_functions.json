@@ -222,7 +222,13 @@
         "name":"shop",
         "functions":
         [
-          { "name":"list", "obj":"null" },
+          {
+            "name":"list", "obj":"null",
+            "response":{
+              "members":[
+              { "name":"shop_entries", "type":"List<DomainObjects.ShopEntry>" }
+            ] }
+          },
           {
             "name":"buy",
             "arguments":[
