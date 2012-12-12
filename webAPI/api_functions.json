@@ -61,7 +61,15 @@
               "members":[]
             }
           },
-          { "name":"bind_signed" },
+          {
+            "name":"bind_signed",
+            "arguments":[
+              { "name":"signed_request", "type":"string" }
+            ],
+            "response":{
+              "members":[]
+            }
+          },
           {
             "name":"create_oauth",
             "arguments":

@@ -159,7 +159,6 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.BindSignedResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.BindSignedResponse retval = new Roar.WebObjects.Facebook.BindSignedResponse();
-				//TODO: Implement me
 				return retval;
 			}
 		}

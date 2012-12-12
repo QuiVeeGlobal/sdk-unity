@@ -191,10 +191,12 @@ namespace Roar.WebObjects
 		// Arguments to facebook/bind_signed
 		public class BindSignedArguments
 		{
+			public string signed_request;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["signed_request"] = signed_request;
 				return retval;
 			}
 		}
