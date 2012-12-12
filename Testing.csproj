@@ -57,6 +57,8 @@
     <Compile Include="tests\RequirementTests.cs" />
     <Compile Include="tests\CostTest.cs" />
     <Compile Include="tests\WebAPIFriendsTests.cs" />
+    <Compile Include="tests\XmlToInfoTests.cs" />
+    <Compile Include="tests\FacebookXmlTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

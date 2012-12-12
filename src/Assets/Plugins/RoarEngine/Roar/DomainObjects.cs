@@ -219,6 +219,27 @@ namespace Roar
 			public string player_id;
 		}
 
+		public class XPAttributes
+		{
+			public int value;
+			public int next_level;
+			public int level_start;
+		};
+		
+		public class Player
+		{
+			public string id;
+			public string name;
+			public int level;
+			public XPAttributes xp = new XPAttributes();
+			public Dictionary<string, PlayerAttribute> attributes = new Dictionary<string, PlayerAttribute>();
+		};
+
+		public class BulkPlayerInfo
+		{
+			public Dictionary<string, string> stats = new Dictionary<string, string>();
+			public Dictionary<string, string> properties = new Dictionary<string, string>();
+		};
 
 		public class LeaderboardExtraProperties
 		{
@@ -321,6 +342,48 @@ namespace Roar
 				kv.TryGetValue("max",out max);
 				kv.TryGetValue("regen_amount",out regen_amount);
 				kv.TryGetValue("regen_every",out regen_every);
+			}
+		}
+		
+		public class FacebookFriendInfo
+		{
+			public string fb_name;
+			public string fb_id;
+			public string name; //Only non-null if the player is a user in the current game
+			public string id; //Only non-null if the player is a user in the current game
+		}
+		
+		public class FacebookShopEntry
+		{
+			public string ikey;
+			public string description;
+			public string label;
+			public string price;
+			public string product_url;
+			public string image_url;
+			public IList<Modifier> modifiers;
+			
+			public static FacebookShopEntry CreateFromXml( IXMLNode n, Roar.DataConversion.IXCRMParser ixcrm_parser )
+			{
+				FacebookShopEntry retval = new FacebookShopEntry();
+				Dictionary<string,string> kv = n.Attributes.ToDictionary( v => v.Key, v => v.Value );
+				kv.TryGetValue("ikey",out retval.ikey);
+				kv.TryGetValue("description",out retval.description);
+				kv.TryGetValue("label",out retval.label);
+				kv.TryGetValue("price",out retval.price);
+				kv.TryGetValue("product_url",out retval.product_url);
+				kv.TryGetValue("image_url", out retval.image_url);
+				List<IXMLNode> modifier_nodes = n.GetNodeList("modifiers");
+				if( modifier_nodes.Count > 0 )
+				{
+					retval.modifiers = ixcrm_parser.ParseModifierList( modifier_nodes[0] );
+				}
+				else
+				{
+					retval.modifiers = new List<Modifier>();
+				}
+				
+				return retval;
 			}
 		}
 		

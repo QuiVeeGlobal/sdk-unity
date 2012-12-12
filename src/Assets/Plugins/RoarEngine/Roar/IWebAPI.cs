@@ -76,6 +76,7 @@ public abstract class IWebAPI
 
 	public interface IFacebookActions
 	{
+		void bind_oauth( Roar.WebObjects.Facebook.BindOauthArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.BindOauthResponse> cb);
 		void bind_signed( Roar.WebObjects.Facebook.BindSignedArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.BindSignedResponse> cb);
 		void create_oauth( Roar.WebObjects.Facebook.CreateOauthArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.CreateOauthResponse> cb);
 		void create_signed( Roar.WebObjects.Facebook.CreateSignedArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.CreateSignedResponse> cb);

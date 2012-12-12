@@ -144,13 +144,21 @@ namespace Roar.DataConversion.Responses
  	}
 	namespace Facebook
 	{
+		//Response from facebook/bind_oauth
+		public class BindOauth : IXmlToObject< Roar.WebObjects.Facebook.BindOauthResponse >
+		{
+			public Roar.WebObjects.Facebook.BindOauthResponse Build(IXMLNode n)
+			{
+				Roar.WebObjects.Facebook.BindOauthResponse retval = new Roar.WebObjects.Facebook.BindOauthResponse();
+				return retval;
+			}
+		}
 		//Response from facebook/bind_signed
 		public class BindSigned : IXmlToObject< Roar.WebObjects.Facebook.BindSignedResponse >
 		{
 			public Roar.WebObjects.Facebook.BindSignedResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.BindSignedResponse retval = new Roar.WebObjects.Facebook.BindSignedResponse();
-				//TODO: Implement me
 				return retval;
 			}
 		}
@@ -160,7 +168,8 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.CreateOauthResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.CreateOauthResponse retval = new Roar.WebObjects.Facebook.CreateOauthResponse();
-				//TODO: Implement me
+				retval.auth_token = n.GetNode("roar>0>facebook>0>create_oauth>0>auth_token>0").Text;
+				retval.player_id = n.GetNode("roar>0>facebook>0>create_oauth>0>player_id>0").Text;
 				return retval;
 			}
 		}
@@ -170,7 +179,8 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.CreateSignedResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.CreateSignedResponse retval = new Roar.WebObjects.Facebook.CreateSignedResponse();
-				//TODO: Implement me
+				retval.auth_token = n.GetNode("roar>0>facebook>0>create_signed>0>auth_token>0").Text;
+				retval.player_id = n.GetNode("roar>0>facebook>0>create_signed>0>player_id>0").Text;
 				return retval;
 			}
 		}
@@ -180,7 +190,7 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.FetchOauthTokenResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.FetchOauthTokenResponse retval = new Roar.WebObjects.Facebook.FetchOauthTokenResponse();
-				//TODO: Implement me
+				retval.oauth_token = n.GetNode("roar>0>facebook>0>fetch_oauth_token>0>oauth_token>0").Text;
 				return retval;
 			}
 		}
@@ -190,7 +200,18 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.FriendsResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.FriendsResponse retval = new Roar.WebObjects.Facebook.FriendsResponse();
-				//TODO: Implement me
+				retval.facebook_friends = new List<DomainObjects.FacebookFriendInfo>();
+				List<IXMLNode> friend_nodes = n.GetNodeList("roar>0>facebook>0>friends>0>friend");
+				foreach( IXMLNode friend_node in friend_nodes )
+				{
+					DomainObjects.FacebookFriendInfo f = new DomainObjects.FacebookFriendInfo();
+					Dictionary<string,string> kv = friend_node.Attributes.ToDictionary( v => v.Key, v => v.Value );
+					kv.TryGetValue("fb_name",out f.fb_name);
+					kv.TryGetValue("fb_id",out f.fb_id);
+					kv.TryGetValue("id",out f.id);
+					kv.TryGetValue("name",out f.name);
+					retval.facebook_friends.Add(f);
+				}	
 				return retval;
 			}
 		}
@@ -200,7 +221,8 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.LoginOauthResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.LoginOauthResponse retval = new Roar.WebObjects.Facebook.LoginOauthResponse();
-				//TODO: Implement me
+				retval.auth_token = n.GetNode("roar>0>facebook>0>login_oauth>0>auth_token>0").Text;
+				retval.player_id = n.GetNode("roar>0>facebook>0>login_oauth>0>player_id>0").Text;
 				return retval;
 			}
 		}
@@ -210,17 +232,30 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.LoginSignedResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.LoginSignedResponse retval = new Roar.WebObjects.Facebook.LoginSignedResponse();
-				//TODO: Implement me
+				retval.auth_token = n.GetNode("roar>0>facebook>0>login_signed>0>auth_token>0").Text;
+				retval.player_id = n.GetNode("roar>0>facebook>0>login_signed>0>player_id>0").Text;
 				return retval;
 			}
 		}
 		//Response from facebook/shop_list
 		public class ShopList : IXmlToObject< Roar.WebObjects.Facebook.ShopListResponse >
 		{
+			public IXCRMParser ixcrm_parser;
+			
+			public ShopList()
+			{
+				this.ixcrm_parser = new XCRMParser();
+			}
+			
 			public Roar.WebObjects.Facebook.ShopListResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.ShopListResponse retval = new Roar.WebObjects.Facebook.ShopListResponse();
-				//TODO: Implement me
+				retval.shop_list = new List<DomainObjects.FacebookShopEntry>();
+				List<IXMLNode> shop_item_nodes = n.GetNodeList("roar>0>facebook>0>shop_list>0>fbshopitem");
+				foreach( IXMLNode shop_item_node in shop_item_nodes )
+				{
+					retval.shop_list.Add( DomainObjects.FacebookShopEntry.CreateFromXml( shop_item_node, ixcrm_parser ) );
+				}
 				return retval;
 			}
 		}
@@ -417,7 +452,23 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Info.GetBulkPlayerInfoResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Info.GetBulkPlayerInfoResponse retval = new Roar.WebObjects.Info.GetBulkPlayerInfoResponse();
-				//TODO: Implement me
+				retval.players = new Dictionary<string, Roar.DomainObjects.BulkPlayerInfo>();
+				List<IXMLNode> player_nodes = n.GetNodeList("info>0>get_bulk_player_info>0>player_info");
+				foreach (IXMLNode pn in player_nodes)
+				{
+					Roar.DomainObjects.BulkPlayerInfo player = new Roar.DomainObjects.BulkPlayerInfo();
+					List<IXMLNode> stat_nodes = pn.GetNodeList("stats>0>stat");
+					foreach (IXMLNode stat_node in stat_nodes)
+					{
+						player.stats.Add(stat_node.GetAttribute("ikey"), stat_node.GetAttribute("value"));
+					}
+					List<IXMLNode> property_nodes = pn.GetNodeList("properties>0>property");
+					foreach (IXMLNode property_node in property_nodes)
+					{
+						player.properties.Add(property_node.GetAttribute("ikey"), property_node.GetAttribute("value"));
+					}
+					retval.players.Add(pn.GetAttribute("id"), player);
+				}
 				return retval;
 			}
 		}
@@ -427,7 +478,11 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Info.PingResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Info.PingResponse retval = new Roar.WebObjects.Info.PingResponse();
-				//TODO: Implement me
+				IXMLNode ping_node = n.GetNode("info>0>ping>0");
+				if (ping_node != null)
+				{
+					retval.text = ping_node.GetNode("text>0").Text;
+				}
 				return retval;
 			}
 		}
@@ -437,7 +492,33 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Info.UserResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Info.UserResponse retval = new Roar.WebObjects.Info.UserResponse();
-				//TODO: Implement me
+				retval.player = new Roar.DomainObjects.Player();
+				List<IXMLNode> attribute_nodes = n.GetNodeList("info>0>user>0>attribute");
+				foreach( IXMLNode nn in attribute_nodes )
+				{
+					switch (nn.GetAttribute("ikey"))
+					{
+					case "id":
+						retval.player.id = nn.GetAttribute("value");
+						break;
+					case "name":
+						retval.player.name = nn.GetAttribute("value");
+						break;
+					case "level":
+						System.Int32.TryParse(nn.GetAttribute("value"), out retval.player.level);
+						break;
+					case "xp":
+						System.Int32.TryParse(nn.GetAttribute("value"), out retval.player.xp.value);
+						System.Int32.TryParse(nn.GetAttribute("level_start"), out retval.player.xp.level_start);
+						System.Int32.TryParse(nn.GetAttribute("next_level"), out retval.player.xp.next_level);
+						break;
+					default:
+						Roar.DomainObjects.PlayerAttribute attr = new Roar.DomainObjects.PlayerAttribute();
+						attr.ParseXml(nn);
+						retval.player.attributes.Add(attr.ikey, attr);
+						break;
+					}
+				}
 				return retval;
 			}
 		}

@@ -169,13 +169,34 @@ namespace Roar.WebObjects
 	namespace Facebook
 	{
 
-		// Arguments to facebook/bind_signed
-		public class BindSignedArguments
+		// Arguments to facebook/bind_oauth
+		public class BindOauthArguments
 		{
+			public string oauth_token;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["oauth_token"] = oauth_token;
+				return retval;
+			}
+		}
+		
+		// Response from facebook/bind_oauth
+		public class BindOauthResponse
+		{
+
+		}
+
+		// Arguments to facebook/bind_signed
+		public class BindSignedArguments
+		{
+			public string signed_request;
+
+			public Hashtable ToHashtable()
+			{
+				Hashtable retval = new Hashtable();
+				retval["signed_request"] = signed_request;
 				return retval;
 			}
 		}
@@ -204,16 +225,22 @@ namespace Roar.WebObjects
 		// Response from facebook/create_oauth
 		public class CreateOauthResponse
 		{
+			public string auth_token;
+			public string player_id;
 
 		}
 
 		// Arguments to facebook/create_signed
 		public class CreateSignedArguments
 		{
+			public string signed_request;
+			public string name;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["signed_request"] = signed_request;
+				retval["name"] = name;
 				return retval;
 			}
 		}
@@ -221,16 +248,20 @@ namespace Roar.WebObjects
 		// Response from facebook/create_signed
 		public class CreateSignedResponse
 		{
+			public string auth_token;
+			public string player_id;
 
 		}
 
 		// Arguments to facebook/fetch_oauth_token
 		public class FetchOauthTokenArguments
 		{
+			public string code;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["code"] = code;
 				return retval;
 			}
 		}
@@ -238,6 +269,7 @@ namespace Roar.WebObjects
 		// Response from facebook/fetch_oauth_token
 		public class FetchOauthTokenResponse
 		{
+			public string oauth_token;
 
 		}
 
@@ -255,6 +287,7 @@ namespace Roar.WebObjects
 		// Response from facebook/friends
 		public class FriendsResponse
 		{
+			public List<DomainObjects.FacebookFriendInfo> facebook_friends;
 
 		}
 
@@ -274,16 +307,20 @@ namespace Roar.WebObjects
 		// Response from facebook/login_oauth
 		public class LoginOauthResponse
 		{
+			public string auth_token;
+			public string player_id;
 
 		}
 
 		// Arguments to facebook/login_signed
 		public class LoginSignedArguments
 		{
+			public string signed_request;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["signed_request"] = signed_request;
 				return retval;
 			}
 		}
@@ -291,6 +328,8 @@ namespace Roar.WebObjects
 		// Response from facebook/login_signed
 		public class LoginSignedResponse
 		{
+			public string auth_token;
+			public string player_id;
 
 		}
 
@@ -308,6 +347,7 @@ namespace Roar.WebObjects
 		// Response from facebook/shop_list
 		public class ShopListResponse
 		{
+			public List<DomainObjects.FacebookShopEntry> shop_list;
 
 		}
 
@@ -589,10 +629,18 @@ namespace Roar.WebObjects
 		// Arguments to info/get_bulk_player_info
 		public class GetBulkPlayerInfoArguments
 		{
+			public string admin_token;
+			public string player_ids; // This type is not dev-friendly 
+			public string stats; // This type is not dev-friendly 
+			public string properties; // This type is not dev-friendly 
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["admin_token"] = admin_token;
+				retval["player_ids"] = player_ids;
+				retval["stats"] = stats;
+				retval["properties"] = properties;
 				return retval;
 			}
 		}
@@ -600,6 +648,7 @@ namespace Roar.WebObjects
 		// Response from info/get_bulk_player_info
 		public class GetBulkPlayerInfoResponse
 		{
+			public Dictionary<string, Roar.DomainObjects.BulkPlayerInfo> players;
 
 		}
 
@@ -617,16 +666,19 @@ namespace Roar.WebObjects
 		// Response from info/ping
 		public class PingResponse
 		{
+			public string text;
 
 		}
 
 		// Arguments to info/user
 		public class UserArguments
 		{
+			public string id;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["id"] = id;
 				return retval;
 			}
 		}
@@ -634,6 +686,7 @@ namespace Roar.WebObjects
 		// Response from info/user
 		public class UserResponse
 		{
+			public Roar.DomainObjects.Player player;
 
 		}
 
@@ -939,6 +992,7 @@ namespace Roar.WebObjects
 		public class ListResponse
 		{
 			public List<DomainObjects.ShopEntry> shop_entries;
+
 		}
 
 		// Arguments to shop/buy
