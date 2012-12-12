@@ -221,7 +221,8 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.LoginSignedResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.LoginSignedResponse retval = new Roar.WebObjects.Facebook.LoginSignedResponse();
-				//TODO: Implement me
+				retval.auth_token = n.GetNode("roar>0>facebook>0>login_signed>0>auth_token>0").Text;
+				retval.player_id = n.GetNode("roar>0>facebook>0>login_signed>0>player_id>0").Text;
 				return retval;
 			}
 		}

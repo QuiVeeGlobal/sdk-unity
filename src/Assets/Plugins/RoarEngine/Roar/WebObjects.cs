@@ -314,10 +314,12 @@ namespace Roar.WebObjects
 		// Arguments to facebook/login_signed
 		public class LoginSignedArguments
 		{
+			public string signed_request;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["signed_request"] = signed_request;
 				return retval;
 			}
 		}
@@ -325,6 +327,8 @@ namespace Roar.WebObjects
 		// Response from facebook/login_signed
 		public class LoginSignedResponse
 		{
+			public string auth_token;
+			public string player_id;
 
 		}
 

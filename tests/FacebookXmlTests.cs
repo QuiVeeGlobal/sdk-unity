@@ -136,6 +136,29 @@ namespace Testing
 			Assert.AreEqual( "1231231", response.player_id );
 		}
 		
+		[Test()]
+		public void TestParseFacebookLoginSignedResponse()
+		{
+			string xml =
+			@"<roar tick=""127055503865""> 
+				<facebook> 
+					<login_signed status=""ok""> 
+						<auth_token>2144869762</auth_token>
+						<player_id>1231231</player_id>
+					</login_signed> 
+				</facebook> 
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Assert.IsNotNull( nn );
+
+			Roar.WebObjects.Facebook.LoginSignedResponse response = (new Roar.DataConversion.Responses.Facebook.LoginSigned()).Build(nn);
+			
+			Assert.IsNotNull( response );
+			Assert.AreEqual( "2144869762", response.auth_token );
+			Assert.AreEqual( "1231231", response.player_id );
+		}
+		
 	}
 }
 

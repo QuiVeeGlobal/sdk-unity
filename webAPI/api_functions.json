@@ -120,7 +120,18 @@
                 {"name":"player_id", "type":"string"}
             ] }
           },
-          { "name":"login_signed" },
+          {
+            "name":"login_signed",
+            "arguments":
+            [
+              { "name":"signed_request", "type":"string" }
+            ],
+            "response":{
+              "members":[
+                {"name":"auth_token", "type":"string"},
+                {"name":"player_id", "type":"string"}
+            ] }
+          },
           { "name":"shop_list" }
        ]
      },
