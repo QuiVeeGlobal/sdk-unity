@@ -256,10 +256,12 @@ namespace Roar.WebObjects
 		// Arguments to facebook/fetch_oauth_token
 		public class FetchOauthTokenArguments
 		{
+			public string code;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["code"] = code;
 				return retval;
 			}
 		}
@@ -267,6 +269,7 @@ namespace Roar.WebObjects
 		// Response from facebook/fetch_oauth_token
 		public class FetchOauthTokenResponse
 		{
+			public string oauth_token;
 
 		}
 

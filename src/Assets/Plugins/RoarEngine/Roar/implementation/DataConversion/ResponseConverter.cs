@@ -190,7 +190,7 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.FetchOauthTokenResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.FetchOauthTokenResponse retval = new Roar.WebObjects.Facebook.FetchOauthTokenResponse();
-				//TODO: Implement me
+				retval.oauth_token = n.GetNode("roar>0>facebook>0>fetch_oauth_token>0>oauth_token>0").Text;
 				return retval;
 			}
 		}

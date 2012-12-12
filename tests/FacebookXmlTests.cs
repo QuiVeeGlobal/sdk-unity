@@ -92,6 +92,27 @@ namespace Testing
 			
 		}
 		
+		[Test()]
+		public void TestParseFacebookFetchOauthTokenResponse()
+		{
+			string xml =
+			@"<roar tick=""127455369786"">
+				<facebook>
+					<fetch_oauth_token status=""ok"">
+						<oauth_token>104271466587092|1.mYu275YylcGHf6vC ... hxrk63ouytUiBdBc</oauth_token>
+					</fetch_oauth_token>
+				</facebook>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Assert.IsNotNull( nn );
+
+			Roar.WebObjects.Facebook.FetchOauthTokenResponse response = (new Roar.DataConversion.Responses.Facebook.FetchOauthToken()).Build(nn);
+			
+			Assert.IsNotNull( response );
+			Assert.AreEqual( "104271466587092|1.mYu275YylcGHf6vC ... hxrk63ouytUiBdBc", response.oauth_token );
+		}
+		
 	}
 }
 

@@ -96,7 +96,17 @@
                 {"name":"player_id", "type":"string"}
             ] }
           },
-          { "name":"fetch_oauth_token" },
+          {
+            "name":"fetch_oauth_token",
+            "arguments":
+            [
+              { "name":"code", "type":"string" }
+            ],
+            "response":{
+              "members":[
+                {"name":"oauth_token", "type":"string"}
+            ] }
+          },
           { "name":"friends" },
           {
             "name":"login_oauth",
