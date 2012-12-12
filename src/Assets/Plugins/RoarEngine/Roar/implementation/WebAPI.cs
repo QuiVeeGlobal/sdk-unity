@@ -214,6 +214,7 @@ public class WebAPI : IWebAPI
 
 	public class FacebookActions : APIBridge, IFacebookActions
 	{
+		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Facebook.BindOauthResponse> bind_oauth_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Facebook.BindSignedResponse> bind_signed_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Facebook.CreateOauthResponse> create_oauth_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Facebook.CreateSignedResponse> create_signed_response_parser;
@@ -225,6 +226,7 @@ public class WebAPI : IWebAPI
 
 		public FacebookActions (IRequestSender caller) : base(caller)
 		{
+			bind_oauth_response_parser = new Roar.DataConversion.Responses.Facebook.BindOauth();
 			bind_signed_response_parser = new Roar.DataConversion.Responses.Facebook.BindSigned();
 			create_oauth_response_parser = new Roar.DataConversion.Responses.Facebook.CreateOauth();
 			create_signed_response_parser = new Roar.DataConversion.Responses.Facebook.CreateSigned();
@@ -234,6 +236,11 @@ public class WebAPI : IWebAPI
 			login_signed_response_parser = new Roar.DataConversion.Responses.Facebook.LoginSigned();
 			shop_list_response_parser = new Roar.DataConversion.Responses.Facebook.ShopList();
 
+		}
+
+		public void bind_oauth( Roar.WebObjects.Facebook.BindOauthArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.BindOauthResponse> cb)
+		{
+			api.MakeCall ("facebook/bind_oauth", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Facebook.BindOauthResponse>(cb, bind_oauth_response_parser));
 		}
 
 		public void bind_signed( Roar.WebObjects.Facebook.BindSignedArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.BindSignedResponse> cb)

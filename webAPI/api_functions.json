@@ -52,6 +52,15 @@
        "name":"facebook",
        "functions":
        [
+          {
+            "name":"bind_oauth",
+            "arguments":[
+              { "name":"oauth_token", "type":"string" }
+            ],
+            "response":{
+              "members":[]
+            }
+          },
           { "name":"bind_signed" },
           {
             "name":"create_oauth",

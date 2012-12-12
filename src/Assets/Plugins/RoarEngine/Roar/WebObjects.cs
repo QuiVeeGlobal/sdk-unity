@@ -169,6 +169,25 @@ namespace Roar.WebObjects
 	namespace Facebook
 	{
 
+		// Arguments to facebook/bind_oauth
+		public class BindOauthArguments
+		{
+			public string oauth_token;
+
+			public Hashtable ToHashtable()
+			{
+				Hashtable retval = new Hashtable();
+				retval["oauth_token"] = oauth_token;
+				return retval;
+			}
+		}
+		
+		// Response from facebook/bind_oauth
+		public class BindOauthResponse
+		{
+
+		}
+
 		// Arguments to facebook/bind_signed
 		public class BindSignedArguments
 		{

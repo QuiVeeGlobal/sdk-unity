@@ -128,6 +128,16 @@ namespace Roar.DataConversion.Responses
  	}
 	namespace Facebook
 	{
+		//Response from facebook/bind_oauth
+		public class BindOauth : IXmlToObject< Roar.WebObjects.Facebook.BindOauthResponse >
+		{
+			public Roar.WebObjects.Facebook.BindOauthResponse Build(IXMLNode n)
+			{
+				Roar.WebObjects.Facebook.BindOauthResponse retval = new Roar.WebObjects.Facebook.BindOauthResponse();
+				//TODO: Implement me
+				return retval;
+			}
+		}
 		//Response from facebook/bind_signed
 		public class BindSigned : IXmlToObject< Roar.WebObjects.Facebook.BindSignedResponse >
 		{
