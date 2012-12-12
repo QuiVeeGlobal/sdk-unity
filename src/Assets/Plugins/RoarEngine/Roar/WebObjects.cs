@@ -225,6 +225,8 @@ namespace Roar.WebObjects
 		// Response from facebook/create_oauth
 		public class CreateOauthResponse
 		{
+			public string auth_token;
+			public string player_id;
 
 		}
 

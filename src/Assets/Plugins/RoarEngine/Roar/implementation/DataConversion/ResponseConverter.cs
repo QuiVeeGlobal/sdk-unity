@@ -168,7 +168,8 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.CreateOauthResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.CreateOauthResponse retval = new Roar.WebObjects.Facebook.CreateOauthResponse();
-				//TODO: Implement me
+				retval.auth_token = n.GetNode("roar>0>facebook>0>create_oauth>0>auth_token>0").Text;
+				retval.player_id = n.GetNode("roar>0>facebook>0>create_oauth>0>player_id>0").Text;
 				return retval;
 			}
 		}

@@ -76,7 +76,12 @@
             [
               { "name":"oauth_token", "type":"string" },
               { "name":"name", "type":"string" }
-            ]
+            ],
+            "response":{
+              "members":[
+                {"name":"auth_token", "type":"string"},
+                {"name":"player_id", "type":"string"}
+            ] }
           },
           { "name":"create_signed" },
           { "name":"fetch_oauth_token" },

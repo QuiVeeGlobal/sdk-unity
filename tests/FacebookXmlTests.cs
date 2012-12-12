@@ -42,6 +42,30 @@ namespace Testing
 			
 		}
 		
+		[Test()]
+		public void TestParseFacebookCreateOautResponse()
+		{
+			string xml =
+			@"<roar tick=""135510457230"">
+				<facebook>
+					<create_oauth>
+						<player_id>ABCDE</player_id>
+						<auth_token>PQRS</auth_token>
+					</create_oauth>
+				</facebook>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Assert.IsNotNull( nn );
+
+			Roar.WebObjects.Facebook.CreateOauthResponse response = (new Roar.DataConversion.Responses.Facebook.CreateOauth()).Build(nn);
+			
+			Assert.IsNotNull( response );
+			Assert.AreEqual( "ABCDE", response.player_id );
+			Assert.AreEqual( "PQRS", response.auth_token );
+			
+			
+		}
 		
 	}
 }
