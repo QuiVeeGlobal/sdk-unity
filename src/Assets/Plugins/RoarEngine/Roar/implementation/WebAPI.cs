@@ -596,16 +596,23 @@ public class WebAPI : IWebAPI
 	public class ScriptsActions : APIBridge, IScriptsActions
 	{
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Scripts.RunResponse> run_response_parser;
+		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Scripts.RunAdminResponse> run_admin_response_parser;
 
 		public ScriptsActions (IRequestSender caller) : base(caller)
 		{
 			run_response_parser = new Roar.DataConversion.Responses.Scripts.Run();
+			run_admin_response_parser = new Roar.DataConversion.Responses.Scripts.RunAdmin();
 
 		}
 
 		public void run( Roar.WebObjects.Scripts.RunArguments args, ZWebAPI.Callback<Roar.WebObjects.Scripts.RunResponse> cb)
 		{
 			api.MakeCall ("scripts/run", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Scripts.RunResponse>(cb, run_response_parser));
+		}
+
+		public void run_admin( Roar.WebObjects.Scripts.RunAdminArguments args, ZWebAPI.Callback<Roar.WebObjects.Scripts.RunAdminResponse> cb)
+		{
+			api.MakeCall ("scripts/run_admin", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Scripts.RunAdminResponse>(cb, run_admin_response_parser));
 		}
 
 	}

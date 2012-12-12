@@ -436,6 +436,12 @@ namespace Roar
 			}
 		}
 		
+		public class ScriptRunResult
+		{
+			public IXMLNode resultNode;	
+			
+		}
+		
 
 
 	}

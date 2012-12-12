@@ -152,6 +152,7 @@ public abstract class IWebAPI
 	public interface IScriptsActions
 	{
 		void run( Roar.WebObjects.Scripts.RunArguments args, ZWebAPI.Callback<Roar.WebObjects.Scripts.RunResponse> cb);
+		void run_admin( Roar.WebObjects.Scripts.RunAdminArguments args, ZWebAPI.Callback<Roar.WebObjects.Scripts.RunAdminResponse> cb);
 	}
 
 	public interface ITasksActions

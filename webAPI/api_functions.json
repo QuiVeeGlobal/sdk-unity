@@ -369,7 +369,29 @@
         "name":"scripts",
         "functions":
         [
-          { "name":"run" }
+          { 
+            "name":"run",
+            "arguments":[
+              {"name":"script","type":"string"},
+              {"name":"args","type":"string"}
+            ],
+            "response":{
+              "members":[
+              { "name":"result", "type":"DomainObjects.ScriptRunResult" }
+            ] }
+          },
+          { 
+            "name":"run_admin",
+            "arguments":[
+              {"name":"admin_token","type":"string"},
+              {"name":"script","type":"string"},
+              {"name":"args","type":"string"}
+            ],
+              "response":{
+              "members":[
+              { "name":"result", "type":"DomainObjects.ScriptRunResult" }
+            ] }
+          }
         ]
      },
      {

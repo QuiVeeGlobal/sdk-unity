@@ -600,6 +600,16 @@ namespace Roar.DataConversion.Responses
 				return retval;
 			}
 		}
+		//Response from scripts/run_admin
+		public class RunAdmin : IXmlToObject< Roar.WebObjects.Scripts.RunAdminResponse >
+		{
+			public Roar.WebObjects.Scripts.RunAdminResponse Build(IXMLNode n)
+			{
+				Roar.WebObjects.Scripts.RunAdminResponse retval = new Roar.WebObjects.Scripts.RunAdminResponse();
+				//TODO: Implement me
+				return retval;
+			}
+		}
 
  	}
 	namespace Tasks

@@ -1048,10 +1048,14 @@ namespace Roar.WebObjects
 		// Arguments to scripts/run
 		public class RunArguments
 		{
+			public string script;
+			public string args;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["script"] = script;
+				retval["args"] = args;
 				return retval;
 			}
 		}
@@ -1059,6 +1063,31 @@ namespace Roar.WebObjects
 		// Response from scripts/run
 		public class RunResponse
 		{
+			public DomainObjects.ScriptRunResult result;
+
+		}
+
+		// Arguments to scripts/run_admin
+		public class RunAdminArguments
+		{
+			public string admin_token;
+			public string script;
+			public string args;
+
+			public Hashtable ToHashtable()
+			{
+				Hashtable retval = new Hashtable();
+				retval["admin_token"] = admin_token;
+				retval["script"] = script;
+				retval["args"] = args;
+				return retval;
+			}
+		}
+		
+		// Response from scripts/run_admin
+		public class RunAdminResponse
+		{
+			public DomainObjects.ScriptRunResult result;
 
 		}
 

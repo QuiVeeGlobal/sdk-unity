@@ -932,7 +932,6 @@ namespace Roar.DataConversion.Responses
 				return retval;
 			}
 		}
-
  	}
 	namespace Tasks
 	{
