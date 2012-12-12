@@ -200,7 +200,18 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.FriendsResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.FriendsResponse retval = new Roar.WebObjects.Facebook.FriendsResponse();
-				//TODO: Implement me
+				retval.facebook_friends = new List<DomainObjects.FacebookFriendInfo>();
+				List<IXMLNode> friend_nodes = n.GetNodeList("roar>0>facebook>0>friends>0>friend");
+				foreach( IXMLNode friend_node in friend_nodes )
+				{
+					DomainObjects.FacebookFriendInfo f = new DomainObjects.FacebookFriendInfo();
+					Dictionary<string,string> kv = friend_node.Attributes.ToDictionary( v => v.Key, v => v.Value );
+					kv.TryGetValue("fb_name",out f.fb_name);
+					kv.TryGetValue("fb_id",out f.fb_id);
+					kv.TryGetValue("id",out f.id);
+					kv.TryGetValue("name",out f.name);
+					retval.facebook_friends.Add(f);
+				}	
 				return retval;
 			}
 		}

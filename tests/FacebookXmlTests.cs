@@ -159,6 +159,46 @@ namespace Testing
 			Assert.AreEqual( "1231231", response.player_id );
 		}
 		
+		[Test()]
+		public void TestParseFacebookFriendsResponse()
+		{
+			string xml =
+			@"<roar tick=""128888053531"">
+				<facebook>
+					<friends status=""ok"">
+						<!-- ""Mashton"" is already playing this game and has an 'id' we can use -->
+						<friend fb_name=""Mashton Groober"" fb_id=""51151277315"" name=""Mashton"" id=""7877788777""/>
+						<!-- These other two friends are not playing this game (no 'id') -->
+						<friend fb_name=""Jumpy Maxton"" fb_id=""529465555""/>
+						<friend fb_name=""Ami Jones"" fb_id=""523055555""/>
+					</friends>
+				</facebook>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Assert.IsNotNull( nn );
+
+			Roar.WebObjects.Facebook.FriendsResponse response = (new Roar.DataConversion.Responses.Facebook.Friends()).Build(nn);
+			
+			Assert.IsNotNull( response );
+			Assert.AreEqual( 3, response.facebook_friends.Count );
+			Assert.AreEqual( "Mashton Groober", response.facebook_friends[0].fb_name );
+			Assert.AreEqual( "51151277315",     response.facebook_friends[0].fb_id );
+			Assert.AreEqual( "Mashton",         response.facebook_friends[0].name );
+			Assert.AreEqual( "7877788777",      response.facebook_friends[0].id );
+			
+			Assert.AreEqual( "Jumpy Maxton", response.facebook_friends[1].fb_name );
+			Assert.AreEqual( "529465555",     response.facebook_friends[1].fb_id );
+			Assert.IsNull( response.facebook_friends[1].name );
+			Assert.IsNull( response.facebook_friends[1].id );
+			
+			Assert.AreEqual( "Ami Jones", response.facebook_friends[2].fb_name );
+			Assert.AreEqual( "523055555",     response.facebook_friends[2].fb_id );
+			Assert.IsNull( response.facebook_friends[2].name );
+			Assert.IsNull( response.facebook_friends[2].id );
+			
+		}
+		
 	}
 }
 

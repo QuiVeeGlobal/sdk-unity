@@ -107,7 +107,14 @@
                 {"name":"oauth_token", "type":"string"}
             ] }
           },
-          { "name":"friends" },
+          {
+            "name":"friends",
+            "arguments": [],
+            "response":{
+              "members":[
+                {"name":"facebook_friends", "type":"List<DomainObjects.FacebookFriendInfo>"}
+            ] }
+          },
           {
             "name":"login_oauth",
             "arguments":

@@ -287,6 +287,7 @@ namespace Roar.WebObjects
 		// Response from facebook/friends
 		public class FriendsResponse
 		{
+			public List<DomainObjects.FacebookFriendInfo> facebook_friends;
 
 		}
 

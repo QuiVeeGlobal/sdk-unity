@@ -345,6 +345,14 @@ namespace Roar
 			}
 		}
 		
+		public class FacebookFriendInfo
+		{
+			public string fb_name;
+			public string fb_id;
+			public string name; //Only non-null if the player is a user in the current game
+			public string id; //Only non-null if the player is a user in the current game
+		}
+		
 
 
 	}
