@@ -83,7 +83,19 @@
                 {"name":"player_id", "type":"string"}
             ] }
           },
-          { "name":"create_signed" },
+          {
+            "name":"create_signed",
+            "arguments":
+            [
+              { "name":"signed_request", "type":"string" },
+              { "name":"name", "type":"string" }
+            ],
+            "response":{
+              "members":[
+                {"name":"auth_token", "type":"string"},
+                {"name":"player_id", "type":"string"}
+            ] }
+          },
           { "name":"fetch_oauth_token" },
           { "name":"friends" },
           {

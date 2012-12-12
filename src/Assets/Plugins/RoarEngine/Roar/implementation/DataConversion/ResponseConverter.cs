@@ -179,7 +179,8 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Facebook.CreateSignedResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Facebook.CreateSignedResponse retval = new Roar.WebObjects.Facebook.CreateSignedResponse();
-				//TODO: Implement me
+				retval.auth_token = n.GetNode("roar>0>facebook>0>create_signed>0>auth_token>0").Text;
+				retval.player_id = n.GetNode("roar>0>facebook>0>create_signed>0>player_id>0").Text;
 				return retval;
 			}
 		}

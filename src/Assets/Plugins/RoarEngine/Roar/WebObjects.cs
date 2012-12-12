@@ -233,10 +233,14 @@ namespace Roar.WebObjects
 		// Arguments to facebook/create_signed
 		public class CreateSignedArguments
 		{
+			public string signed_request;
+			public string name;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["signed_request"] = signed_request;
+				retval["name"] = name;
 				return retval;
 			}
 		}
@@ -244,6 +248,8 @@ namespace Roar.WebObjects
 		// Response from facebook/create_signed
 		public class CreateSignedResponse
 		{
+			public string auth_token;
+			public string player_id;
 
 		}
 

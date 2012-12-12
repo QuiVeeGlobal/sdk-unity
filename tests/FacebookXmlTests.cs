@@ -67,6 +67,31 @@ namespace Testing
 			
 		}
 		
+		[Test()]
+		public void TestParseFacebookCreateSignedResponse()
+		{
+			string xml =
+			@"<roar tick=""135510457230"">
+				<facebook>
+					<create_signed>
+						<player_id>ABCDE</player_id>
+						<auth_token>PQRS</auth_token>
+					</create_signed>
+				</facebook>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Assert.IsNotNull( nn );
+
+			Roar.WebObjects.Facebook.CreateSignedResponse response = (new Roar.DataConversion.Responses.Facebook.CreateSigned()).Build(nn);
+			
+			Assert.IsNotNull( response );
+			Assert.AreEqual( "ABCDE", response.player_id );
+			Assert.AreEqual( "PQRS", response.auth_token );
+			
+			
+		}
+		
 	}
 }
 
