@@ -45,11 +45,11 @@ public class ShopListToShopEntry : IDomToCache<Roar.WebObjects.Shop.ListResponse
 	}
 }
 
-public class LeaderboardListToLeaderboard : IDomToCache<Roar.WebObjects.Leaderboards.ListResponse,Roar.DomainObjects.Leaderboard>
+public class LeaderboardListToLeaderboard : IDomToCache<Roar.WebObjects.Leaderboards.ListResponse,Roar.DomainObjects.LeaderboardData>
 {
-	public Dictionary<string, Roar.DomainObjects.Leaderboard> convert( Roar.WebObjects.Leaderboards.ListResponse d)
+	public Dictionary<string, Roar.DomainObjects.LeaderboardData> convert( Roar.WebObjects.Leaderboards.ListResponse d)
 	{
-		Dictionary<string,Roar.DomainObjects.Leaderboard> retval = new Dictionary<string, Roar.DomainObjects.Leaderboard>();
+		Dictionary<string,Roar.DomainObjects.LeaderboardData> retval = new Dictionary<string, Roar.DomainObjects.LeaderboardData>();
 		//TODO: Implement this
 		return retval;
 	}
@@ -172,7 +172,7 @@ namespace Roar.implementation
 		IDataModel<Foo,Foo> actions { get; }
 		IDataModel<Foo,Foo> gifts { get; }
 		IDataModel<Foo,Foo> achievements { get; }
-		IDataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse> leaderboards { get; }
+		IDataModel<DomainObjects.LeaderboardData,WebObjects.Leaderboards.ListResponse> leaderboards { get; }
 		IDataModel<Foo,Foo> ranking { get; }
 		IDataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends { get; }
 		IDataModel<Foo,Foo> appStore { get; }
@@ -192,7 +192,7 @@ namespace Roar.implementation
 			actions_ = new DataModel<Foo,Foo> ("tasks", new FooGetter(webapi), new FooToFoo(), logger);
 			gifts_ = new DataModel<Foo,Foo> ("gifts", new FooGetter(webapi), new FooToFoo(), logger);
 			achievements_ = new DataModel<Foo,Foo> ("achievements", new FooGetter(webapi), new FooToFoo(), logger);
-			leaderboards_ = new DataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse>( "leaderboards", new LeaderboardListGetter(webapi), new LeaderboardListToLeaderboard(), logger);
+			leaderboards_ = new DataModel<DomainObjects.LeaderboardData,WebObjects.Leaderboards.ListResponse>( "leaderboards", new LeaderboardListGetter(webapi), new LeaderboardListToLeaderboard(), logger);
 			ranking_ = new DataModel<Foo,Foo> ("ranking", new FooGetter(webapi), new FooToFoo(), logger);
 			friends_ = new DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> ("friends",  new FriendsListGetter(webapi), new FriendsListToFriend(), logger);
 			cache_ = new ItemCache ("cache", new ItemsViewGetter(webapi), new ItemsViewToItemPrototype(), logger);
@@ -222,7 +222,7 @@ namespace Roar.implementation
 		public IDataModel<Foo,Foo> actions { get { return actions_; } }
 		public IDataModel<Foo,Foo> gifts { get { return gifts_; } }
 		public IDataModel<Foo,Foo> achievements { get { return achievements_; } }
-		public IDataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse> leaderboards { get { return leaderboards_; } }
+		public IDataModel<DomainObjects.LeaderboardData,WebObjects.Leaderboards.ListResponse> leaderboards { get { return leaderboards_; } }
 		public IDataModel<Foo,Foo> ranking { get { return ranking_; } }
 		public IDataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends { get { return friends_; } }
 		public IDataModel<Foo,Foo> appStore { get { return appStore_; } }
@@ -234,7 +234,7 @@ namespace Roar.implementation
 		public DataModel<Foo,Foo> actions_;
 		public DataModel<Foo,Foo> gifts_;
 		public DataModel<Foo,Foo> achievements_;
-		public DataModel<DomainObjects.Leaderboard,WebObjects.Leaderboards.ListResponse> leaderboards_;
+		public DataModel<DomainObjects.LeaderboardData,WebObjects.Leaderboards.ListResponse> leaderboards_;
 		public DataModel<Foo,Foo> ranking_;
 		public DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends_;
 		public DataModel<Foo,Foo> appStore_;

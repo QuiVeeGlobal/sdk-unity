@@ -877,16 +877,39 @@ namespace Roar.WebObjects
 		// Response from leaderboards/list
 		public class ListResponse
 		{
+			public List<DomainObjects.LeaderboardInfo> boards;
 
 		}
 
 		// Arguments to leaderboards/view
 		public class ViewArguments
 		{
+			public string board_id;
+			public int? num_results;
+			public int? offset;
+			public int? page;
+			public string player_id;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["board_id"] = board_id;
+				if( num_results!=null )
+				{
+				retval["num_results"] = Convert.ToString(num_results.Value);
+				}
+				if( offset!=null )
+				{
+				retval["offset"] = Convert.ToString(offset.Value);
+				}
+				if( page!=null )
+				{
+				retval["page"] = Convert.ToString(page.Value);
+				}
+				if( player_id!=null )
+				{
+				retval["player_id"] = player_id;
+				}
 				return retval;
 			}
 		}
@@ -894,6 +917,7 @@ namespace Roar.WebObjects
 		// Response from leaderboards/view
 		public class ViewResponse
 		{
+			public DomainObjects.LeaderboardData leaderboard_data;
 
 		}
 

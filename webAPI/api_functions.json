@@ -308,8 +308,28 @@
         "name":"leaderboards",
         "functions":
         [
-          { "name":"list" },
-          { "name":"view" }
+          {
+            "name":"list",
+            "arguments":[],
+            "response":{
+              "members":[
+              { "name":"boards", "type":"List<DomainObjects.LeaderboardInfo>" }
+            ] }
+          },
+          {
+            "name":"view",
+            "arguments":[
+              { "name":"board_id", "type":"string" },
+              { "name":"num_results", "type":"int", "optional":true },
+              { "name":"offset", "type":"int", "optional":true },
+              { "name":"page", "type":"int", "optional":true },
+              { "name":"player_id", "type":"string", "optional":true }
+            ],
+            "response":{
+              "members":[
+              { "name":"leaderboard_data", "type":"DomainObjects.LeaderboardData" }
+            ] }
+          }
         ]
      },
      {

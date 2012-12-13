@@ -269,6 +269,25 @@ namespace Roar
 			public Dictionary<string, string> properties = new Dictionary<string, string>();
 		};
 
+		public class LeaderboardInfo
+		{
+			public string board_id;
+			public string ikey;
+			public string resource_id;
+			public string label;
+			
+			public static LeaderboardInfo CreateFromXml( IXMLNode n )
+			{
+				LeaderboardInfo retval = new LeaderboardInfo();
+				Dictionary<string,string> kv = n.Attributes.ToDictionary( v => v.Key, v => v.Value );
+				kv.TryGetValue("ikey",out retval.ikey);
+				kv.TryGetValue("board_id",out retval.board_id);
+				kv.TryGetValue("label",out retval.label);
+				kv.TryGetValue("resource_id",out retval.resource_id);
+				return retval;
+			}
+		}
+
 		public class LeaderboardExtraProperties
 		{
 			public string ikey;
@@ -310,7 +329,7 @@ namespace Roar
 		 * </leaderboards>
 		 */
 
-		public class Leaderboard
+		public class LeaderboardData
 		{
 			public string board_id;
 			public string id;

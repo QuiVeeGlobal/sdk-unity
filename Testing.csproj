@@ -60,6 +60,7 @@
     <Compile Include="tests\XmlToInfoTests.cs" />
     <Compile Include="tests\FacebookXmlTests.cs" />
     <Compile Include="tests\XMLToShopTest.cs" />
+    <Compile Include="tests\LeaderboardXmlTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

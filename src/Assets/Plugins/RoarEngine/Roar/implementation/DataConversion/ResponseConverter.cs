@@ -626,7 +626,13 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Leaderboards.ListResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Leaderboards.ListResponse retval = new Roar.WebObjects.Leaderboards.ListResponse();
-				//TODO: Implement me
+				retval.boards = new List<DomainObjects.LeaderboardInfo>();
+				
+				List<IXMLNode> board_nodes = n.GetNodeList("roar>0>leaderboards>0>list>0>board");
+				foreach( IXMLNode nn in board_nodes )
+				{
+					retval.boards.Add( Roar.DomainObjects.LeaderboardInfo.CreateFromXml(nn) );
+				}
 				return retval;
 			}
 		}
@@ -636,9 +642,139 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Leaderboards.ViewResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Leaderboards.ViewResponse retval = new Roar.WebObjects.Leaderboards.ViewResponse();
+				IXMLNode nn = n.GetNode("roar>0>leaderboards>0>view>0>ranking>0");
+				retval.leaderboard_data = BuildLeaderboardData(nn);
 				//TODO: Implement me
 				return retval;
 			}
+			
+			
+			public DomainObjects.LeaderboardData BuildLeaderboardData( IXMLNode n )
+			{
+			DomainObjects.LeaderboardData retval = new DomainObjects.LeaderboardData();
+
+			IEnumerable<KeyValuePair<string,string>> attributes = n.Attributes;
+			foreach (KeyValuePair<string,string> kv in attributes)
+			{
+				if (kv.Key == "ikey")
+				{
+					retval.ikey = kv.Value;
+				}
+				else if (kv.Key == "board_id")
+				{
+					retval.id = kv.Value;
+				}
+				else if (kv.Key == "resource_id")
+				{
+					retval.resource_id = kv.Value;
+				}
+				else if (kv.Key == "label")
+				{
+					retval.label = kv.Value;
+				}
+				else if ((kv.Key == "offset") || (kv.Key=="offest") ) //Work around typo in the generated XML
+				{
+					retval.offset = System.Int32.Parse(kv.Value);
+				}
+				else if (kv.Key == "num_results")
+				{
+					retval.num_results = System.Int32.Parse(kv.Value);
+				}
+				else if (kv.Key == "page")
+				{
+					retval.page = System.Int32.Parse(kv.Value);
+				}
+				else if (kv.Key == "low_is_high")
+				{
+					retval.low_is_high = System.Boolean.Parse(kv.Value);
+				}
+				else
+				{
+					throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leaderboard");
+				}
+			}
+
+			retval.entries = new List<LeaderboardEntry>();
+
+			foreach( IXMLNode c in n.Children )
+			{
+				if( c.Name=="entry")
+				{
+					LeaderboardEntry lbe = new LeaderboardEntry();
+					foreach (KeyValuePair<string,string> kv in c.Attributes)
+					{
+						if( kv.Key=="player_id" )
+						{
+							lbe.player_id = kv.Value;
+						}
+						else if( kv.Key=="rank" )
+						{
+							lbe.rank = System.Int32.Parse( kv.Value );
+						}
+						else if( kv.Key=="value" )
+						{
+							lbe.value = System.Double.Parse( kv.Value );
+						}
+						else if( kv.Key=="ikey" )
+						{
+							//Ignored
+						}
+						else
+						{
+							throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leaderboard");
+						}
+					}
+
+					lbe.properties = new List<LeaderboardExtraProperties>();
+					foreach( IXMLNode cc in c.Children )
+					{
+						if(cc.Name == "custom" )
+						{
+							foreach( IXMLNode ccc in cc.Children )
+							{
+								if( ccc.Name == "property" )
+								{
+									LeaderboardExtraProperties prop = new LeaderboardExtraProperties();
+									foreach (KeyValuePair<string,string> kv in ccc.Attributes)
+									{
+										if( kv.Key=="ikey" )
+										{
+											prop.ikey = kv.Value;
+										}
+										else if( kv.Key=="value" )
+										{
+											prop.value = kv.Value;
+										}
+										else
+										{
+											throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leadeboard suctom property");
+										}
+									}
+
+									lbe.properties.Add( prop );
+								}
+								else
+								{
+									throw new UnexpectedXMLElementException("unexpected child, \""+c.Name+"\", on Leadeboard Entry custom properties");
+								}
+							}
+						}
+						else
+						{
+							throw new UnexpectedXMLElementException("unexpected child, \""+c.Name+"\", on Leadeboard Entry");
+						}
+					}
+
+					retval.entries.Add( lbe );
+				}
+				else
+				{
+					throw new UnexpectedXMLElementException("unexpected child, \""+c.Name+"\", on Leadeboard");
+				}
+			}
+			return retval;
+			}
+
 		}
 
  	}
