@@ -245,6 +245,8 @@ namespace Roar
 		{
 			public string invite_id;
 			public string player_id;
+			public string player_name;
+			public string message;
 		}
 
 		public class XPAttributes
