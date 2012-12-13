@@ -24,8 +24,8 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 	private bool isFetching;
 	private float whenLastFetched;
 	private Roar.Components.ILeaderboards boards;	
-	private IList<Leaderboard> leaderboards;
-	private Leaderboard activeLeaderboard;
+	private IList<LeaderboardInfo> leaderboards;
+	private LeaderboardData activeLeaderboard;
 		
 	protected override void Awake()
 	{
@@ -39,34 +39,35 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 		
 		boards = roar.Leaderboards;
 		
+		//Do we need to fetch the list of boards?
 		if (whenToFetch == WhenToFetch.OnEnable 
-		|| (whenToFetch == WhenToFetch.Once && !boards.HasDataFromServer)
+		|| (whenToFetch == WhenToFetch.Once && !boards.HasBoardList)
 		|| (whenToFetch == WhenToFetch.Occassionally && (whenLastFetched == 0 || Time.realtimeSinceStartup - whenLastFetched >= howOftenToFetch))
 		)
 		{
-			Fetch();
+			FetchBoardList();
 		}
 	}
 	
-	public void Fetch()
+	public void FetchBoardList()
 	{
 		isFetching = true;
 		if (OnLeaderboardsFetchedStarted != null)
 			OnLeaderboardsFetchedStarted();
-		boards.Fetch(OnRoarFetchLeaderboardsComplete);
+		boards.FetchBoardList(OnRoarFetchLeaderboardsComplete);
 	}
 	
-	void OnRoarFetchLeaderboardsComplete(Roar.CallbackInfo<IDictionary<string,Roar.DomainObjects.Leaderboard> > info)
+	void OnRoarFetchLeaderboardsComplete(Roar.CallbackInfo<ILeaderboardCache> cache)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;
-		leaderboards = boards.List();
+		leaderboards = boards.BoardList();
 		
 		// set default labels
-		foreach (Leaderboard leaderboard in leaderboards)
+		foreach (LeaderboardInfo leaderboard in leaderboards)
 		{
 			if (string.IsNullOrEmpty(leaderboard.label))
-				leaderboard.label = string.Format("Leaderboard{0}", leaderboard.id);
+				leaderboard.label = string.Format("Leaderboard{0} - {1}", leaderboard.board_id, leaderboard.ikey);
 		}
 		
 		ScrollViewContentHeight = leaderboards.Count * (leaderboardItemBounds.height + leaderboardItemSpacing);
@@ -84,7 +85,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 		}
 		else
 		{
-			if (!boards.HasDataFromServer || leaderboards == null || leaderboards.Count == 0)
+			if (!boards.HasBoardList || leaderboards == null || leaderboards.Count == 0)
 			{
 				GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "No leaderboards to display", "StatusNormal");
 				ScrollViewContentHeight = 0;
@@ -93,7 +94,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 			{
 				ScrollViewContentHeight = leaderboards.Count * (leaderboardItemBounds.height + leaderboardItemSpacing);
 				Rect entry = leaderboardItemBounds;
-				foreach (Leaderboard leaderboard in leaderboards)
+				foreach (LeaderboardInfo leaderboard in leaderboards)
 				{
 					if (GUI.Button(entry, leaderboard.label, leaderboardEntryStyle))
 					{

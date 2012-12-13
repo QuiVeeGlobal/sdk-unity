@@ -45,16 +45,6 @@ public class ShopListToShopEntry : IDomToCache<Roar.WebObjects.Shop.ListResponse
 	}
 }
 
-public class LeaderboardListToLeaderboard : IDomToCache<Roar.WebObjects.Leaderboards.ListResponse,Roar.DomainObjects.LeaderboardData>
-{
-	public Dictionary<string, Roar.DomainObjects.LeaderboardData> convert( Roar.WebObjects.Leaderboards.ListResponse d)
-	{
-		Dictionary<string,Roar.DomainObjects.LeaderboardData> retval = new Dictionary<string, Roar.DomainObjects.LeaderboardData>();
-		//TODO: Implement this
-		return retval;
-	}
-}
-
 public class FriendsListToFriend : IDomToCache<Roar.WebObjects.Friends.ListResponse,Roar.DomainObjects.Friend>
 {
 	public Dictionary<string, Roar.DomainObjects.Friend> convert( Roar.WebObjects.Friends.ListResponse d)
@@ -159,6 +149,79 @@ public class FooGetter : IDomGetter<Foo>
 	}
 }
 
+//TODO: Move these classes into their own file
+public interface ILeaderboardCache
+{
+	bool HasBoardList { get; }
+	void FetchBoardList( Roar.Callback<ILeaderboardCache> cb );
+	IList<Roar.DomainObjects.LeaderboardInfo> BoardList();
+	void Clear(bool x);
+	IList<Roar.DomainObjects.LeaderboardEntry> GetLeaderboard( string board_id );
+}
+
+public class LeaderboardCache : ILeaderboardCache
+{
+	IWebAPI webapi;
+	public LeaderboardCache( IWebAPI webapi )
+	{
+		this.webapi = webapi;
+	}
+	protected bool hasBoardList=false;
+	protected List<Roar.DomainObjects.LeaderboardInfo> boardList;
+	protected Dictionary<string,IList<Roar.DomainObjects.LeaderboardEntry> > boards = new Dictionary<string, IList<Roar.DomainObjects.LeaderboardEntry>>();
+	
+	public bool HasBoardList { get { return hasBoardList; } }
+	
+	public void FetchBoardList( Roar.Callback<ILeaderboardCache> cb )
+	{
+		Roar.WebObjects.Leaderboards.ListArguments args = new Roar.WebObjects.Leaderboards.ListArguments();
+		webapi.leaderboards.list( args, new BoardFetcherCallback(this,cb) );
+	}
+	
+	class BoardFetcherCallback : ZWebAPI.Callback<Roar.WebObjects.Leaderboards.ListResponse>
+	{
+		LeaderboardCache lbcache;
+		Roar.Callback<ILeaderboardCache> cb;
+		
+		public BoardFetcherCallback( LeaderboardCache lbcache, Roar.Callback<ILeaderboardCache> cb )
+		{
+			this.lbcache = lbcache;
+			this.cb = cb;
+		}
+		
+		public void OnError(Roar.RequestResult result)
+		{
+			//TODO: Handle the error?
+		}
+		
+		public void OnSuccess(Roar.CallbackInfo<Roar.WebObjects.Leaderboards.ListResponse> info )
+		{
+			lbcache.boardList = info.data.boards;
+			lbcache.hasBoardList = true;
+			cb( new Roar.CallbackInfo<ILeaderboardCache>(lbcache,WebAPI.OK,null) );
+			
+		}
+	}
+	
+	public IList<Roar.DomainObjects.LeaderboardInfo> BoardList()
+	{
+		return boardList;
+	}
+	
+	public void Clear(bool x)
+	{
+		//TODO: Implement this
+	}
+	
+	//TODO: This should really support paging.
+	public IList<Roar.DomainObjects.LeaderboardEntry> GetLeaderboard( string board_id )
+	{
+		IList<Roar.DomainObjects.LeaderboardEntry> retval=null;
+		boards.TryGetValue(board_id, out retval);
+		return retval;
+	}
+}
+
 
 namespace Roar.implementation
 {
@@ -172,7 +235,7 @@ namespace Roar.implementation
 		IDataModel<Foo,Foo> actions { get; }
 		IDataModel<Foo,Foo> gifts { get; }
 		IDataModel<Foo,Foo> achievements { get; }
-		IDataModel<DomainObjects.LeaderboardData,WebObjects.Leaderboards.ListResponse> leaderboards { get; }
+		ILeaderboardCache leaderboards { get; }
 		IDataModel<Foo,Foo> ranking { get; }
 		IDataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends { get; }
 		IDataModel<Foo,Foo> appStore { get; }
@@ -192,7 +255,7 @@ namespace Roar.implementation
 			actions_ = new DataModel<Foo,Foo> ("tasks", new FooGetter(webapi), new FooToFoo(), logger);
 			gifts_ = new DataModel<Foo,Foo> ("gifts", new FooGetter(webapi), new FooToFoo(), logger);
 			achievements_ = new DataModel<Foo,Foo> ("achievements", new FooGetter(webapi), new FooToFoo(), logger);
-			leaderboards_ = new DataModel<DomainObjects.LeaderboardData,WebObjects.Leaderboards.ListResponse>( "leaderboards", new LeaderboardListGetter(webapi), new LeaderboardListToLeaderboard(), logger);
+			leaderboards_ = new LeaderboardCache(webapi);
 			ranking_ = new DataModel<Foo,Foo> ("ranking", new FooGetter(webapi), new FooToFoo(), logger);
 			friends_ = new DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> ("friends",  new FriendsListGetter(webapi), new FriendsListToFriend(), logger);
 			cache_ = new ItemCache ("cache", new ItemsViewGetter(webapi), new ItemsViewToItemPrototype(), logger);
@@ -222,7 +285,7 @@ namespace Roar.implementation
 		public IDataModel<Foo,Foo> actions { get { return actions_; } }
 		public IDataModel<Foo,Foo> gifts { get { return gifts_; } }
 		public IDataModel<Foo,Foo> achievements { get { return achievements_; } }
-		public IDataModel<DomainObjects.LeaderboardData,WebObjects.Leaderboards.ListResponse> leaderboards { get { return leaderboards_; } }
+		public ILeaderboardCache leaderboards { get { return leaderboards_; } }
 		public IDataModel<Foo,Foo> ranking { get { return ranking_; } }
 		public IDataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends { get { return friends_; } }
 		public IDataModel<Foo,Foo> appStore { get { return appStore_; } }
@@ -234,7 +297,7 @@ namespace Roar.implementation
 		public DataModel<Foo,Foo> actions_;
 		public DataModel<Foo,Foo> gifts_;
 		public DataModel<Foo,Foo> achievements_;
-		public DataModel<DomainObjects.LeaderboardData,WebObjects.Leaderboards.ListResponse> leaderboards_;
+		public LeaderboardCache leaderboards_;
 		public DataModel<Foo,Foo> ranking_;
 		public DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends_;
 		public DataModel<Foo,Foo> appStore_;

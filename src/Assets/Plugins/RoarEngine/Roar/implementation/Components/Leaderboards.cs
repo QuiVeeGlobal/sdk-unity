@@ -16,22 +16,22 @@ namespace Roar.implementation.Components
 			this.logger = logger;
 		}
 
-		public void Fetch (Roar.Callback< IDictionary<string,DomainObjects.LeaderboardData> > callback)
+		public void FetchBoardList( Roar.Callback< ILeaderboardCache > callback )
 		{
-			dataStore.leaderboards.Fetch (callback);
+			dataStore.leaderboards.FetchBoardList(callback);
 		}
 
-		public bool HasDataFromServer { get { return dataStore.leaderboards.HasDataFromServer; } }
+		public bool HasBoardList { get { return dataStore.leaderboards.HasBoardList; } }
 
-		public IList<DomainObjects.LeaderboardData> List ()
+		public IList<DomainObjects.LeaderboardInfo> BoardList ()
 		{
-			return dataStore.leaderboards.List ();
+			return dataStore.leaderboards.BoardList ();
+		}
+		
+		public IList<Roar.DomainObjects.LeaderboardEntry> GetLeaderboard( string board_id )
+		{
+			return dataStore.leaderboards.GetLeaderboard(board_id);
 		}
 
-		// Returns the leaderboard Hashtable associated with attribute `ikey`
-		public DomainObjects.LeaderboardData GetLeaderboard (string ikey)
-		{
-			return dataStore.leaderboards.Get (ikey);;
-		}
 	}
 }

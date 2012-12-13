@@ -25,7 +25,7 @@ public class RoarRankingsWidget : RoarUIWidget
 	
 	private Roar.Components.ILeaderboards boards;	
 	private bool isFetching;
-	private Leaderboard leaderboard;
+	private IList<LeaderboardEntry> leaderboard;
 	
 	protected override void Awake()
 	{
@@ -74,15 +74,9 @@ public class RoarRankingsWidget : RoarUIWidget
 			leaderboard = boards.GetLeaderboard(leaderboardKey);
 		}
 		
-		if (leaderboard != null)
+		if (leaderboard == null)
 		{
-			if (whenToFetch == WhenToFetch.OnEnable 
-			|| (whenToFetch == WhenToFetch.Once && !boards.HasDataFromServer)
-//			|| (whenToFetch == WhenToFetch.Occassionally && (leaderboard.whenLastFetched == 0 || Time.realtimeSinceStartup - leaderboard.whenLastFetched >= howOftenToFetch))
-			)
-			{
-				Fetch();
-			}
+			Fetch();
 		}
 	}
 	
@@ -189,16 +183,16 @@ public class RoarRankingsWidget : RoarUIWidget
 		}
 		else
 		{
-			if (leaderboard == null || leaderboard.entries == null || leaderboard.entries.Count == 0)
+			if (leaderboard == null || leaderboard.Count == 0)
 			{
 				GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "No ranking data.", "StatusNormal");
 				ScrollViewContentHeight = 0;
 			}
 			else
 			{
-				ScrollViewContentHeight = leaderboard.entries.Count * (rankingItemBounds.height + rankingItemSpacing);
+				ScrollViewContentHeight = leaderboard.Count * (rankingItemBounds.height + rankingItemSpacing);
 				Rect entryRect = rankingItemBounds;
-				foreach (LeaderboardEntry leaderboardEntry in leaderboard.entries)
+				foreach (LeaderboardEntry leaderboardEntry in leaderboard)
 				{
 					GUI.Label(entryRect, leaderboardEntry.rank.ToString(), rankingEntryPlayerRankStyle);
 					//GUI.Label(entry, leaderboardEntry.playerName, rankingEntryPlayerNameStyle);
