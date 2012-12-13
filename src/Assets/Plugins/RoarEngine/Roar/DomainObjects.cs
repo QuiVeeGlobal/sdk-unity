@@ -168,11 +168,11 @@ namespace Roar
 			public string label;
 			public string description;
 			
-			public IList<Cost> costs;
-			public IList<Modifier> modifiers;
-			public IList<Requirement> requirements;
+			public IList<Cost> costs = new List<Cost>();
+			public IList<Modifier> modifiers = new List<Modifier>();
+			public IList<Requirement> requirements = new List<Requirement>();
 			
-			public IList<string> tags;
+			public IList<string> tags = new List<string>();
 			
 			public static ShopEntry CreateFromXml( IXMLNode n )
 			{
@@ -183,7 +183,26 @@ namespace Roar
 				kv.TryGetValue("label", out retval.label);
 				kv.TryGetValue("description", out retval.description);
 				
-				//TODO: Handle the costs, modifiers and requirements and tags!
+				Roar.DataConversion.XCRMParser xcrm_parser = new Roar.DataConversion.XCRMParser();
+				
+				IXMLNode costs_node = n.GetNode("costs>0");
+				if (costs_node != null)
+				{
+					retval.costs = xcrm_parser.ParseCostList(costs_node);
+				}
+				// else branches not necessary as costs, modifiers and requirements are INITIALISED by definition
+				
+				IXMLNode modifiers_node = n.GetNode("modifiers>0");
+				if (modifiers_node != null)
+				{
+					retval.modifiers = xcrm_parser.ParseModifierList(modifiers_node);
+				}
+				
+				IXMLNode requirements_node = n.GetNode("requirements>0");
+				if (requirements_node != null)
+				{
+					retval.requirements = xcrm_parser.ParseRequirementList(requirements_node);
+				}
 				
 				return retval;
 			}
