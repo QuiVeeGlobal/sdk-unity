@@ -337,7 +337,12 @@
             "name":"buy",
             "arguments":[
               {"name":"shop_item_ikey","type":"string"}
+            ],
+            "response":{
+              "members":[
+              { "name":"buy_response", "type":"DomainObjects.ShopBuyResponse" }
             ] }
+          }
         ]
      },
      {

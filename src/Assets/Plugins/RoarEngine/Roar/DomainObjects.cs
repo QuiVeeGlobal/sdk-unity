@@ -207,6 +207,15 @@ namespace Roar
 				return retval;
 			}
 		};
+		
+		public class ShopBuyResponse
+		{
+			public int add_xp = 0;
+			public IDictionary<string, int> stat_change = new Dictionary<string, int>();
+			public IDictionary<string, int> removed_items = new Dictionary<string, int>();
+			public IDictionary<string, IList<string>> add_item = new Dictionary<string, IList<string>>();
+			public IList<string> tags = new List<string>();
+		};
 
 
 		public class Friend

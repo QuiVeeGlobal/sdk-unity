@@ -709,7 +709,64 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Shop.BuyResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Shop.BuyResponse retval = new Roar.WebObjects.Shop.BuyResponse();
-				//TODO: Implement me
+				retval.buy_response = new Roar.DomainObjects.ShopBuyResponse();
+				IXMLNode buy_node = n.GetNode("roar>0>shop>0>buy>0");
+				List<IXMLNode> cost_or_modifier_nodes = buy_node.GetNodeList("costs>0>cost");
+				cost_or_modifier_nodes.AddRange(buy_node.GetNodeList("modifiers>0>modifier"));
+				foreach(IXMLNode cost_or_modifier_node in cost_or_modifier_nodes)
+				{
+					string ikey = cost_or_modifier_node.GetAttribute("ikey");
+					int value = 0;
+					switch (cost_or_modifier_node.GetAttribute("type"))
+					{
+					case "stat_change":
+						System.Int32.TryParse(cost_or_modifier_node.GetAttribute("value"), out value);
+						if (retval.buy_response.stat_change.ContainsKey(ikey))
+						{
+							retval.buy_response.stat_change[ikey] += value;
+						}
+						else
+						{
+							retval.buy_response.stat_change.Add(ikey, value);
+						}
+						break;
+					case "removed_items":
+						System.Int32.TryParse(cost_or_modifier_node.GetAttribute("count"), out value);
+						if (retval.buy_response.removed_items.ContainsKey(ikey))
+						{
+							retval.buy_response.removed_items[ikey] += value;
+						}
+						else
+						{
+							retval.buy_response.removed_items.Add(ikey, value);
+						}
+						break;
+					case "add_xp":
+						System.Int32.TryParse(cost_or_modifier_node.GetAttribute("value"), out value);
+						retval.buy_response.add_xp += value;
+						break;
+					case "add_item":
+						if (retval.buy_response.add_item.ContainsKey(ikey))
+						{
+							retval.buy_response.add_item[ikey].Add(cost_or_modifier_node.GetAttribute("item_id"));
+						}
+						else
+						{
+							IList<string> list = new List<string>();
+							list.Add(cost_or_modifier_node.GetAttribute("item_id"));
+							retval.buy_response.add_item.Add(ikey, list);
+						}
+						break;
+					default:
+						System.Console.WriteLine ("TYPE [" + cost_or_modifier_node.GetAttribute("type") + "]");
+						break;
+					}
+				}
+				IList<IXMLNode> tag_nodes = buy_node.GetNodeList("tags>0>tag");
+				foreach(IXMLNode tag_node in tag_nodes)
+				{
+					retval.buy_response.tags.Add(tag_node.GetAttribute("value"));
+				}
 				return retval;
 			}
 		}

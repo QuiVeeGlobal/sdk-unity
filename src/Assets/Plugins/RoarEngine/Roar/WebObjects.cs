@@ -1011,6 +1011,7 @@ namespace Roar.WebObjects
 		// Response from shop/buy
 		public class BuyResponse
 		{
+			public DomainObjects.ShopBuyResponse buy_response;
 
 		}
 
