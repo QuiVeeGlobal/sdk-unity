@@ -269,7 +269,6 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Friends.AcceptResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Friends.AcceptResponse retval = new Roar.WebObjects.Friends.AcceptResponse();
-				//TODO: Implement me
 				return retval;
 			}
 		}
@@ -279,7 +278,6 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Friends.DeclineResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Friends.DeclineResponse retval = new Roar.WebObjects.Friends.DeclineResponse();
-				//TODO: Implement me
 				return retval;
 			}
 		}
@@ -289,7 +287,6 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Friends.InviteResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Friends.InviteResponse retval = new Roar.WebObjects.Friends.InviteResponse();
-				//TODO: Implement me
 				return retval;
 			}
 		}
@@ -355,14 +352,17 @@ namespace Roar.DataConversion.Responses
 			{
 				Roar.WebObjects.Friends.ListInvitesResponse retval = new Roar.WebObjects.Friends.ListInvitesResponse();
 				retval.invites = new List<DomainObjects.FriendInvite>();
-				List<IXMLNode> invite_nodes = n.GetNodeList("roar>0>friends>0>list_invites>0>friend_invite");
+				List<IXMLNode> invite_nodes = n.GetNodeList("roar>0>friends>0>list_invites>0>invite");
 				foreach( IXMLNode invite_node in invite_nodes )
 				{
 					DomainObjects.FriendInvite invite = new DomainObjects.FriendInvite();
 					Dictionary<string,string> kv = invite_node.Attributes.ToDictionary( v => v.Key, v => v.Value );
 
 					kv.TryGetValue("invite_id",out invite.invite_id);
-					invite.player_id = invite_node.GetFirstChild("player_id").Text;
+					kv.TryGetValue("from_player_id",out invite.player_id);
+					kv.TryGetValue("from_player",out invite.player_name);
+					kv.TryGetValue("message",out invite.message);
+					
 					retval.invites.Add(invite);
 				}
 				return retval;

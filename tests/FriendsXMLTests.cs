@@ -12,24 +12,6 @@ namespace Testing
     class XMLToFriendsTests
     {
         [Test()]
-        public void TestParseFacebookBindSignedResponse()
-        {
-            string xml =
-            @"<roar tick=""135510457230"">
-				<facebook>
-					<bind_signed status=""ok""/>
-				</facebook>
-			</roar>";
-
-            IXMLNode nn = (new XMLNode.XMLParser()).Parse(xml);
-
-            Roar.WebObjects.Facebook.BindSignedResponse response = (new Roar.DataConversion.Responses.Facebook.BindSigned()).Build(nn);
-
-            Assert.IsNotNull(response);
-
-        }
-
-        [Test()]
         public void TestFriendsAccept()
         {
             string xml =
@@ -168,12 +150,8 @@ namespace Testing
             @"<roar tick=""135510457230"">
 				<friends>
 					<list_invites status=""ok"">
-                      <friend_invite invite_id=""123"">
-                        <player_id>19000494933</player_id>
-                      </friend_invite>
-                      <friend_invite invite_id=""456"">
-                        <player_id>90210</player_id>
-                      </friend_invite>
+                      <invite invite_id=""123"" from_player_id=""133"" from_player=""killah"" message""me so lonely""/>
+                      <invite invite_id=""124"" from_player_id=""155"" from_player=""healah"" message=""gold plz""/>
                     </list_invites>
 				</friends>
 			</roar>";
@@ -190,6 +168,11 @@ namespace Testing
             Assert.AreEqual(response.invites[1].invite_id, "456");
             Assert.AreEqual(response.invites[0].player_id, "19000494933");
             Assert.AreEqual(response.invites[1].player_id, "90210");
+			Assert.AreEqual(response.invites[0].player_name, "killah");
+            Assert.AreEqual(response.invites[1].player_name, "healah");
+			Assert.AreEqual(response.invites[0].message, "me so lonely");
+            Assert.AreEqual(response.invites[1].message, "gold plz");
+			
         }
 
     }
