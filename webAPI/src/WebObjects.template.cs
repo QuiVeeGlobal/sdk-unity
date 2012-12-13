@@ -17,20 +17,28 @@ namespace Roar.WebObjects
 		public class <%= underscoreToCamel(f.name) %>Arguments
 		{
 <% _.each( f.arguments, function(arg, k, lll) {
-%>			public <%= arg.type %> <%= arg.name %>;<% if("note" in arg) { %> // <%= arg.note %> <% } %>
+var argument_type = ("optional" in arg && arg.optional && arg.type=="int")?"int?":arg.type;
+%>			public <%= argument_type %> <%= arg.name %>;<% if("note" in arg) { %> // <%= arg.note %> <% } %>
 <% } ) %>
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
 <% _.each( f.arguments, function(arg, k, lll) {
+if( "optional" in arg && arg.optional)
+{ %>				if( <%= arg.name %>!=null )
+				{
+<%}
 if( arg.type == "string" )
 {
 %>				retval["<%= arg.name %>"] = <%= arg.name %>;
 <%
 } else {
-%>				retval["<%= arg.name %>"] = Convert.ToString(<%= arg.name %>);
+%>				retval["<%= arg.name %>"] = Convert.ToString(<%= arg.name %><%= ("optional" in arg && arg.optional && arg.type=="int")?".Value":"" %>);
 <%
 }
+if( "optional" in arg && arg.optional)
+{ %>				}
+<%}
 } )
 %>				return retval;
 			}
