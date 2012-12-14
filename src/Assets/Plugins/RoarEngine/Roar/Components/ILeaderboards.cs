@@ -27,6 +27,12 @@ namespace Roar.Components
 	     * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	     **/
 		void FetchBoardList( Roar.Callback< ILeaderboardCache > callback );
+		
+		/**
+		 * Fetch info for a given board
+		 **/
+		void FetchBoard( string board_id, Roar.Callback< ILeaderboardCache > callback );
+		
 
 		/**
 	     * Check whether any leaderboard data has been obtained from the server.

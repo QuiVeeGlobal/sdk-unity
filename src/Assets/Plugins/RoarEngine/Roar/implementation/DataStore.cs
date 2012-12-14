@@ -154,6 +154,8 @@ public interface ILeaderboardCache
 {
 	bool HasBoardList { get; }
 	void FetchBoardList( Roar.Callback<ILeaderboardCache> cb );
+	void FetchBoard( string board_id, Roar.Callback<ILeaderboardCache> cb );
+
 	IList<Roar.DomainObjects.LeaderboardInfo> BoardList();
 	void Clear(bool x);
 	IList<Roar.DomainObjects.LeaderboardEntry> GetLeaderboard( string board_id );
@@ -175,15 +177,15 @@ public class LeaderboardCache : ILeaderboardCache
 	public void FetchBoardList( Roar.Callback<ILeaderboardCache> cb )
 	{
 		Roar.WebObjects.Leaderboards.ListArguments args = new Roar.WebObjects.Leaderboards.ListArguments();
-		webapi.leaderboards.list( args, new BoardFetcherCallback(this,cb) );
+		webapi.leaderboards.list( args, new BoardListFetcherCallback(this,cb) );
 	}
 	
-	class BoardFetcherCallback : ZWebAPI.Callback<Roar.WebObjects.Leaderboards.ListResponse>
+	class BoardListFetcherCallback : ZWebAPI.Callback<Roar.WebObjects.Leaderboards.ListResponse>
 	{
 		LeaderboardCache lbcache;
 		Roar.Callback<ILeaderboardCache> cb;
 		
-		public BoardFetcherCallback( LeaderboardCache lbcache, Roar.Callback<ILeaderboardCache> cb )
+		public BoardListFetcherCallback( LeaderboardCache lbcache, Roar.Callback<ILeaderboardCache> cb )
 		{
 			this.lbcache = lbcache;
 			this.cb = cb;
@@ -202,6 +204,43 @@ public class LeaderboardCache : ILeaderboardCache
 			
 		}
 	}
+	
+	public void FetchBoard( string board_id, Roar.Callback<ILeaderboardCache> cb )
+	{
+		Roar.WebObjects.Leaderboards.ViewArguments args = new Roar.WebObjects.Leaderboards.ViewArguments();
+		args.board_id = board_id;
+		webapi.leaderboards.view( args, new BoardFetcherCallback(this,board_id, cb) );
+	}
+	
+	class BoardFetcherCallback : ZWebAPI.Callback<Roar.WebObjects.Leaderboards.ViewResponse>
+	{
+		LeaderboardCache lbcache;
+		string board_id;
+		Roar.Callback<ILeaderboardCache> cb;
+		
+		public BoardFetcherCallback( LeaderboardCache lbcache, string board_id, Roar.Callback<ILeaderboardCache> cb )
+		{
+			this.lbcache = lbcache;
+			this.board_id = board_id;
+			this.cb = cb;
+		}
+		
+		public void OnError(Roar.RequestResult result)
+		{
+			//TODO: Handle the error?
+		}
+		
+		public void OnSuccess(Roar.CallbackInfo<Roar.WebObjects.Leaderboards.ViewResponse> info )
+		{
+			//TODO: Do something usefull with the data.
+			/*
+			lbcache.boardList = info.data.boards;
+			lbcache.hasBoardList = true;
+			*/
+			cb( new Roar.CallbackInfo<ILeaderboardCache>(lbcache,WebAPI.OK,null) );
+			
+		}
+	}	
 	
 	public IList<Roar.DomainObjects.LeaderboardInfo> BoardList()
 	{

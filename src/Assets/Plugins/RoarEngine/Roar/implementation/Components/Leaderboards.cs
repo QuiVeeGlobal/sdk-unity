@@ -20,6 +20,11 @@ namespace Roar.implementation.Components
 		{
 			dataStore.leaderboards.FetchBoardList(callback);
 		}
+		
+		public void FetchBoard( string board_id, Roar.Callback< ILeaderboardCache > callback )
+		{
+			dataStore.leaderboards.FetchBoard(board_id,callback);
+		}
 
 		public bool HasBoardList { get { return dataStore.leaderboards.HasBoardList; } }
 

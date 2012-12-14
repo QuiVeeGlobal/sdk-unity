@@ -82,18 +82,32 @@ public class RoarRankingsWidget : RoarUIWidget
 	
 	public void Fetch()
 	{
-		if (!string.IsNullOrEmpty(leaderboardKey))
+		if (string.IsNullOrEmpty(leaderboardKey))
 		{
-			leaderboard = boards.GetLeaderboard(leaderboardKey);
-			/*
-			if (leaderboard != null)
-			{
-				isFetching = true;
-				leaderboard.ranking.Page = page;
-				leaderboard.ranking.Fetch(OnRoarFetchRankingsComplete);
-			}
-			*/
+			Debug.Log("leaderboardKey not set!");
 		}
+		boards.FetchBoard( leaderboardKey, OnRoarFetchLeaderboardComplete );
+	}
+	
+	void OnRoarFetchLeaderboardComplete(Roar.CallbackInfo<ILeaderboardCache> cache)
+	{
+		/*
+		whenLastFetched = Time.realtimeSinceStartup;
+		isFetching = false;
+		leaderboards = boards.BoardList();
+		
+		// set default labels
+		foreach (LeaderboardInfo leaderboard in leaderboards)
+		{
+			if (string.IsNullOrEmpty(leaderboard.label))
+				leaderboard.label = string.Format("Leaderboard{0} - {1}", leaderboard.board_id, leaderboard.ikey);
+		}
+		
+		ScrollViewContentHeight = leaderboards.Count * (leaderboardItemBounds.height + leaderboardItemSpacing);
+		
+		if (OnLeaderboardsFetchedComplete != null)
+			OnLeaderboardsFetchedComplete();
+		*/
 	}
 	
 	public void Fetch(int page)
@@ -109,70 +123,6 @@ public class RoarRankingsWidget : RoarUIWidget
 		Fetch();
 	}
 	
-	/*
-	void OnRoarFetchRankingsComplete(Roar.CallbackInfo info)
-	{
-		leaderboard.whenLastFetched = Time.realtimeSinceStartup;
-		isFetching = false;
-		leaderboard.rankingRaw = leaderboard.ranking.List();
-		Title = leaderboard.label;
-		int cnt = 0;
-		foreach (Hashtable data in leaderboard.rankingRaw)
-		{
-			foreach (DictionaryEntry datum in data)
-			{
-				//Debug.Log(string.Format("{0} => {1}", entry.Key, entry.Value));
-				if ((string)datum.Key == "entries")
-				{
-					ArrayList entries = (ArrayList)datum.Value;
-					leaderboard.ranks = new List<Rank>(entries.Count);
-					Rank rank;
-					foreach (Hashtable entry in entries)
-					{
-						rank = new Rank();
-						foreach (DictionaryEntry kv in entry)
-						{
-							//Debug.Log(string.Format("{0} => {1}", kv.Key, kv.Value));
-							string k = kv.Key as string;
-							if (k == "rank")
-							{
-								rank.rank = System.Convert.ToInt32(kv.Value);
-							}
-							else if (k == "player_id")
-							{
-								rank.playerId = kv.Value as string;
-							}
-							else if (k == "player_name")
-							{
-								rank.playerName = kv.Value as string;
-							}
-							else if (k == "value")
-							{
-								rank.value = kv.Value as string;
-							}
-						}
-						leaderboard.ranks.Add(rank);
-						cnt++;
-					}
-				}
-				else if ((string)datum.Key == "properties")
-				{
-					Hashtable properties = (Hashtable)datum.Value;
-					if (properties.ContainsKey("page"))
-						leaderboard.page = System.Convert.ToInt32(properties["page"]);
-					if (properties.ContainsKey("num_results"))
-						leaderboard.numResults = System.Convert.ToInt32(properties["num_results"]);
-					if (properties.ContainsKey("offset"))
-						leaderboard.offset = System.Convert.ToInt32(properties["offset"]);
-					if (properties.ContainsKey("low_is_high"))
-						leaderboard.lowIsHigh = System.Convert.ToBoolean(properties["low_is_high"]);
-				}
-			}
-		}
-		
-		ScrollViewContentHeight = cnt * (rankingItemBounds.height + rankingItemSpacing);
-	}
-	*/
 	
 	protected override void DrawGUI(int windowId)
 	{
