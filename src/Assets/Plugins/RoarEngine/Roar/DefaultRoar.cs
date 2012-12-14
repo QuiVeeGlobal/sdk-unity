@@ -157,7 +157,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		friends = new Roar.implementation.Components.Friends( webAPI.friends, datastore, logger);
 		user = new Roar.implementation.Components.User(webAPI.user,datastore, logger);
 		properties = new Roar.implementation.Components.Properties( datastore );
-		leaderboards = new Roar.implementation.Components.Leaderboards(datastore, logger);
+		leaderboards = new Roar.implementation.Components.Leaderboards(webAPI,datastore, logger);
 		inventory = new Roar.implementation.Components.Inventory( webAPI.items, datastore, logger);
 		data = new Roar.implementation.Components.Data( webAPI.user, datastore, logger);
 		shop = new Roar.implementation.Components.Shop( webAPI.shop, datastore, logger );

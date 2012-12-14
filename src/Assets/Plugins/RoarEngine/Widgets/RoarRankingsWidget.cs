@@ -72,7 +72,7 @@ public class RoarRankingsWidget : RoarUIWidget
 	{
 		if (!string.IsNullOrEmpty(leaderboardId))
 		{
-			leaderboard = boards.GetLeaderboard(leaderboardId);
+			leaderboard = boards.GetLeaderboard(leaderboardId,page);
 		}
 		
 		if (leaderboard == null)
@@ -88,12 +88,12 @@ public class RoarRankingsWidget : RoarUIWidget
 			Debug.Log("leaderboardId not set!");
 			return;
 		}
-		boards.FetchBoard( leaderboardId, OnRoarFetchLeaderboardComplete );
+		boards.FetchBoard( leaderboardId, page, OnRoarFetchLeaderboardComplete );
 	}
 	
-	void OnRoarFetchLeaderboardComplete(Roar.CallbackInfo<ILeaderboardCache> info)
+	void OnRoarFetchLeaderboardComplete(Roar.CallbackInfo<Roar.Components.ILeaderboards> info)
 	{
-		leaderboard = info.data.GetLeaderboard(leaderboardId);
+		leaderboard = info.data.GetLeaderboard(leaderboardId, page);
 	}
 	
 	public void Fetch(int page)

@@ -26,12 +26,12 @@ namespace Roar.Components
 	     *
 	     * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	     **/
-		void FetchBoardList( Roar.Callback< ILeaderboardCache > callback );
+		void FetchBoardList( Roar.Callback< ILeaderboards > callback );
 		
 		/**
 		 * Fetch info for a given board
 		 **/
-		void FetchBoard( string board_id, Roar.Callback< ILeaderboardCache > callback );
+		void FetchBoard( string board_id, int page, Roar.Callback< ILeaderboards > callback );
 		
 
 		/**
@@ -53,7 +53,7 @@ namespace Roar.Components
 	     **/
 		IList<DomainObjects.LeaderboardInfo> BoardList ();
 		
-		IList<Roar.DomainObjects.LeaderboardEntry> GetLeaderboard( string board_id );
+		IList<Roar.DomainObjects.LeaderboardEntry> GetLeaderboard( string board_id, int page );
 
 	}
 }
