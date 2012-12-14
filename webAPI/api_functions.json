@@ -300,7 +300,17 @@
             "arguments":[
               {"name":"item_id","type":"string"}
             ] },
-          { "name":"view" },
+          {
+            "name":"view",
+            "arguments":[
+              {"name":"item_key","type":"string","optional":true,"note":"item_key is mutually exclusive with item_keys"},
+              {"name":"item_keys","type":"string","optional":true,"note":"item_keys is mutually exclusive with item_key"}
+            ],
+            "response":{
+              "members":[
+                { "name":"items", "type":"List<DomainObjects.ItemArchetype>" }
+              ] }
+          },
           {
             "name":"view_all",
             "arguments":[

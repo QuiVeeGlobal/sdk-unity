@@ -826,10 +826,20 @@ namespace Roar.WebObjects
 		// Arguments to items/view
 		public class ViewArguments
 		{
+			public string item_key; // item_key is mutually exclusive with item_keys 
+			public string item_keys; // item_keys is mutually exclusive with item_key 
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				if( item_key!=null )
+				{
+				retval["item_key"] = item_key;
+				}
+				if( item_keys!=null )
+				{
+				retval["item_keys"] = item_keys;
+				}
 				return retval;
 			}
 		}
@@ -837,6 +847,7 @@ namespace Roar.WebObjects
 		// Response from items/view
 		public class ViewResponse
 		{
+			public List<DomainObjects.ItemArchetype> items;
 
 		}
 
