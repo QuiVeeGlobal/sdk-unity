@@ -145,6 +145,7 @@ namespace Roar.DataConversion
 		List<DomainObjects.Cost> ParseCostList (IXMLNode n);
 		List<DomainObjects.Modifier> ParseModifierList (IXMLNode n);
 		List<DomainObjects.Requirement> ParseRequirementList (IXMLNode n);
+		List<DomainObjects.ItemStat> ParseItemStatList (IXMLNode n);
 		List<string> ParseTagList( IXMLNode n);
 	}
 
@@ -455,6 +456,103 @@ namespace Roar.DataConversion
 				req_list.Add ( ParseARequirement(nn) );
 			}
 			return req_list;
+		}
+		
+		public DomainObjects.ItemStat ParseAnItemStat (IXMLNode n)
+		{
+			Dictionary<string, string> kv = n.Attributes.ToDictionary(v => v.Key, v => v.Value);
+			DomainObjects.ItemStat retval = null;
+			string ikey;
+			int value = 0;
+			kv.TryGetValue("ikey", out ikey);
+			if (kv.ContainsKey("value"))
+			{
+				if (! System.Int32.TryParse(kv["value"], out value))
+				{
+					throw new InvalidXMLElementException("Unable to parse value in item stat");
+				}
+			}
+			switch (n.Name)
+			{
+			case "regen_stat":
+				DomainObjects.ItemStats.RegenStat regen_stat = new DomainObjects.ItemStats.RegenStat(ikey, value);
+				if (kv.ContainsKey("every"))
+				{
+					if (! System.Int32.TryParse(kv["every"], out regen_stat.every))
+					{
+						throw new InvalidXMLElementException("Unable to parse the \"every\" attribute for RegenStat");
+					}
+				}
+				retval = regen_stat;
+				break;
+			case "regen_stat_limited":
+				DomainObjects.ItemStats.RegenStatLimited regen_stat_limited = new DomainObjects.ItemStats.RegenStatLimited(ikey, value);
+				if (kv.ContainsKey("repeat"))
+				{
+					if (! System.Int32.TryParse(kv["repeat"], out regen_stat_limited.repeat))
+					{
+						throw new InvalidXMLElementException("Unable to parse the repeat attribute for RegenStatLimited");
+					}
+				}
+				if (kv.ContainsKey("times_used"))
+				{
+					if (! System.Int32.TryParse(kv["times_used"], out regen_stat_limited.times_used))
+					{
+						throw new InvalidXMLElementException("Unable to parse the times_used attribute for RegenStatLimited");
+					}
+				}
+				retval = regen_stat_limited;
+				break;
+			case "grant_stat":
+				retval = new DomainObjects.ItemStats.GrantStat(ikey, value);
+				break;
+			case "equip_attribute":
+				retval = new DomainObjects.ItemStats.EquipAttribute(ikey, value);
+				break;
+			case "collect_stat":
+				DomainObjects.ItemStats.CollectStat collect_stat = new DomainObjects.ItemStats.CollectStat(ikey, value);
+				if (kv.ContainsKey("every"))
+				{
+					if (! System.Int32.TryParse(kv["every"], out collect_stat.every))
+					{
+						throw new InvalidXMLElementException("Unable to parse the \"every\" attribute for CollectStat");
+					}
+				}
+				if (kv.ContainsKey("window"))
+				{
+					if (! System.Int32.TryParse(kv["window"], out collect_stat.window))
+					{
+						throw new InvalidXMLElementException("Unable to parse the window attribute for CollectStat");
+					}
+				}
+				if (kv.ContainsKey("collect_at"))
+				{
+					if (! System.Int32.TryParse(kv["collect_at"], out collect_stat.collect_at))
+					{
+						throw new InvalidXMLElementException("Unable to parse the collect_at attribute for CollectStat");
+					}
+				}
+				retval = collect_stat;
+				break;
+			default:
+				retval = new DomainObjects.ItemStats.UnknownStat(ikey, value);
+				break;
+			}
+			return retval;
+		}
+		
+		public List<DomainObjects.ItemStat> ParseItemStatList (IXMLNode n)
+		{
+			List<DomainObjects.ItemStat> item_stat_list = new List<DomainObjects.ItemStat>();
+			if (n == null)
+			{
+				return item_stat_list;
+			}
+			foreach(IXMLNode nn in n.Children)
+			{
+				item_stat_list.Add(ParseAnItemStat(nn));
+			}
+			return item_stat_list;
 		}
 
 		public List<string> ParseTagList( IXMLNode n)

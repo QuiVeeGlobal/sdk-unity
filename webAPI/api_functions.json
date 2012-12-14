@@ -301,7 +301,16 @@
               {"name":"item_id","type":"string"}
             ] },
           { "name":"view" },
-          { "name":"view_all" }
+          {
+            "name":"view_all",
+            "arguments":[
+              {"name":"tags","type":"string"}
+            ],
+            "response":{
+              "members":[
+                { "name":"items", "type":"List<DomainObjects.ItemArchetype>" }
+              ] }
+          }
         ]
      },
      {

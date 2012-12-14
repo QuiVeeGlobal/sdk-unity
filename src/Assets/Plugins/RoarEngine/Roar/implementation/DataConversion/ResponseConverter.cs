@@ -609,10 +609,17 @@ namespace Roar.DataConversion.Responses
 		//Response from items/view_all
 		public class ViewAll : IXmlToObject< Roar.WebObjects.Items.ViewAllResponse >
 		{
+			public IXCRMParser ixcrm_parser = new XCRMParser();
+			
 			public Roar.WebObjects.Items.ViewAllResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Items.ViewAllResponse retval = new Roar.WebObjects.Items.ViewAllResponse();
-				//TODO: Implement me
+				retval.items = new List<ItemArchetype>();
+				IList<IXMLNode> item_nodes = n.GetNodeList("roar>0>items>0>view_all>0>item");
+				foreach(IXMLNode item_node in item_nodes)
+				{
+					retval.items.Add(DomainObjects.ItemArchetype.CreateFromXml(item_node, ixcrm_parser));
+				}
 				return retval;
 			}
 		}

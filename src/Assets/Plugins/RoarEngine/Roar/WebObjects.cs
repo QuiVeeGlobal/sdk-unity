@@ -843,10 +843,12 @@ namespace Roar.WebObjects
 		// Arguments to items/view_all
 		public class ViewAllArguments
 		{
+			public string tags;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["tags"] = tags;
 				return retval;
 			}
 		}
@@ -854,6 +856,7 @@ namespace Roar.WebObjects
 		// Response from items/view_all
 		public class ViewAllResponse
 		{
+			public List<DomainObjects.ItemArchetype> items;
 
 		}
 

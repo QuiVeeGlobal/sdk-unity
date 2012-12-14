@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Roar.DataConversion;
 
 namespace Roar
 {
@@ -20,6 +21,17 @@ namespace Roar
 		
 		public abstract class Modifier
 		{
+		};
+		
+		public abstract class ItemStat
+		{
+			public string ikey;
+			public int value;
+			public ItemStat (string ikey, int value)
+			{
+				this.ikey = ikey;
+				this.value = value;
+			}
 		};
 		
 		
@@ -158,6 +170,59 @@ namespace Roar
 			public class Friends : Requirement
 			{
 				public int required;
+			}
+		}
+		
+		namespace ItemStats
+		{
+			public class RegenStat : ItemStat
+			{
+				public int every;
+				
+				public RegenStat (string ikey, int value) : base (ikey, value)
+				{
+				}
+			}
+			
+			public class RegenStatLimited : ItemStat
+			{
+				public int repeat;
+				public int times_used;
+				
+				public RegenStatLimited (string ikey, int value) : base (ikey, value)
+				{
+				}
+			}
+			
+			public class GrantStat : ItemStat
+			{
+				public GrantStat (string ikey, int value) : base (ikey, value)
+				{
+				}
+			}
+			
+			public class EquipAttribute : ItemStat
+			{
+				public EquipAttribute (string ikey, int value) : base (ikey, value)
+				{
+				}
+			}
+			
+			public class CollectStat : ItemStat
+			{
+				public int every;
+				public int window;
+				public int collect_at;
+				
+				public CollectStat (string ikey, int value) : base (ikey, value)
+				{
+				}
+			}
+			
+			public class UnknownStat : ItemStat {
+				public UnknownStat (string ikey, int value) : base (ikey, value)
+				{
+				}
 			}
 		}
 		
@@ -362,6 +427,63 @@ namespace Roar
 		public class ItemPrototype
 		{
 			public string ikey;
+		}
+		
+		public class ItemArchetypeProperty
+		{
+			public string ikey;
+			public string value;
+		}
+		
+		public class ItemArchetype
+		{
+			public string id;
+			public string ikey;
+			public string type;
+			public string label;
+			public string description;
+			public int count;
+			public bool sellable;
+			public bool consumable;
+			public IList<ItemStat> stats = new List<ItemStat>();
+			public IList<DomainObjects.Modifier> price = new List<DomainObjects.Modifier>();
+			public IList<string> tags = new List<string>();
+			public IList<ItemArchetypeProperty> properties = new List<ItemArchetypeProperty>();
+			
+			public static ItemArchetype CreateFromXml (IXMLNode n, Roar.DataConversion.IXCRMParser ixcrm_parser)
+			{
+				DomainObjects.ItemArchetype retval = new DomainObjects.ItemArchetype();
+				Dictionary<string, string> kv = n.Attributes.ToDictionary(v => v.Key, v => v.Value);
+				kv.TryGetValue("id", out retval.id);
+				kv.TryGetValue("ikey", out retval.ikey);
+				kv.TryGetValue("type", out retval.type);
+				kv.TryGetValue("label", out retval.label);
+				kv.TryGetValue("description", out retval.description);
+				if (kv.ContainsKey("count") && ! System.Int32.TryParse(kv["count"], out retval.count))
+				{
+					throw new InvalidXMLElementException("Unable to parse count to integer");
+				}
+				if (kv.ContainsKey("consumable"))
+				{
+					retval.consumable = kv["consumable"].ToLower() == "true";
+				}
+				if (kv.ContainsKey("sellable"))
+				{
+					retval.sellable = kv["sellable"].ToLower() == "true";
+				}
+				retval.stats = ixcrm_parser.ParseItemStatList(n.GetNode("stats>0"));
+				retval.price = ixcrm_parser.ParseModifierList(n.GetNode("price>0"));
+				retval.tags = ixcrm_parser.ParseTagList(n.GetNode("tags>0"));
+				IList<IXMLNode> property_nodes = n.GetNodeList("properties>0>property");
+				foreach(IXMLNode property_node in property_nodes)
+				{
+					Roar.DomainObjects.ItemArchetypeProperty property = new Roar.DomainObjects.ItemArchetypeProperty();
+					property.ikey = property_node.GetAttribute("ikey");
+					property.value = property_node.GetAttribute("value");
+					retval.properties.Add(property);
+				}
+				return retval;
+			}
 		}
 		
 		
