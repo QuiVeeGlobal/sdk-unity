@@ -916,7 +916,19 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Scripts.RunResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Scripts.RunResponse retval = new Roar.WebObjects.Scripts.RunResponse();
-				//TODO: Implement me
+				IXMLNode result_node = n.GetNode("roar>0>scripts>0>run>0");
+				retval.result.resultNode = result_node;
+				return retval;
+			}
+		}
+		//Response from scripts/run_admin
+		public class RunAdmin : IXmlToObject< Roar.WebObjects.Scripts.RunAdminResponse >
+		{
+			public Roar.WebObjects.Scripts.RunAdminResponse Build(IXMLNode n)
+			{
+				Roar.WebObjects.Scripts.RunAdminResponse retval = new Roar.WebObjects.Scripts.RunAdminResponse();
+				IXMLNode result_node = n.GetNode("roar>0>scripts>0>run>0");
+				retval.result.resultNode = result_node;
 				return retval;
 			}
 		}

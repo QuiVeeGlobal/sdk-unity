@@ -142,10 +142,8 @@ public class WebAPIFriendsTests : ComponentTests
     };
 
     friends.Fetch(cb);
-
-    IList<Roar.DomainObjects.Friend> friends_list = friends.List();
-    Assert.AreEqual (2, friends_list.Count);
     Assert.IsTrue(callback_executed);
+	
   }
   
   [Test]
@@ -178,18 +176,16 @@ public class WebAPIFriendsTests : ComponentTests
   public void TestListInvites()
   {
     string invite_list =
-    @"<roar tick='123' status='ok'>
+    @"<roar tick=""135510457230"">
       <friends>
-        <list_invites status='ok'>
-          <friend_invite invite_id='123'>
-            <player_id>234</player_id>
-          </friend_invite>
-          <friend_invite invite_id='456'>
-            <player_id>567</player_id>
-          </friend_invite>
+        <list_invites status=""ok"">
+          <invite invite_id=""123"" from_player_id=""133"" from_player=""killah"" message=""me""/>
+          <invite invite_id=""124"" from_player_id=""155"" from_player=""healah"" message=""gold""/>
         </list_invites>
       </friends>
-    </roar>";
+	  </roar>";
+		
+		
     requestSender.addMockResponse("friends/list_invites", invite_list);
     bool callback_executed = false;
     Roar.Callback<Roar.WebObjects.Friends.ListInvitesResponse> cb = (Roar.CallbackInfo<Roar.WebObjects.Friends.ListInvitesResponse> cb_info) => {
