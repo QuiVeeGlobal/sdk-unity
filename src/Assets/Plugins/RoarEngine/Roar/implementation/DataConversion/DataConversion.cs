@@ -323,6 +323,10 @@ namespace Roar.DataConversion
 		public List<DomainObjects.Modifier> ParseModifierList (IXMLNode n)
 		{
 			List<DomainObjects.Modifier> modifier_list = new List<DomainObjects.Modifier> ();
+			if (n == null)
+			{
+				return modifier_list;
+			}
 			foreach (IXMLNode nn in n.Children)
 			{
 				modifier_list.Add( ParseAModifier(nn) );
@@ -367,6 +371,10 @@ namespace Roar.DataConversion
 		public List<DomainObjects.Cost> ParseCostList (IXMLNode n)
 		{
 			List<DomainObjects.Cost> cost_list = new List<DomainObjects.Cost> ();
+			if (n == null)
+			{
+				return cost_list;
+			}
 			foreach (IXMLNode nn in n.Children)
 			{
 				cost_list.Add ( ParseACost(nn) );
@@ -438,6 +446,10 @@ namespace Roar.DataConversion
 		public List<DomainObjects.Requirement> ParseRequirementList (IXMLNode n)
 		{
 			List<DomainObjects.Requirement> req_list = new List<DomainObjects.Requirement> ();
+			if (n == null)
+			{
+				return req_list;
+			}
 			foreach (IXMLNode nn in n.Children)
 			{
 				req_list.Add ( ParseARequirement(nn) );
@@ -448,6 +460,10 @@ namespace Roar.DataConversion
 		public List<string> ParseTagList( IXMLNode n)
 		{
 			List<string> tags = new List<string>();
+			if (n == null)
+			{
+				return tags;
+			}
 			foreach (IXMLNode nn in n.Children)
 			{
 				tags.Add( nn.GetAttribute("value") );
