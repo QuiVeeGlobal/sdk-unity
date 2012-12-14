@@ -20,7 +20,7 @@ public class RoarRankingsWidget : RoarUIWidget
 	//public string rankingNavigateLeftButtonStyle = "ButtonNavigatePageLeft";
 	//public string rankingNavigateRightButtonStyle = "ButtonNavigatePageRight";
 	
-	public string leaderboardKey = string.Empty;
+	public string leaderboardId = string.Empty;
 	public int page = 1;
 	
 	private Roar.Components.ILeaderboards boards;	
@@ -60,18 +60,18 @@ public class RoarRankingsWidget : RoarUIWidget
 		FetchIfPossible();
 	}
 	
-	void OnLeaderboardSelected(string leaderboardKey)
+	void OnLeaderboardSelected(string leaderboardId)
 	{
-		this.leaderboardKey = leaderboardKey;
+		this.leaderboardId = leaderboardId;
 		this.page = 1;
 		FetchIfPossible();
 	}
 	
 	void FetchIfPossible()
 	{
-		if (!string.IsNullOrEmpty(leaderboardKey))
+		if (!string.IsNullOrEmpty(leaderboardId))
 		{
-			leaderboard = boards.GetLeaderboard(leaderboardKey);
+			leaderboard = boards.GetLeaderboard(leaderboardId);
 		}
 		
 		if (leaderboard == null)
@@ -82,32 +82,17 @@ public class RoarRankingsWidget : RoarUIWidget
 	
 	public void Fetch()
 	{
-		if (string.IsNullOrEmpty(leaderboardKey))
+		if (string.IsNullOrEmpty(leaderboardId))
 		{
-			Debug.Log("leaderboardKey not set!");
+			Debug.Log("leaderboardId not set!");
+			return;
 		}
-		boards.FetchBoard( leaderboardKey, OnRoarFetchLeaderboardComplete );
+		boards.FetchBoard( leaderboardId, OnRoarFetchLeaderboardComplete );
 	}
 	
-	void OnRoarFetchLeaderboardComplete(Roar.CallbackInfo<ILeaderboardCache> cache)
+	void OnRoarFetchLeaderboardComplete(Roar.CallbackInfo<ILeaderboardCache> info)
 	{
-		/*
-		whenLastFetched = Time.realtimeSinceStartup;
-		isFetching = false;
-		leaderboards = boards.BoardList();
-		
-		// set default labels
-		foreach (LeaderboardInfo leaderboard in leaderboards)
-		{
-			if (string.IsNullOrEmpty(leaderboard.label))
-				leaderboard.label = string.Format("Leaderboard{0} - {1}", leaderboard.board_id, leaderboard.ikey);
-		}
-		
-		ScrollViewContentHeight = leaderboards.Count * (leaderboardItemBounds.height + leaderboardItemSpacing);
-		
-		if (OnLeaderboardsFetchedComplete != null)
-			OnLeaderboardsFetchedComplete();
-		*/
+		leaderboard = info.data.GetLeaderboard(leaderboardId);
 	}
 	
 	public void Fetch(int page)
@@ -116,10 +101,10 @@ public class RoarRankingsWidget : RoarUIWidget
 		Fetch();
 	}
 	
-	public void Fetch(string leaderboardKey, int page)
+	public void Fetch(string leaderboardId, int page)
 	{
 		this.page = page;
-		this.leaderboardKey = leaderboardKey;
+		this.leaderboardId = leaderboardId;
 		Fetch();
 	}
 	
@@ -144,10 +129,8 @@ public class RoarRankingsWidget : RoarUIWidget
 				Rect entryRect = rankingItemBounds;
 				foreach (LeaderboardEntry leaderboardEntry in leaderboard)
 				{
-					GUI.Label(entryRect, leaderboardEntry.rank.ToString(), rankingEntryPlayerRankStyle);
-					//GUI.Label(entry, leaderboardEntry.playerName, rankingEntryPlayerNameStyle);
-					GUI.Label(entryRect, leaderboardEntry.value.ToString(), rankingEntryPlayerScoreStyle);
-					
+					GUI.Label(entryRect, leaderboardEntry.properties[0].ikey + ":" + leaderboardEntry.properties[0].value, rankingEntryPlayerRankStyle);
+					GUI.Label(entryRect, "["+leaderboardEntry.rank.ToString()+"] " + leaderboardEntry.value.ToString(), rankingEntryPlayerScoreStyle );
 					entryRect.y += entryRect.height + rankingItemSpacing;
 				}
 				//useScrollView = utilizeScrollView && ((entry.y + entry.height) > contentBounds.height);

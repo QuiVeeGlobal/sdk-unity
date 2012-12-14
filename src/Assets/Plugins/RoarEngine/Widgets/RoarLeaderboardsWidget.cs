@@ -99,7 +99,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 					if (GUI.Button(entry, leaderboard.label, leaderboardEntryStyle))
 					{
 						if (OnLeaderboardSelected != null)
-							OnLeaderboardSelected(leaderboard.ikey);
+							OnLeaderboardSelected(leaderboard.board_id);
 					}
 					entry.y += entry.height + leaderboardItemSpacing;
 				}

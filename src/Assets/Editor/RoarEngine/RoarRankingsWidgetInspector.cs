@@ -15,7 +15,7 @@ public class RoarRankingsWidgetInspector : RoarUIWidgetInspector
 	private SerializedProperty rankingEntryPlayerScoreStyle;
 
 	
-	private SerializedProperty leaderboardKey;
+	private SerializedProperty leaderboardId;
 	private SerializedProperty page;
 	
 	protected override void OnEnable ()
@@ -31,7 +31,7 @@ public class RoarRankingsWidgetInspector : RoarUIWidgetInspector
 		rankingEntryPlayerNameStyle = serializedObject.FindProperty("rankingEntryPlayerNameStyle");
 		rankingEntryPlayerScoreStyle = serializedObject.FindProperty("rankingEntryPlayerScoreStyle");
 		
-		leaderboardKey = serializedObject.FindProperty("leaderboardKey");
+		leaderboardId = serializedObject.FindProperty("leaderboardId");
 		page = serializedObject.FindProperty("page");
 	}
 	
@@ -55,7 +55,7 @@ public class RoarRankingsWidgetInspector : RoarUIWidgetInspector
 		
 		// 
 		Comment("Specific leaderboard data.");
-		EditorGUILayout.PropertyField(leaderboardKey);
+		EditorGUILayout.PropertyField(leaderboardId);
 		EditorGUILayout.PropertyField(page);
 	}
 }

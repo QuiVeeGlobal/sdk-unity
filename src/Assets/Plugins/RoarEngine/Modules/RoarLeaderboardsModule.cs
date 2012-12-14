@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class RoarLeaderboardsModule : RoarModule
 {
-	public string defaultLeaderboard;
+	public string defaultLeaderboardId;
 	
 	private RoarLeaderboardsWidget leaderboardsWidget;
 	private RoarRankingsWidget rankingsWidget;
@@ -22,8 +22,8 @@ public class RoarLeaderboardsModule : RoarModule
 			leaderboardsWidget.enabled = true;
 		if (rankingsWidget)
 		{
-			if (!string.IsNullOrEmpty(defaultLeaderboard))
-				rankingsWidget.leaderboardKey = defaultLeaderboard;
+			if (!string.IsNullOrEmpty(defaultLeaderboardId))
+				rankingsWidget.leaderboardId = defaultLeaderboardId;
 			rankingsWidget.enabled = true;
 		}
 	}

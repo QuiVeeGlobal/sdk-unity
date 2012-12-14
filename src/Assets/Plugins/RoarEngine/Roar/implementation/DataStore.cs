@@ -232,11 +232,8 @@ public class LeaderboardCache : ILeaderboardCache
 		
 		public void OnSuccess(Roar.CallbackInfo<Roar.WebObjects.Leaderboards.ViewResponse> info )
 		{
-			//TODO: Do something usefull with the data.
-			/*
-			lbcache.boardList = info.data.boards;
-			lbcache.hasBoardList = true;
-			*/
+			//TODO: Really should append/update the values in the list here insted.
+			lbcache.boards[board_id] = info.data.leaderboard_data.entries;
 			cb( new Roar.CallbackInfo<ILeaderboardCache>(lbcache,WebAPI.OK,null) );
 			
 		}
