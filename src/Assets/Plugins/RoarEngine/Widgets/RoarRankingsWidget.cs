@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Roar;
 using Roar.DomainObjects;
 
@@ -129,7 +130,8 @@ public class RoarRankingsWidget : RoarUIWidget
 				Rect entryRect = rankingItemBounds;
 				foreach (LeaderboardEntry leaderboardEntry in leaderboard)
 				{
-					GUI.Label(entryRect, leaderboardEntry.properties[0].ikey + ":" + leaderboardEntry.properties[0].value, rankingEntryPlayerRankStyle);
+					string prop_string = string.Join("\n", leaderboardEntry.properties.Select( p => (p.ikey+":"+p.value) ).ToArray() );
+					GUI.Label(entryRect, prop_string, rankingEntryPlayerRankStyle);
 					GUI.Label(entryRect, "["+leaderboardEntry.rank.ToString()+"] " + leaderboardEntry.value.ToString(), rankingEntryPlayerScoreStyle );
 					entryRect.y += entryRect.height + rankingItemSpacing;
 				}
