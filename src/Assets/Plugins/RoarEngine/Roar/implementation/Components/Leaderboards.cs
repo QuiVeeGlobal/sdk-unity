@@ -9,29 +9,115 @@ namespace Roar.implementation.Components
 	{
 		protected IDataStore dataStore;
 		protected ILogger logger;
+		IWebAPI webapi;
+		public int page_size = 5;
+		
+		protected bool hasBoardList=false;
+		protected List<Roar.DomainObjects.LeaderboardInfo> boardList;
+		protected Dictionary<
+			string,
+			IDictionary<int, IList<Roar.DomainObjects.LeaderboardEntry> >
+				> boards = new Dictionary<string, IDictionary<int, IList<Roar.DomainObjects.LeaderboardEntry>>>();
 
-		public Leaderboards (IDataStore dataStore, ILogger logger)
+		public Leaderboards (IWebAPI webapi, IDataStore dataStore, ILogger logger)
 		{
 			this.dataStore = dataStore;
 			this.logger = logger;
+			this.webapi = webapi;
 		}
 
-		public void Fetch (Roar.Callback< IDictionary<string,DomainObjects.LeaderboardData> > callback)
+		public void FetchBoardList( Roar.Callback< ILeaderboards > callback )
 		{
-			dataStore.leaderboards.Fetch (callback);
+			Roar.WebObjects.Leaderboards.ListArguments args = new Roar.WebObjects.Leaderboards.ListArguments();
+			webapi.leaderboards.list( args, new BoardListFetcherCallback(this,callback) );
 		}
-
-		public bool HasDataFromServer { get { return dataStore.leaderboards.HasDataFromServer; } }
-
-		public IList<DomainObjects.LeaderboardData> List ()
+		
+		class BoardListFetcherCallback : ZWebAPI.Callback<Roar.WebObjects.Leaderboards.ListResponse>
 		{
-			return dataStore.leaderboards.List ();
+			Leaderboards leaderboards;
+			Roar.Callback<ILeaderboards> cb;
+		
+			public BoardListFetcherCallback( Leaderboards leaderboards, Roar.Callback<ILeaderboards> cb )
+			{
+				this.leaderboards = leaderboards;
+				this.cb = cb;
+			}
+		
+			public void OnError(Roar.RequestResult result)
+			{
+				//TODO: Handle the error?
+			}
+		
+			public void OnSuccess(Roar.CallbackInfo<Roar.WebObjects.Leaderboards.ListResponse> info )
+			{
+				leaderboards.boardList = info.data.boards;
+				leaderboards.hasBoardList = true;
+				cb( new Roar.CallbackInfo<ILeaderboards>(leaderboards,WebAPI.OK,null) );
+			}
 		}
 
-		// Returns the leaderboard Hashtable associated with attribute `ikey`
-		public DomainObjects.LeaderboardData GetLeaderboard (string ikey)
+
+		public void FetchBoard( string board_id, int page_number, Roar.Callback<ILeaderboards> cb )
 		{
-			return dataStore.leaderboards.Get (ikey);;
+			Roar.WebObjects.Leaderboards.ViewArguments args = new Roar.WebObjects.Leaderboards.ViewArguments();
+			args.board_id = board_id;
+			args.page = page_number;
+			args.num_results = page_size;
+			webapi.leaderboards.view( args, new BoardFetcherCallback(this,board_id, cb) );
 		}
+		
+		class BoardFetcherCallback : ZWebAPI.Callback<Roar.WebObjects.Leaderboards.ViewResponse>
+		{
+			Leaderboards leaderboards;
+			string board_id;
+			Roar.Callback<ILeaderboards> cb;
+
+			public BoardFetcherCallback( Leaderboards leaderboards, string board_id, Roar.Callback<ILeaderboards> cb )
+			{
+				this.leaderboards = leaderboards;
+				this.board_id = board_id;
+				this.cb = cb;
+			}
+
+			public void OnError(Roar.RequestResult result)
+			{
+				//TODO: Handle the error?
+			}
+
+			public void OnSuccess(Roar.CallbackInfo<Roar.WebObjects.Leaderboards.ViewResponse> info )
+			{
+				IDictionary<int, IList< DomainObjects.LeaderboardEntry > > board = null;
+				leaderboards.boards.TryGetValue(board_id, out board);
+				if( board == null )
+				{
+					board = new Dictionary<int, IList<DomainObjects.LeaderboardEntry> >();
+					leaderboards.boards[board_id] = board;
+				}
+				
+				board[info.data.leaderboard_data.page] = info.data.leaderboard_data.entries;
+				cb( new Roar.CallbackInfo<ILeaderboards>(leaderboards,WebAPI.OK,null) );
+			}
+	}
+
+		public bool HasBoardList { get { return hasBoardList; } }
+
+		public IList<DomainObjects.LeaderboardInfo> BoardList ()
+		{
+			return boardList;
+		}
+		
+		//TODO: This should really support paging.
+		public IList<Roar.DomainObjects.LeaderboardEntry> GetLeaderboard( string board_id, int page )
+		{
+			IList<Roar.DomainObjects.LeaderboardEntry> retval=null;
+			IDictionary<int, IList<Roar.DomainObjects.LeaderboardEntry> > board;
+			boards.TryGetValue(board_id, out board);
+			if( board != null )
+			{
+				board.TryGetValue(page, out retval );
+			}
+			return retval;
+		}
+
 	}
 }

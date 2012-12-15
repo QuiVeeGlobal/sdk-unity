@@ -26,14 +26,20 @@ namespace Roar.Components
 	     *
 	     * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	     **/
-		void Fetch (Roar.Callback< IDictionary<string,DomainObjects.LeaderboardData> > callback);
+		void FetchBoardList( Roar.Callback< ILeaderboards > callback );
+		
+		/**
+		 * Fetch info for a given board
+		 **/
+		void FetchBoard( string board_id, int page, Roar.Callback< ILeaderboards > callback );
+		
 
 		/**
 	     * Check whether any leaderboard data has been obtained from the server.
 	     *
 	     * @returns true if #fetch has completed execution.
 	     **/
-		bool HasDataFromServer { get; }
+		bool HasBoardList { get; }
 
 		/**
 	     * Get a list of all the leaderboard objects for the authenticated user.
@@ -45,16 +51,9 @@ namespace Roar.Components
 	     *       is called prior to the successful completion of a #fetch call,
 	     *       it will return an empty array.
 	     **/
-		IList<DomainObjects.LeaderboardData> List ();
+		IList<DomainObjects.LeaderboardInfo> BoardList ();
+		
+		IList<Roar.DomainObjects.LeaderboardEntry> GetLeaderboard( string board_id, int page );
 
-		/**
-	     * Returns the leaderboard object for a given key.
-	     *
-	     * @param ikey the key that uniquely identifies a leaderboard.
-	     *
-	     * @returns the property Hashtable associated with the *key*
-	     *          or null if the leaderboard does not exist in the data store.
-	     **/
-		DomainObjects.LeaderboardData GetLeaderboard (string ikey);
 	}
 }
