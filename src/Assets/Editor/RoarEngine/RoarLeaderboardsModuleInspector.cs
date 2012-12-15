@@ -5,14 +5,14 @@ using System.Collections;
 [CustomEditor(typeof(RoarLeaderboardsModule))]
 public class RoarLeaderboardsModuleInspector : RoarModuleInspector
 {	
-	private SerializedProperty defaultLeaderboard;
+	private SerializedProperty defaultLeaderboardId;
 	
 	protected override void OnEnable()
 	{
 		base.OnEnable();
 		showBoundsConstraintSettings = false;
 		
-		defaultLeaderboard = serializedObject.FindProperty("defaultLeaderboard");
+		defaultLeaderboardId = serializedObject.FindProperty("defaultLeaderboardId");
 	}
 
 	protected override void DrawGUI()
@@ -21,6 +21,6 @@ public class RoarLeaderboardsModuleInspector : RoarModuleInspector
 		
 		// 
 		Comment("Leaderboards settings.");
-		EditorGUILayout.PropertyField(defaultLeaderboard);
+		EditorGUILayout.PropertyField(defaultLeaderboardId);
 	}
 }
