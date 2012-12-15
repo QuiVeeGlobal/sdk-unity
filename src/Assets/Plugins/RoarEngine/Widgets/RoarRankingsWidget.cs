@@ -43,7 +43,7 @@ public class RoarRankingsWidget : RoarUIWidget
 		
 		boards = roar.Leaderboards;
 		
-		FetchIfPossible();
+		FetchIfRequired();
 	}
 	
 	protected override void OnDisable()
@@ -58,17 +58,17 @@ public class RoarRankingsWidget : RoarUIWidget
 	
 	void OnLeaderboardsFetchedComplete()
 	{
-		FetchIfPossible();
+		FetchIfRequired();
 	}
 	
 	void OnLeaderboardSelected(string leaderboardId)
 	{
 		this.leaderboardId = leaderboardId;
 		this.page = 1;
-		FetchIfPossible();
+		FetchIfRequired();
 	}
 	
-	void FetchIfPossible()
+	void FetchIfRequired()
 	{
 		if (!string.IsNullOrEmpty(leaderboardId))
 		{
@@ -88,25 +88,15 @@ public class RoarRankingsWidget : RoarUIWidget
 			Debug.Log("leaderboardId not set!");
 			return;
 		}
+		isFetching = true;
 		boards.FetchBoard( leaderboardId, page, OnRoarFetchLeaderboardComplete );
 	}
 	
 	void OnRoarFetchLeaderboardComplete(Roar.CallbackInfo<Roar.Components.ILeaderboards> info)
 	{
+		//TODO: Handle errors!
 		leaderboard = info.data.GetLeaderboard(leaderboardId, page);
-	}
-	
-	public void Fetch(int page)
-	{
-		this.page = page;
-		Fetch();
-	}
-	
-	public void Fetch(string leaderboardId, int page)
-	{
-		this.page = page;
-		this.leaderboardId = leaderboardId;
-		Fetch();
+		isFetching = false;
 	}
 	
 	
@@ -119,15 +109,40 @@ public class RoarRankingsWidget : RoarUIWidget
 		}
 		else
 		{
-			if (leaderboard == null || leaderboard.Count == 0)
+			if (leaderboard == null || (leaderboard.Count == 0 && page == 1) )
 			{
 				GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "No ranking data.", "StatusNormal");
 				ScrollViewContentHeight = 0;
 			}
 			else
 			{
-				ScrollViewContentHeight = leaderboard.Count * (rankingItemBounds.height + rankingItemSpacing);
+				ScrollViewContentHeight = (leaderboard.Count+1) * (rankingItemBounds.height + rankingItemSpacing);
+				//Render some navigation widgets:
 				Rect entryRect = rankingItemBounds;
+				GUI.BeginGroup(entryRect);
+				
+				//We do this last so we dont break immediate mode GUI rendering.
+				bool requires_refetch = false;
+				
+				if( page==1 ) { GUI.enabled = false; }
+				if( GUI.Button(new Rect(0,0,entryRect.width/2,entryRect.height), "Previous Page") )
+				{
+					page = page - 1;
+					requires_refetch = true;
+				}
+				GUI.enabled = true;
+				
+				if( leaderboard.Count == 0 ) { GUI.enabled = false; }
+				if( GUI.Button(new Rect(entryRect.width/2,0,entryRect.width/2,entryRect.height), "Next Page") )
+				{
+					page = page +1;
+					requires_refetch = true;
+				}
+				GUI.enabled = true;
+				GUI.EndGroup();
+				entryRect.y += entryRect.height + rankingItemSpacing;
+
+				
 				foreach (LeaderboardEntry leaderboardEntry in leaderboard)
 				{
 					string prop_string = string.Join("\n", leaderboardEntry.properties.Select( p => (p.ikey+":"+p.value) ).ToArray() );
@@ -136,6 +151,9 @@ public class RoarRankingsWidget : RoarUIWidget
 					entryRect.y += entryRect.height + rankingItemSpacing;
 				}
 				//useScrollView = utilizeScrollView && ((entry.y + entry.height) > contentBounds.height);
+				
+				if(requires_refetch) FetchIfRequired();
+
 			}
 		}
 	}
