@@ -12,6 +12,11 @@ public class RoarFriendsListWidget : RoarUIWidget
 	private float whenLastFetched;
 	private Roar.Components.IFriends friends;
 	
+	public float entrySpacing;
+	public Rect  entryBounds;
+	
+	IDictionary<string, Roar.DomainObjects.Friend> friendsDict = null;
+	
 	protected override void OnEnable ()
 	{
 		base.OnEnable ();
@@ -42,6 +47,7 @@ public class RoarFriendsListWidget : RoarUIWidget
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;
+		friendsDict = info.data;
 	}
 	
 	protected override void DrawGUI(int windowId)
@@ -49,7 +55,23 @@ public class RoarFriendsListWidget : RoarUIWidget
 		if (!IsLoggedIn) return; // attempt draw nothing if not logged in
 		if (isFetching)
 		{
-			GUI.Label(new Rect(Screen.width/2f - 256,Screen.height/2f - 32,512,64), "Fetching friends...", "StatusNormal");
+			GUI.Label(new Rect(this.bounds.width/2f - 256,this.bounds.height/2f - 32,512,64), "Fetching friends...", "StatusNormal");
+			return;
+		}
+		
+		if( friends==null)
+		{
+			GUI.Label(new Rect(this.bounds.width/2f - 256,this.bounds.height/2f - 32,512,64), "Error loading friends...", "StatusNormal");
+			return;
+		}
+		
+		ScrollViewContentHeight = friendsDict.Count * (entryBounds.height + entrySpacing);
+		Rect entry = entryBounds;
+		foreach (KeyValuePair<string,Roar.DomainObjects.Friend> f in friendsDict)
+		{
+			GUI.Label(entry, string.Format("[{0}] {1} (Level {2})", f.Value.player_id, f.Value.name, f.Value.level) );
+			entry.y += entry.height + entrySpacing;
 		}
 	}
+	
 }

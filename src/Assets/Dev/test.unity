@@ -1392,6 +1392,13 @@ MonoBehaviour:
   autoDisableOnLogout: 1
   whenToFetch: 2
   howOftenToFetch: 60
+  entrySpacing: 8
+  entryBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 476
+    height: 32
 --- !u!1 &1745052715
 GameObject:
   m_ObjectHideFlags: 0
