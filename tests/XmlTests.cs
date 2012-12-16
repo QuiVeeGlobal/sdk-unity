@@ -176,6 +176,19 @@ public class XmlParserTest
 		testIXMLNodeGetNode(new SystemXMLNodeFactory());
 	}
 	
+		[Test]
+	public void testXMLNodeGetNode2() 
+	{
+		testIXMLNodeGetNode2(new XMLNodeFactory());
+	}
+	
+	[Test]
+	public void testSystemXMLNodeGetNode2() 
+	{
+		testIXMLNodeGetNode2(new SystemXMLNodeFactory());
+	}
+	
+	
 	protected void testIXMLNodeGetNode(IXMLNodeFactory xmlNodeFactory)
 	{
 		IXMLNode node = xmlNodeFactory.Create("<example><value type=\"String\">Foobar</value><value type=\"Int\">3</value></example>");
@@ -184,6 +197,48 @@ public class XmlParserTest
 		IXMLNode actualNode = node.GetNode("example>0>value>1");
 
 		Assert.AreEqual("3", actualNode.Text );
+	}
+	
+	protected void testIXMLNodeGetNode2(IXMLNodeFactory xmlNodeFactory)
+	{
+		string xml =
+		@"<root>
+					<foo>
+						<bar name=""A_bar"">
+							<baz name=""A_baz""/>
+						</bar>
+					</foo>
+					<foo>
+						<bar name=""B_bar"">
+							<baz name=""B_baz""/>
+						</bar>
+					</foo>
+					<foo>
+						<bar name=""C_bar"">
+							<baz name=""C_baz""/>
+						</bar>
+					</foo>
+		</root>";
+		
+		IXMLNode node = xmlNodeFactory.Create(xml);
+
+			
+		Assert.IsNotNull( node );
+			
+		IXMLNode c1 = node.GetNode("root>0>foo>0>bar>0");
+		IXMLNode c2 = node.GetNode("root>0>foo>1>bar>0");
+		IXMLNode c3 = node.GetNode("root>0>foo>2>bar>0");
+		Assert.IsNotNull (c1);
+		Assert.IsNotNull (c2);
+		Assert.IsNotNull (c3);
+		
+		Assert.AreEqual("A_bar",c1.GetAttribute("name"));
+		Assert.AreEqual("B_bar",c2.GetAttribute("name"));
+		Assert.AreEqual("C_bar",c3.GetAttribute("name"));
+		
+		Assert.AreEqual("A_baz",c1.GetFirstChild("baz").GetAttribute("name"));
+		Assert.AreEqual("B_baz",c2.GetFirstChild("baz").GetAttribute("name"));
+		Assert.AreEqual("C_baz",c3.GetFirstChild("baz").GetAttribute("name"));
 	}
 	
 	[Test]

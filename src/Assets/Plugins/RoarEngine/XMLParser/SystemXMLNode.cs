@@ -157,7 +157,7 @@ public class SystemXMLNode : IXMLNode
 				if(currentNode[segment] != null)
 				{
 					ob=currentNode[segment];
-					currentNodeList = currentNode.SelectNodes("//" + segment);
+					currentNodeList = currentNode.SelectNodes("./" + segment);
 					listMode=true;
 				}
 				else
