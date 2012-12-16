@@ -6,7 +6,7 @@ using Roar.DomainObjects;
 
 public class RoarShopWidget : RoarUIWidget
 {
-	public delegate void RoarShopWidgetBuyHandler(string itemShopKey, string itemCostKey);
+	public delegate void RoarShopWidgetBuyHandler(Roar.DomainObjects.ShopEntry shop_entry);
 	public static event RoarShopWidgetBuyHandler OnItemBuyRequest;
 	
 	public enum WhenToFetch { OnEnable, Once, Occassionally, Manual };
@@ -131,14 +131,15 @@ public class RoarShopWidget : RoarUIWidget
 				
 				if (GUI.Button(buyButtonBounds, "Buy", shopItemBuyButtonStyle))
 				{
-					//if (Debug.isDebugBuild)
-					//{
-					//	Debug.Log(string.Format("buy request: {0} for {1} {2}", item.ikey, item.costs[0].amount, item.costs[0].key));
-					//}
-					//if (OnItemBuyRequest != null)
-					//{
-					//	OnItemBuyRequest(item.ikey, item.costs[0].ikey);
-					//}
+					if (Debug.isDebugBuild)
+					{
+						Debug.Log(string.Format("buy request: {0}", item.ikey));
+					}
+					if (OnItemBuyRequest != null)
+					{
+						OnItemBuyRequest(item);
+					}
+					shop.Buy( item.ikey, null );
 				}
 				GUI.enabled = true;
 				GUI.EndGroup();
