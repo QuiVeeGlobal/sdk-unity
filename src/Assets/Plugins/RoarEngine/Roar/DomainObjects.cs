@@ -239,7 +239,7 @@ namespace Roar
 			
 			public IList<string> tags = new List<string>();
 			
-			public static ShopEntry CreateFromXml( IXMLNode n )
+			public static ShopEntry CreateFromXml( IXMLNode n, IXCRMParser xcrm_parser )
 			{
 				ShopEntry retval = new ShopEntry();
 				
@@ -248,7 +248,6 @@ namespace Roar
 				kv.TryGetValue("label", out retval.label);
 				kv.TryGetValue("description", out retval.description);
 				
-				Roar.DataConversion.XCRMParser xcrm_parser = new Roar.DataConversion.XCRMParser();
 				
 				IXMLNode costs_node = n.GetNode("costs>0");
 				if (costs_node != null)

@@ -77,6 +77,14 @@ public class RoarShopWidget : RoarUIWidget
 		foreach ( KeyValuePair<string,Roar.DomainObjects.ShopEntry> item in info.data)
 		{
 			Debug.Log( string.Format("{0}:{1}:{2}", cnt, item.Key, item.Value.label) );
+			if( item.Value.costs.Count == 1)
+			{
+				Roar.DomainObjects.Costs.Stat stat_cost = item.Value.costs[0] as Roar.DomainObjects.Costs.Stat;
+				if( stat_cost != null )
+				{
+					Debug.Log ( string.Format ("Costs {0} {1} ({2} {3})", stat_cost.value, stat_cost.ikey, stat_cost.ok, stat_cost.reason ) );
+				}
+			}
 		}
 		Debug.Log("======================================");
 		

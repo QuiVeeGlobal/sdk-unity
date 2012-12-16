@@ -859,6 +859,8 @@ namespace Roar.DataConversion.Responses
 		//Response from shop/list
 		public class List : IXmlToObject< Roar.WebObjects.Shop.ListResponse >
 		{
+			public Roar.DataConversion.IXCRMParser ixcrm_parser = new Roar.DataConversion.XCRMParser();
+
 			public Roar.WebObjects.Shop.ListResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Shop.ListResponse retval = new Roar.WebObjects.Shop.ListResponse();
@@ -866,7 +868,7 @@ namespace Roar.DataConversion.Responses
 				List<IXMLNode> shopitem_nodes = n.GetNodeList("roar>0>shop>0>list>0>shopitem");
 				foreach( IXMLNode nn in shopitem_nodes )
 				{
-					retval.shop_entries.Add( Roar.DomainObjects.ShopEntry.CreateFromXml(nn) );
+					retval.shop_entries.Add( Roar.DomainObjects.ShopEntry.CreateFromXml(nn,ixcrm_parser) );
 				}
 				return retval;
 			}
