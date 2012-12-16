@@ -108,6 +108,15 @@ public class RoarShopWidget : RoarUIWidget
 				GUI.Label(itemRect, item.description, shopItemDescriptionStyle);
 				//GUI.Label(itemRect, string.Format("{0} {1}", item.costs[0].amount.ToString(), RoarTypesCache.UserStatByKey(item.costs[0].key).Title), shopItemCostStyle);
 				GUI.BeginGroup(itemRect);
+				
+				//For now only check the costs
+				bool can_buy = true;
+				foreach( Roar.DomainObjects.Cost cost in item.costs)
+				{
+					if( ! cost.ok ) { can_buy = false; break; }
+				}
+				GUI.enabled = can_buy;
+				
 				if (GUI.Button(buyButtonBounds, "Buy", shopItemBuyButtonStyle))
 				{
 					//if (Debug.isDebugBuild)
@@ -119,6 +128,7 @@ public class RoarShopWidget : RoarUIWidget
 					//	OnItemBuyRequest(item.ikey, item.costs[0].ikey);
 					//}
 				}
+				GUI.enabled = true;
 				GUI.EndGroup();
 				
 				itemRect.y += itemRect.height + shopItemSpacing;
