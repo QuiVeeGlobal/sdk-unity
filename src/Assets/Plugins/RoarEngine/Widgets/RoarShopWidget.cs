@@ -115,6 +115,18 @@ public class RoarShopWidget : RoarUIWidget
 				{
 					if( ! cost.ok ) { can_buy = false; break; }
 				}
+				
+				//Only render if theres exactly one cost and its a stat cost.
+				if (item.costs.Count == 1)
+				{
+					Roar.DomainObjects.Costs.Stat stat_cost = item.costs[0] as Roar.DomainObjects.Costs.Stat;
+					if( stat_cost != null )
+					{
+						//TODO: This is not rendering in the right place.
+						GUI.Label (itemRect, string.Format ("Costs {0} {1}", stat_cost.value, stat_cost.ikey) ) ;
+					}
+				}
+				
 				GUI.enabled = can_buy;
 				
 				if (GUI.Button(buyButtonBounds, "Buy", shopItemBuyButtonStyle))
