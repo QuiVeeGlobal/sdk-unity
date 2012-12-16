@@ -351,6 +351,26 @@ namespace Testing
 			Assert.AreEqual(response.items[0].price, modifier_list);
 			Assert.AreEqual(response.items[0].tags, tag_list);
 		}
+		
+		[Test()]
+		public void TestItemsEquipXmlGetAttributes()
+		{
+			string xml =
+			@"<roar tick=""128779477951"">
+				<items>
+					<equip status=""ok""/>
+				</items>
+				<!--The server flags that the user inventory status has changed-->
+				<server>
+					<inventory_changed/>
+				</server>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Items.Equip equip_parser = new Roar.DataConversion.Responses.Items.Equip();
+			EquipResponse response = equip_parser.Build(nn);
+			Assert.IsNotNull(response);
+		}
 	}
 }
 
