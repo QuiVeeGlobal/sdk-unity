@@ -919,7 +919,16 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Tasks.ListResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Tasks.ListResponse retval = new Roar.WebObjects.Tasks.ListResponse();
-				//TODO: Implement me
+				retval.tasks = new List<Task>();
+				List<IXMLNode> tasks_nodes = n.GetNodeList("roar>0>tasks>0>list>0>task");
+				foreach( IXMLNode task in tasks_nodes )
+				{
+					Roar.DomainObjects.Task t = new Roar.DomainObjects.Task();
+					t.ikey = task.GetAttribute("ikey");
+					t.label = task.GetFirstChild("label").Text;
+					t.description = task.GetFirstChild("description").Text;
+					retval.tasks.Add(t);
+				}
 				return retval;
 			}
 		}

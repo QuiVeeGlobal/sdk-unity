@@ -16,12 +16,12 @@ namespace Roar.implementation.Components
 
 		public bool HasDataFromServer { get { return dataStore.actions.HasDataFromServer; } }
 
-		public void Fetch (Roar.Callback< IDictionary<string,Foo> > callback)
+		public void Fetch (Roar.Callback< IDictionary<string,Roar.DomainObjects.Task> > callback)
 		{
 			dataStore.actions.Fetch (callback);
 		}
 
-		public IList<Foo> List ()
+		public IList<Roar.DomainObjects.Task> List ()
 		{
 			return dataStore.actions.List ();
 		}

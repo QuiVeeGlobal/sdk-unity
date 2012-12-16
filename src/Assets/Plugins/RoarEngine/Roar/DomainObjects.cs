@@ -666,6 +666,14 @@ namespace Roar
 			
 		}
 		
+		public class Task
+		{
+			public string ikey;
+			public string label;
+			public string description;
+			//TODO: Add any other fields
+		}
+		
 
 
 	}

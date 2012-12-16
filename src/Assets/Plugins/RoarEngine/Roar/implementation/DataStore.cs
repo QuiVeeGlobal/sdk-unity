@@ -71,6 +71,19 @@ public class ItemsViewToItemPrototype: IDomToCache<Roar.WebObjects.Items.ViewRes
 	}
 }
 
+public class TaskListToTask : IDomToCache<Roar.WebObjects.Tasks.ListResponse, Roar.DomainObjects.Task>
+{
+	public Dictionary<string, Roar.DomainObjects.Task> convert( Roar.WebObjects.Tasks.ListResponse d)
+	{
+		Dictionary<string,Roar.DomainObjects.Task> retval = new Dictionary<string, Roar.DomainObjects.Task>();
+		foreach( Roar.DomainObjects.Task task in d.tasks )
+		{
+			retval[task.ikey] = task;
+		}
+		return retval;
+	}
+}
+
 public class FooToFoo : IDomToCache<Foo,Foo>
 {
 	public Dictionary<string, Foo> convert( Foo d)
@@ -133,6 +146,11 @@ public class ItemsViewGetter : GenericGetter<Roar.WebObjects.Items.ViewResponse,
 	public ItemsViewGetter( IWebAPI api ) : base( api.items.view ) {}
 }
 
+public class TasksListGetter : GenericGetter<Roar.WebObjects.Tasks.ListResponse, Roar.WebObjects.Tasks.ListArguments>
+{
+	public TasksListGetter( IWebAPI api ) : base( api.tasks.list ) {}
+}
+
 public class FooGetter : IDomGetter<Foo>
 {
 	public FooGetter( IWebAPI api ) 
@@ -157,7 +175,7 @@ namespace Roar.implementation
 		IDataModel<DomainObjects.PlayerAttribute,Roar.WebObjects.User.ViewResponse> properties { get; }
 		IDataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory { get; }
 		IDataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop { get; }
-		IDataModel<Foo,Foo> actions { get; }
+		IDataModel<DomainObjects.Task,WebObjects.Tasks.ListResponse> actions { get; }
 		IDataModel<Foo,Foo> gifts { get; }
 		IDataModel<Foo,Foo> achievements { get; }
 		IDataModel<Foo,Foo> ranking { get; }
@@ -176,7 +194,7 @@ namespace Roar.implementation
 			properties_ = new DataModel<DomainObjects.PlayerAttribute,Roar.WebObjects.User.ViewResponse> ("properties", new UserViewGetter(webapi), new UserViewToProperty(), logger);
 			inventory_ = new DataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> ("inventory", new ItemsListGetter(webapi), new ItemsListToItem(), logger);
 			shop_ = new DataModel<DomainObjects.ShopEntry,WebObjects.Shop.ListResponse>("shop", new ShopListGetter(webapi), new ShopListToShopEntry(), logger);
-			actions_ = new DataModel<Foo,Foo> ("tasks", new FooGetter(webapi), new FooToFoo(), logger);
+			actions_ = new DataModel<DomainObjects.Task,WebObjects.Tasks.ListResponse> ("tasks", new TasksListGetter(webapi), new TaskListToTask(), logger);
 			gifts_ = new DataModel<Foo,Foo> ("gifts", new FooGetter(webapi), new FooToFoo(), logger);
 			achievements_ = new DataModel<Foo,Foo> ("achievements", new FooGetter(webapi), new FooToFoo(), logger);
 			ranking_ = new DataModel<Foo,Foo> ("ranking", new FooGetter(webapi), new FooToFoo(), logger);
@@ -204,7 +222,7 @@ namespace Roar.implementation
 		public IDataModel<DomainObjects.PlayerAttribute,Roar.WebObjects.User.ViewResponse> properties { get { return properties_; } }
 		public IDataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory { get { return inventory_; } }
 		public IDataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop { get { return shop_; } }
-		public IDataModel<Foo,Foo> actions { get { return actions_; } }
+		public IDataModel<DomainObjects.Task,WebObjects.Tasks.ListResponse> actions { get { return actions_; } }
 		public IDataModel<Foo,Foo> gifts { get { return gifts_; } }
 		public IDataModel<Foo,Foo> achievements { get { return achievements_; } }
 		public IDataModel<Foo,Foo> ranking { get { return ranking_; } }
@@ -215,7 +233,7 @@ namespace Roar.implementation
 		public DataModel<DomainObjects.PlayerAttribute,Roar.WebObjects.User.ViewResponse> properties_;
 		public DataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory_;
 		public DataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop_;
-		public DataModel<Foo,Foo> actions_;
+		public DataModel<DomainObjects.Task,WebObjects.Tasks.ListResponse> actions_;
 		public DataModel<Foo,Foo> gifts_;
 		public DataModel<Foo,Foo> achievements_;
 		public DataModel<Foo,Foo> ranking_;

@@ -436,7 +436,15 @@
         "name":"tasks",
         "functions":
         [
-          {"name":"list", "obj":"null"},
+          {
+            "name":"list",
+            "obj":"null",
+            "arguments":[],
+            "response":{
+              "members":[
+                { "name":"tasks", "type":"List<DomainObjects.Task>" }
+            ] }
+          },
           {
             "name":"start",
             "arguments":[

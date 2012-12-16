@@ -1134,6 +1134,7 @@ namespace Roar.WebObjects
 		// Response from tasks/list
 		public class ListResponse
 		{
+			public List<DomainObjects.Task> tasks;
 
 		}
 

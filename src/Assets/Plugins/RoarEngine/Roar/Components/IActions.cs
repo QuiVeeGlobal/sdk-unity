@@ -90,7 +90,7 @@ namespace Roar.Components
 	   *
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   **/
-		void Fetch (Roar.Callback< IDictionary<string,Foo> > callback);
+		void Fetch (Roar.Callback< IDictionary<string,Roar.DomainObjects.Task> > callback);
 
 		/**
 	   * Check whether any action data has been obtained from the server.
@@ -109,7 +109,7 @@ namespace Roar.Components
 	   *       is called prior to the successful completion of a #fetch call,
 	   *       it will return an empty array.
 	   **/
-		IList<Foo> List ();
+		IList<Roar.DomainObjects.Task> List ();
 
 		/**
 	   * Initiates an action on the server, which evaluates the requirements and conditions for the action.
