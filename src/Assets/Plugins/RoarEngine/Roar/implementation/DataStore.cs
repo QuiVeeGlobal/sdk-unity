@@ -27,7 +27,10 @@ public class ItemsListToItem : IDomToCache<Roar.WebObjects.Items.ListResponse,Ro
 	public Dictionary<string, Roar.DomainObjects.InventoryItem> convert( Roar.WebObjects.Items.ListResponse d)
 	{
 		Dictionary<string,Roar.DomainObjects.InventoryItem> retval = new Dictionary<string, Roar.DomainObjects.InventoryItem>();
-		//TODO: Implement this
+		foreach( Roar.DomainObjects.InventoryItem item in d.items )
+		{
+			retval[item.id] = item;
+		}
 		return retval;
 	}
 }
