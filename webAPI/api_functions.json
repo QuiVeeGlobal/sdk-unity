@@ -294,7 +294,14 @@
             "name":"sell",
             "arguments":[
               {"name":"item_id","type":"string"}
-            ] },
+            ],
+            "response":{
+              "members":[
+                { "name":"item", "type":"DomainObjects.InventoryItem" },
+                { "name":"costs", "type":"List<DomainObjects.Cost>" },
+                { "name":"modifiers", "type":"List<DomainObjects.Modifier>" }
+              ] }
+          },
           { "name":"set" },
           {
             "name":"unequip", 

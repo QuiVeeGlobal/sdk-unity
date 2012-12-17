@@ -566,10 +566,18 @@ namespace Roar.DataConversion.Responses
 		//Response from items/sell
 		public class Sell : IXmlToObject< Roar.WebObjects.Items.SellResponse >
 		{
+			public IXCRMParser ixcrm_parser = new XCRMParser();
+			
 			public Roar.WebObjects.Items.SellResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Items.SellResponse retval = new Roar.WebObjects.Items.SellResponse();
-				//TODO: Implement me
+				IXMLNode item_node = n.GetNode("roar>0>items>0>sell>0>item>0");
+				if (item_node != null)
+				{
+					retval.item = DomainObjects.InventoryItem.CreateFromXml(item_node, ixcrm_parser);
+				}
+				retval.costs = ixcrm_parser.ParseCostList(n.GetNode("roar>0>items>0>sell>0>costs>0"));
+				retval.modifiers = ixcrm_parser.ParseModifierList(n.GetNode("roar>0>items>0>sell>0>modifiers>0"));
 				return retval;
 			}
 		}

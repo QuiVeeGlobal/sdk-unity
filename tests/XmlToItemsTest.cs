@@ -353,6 +353,126 @@ namespace Testing
 		}
 		
 		[Test()]
+		public void TestItemsSellXmlParseMechanics()
+		{
+			string xml =
+			@"<roar tick=""135572003492"">
+				<items>
+					<sell status=""ok"">
+						<effect>
+							<costs/>
+							<modifiers>
+								<modifier type=""removed_items"" ikey=""talisman"" count=""34""/>
+								<modifier type=""stat_change"" ikey=""premium_currency"" value=""67""/>
+								<modifier type=""stat_change"" ikey=""premium_currency"" value=""9""/>
+								<modifier type=""add_xp"" value=""876""/>
+								<modifier type=""add_xp"" value=""6""/>
+								<modifier type=""add_item"" ikey=""talisman"" item_id=""1458454945""/>
+								<modifier type=""stat_change"" ikey=""premium_currency"" value=""88""/>
+								<modifier type=""add_xp"" value=""66""/>
+								<modifier type=""add_xp"" value=""77""/>
+							</modifiers>
+						</effect>
+						<item id=""275012935"" ikey=""ring"" count=""1"" label=""Ring"" type=""item"" description=""Magic ring for protection and strength"" consumable=""true"" sellable=""true"">
+							<stats>
+								<equip_attribute ikey=""premium_currency"" value=""67""/>
+								<collect_stat ikey=""premium_currency"" value=""45"" every=""600000"" window=""234"" collect_at=""0""/>
+								<regen_stat_limited ikey=""premium_currency"" value=""345"" repeat=""12"" times_used=""0""/>
+								<regen_stat ikey=""premium_currency"" value=""44"" every=""600000""/>
+								<grant_stat ikey=""premium_currency"" value=""566""/>
+							</stats>
+							<properties>
+								<property ikey=""sonda"" value=""extra""/>
+								<property ikey=""mariner"" value=""505""/>
+							</properties>
+							<tags>
+								<tag value=""magic""/>
+								<tag value=""magicitem""/>
+								<tag value=""protection""/>
+							</tags>
+							<price>
+								<remove_items/>
+								<grant_stat type=""currency"" ikey=""premium_currency"" value=""67""/>
+								<grant_stat_range type=""currency"" ikey=""premium_currency"" min=""8"" max=""9""/>
+								<grant_xp value=""876""/>
+								<grant_xp_range min=""6"" max=""7""/>
+								<grant_item ikey=""talisman""/>
+								<random_choice>
+									<choice weight=""67"">
+										<modifier>
+											<grant_stat type=""currency"" ikey=""premium_currency"" value=""88""/>
+										</modifier>
+										<requirement>
+											<true_requirement ok=""true""/>
+										</requirement>
+									</choice>
+								</random_choice>
+								<grant_xp value=""66""/>
+								<if_then_else>
+									<if>
+										<true_requirement ok=""true""/>
+									</if>
+									<then>
+										<grant_xp value=""77""/>
+									</then>
+									<else>
+										<grant_xp value=""88""/>
+									</else>
+								</if_then_else>
+							</price>
+						</item>
+					</sell>
+				</items>
+				<server>
+					<item_lose item_id=""180846839"" item_ikey=""talisman""/>
+					<item_add item_id=""1458454945"" item_ikey=""talisman""/>
+					<item_lose item_id=""275012935"" item_ikey=""ring""/>
+					<update type=""currency"" ikey=""premium_currency"" value=""32987""/>
+					<update type=""xp"" ikey=""xp"" value=""16807""/>
+					<inventory_changed/>
+				</server>
+			</roar>";
+			
+			Mockery mockery = new Mockery();
+			Roar.DataConversion.IXCRMParser ixcrm_parser = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
+			Roar.DomainObjects.InventoryItem item_data = new Roar.DomainObjects.InventoryItem();
+			IList<Roar.DomainObjects.Cost> cost_data = new List<Roar.DomainObjects.Cost>();
+			IList<Roar.DomainObjects.Modifier> modifier_data = new List<Roar.DomainObjects.Modifier>();
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Items.Sell sell_parser = new Roar.DataConversion.Responses.Items.Sell();
+			sell_parser.ixcrm_parser = ixcrm_parser;
+			
+			Expect.Once.On(ixcrm_parser).Method("ParseItemStatList").With(nn.GetNode("roar>0>items>0>sell>0>item>0>stats>0")).Will(Return.Value(item_data.stats));
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.GetNode("roar>0>items>0>sell>0>item>0>price>0")).Will(Return.Value(item_data.price));
+			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.GetNode("roar>0>items>0>sell>0>item>0>tags>0")).Will(Return.Value(item_data.tags));
+			Expect.Once.On(ixcrm_parser).Method("ParseCostList").With(nn.GetNode("roar>0>items>0>sell>0>costs>0")).Will(Return.Value(cost_data));
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.GetNode("roar>0>items>0>sell>0>modifiers>0")).Will(Return.Value(modifier_data));
+			
+			SellResponse response = sell_parser.Build(nn);
+			mockery.VerifyAllExpectationsHaveBeenMet();
+			
+			Assert.IsNotNull(response.item);
+			Assert.AreEqual(response.item.id, "275012935");
+			Assert.AreEqual(response.item.ikey, "ring");
+			Assert.AreEqual(response.item.count, 1);
+			Assert.AreEqual(response.item.label, "Ring");
+			Assert.AreEqual(response.item.type, "item");
+			Assert.AreEqual(response.item.description, "Magic ring for protection and strength");
+			Assert.IsTrue(response.item.consumable);
+			Assert.IsTrue(response.item.sellable);
+			Assert.AreEqual(response.item.stats, item_data.stats);
+			Assert.AreEqual(response.item.price, item_data.price);
+			Assert.AreEqual(response.item.tags, item_data.tags);
+			
+			Assert.IsNotNull(response.costs);
+			Assert.AreEqual(response.costs, cost_data);
+			
+			Assert.IsNotNull(response.modifiers);
+			Assert.AreEqual(response.modifiers, modifier_data);
+		}
+		
+		[Test()]
 		public void TestItemsEquipXmlGetAttributes()
 		{
 			string xml =
