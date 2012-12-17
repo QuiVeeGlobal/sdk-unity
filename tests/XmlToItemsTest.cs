@@ -371,6 +371,26 @@ namespace Testing
 			EquipResponse response = equip_parser.Build(nn);
 			Assert.IsNotNull(response);
 		}
+		
+		[Test()]
+		public void TestItemsUnequipXmlGetAttributes()
+		{
+			string xml =
+			@"<roar tick=""128779477951"">
+				<items>
+					<unequip status=""ok""/>
+				</items>
+				<!--The server flags that the user inventory status has changed-->
+				<server>
+					<inventory_changed/>
+				</server>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Items.Unequip unequip_parser = new Roar.DataConversion.Responses.Items.Unequip();
+			UnequipResponse response = unequip_parser.Build(nn);
+			Assert.IsNotNull(response);
+		}
 	}
 }
 
