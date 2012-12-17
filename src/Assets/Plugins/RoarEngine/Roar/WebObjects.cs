@@ -775,10 +775,16 @@ namespace Roar.WebObjects
 		// Arguments to items/set
 		public class SetArguments
 		{
+			public string item_id;
+			public string property_ikey;
+			public string value;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["item_id"] = item_id;
+				retval["property_ikey"] = property_ikey;
+				retval["value"] = value;
 				return retval;
 			}
 		}

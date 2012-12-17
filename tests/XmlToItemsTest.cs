@@ -530,6 +530,22 @@ namespace Testing
 			UseResponse response = use_parser.Build(nn);
 			Assert.IsNotNull(response);
 		}
+		
+		[Test()]
+		public void TestItemsSetXmlGetAttributes()
+		{
+			string xml =
+			@"<roar tick=""128555540202"">
+				<items>
+					<set status=""ok""/>
+				</items>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Items.Set set_parser = new Roar.DataConversion.Responses.Items.Set();
+			SetResponse response = set_parser.Build(nn);
+			Assert.IsNotNull(response);
+		}
 	}
 }
 

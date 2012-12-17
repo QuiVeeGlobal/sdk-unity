@@ -302,7 +302,14 @@
                 { "name":"modifiers", "type":"List<DomainObjects.Modifier>" }
               ] }
           },
-          { "name":"set" },
+          {
+            "name":"set",
+            "arguments":[
+              {"name":"item_id","type":"string"},
+              {"name":"property_ikey","type":"string"},
+              {"name":"value","type":"string"}
+            ]
+          },
           {
             "name":"unequip", 
             "arguments":[
