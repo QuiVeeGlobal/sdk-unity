@@ -391,6 +391,25 @@ namespace Testing
 			UnequipResponse response = unequip_parser.Build(nn);
 			Assert.IsNotNull(response);
 		}
+		
+		[Test()]
+		public void TestItemsUseXmlGetAttributes()
+		{
+			string xml =
+			@"<roar tick=""135571857913"">
+				<items>
+					<use status=""ok""/>
+				</items>
+				<server>
+					<item_use item_id=""232839631""/>
+				</server>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Items.Use use_parser = new Roar.DataConversion.Responses.Items.Use();
+			UseResponse response = use_parser.Build(nn);
+			Assert.IsNotNull(response);
+		}
 	}
 }
 
