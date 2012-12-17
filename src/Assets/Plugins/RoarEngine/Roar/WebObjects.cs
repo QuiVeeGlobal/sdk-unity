@@ -746,6 +746,7 @@ namespace Roar.WebObjects
 		// Response from items/list
 		public class ListResponse
 		{
+			public List<DomainObjects.InventoryItem> items;
 
 		}
 

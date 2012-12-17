@@ -61,7 +61,6 @@ namespace Testing
 			Assert.AreEqual(response.items[0].label, "Ring");
 			Assert.AreEqual(response.items[0].type, "item");
 			Assert.AreEqual(response.items[0].description, "Magical ring, which gives you strength.");
-			Assert.AreEqual(response.items[0].count, 1);
 			Assert.IsTrue(response.items[0].consumable);
 			Assert.IsTrue(response.items[0].sellable);
 			Assert.AreEqual(response.items[0].stats.Count, 5);
@@ -201,7 +200,6 @@ namespace Testing
 			Assert.AreEqual(response.items[0].label, "Ring");
 			Assert.AreEqual(response.items[0].type, "item");
 			Assert.AreEqual(response.items[0].description, "Magical ring, which gives you strength.");
-			Assert.AreEqual(response.items[0].count, 1);
 			Assert.IsTrue(response.items[0].consumable);
 			Assert.IsTrue(response.items[0].sellable);
 			Assert.AreEqual(response.items[0].stats.Count, 5);
@@ -236,7 +234,6 @@ namespace Testing
 			
 			Assert.AreEqual(response.items[1].id, "2345");
 			Assert.AreEqual(response.items[1].ikey, "talisman");
-			Assert.AreEqual(response.items[1].count, 1);
 			Assert.AreEqual(response.items[1].label, "Talisman");
 			Assert.AreEqual(response.items[1].type, "item");
 			Assert.AreEqual(response.items[1].description, "protects from evil");
@@ -245,7 +242,6 @@ namespace Testing
 			
 			Assert.IsNull(response.items[2].id);
 			Assert.IsNull(response.items[2].ikey);
-			Assert.AreEqual(response.items[2].count, 0);
 			Assert.IsNull(response.items[2].label);
 			Assert.IsNull(response.items[2].type);
 			Assert.IsNull(response.items[2].description);
@@ -306,6 +302,51 @@ namespace Testing
 			
 			Assert.IsNotNull(response.items);
 			Assert.AreEqual(response.items.Count, 1);
+			Assert.AreEqual(response.items[0].stats, item_stat_list);
+			Assert.AreEqual(response.items[0].price, modifier_list);
+			Assert.AreEqual(response.items[0].tags, tag_list);
+		}
+		
+		[Test()]
+		public void TestItemsListXmlGetAttributes()
+		{
+			string xml =
+			@"<roar tick=""135546049121"">
+				<items>
+					<list status=""ok"">
+						<item id=""1039149107"" ikey=""talisman"" count=""1"" label=""Talisman"" type=""item"" description=""protects from evil"" consumable=""false"" sellable=""false"" equipped=""true"">
+							<tags>
+								<tag value=""magicitem""/>
+							</tags>
+						</item>
+					</list>
+				</items>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			
+			Mockery mockery = new Mockery();
+			Roar.DataConversion.IXCRMParser ixcrm_parser = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
+			List<Roar.DomainObjects.ItemStat> item_stat_list = new List<Roar.DomainObjects.ItemStat>();
+			List<Roar.DomainObjects.Modifier> modifier_list = new List<Roar.DomainObjects.Modifier>();
+			List<string> tag_list = new List<string>();
+			
+			Roar.DataConversion.Responses.Items.List list_parser = new Roar.DataConversion.Responses.Items.List();
+			list_parser.ixcrm_parser = ixcrm_parser;
+			
+			IXMLNode stat_node = nn.GetNode("roar>0>items>0>list>0>item>0>stats>0");
+			Expect.Once.On(ixcrm_parser).Method("ParseItemStatList").With(stat_node).Will(Return.Value(item_stat_list));
+			IXMLNode modifiers_node = nn.GetNode("roar>0>items>0>list>0>item>0>price>0");
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(modifiers_node).Will(Return.Value(modifier_list));
+			IXMLNode tag_node = nn.GetNode("roar>0>items>0>list>0>item>0>tags>0");
+			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(tag_node).Will(Return.Value(tag_list));
+			
+			ListResponse response = list_parser.Build(nn);
+			mockery.VerifyAllExpectationsHaveBeenMet();
+			
+			Assert.IsNotNull(response.items);
+			Assert.AreEqual(response.items.Count, 1);
+			Assert.IsTrue(response.items[0].equipped);
 			Assert.AreEqual(response.items[0].stats, item_stat_list);
 			Assert.AreEqual(response.items[0].price, modifier_list);
 			Assert.AreEqual(response.items[0].tags, tag_list);

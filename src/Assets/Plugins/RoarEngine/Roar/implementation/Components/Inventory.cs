@@ -276,8 +276,6 @@ namespace Roar.implementation.Components
 		{
 			// Prepare the item to manually add to Inventory
 			DomainObjects.InventoryItem item = new DomainObjects.InventoryItem();
-			item.item_prototype = dataStore.cache.Get (ikey);
-
 			dataStore.inventory.AddOrUpdate(id,item);
 		}
 

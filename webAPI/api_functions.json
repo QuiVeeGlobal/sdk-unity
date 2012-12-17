@@ -283,7 +283,13 @@
             "arguments":[
               {"name":"item_id","type":"string"}
             ] },
-          { "name":"list", "obj":"null" },
+          {
+            "name":"list", "obj":"null",
+            "response":{
+              "members":[
+                { "name":"items", "type":"List<DomainObjects.InventoryItem>" }
+              ] }
+          },
           {
             "name":"sell",
             "arguments":[

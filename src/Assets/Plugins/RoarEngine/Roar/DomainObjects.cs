@@ -417,11 +417,57 @@ namespace Roar
 		{
 			public string id;
 			public string ikey;
+			public string label;
+			public string description;
 			public bool sellable;
 			public bool consumable;
+			public string type;
 			public bool equipped;
-			public string label;
-			public ItemPrototype item_prototype;
+			public int count;
+			
+			public IList<ItemStat> stats = new List<ItemStat>();
+			public IList<DomainObjects.Modifier> price = new List<DomainObjects.Modifier>();
+			public IList<string> tags = new List<string>();
+			public IList<ItemArchetypeProperty> properties = new List<ItemArchetypeProperty>();
+			
+			public static InventoryItem CreateFromXml (IXMLNode n, Roar.DataConversion.IXCRMParser ixcrm_parser)
+			{
+				DomainObjects.InventoryItem retval = new DomainObjects.InventoryItem();
+				Dictionary<string, string> kv = n.Attributes.ToDictionary(v => v.Key, v => v.Value);
+				kv.TryGetValue("id", out retval.id);
+				kv.TryGetValue("ikey", out retval.ikey);
+				kv.TryGetValue("type", out retval.type);
+				kv.TryGetValue("label", out retval.label);
+				kv.TryGetValue("description", out retval.description);
+				if (kv.ContainsKey("count") && ! System.Int32.TryParse(kv["count"], out retval.count))
+				{
+					throw new InvalidXMLElementException("Unable to parse count to integer");
+				}
+				if (kv.ContainsKey("consumable"))
+				{
+					retval.consumable = kv["consumable"].ToLower() == "true";
+				}
+				if (kv.ContainsKey("sellable"))
+				{
+					retval.sellable = kv["sellable"].ToLower() == "true";
+				}
+				if (kv.ContainsKey("equipped"))
+				{
+					retval.equipped = kv["equipped"].ToLower() == "true";
+				}
+				retval.stats = ixcrm_parser.ParseItemStatList(n.GetNode("stats>0"));
+				retval.price = ixcrm_parser.ParseModifierList(n.GetNode("price>0"));
+				retval.tags = ixcrm_parser.ParseTagList(n.GetNode("tags>0"));
+				IList<IXMLNode> property_nodes = n.GetNodeList("properties>0>property");
+				foreach(IXMLNode property_node in property_nodes)
+				{
+					Roar.DomainObjects.ItemArchetypeProperty property = new Roar.DomainObjects.ItemArchetypeProperty();
+					property.ikey = property_node.GetAttribute("ikey");
+					property.value = property_node.GetAttribute("value");
+					retval.properties.Add(property);
+				}
+				return retval;
+			}
 		}
 		
 		public class ItemPrototype
@@ -442,7 +488,6 @@ namespace Roar
 			public string type;
 			public string label;
 			public string description;
-			public int count;
 			public bool sellable;
 			public bool consumable;
 			public IList<ItemStat> stats = new List<ItemStat>();
@@ -459,10 +504,6 @@ namespace Roar
 				kv.TryGetValue("type", out retval.type);
 				kv.TryGetValue("label", out retval.label);
 				kv.TryGetValue("description", out retval.description);
-				if (kv.ContainsKey("count") && ! System.Int32.TryParse(kv["count"], out retval.count))
-				{
-					throw new InvalidXMLElementException("Unable to parse count to integer");
-				}
 				if (kv.ContainsKey("consumable"))
 				{
 					retval.consumable = kv["consumable"].ToLower() == "true";

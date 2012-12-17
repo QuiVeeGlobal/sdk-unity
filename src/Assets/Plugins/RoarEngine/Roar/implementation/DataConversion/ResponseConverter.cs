@@ -549,10 +549,17 @@ namespace Roar.DataConversion.Responses
 		//Response from items/list
 		public class List : IXmlToObject< Roar.WebObjects.Items.ListResponse >
 		{
+			public IXCRMParser ixcrm_parser = new XCRMParser();
+			
 			public Roar.WebObjects.Items.ListResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Items.ListResponse retval = new Roar.WebObjects.Items.ListResponse();
-				//TODO: Implement me
+				retval.items = new List<InventoryItem>();
+				IList<IXMLNode> item_nodes = n.GetNodeList("roar>0>items>0>list>0>item");
+				foreach(IXMLNode item_node in item_nodes)
+				{
+					retval.items.Add(DomainObjects.InventoryItem.CreateFromXml(item_node, ixcrm_parser));
+				}
 				return retval;
 			}
 		}
