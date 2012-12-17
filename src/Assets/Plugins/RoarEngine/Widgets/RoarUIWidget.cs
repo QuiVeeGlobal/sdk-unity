@@ -46,9 +46,47 @@ public abstract class RoarUIWidget : MonoBehaviour
 
 	private bool isLoggedIn;
 	
+	protected virtual void SnapBoundsRectIntoPosition()
+	{
+		if( boundType== BoundType.FixedWindow || boundType == BoundType.DraggableWindow )
+		{
+			// horizontal binding
+			switch (horizontalAlignment)
+			{
+			case AlignmentHorizontal.Left:
+				bounds.x = 0;
+				break;
+			case AlignmentHorizontal.Right:
+				bounds.x = Screen.width - bounds.width;
+				break;
+			case AlignmentHorizontal.Center:
+				bounds.x = (Screen.width - bounds.width) / 2;
+				break;
+			}
+			bounds.x += horizontalOffset;
+
+			// vertical binding
+			switch (verticalAlignment)
+			{
+			case AlignmentVertical.Top:
+				bounds.y = 0;
+				break;
+			case AlignmentVertical.Bottom:
+				bounds.y = Screen.height - bounds.height;
+				break;
+			case AlignmentVertical.Center:
+				bounds.y = (Screen.height - bounds.height) / 2;
+				break;
+			}
+			bounds.y += verticalOffset;
+		}
+	}
+
 	protected virtual void Awake()
 	{
 		roar = DefaultRoar.Instance;		
+
+		// Load a skin if specified.
 		if (customGUISkin == null)
 			skin = roar.defaultGUISkin;
 		else
@@ -71,37 +109,14 @@ public abstract class RoarUIWidget : MonoBehaviour
 		RoarManager.loggedOutEvent -= OnRoarLogout;
 		RoarManager.loggedOutEvent += OnRoarLogout;
 		
+		SnapBoundsRectIntoPosition();
+
 		switch (boundType)
 		{
 		case BoundType.FixedWindow:
 		case BoundType.DraggableWindow:
 			windowIdGenerator++;
 			windowId = windowIdGenerator;
-
-			// horizontal binding
-			switch (horizontalAlignment)
-			{
-			case AlignmentHorizontal.Right:
-				bounds.x = Screen.width - bounds.width;
-				break;
-			case AlignmentHorizontal.Center:
-				bounds.x = (Screen.width - bounds.width) / 2;
-				break;
-			}
-			bounds.x += horizontalOffset;
-	
-			// vertical binding
-			switch (verticalAlignment)
-			{
-			case AlignmentVertical.Bottom:
-				bounds.y = Screen.height - bounds.height;
-				break;
-			case AlignmentVertical.Center:
-				bounds.y = (Screen.height - bounds.height) / 2;
-				break;
-			}
-			bounds.y += verticalOffset;
-			
 			break;
 			
 		default:
@@ -157,32 +172,7 @@ public abstract class RoarUIWidget : MonoBehaviour
 		
 		if (boundType == BoundType.FixedWindow)
 		{
-			Rect bounds = this.bounds;
-			
-			// horizontal binding
-			switch (horizontalAlignment)
-			{
-			case AlignmentHorizontal.Right:
-				bounds.x = Screen.width - bounds.width;
-				break;
-			case AlignmentHorizontal.Center:
-				bounds.x = (Screen.width - bounds.width) / 2;
-				break;
-			}
-			bounds.x += horizontalOffset;
-	
-			// vertical binding
-			switch (verticalAlignment)
-			{
-			case AlignmentVertical.Bottom:
-				bounds.y = Screen.height - bounds.height;
-				break;
-			case AlignmentVertical.Center:
-				bounds.y = (Screen.height - bounds.height) / 2;
-				break;
-			}
-			bounds.y += verticalOffset;
-			
+			SnapBoundsRectIntoPosition();
 			GUI.Window(windowId, bounds, DrawFixedWindow, boundingGUIContent, boundingStyle);
 		}
 		else if (boundType == BoundType.DraggableWindow)
@@ -191,31 +181,7 @@ public abstract class RoarUIWidget : MonoBehaviour
 		}
 		else
 		{
-			Rect bounds = this.bounds;
-			
-			// horizontal binding
-			switch (horizontalAlignment)
-			{
-			case AlignmentHorizontal.Right:
-				bounds.x = Screen.width - bounds.width;
-				break;
-			case AlignmentHorizontal.Center:
-				bounds.x = (Screen.width - bounds.width) / 2;
-				break;
-			}
-			bounds.x += horizontalOffset;
-	
-			// vertical binding
-			switch (verticalAlignment)
-			{
-			case AlignmentVertical.Bottom:
-				bounds.y = Screen.height - bounds.height;
-				break;
-			case AlignmentVertical.Center:
-				bounds.y = (Screen.height - bounds.height) / 2;
-				break;
-			}
-			bounds.y += verticalOffset;
+			SnapBoundsRectIntoPosition();
 			
 			// context
 			GUI.BeginGroup(bounds);
@@ -226,24 +192,35 @@ public abstract class RoarUIWidget : MonoBehaviour
 			{
 				GUI.Box(bounds, boundingGUIContent, boundingStyle);
 			}
-			if (useScrollView)
-			{
-				scrollPosition = GUI.BeginScrollView(contentBounds, scrollPosition, scrollViewRect, alwaysShowHorizontalScrollBar, alwaysShowVerticalScrollBar);
-			}
-			else
-			{
-				GUI.BeginGroup(contentBounds);
-			}
+
+			StartContentRegion();
 			DrawGUI(0);
-			if (useScrollView)
-			{
-				GUI.EndScrollView();
-			}
-			else
-			{
-				GUI.EndGroup();
-			}
+			EndContentRegion();
 			
+			GUI.EndGroup();
+		}
+	}
+
+	protected void StartContentRegion()
+	{
+		if (useScrollView)
+		{
+			scrollPosition = GUI.BeginScrollView(contentBounds, scrollPosition, scrollViewRect, alwaysShowHorizontalScrollBar, alwaysShowVerticalScrollBar);
+		}
+		else
+		{
+			GUI.BeginGroup(contentBounds);
+		}
+	}
+
+	protected void EndContentRegion()
+	{
+		if (useScrollView)
+		{
+			GUI.EndScrollView();
+		}
+		else
+		{
 			GUI.EndGroup();
 		}
 	}
@@ -252,49 +229,23 @@ public abstract class RoarUIWidget : MonoBehaviour
 	{
 		// context
 		GUI.BeginGroup(bounds);
+
+		//Why are these getting changed?
 		bounds.x = 0;
 		bounds.y = 0;
-		
-		if (useScrollView)
-		{
-			scrollPosition = GUI.BeginScrollView(contentBounds, scrollPosition, scrollViewRect, alwaysShowHorizontalScrollBar, alwaysShowVerticalScrollBar);
-		}
-		else
-		{
-			GUI.BeginGroup(contentBounds);
-		}
+
+		StartContentRegion();
 		DrawGUI(windowId);
-		if (useScrollView)
-		{
-			GUI.EndScrollView();
-		}
-		else
-		{
-			GUI.EndGroup();
-		}
+		EndContentRegion();
 		
 		GUI.EndGroup();
 	}
 	
 	protected virtual void DrawDraggableWindow(int windowId)
 	{
-		if (useScrollView)
-		{
-			scrollPosition = GUI.BeginScrollView(contentBounds, scrollPosition, scrollViewRect, alwaysShowHorizontalScrollBar, alwaysShowVerticalScrollBar);
-		}
-		else
-		{
-			GUI.BeginGroup(contentBounds);
-		}
+		StartContentRegion();
 		DrawGUI(windowId);
-		if (useScrollView)
-		{
-			GUI.EndScrollView();
-		}
-		else
-		{
-			GUI.EndGroup();
-		}
+		EndContentRegion();
 		
 		GUI.DragWindow(draggableWindowBounds);
 	}
@@ -305,47 +256,7 @@ public abstract class RoarUIWidget : MonoBehaviour
 	{
 		scrollPosition = Vector3.zero;
 	}
-	
-	public Rect Bounds
-	{
-		get
-		{
-			if (boundType == BoundType.DraggableWindow)
-			{
-				return bounds;
-			}
-			else
-			{
-				Rect bounds = this.bounds;
-				
-				// horizontal binding
-				switch (horizontalAlignment)
-				{
-				case AlignmentHorizontal.Right:
-					bounds.x = Screen.width - bounds.width;
-					break;
-				case AlignmentHorizontal.Center:
-					bounds.x = (Screen.width - bounds.width) / 2;
-					break;
-				}
-				bounds.x += horizontalOffset;
-		
-				// vertical binding
-				switch (verticalAlignment)
-				{
-				case AlignmentVertical.Bottom:
-					bounds.y = Screen.height - bounds.height;
-					break;
-				case AlignmentVertical.Center:
-					bounds.y = (Screen.height - bounds.height) / 2;
-					break;
-				}
-				bounds.y += verticalOffset;
-				
-				return bounds;
-			}
-		}
-	}
+
 	
 	public int WindowId
 	{
