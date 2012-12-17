@@ -8,6 +8,8 @@ public class DefaultRoarInspector : RoarInspector
 	private SerializedProperty debug;
 	private SerializedProperty appstoreSandbox;
 	private SerializedProperty gameKey;
+    private SerializedProperty facebookApplicationID;
+    private SerializedProperty facebookLoginOptions;
 	private SerializedProperty xmlParser;
 	private SerializedProperty defaultGUISkin;
 	
@@ -20,6 +22,9 @@ public class DefaultRoarInspector : RoarInspector
 		gameKey = serializedObject.FindProperty("gameKey");
 		xmlParser = serializedObject.FindProperty("xmlParser");
 		defaultGUISkin = serializedObject.FindProperty("defaultGUISkin");
+        facebookApplicationID = serializedObject.FindProperty("facebookApplicationID");
+        facebookLoginOptions = serializedObject.FindProperty("facebookLoginOptions");
+        
 	}
 	
 	protected override void DrawGUI()
@@ -30,7 +35,13 @@ public class DefaultRoarInspector : RoarInspector
 		if (gameKey.stringValue.Length == 0)
 			EditorGUILayout.HelpBox("Please specify your game key. It is required!", MessageType.Error);
 		EditorGUILayout.PropertyField(gameKey);
+
+        Comment("Your Facebook application ID");
+        EditorGUILayout.PropertyField(facebookApplicationID);
 		
+		Comment("Facebook login options");
+        EditorGUILayout.PropertyField(facebookLoginOptions);
+
 		// debug
 		Comment("Enable debug output.");
 		EditorGUILayout.PropertyField(debug);

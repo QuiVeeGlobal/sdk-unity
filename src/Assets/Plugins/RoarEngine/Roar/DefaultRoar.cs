@@ -38,6 +38,19 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 	public XMLType xmlParser = XMLType.Lightweight;
 	public GUISkin defaultGUISkin;
 
+    public string facebookApplicationID;
+
+    public FacebookLoginOptions facebookLoginOptions = FacebookLoginOptions.Normal;
+
+    public enum FacebookLoginOptions
+    {
+        Normal, //Signed request first, then graph redirect attempt.
+        SignedRequestOnly, //only allow signed requests. Useful for canvas only apps.
+        ExternalOauthOnly, //Will not attempt to login itself but will use a supplied oauth token.
+        InternalNonjavascriptLoginNOT_IMPLEMENTED, //Login by itself for standalone/ios builds and such.
+    }
+
+
 	public Roar.IConfig Config { get { return config; } }
 	protected Roar.IConfig config;
 
@@ -195,12 +208,27 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 	{
 		User.DoLogin(username,password,callback);
 	}
-
+	public void LoginFacebook(Roar.Callback<Roar.WebObjects.Facebook.LoginOauthResponse> callback = null)
+	{
+		Facebook.DoMainLogin(callback);
+	}
+	
 	public void Logout( Roar.Callback<Roar.WebObjects.User.LogoutResponse> callback=null )
 	{
 		User.DoLogout(callback);
 	}
 
+	public void CreateFacebook( string username, Roar.Callback<Roar.WebObjects.Facebook.CreateOauthResponse> callback=null )
+	{
+		Facebook.DoCreateFacebook(username,callback);
+	}
+	
+	public void BindFacebook( Roar.Callback<Roar.WebObjects.Facebook.BindOauthResponse> callback=null )
+    {
+        Facebook.DoBindFacebook(callback);
+
+
+    }
 	public void Create( string username, string password, Roar.Callback<Roar.WebObjects.User.CreateResponse> callback=null )
 	{
 		User.DoCreate(username,password,callback);
@@ -233,6 +261,60 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		get { return logger; }
 	}
 
+    #region JAVASCRIPT CALLBACK
+    /**
+   * Function that is called from javascript and is handed the facebook code parameter. Call graph.authorize with this.
+   *
+   *
+   * @param code is the get parameter picked up from facebook 'GET'. Can be null.
+   **/
+	void CatchCodeGetPara(string paras)
+	{
+		
+		if(paras.Split(' ')[0] == "")
+		{
+			//Invoke redirect with authorization.
+			//fire event that says we are redirecting to login/authorize.
+
+            Facebook.FacebookGraphRedirect(paras.Split(' ')[1]);
+			
+			return;
+		}
+
+		Debug.Log("got string para");
+		Debug.Log("string is "+paras);
+		string codeParameter = paras.Split(' ')[0];
+        
+		Facebook.FetchOAuthToken(codeParameter);
+
+	}
+
+    
+
+	/**
+	 * Function that is called from javascript and is passed the signedRequest string
+	 *
+	 *
+	 * @param signedRequest is the actual signed request picked up from facebook 'POST'
+	 **/
+	void CatchFacebookRequest(string oAuth)
+	{
+		if (oAuth == "")
+		{
+			Facebook.SignedRequestFailed();
+			//fire signed request event failed. go for the graph api method.
+            
+		}
+		else
+		{
+            Facebook.SetOAuthToken(oAuth);
+
+            Facebook.DoPostLoginAction();
+		}
+	}
+
+    #endregion
+	
 	#region EXTERNAL CALLBACKS
 	void OnAppstoreProductData(string productDataXml)
 	{
