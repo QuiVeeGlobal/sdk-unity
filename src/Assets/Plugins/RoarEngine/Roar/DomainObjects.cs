@@ -273,13 +273,75 @@ namespace Roar
 			}
 		};
 		
-		public class ShopBuyResponse
+		public class ModifierResult
 		{
 			public int add_xp = 0;
 			public IDictionary<string, int> stat_change = new Dictionary<string, int>();
 			public IDictionary<string, int> removed_items = new Dictionary<string, int>();
 			public IDictionary<string, IList<string>> add_item = new Dictionary<string, IList<string>>();
 			public IList<string> tags = new List<string>();
+			
+			public static ModifierResult CreateFromXml (IXMLNode n)
+			{
+				ModifierResult retval = new ModifierResult();
+				List<IXMLNode> cost_or_modifier_nodes = n.GetNodeList("costs>0>cost");
+				cost_or_modifier_nodes.AddRange(n.GetNodeList("modifiers>0>modifier"));
+				foreach(IXMLNode cost_or_modifier_node in cost_or_modifier_nodes)
+				{
+					string ikey = cost_or_modifier_node.GetAttribute("ikey");
+					int value = 0;
+					switch (cost_or_modifier_node.GetAttribute("type"))
+					{
+					case "stat_change":
+						System.Int32.TryParse(cost_or_modifier_node.GetAttribute("value"), out value);
+						if (retval.stat_change.ContainsKey(ikey))
+						{
+							retval.stat_change[ikey] += value;
+						}
+						else
+						{
+							retval.stat_change.Add(ikey, value);
+						}
+						break;
+					case "removed_items":
+						System.Int32.TryParse(cost_or_modifier_node.GetAttribute("count"), out value);
+						if (retval.removed_items.ContainsKey(ikey))
+						{
+							retval.removed_items[ikey] += value;
+						}
+						else
+						{
+							retval.removed_items.Add(ikey, value);
+						}
+						break;
+					case "add_xp":
+						System.Int32.TryParse(cost_or_modifier_node.GetAttribute("value"), out value);
+						retval.add_xp += value;
+						break;
+					case "add_item":
+						if (retval.add_item.ContainsKey(ikey))
+						{
+							retval.add_item[ikey].Add(cost_or_modifier_node.GetAttribute("item_id"));
+						}
+						else
+						{
+							IList<string> list = new List<string>();
+							list.Add(cost_or_modifier_node.GetAttribute("item_id"));
+							retval.add_item.Add(ikey, list);
+						}
+						break;
+					default:
+						System.Console.WriteLine ("TYPE [" + cost_or_modifier_node.GetAttribute("type") + "]");
+						break;
+					}
+				}
+				IList<IXMLNode> tag_nodes = n.GetNodeList("tags>0>tag");
+				foreach(IXMLNode tag_node in tag_nodes)
+				{
+					retval.tags.Add(tag_node.GetAttribute("value"));
+				}
+				return retval;
+			}
 		};
 
 

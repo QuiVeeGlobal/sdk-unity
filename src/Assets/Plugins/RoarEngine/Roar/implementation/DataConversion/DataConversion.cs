@@ -167,9 +167,12 @@ namespace Roar.DataConversion
 			{
 				DomainObjects.Modifiers.RemoveItems remove_item_mod = new DomainObjects.Modifiers.RemoveItems();
 				remove_item_mod.ikey = n.GetAttribute("ikey");
-				if( ! System.Int32.TryParse( n.GetAttribute("count"), out remove_item_mod.count ) )
+				if (n.GetAttribute("count") != null)
 				{
-					throw new InvalidXMLElementException("Unable to parse remove_items count to integer");
+					if( ! System.Int32.TryParse( n.GetAttribute("count"), out remove_item_mod.count ) )
+					{
+						throw new InvalidXMLElementException("Unable to parse remove_items count to integer");
+					}
 				}
 				retval = remove_item_mod;
 				break;

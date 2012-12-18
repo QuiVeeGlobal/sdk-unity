@@ -298,8 +298,7 @@
             "response":{
               "members":[
                 { "name":"item", "type":"DomainObjects.InventoryItem" },
-                { "name":"costs", "type":"List<DomainObjects.Cost>" },
-                { "name":"modifiers", "type":"List<DomainObjects.Modifier>" }
+                { "name":"effect", "type":"DomainObjects.ModifierResult" }
               ] }
           },
           {
@@ -399,7 +398,7 @@
             ],
             "response":{
               "members":[
-              { "name":"buy_response", "type":"DomainObjects.ShopBuyResponse" }
+              { "name":"buy_response", "type":"DomainObjects.ModifierResult" }
             ] }
           }
         ]

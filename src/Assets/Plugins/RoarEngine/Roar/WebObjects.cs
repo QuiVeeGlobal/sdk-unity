@@ -767,8 +767,7 @@ namespace Roar.WebObjects
 		public class SellResponse
 		{
 			public DomainObjects.InventoryItem item;
-			public List<DomainObjects.Cost> costs;
-			public List<DomainObjects.Modifier> modifiers;
+			public DomainObjects.ModifierResult effect;
 
 		}
 
@@ -1059,7 +1058,7 @@ namespace Roar.WebObjects
 		// Response from shop/buy
 		public class BuyResponse
 		{
-			public DomainObjects.ShopBuyResponse buy_response;
+			public DomainObjects.ModifierResult buy_response;
 
 		}
 
