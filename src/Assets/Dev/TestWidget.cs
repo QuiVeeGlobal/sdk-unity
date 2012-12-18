@@ -42,27 +42,20 @@ public class TestWidget : MonoBehaviour
 	//   These are just the initial settings
 	//   Any programattic changes should occur to bounds and contentBounds instead.
 
-	public bool syncBoundsPosition = true;
-	public Rect initialBounds;
-	public bool syncContentPosition = true;
-
-	public Rect initialContentBounds;
+	public Rect bounds;
+	public Rect contentBounds;
 	
 	
 	public GUISkin customGUISkin;
 	
 	public int depth;
-	
-	protected Rect bounds;
-	protected Rect contentBounds;
-	
 
 	public Apearance apearance = new Apearance();
 	public WindowInfo windowInfo = new WindowInfo();
 
 	
-	public AlignmentHorizontal horizontalAlignment = AlignmentHorizontal.Left;
-	public AlignmentVertical verticalAlignment = AlignmentVertical.Top;
+	public AlignmentHorizontal horizontalAlignment = AlignmentHorizontal.None;
+	public AlignmentVertical verticalAlignment = AlignmentVertical.None;
 	public float horizontalOffset;
 	public float verticalOffset;
 	
@@ -131,9 +124,6 @@ public class TestWidget : MonoBehaviour
 
 	protected virtual void Awake()
 	{
-		bounds = initialBounds;
-		contentBounds = initialContentBounds;
-		
 		skin = customGUISkin;
 		
 		boundingGUIContent = new GUIContent(apearance.boundingTitle, apearance.boundingImage);
@@ -175,21 +165,9 @@ public class TestWidget : MonoBehaviour
 		
 		if ( RequiresSnap )
 		{
-			if( syncBoundsPosition )
-			{
-				bounds = initialBounds;
-			}
-			SnapBoundsRectIntoPosition();
-			
+			SnapBoundsRectIntoPosition();	
 		}
-		else
-		{
-			if( syncBoundsPosition )
-			{
-				bounds.width = initialBounds.width;
-				bounds.height = initialBounds.height;
-			}
-		}
+		
 		if( RequiresWindow )
 		{
 			bounds = GUI.Window(windowInfo.WindowId, bounds, DrawWindow, boundingGUIContent, apearance.boundingStyle);
@@ -210,10 +188,6 @@ public class TestWidget : MonoBehaviour
 
 	protected void StartContentRegion()
 	{
-		if( syncContentPosition )
-		{
-			contentBounds = initialContentBounds;
-		}
 		if (useScrollView)
 		{
 			scrollPosition = GUI.BeginScrollView(contentBounds, scrollPosition, scrollViewRect, alwaysShowHorizontalScrollBar, alwaysShowVerticalScrollBar);
