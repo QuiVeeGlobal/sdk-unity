@@ -916,6 +916,8 @@ namespace Roar.DataConversion.Responses
 		//Response from tasks/list
 		public class List : IXmlToObject< Roar.WebObjects.Tasks.ListResponse >
 		{
+			public IXCRMParser ixcrm_parser = new XCRMParser();
+			
 			public Roar.WebObjects.Tasks.ListResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Tasks.ListResponse retval = new Roar.WebObjects.Tasks.ListResponse();
@@ -923,11 +925,7 @@ namespace Roar.DataConversion.Responses
 				List<IXMLNode> tasks_nodes = n.GetNodeList("roar>0>tasks>0>list>0>task");
 				foreach( IXMLNode task in tasks_nodes )
 				{
-					Roar.DomainObjects.Task t = new Roar.DomainObjects.Task();
-					t.ikey = task.GetAttribute("ikey");
-					t.label = task.GetFirstChild("label").Text;
-					t.description = task.GetFirstChild("description").Text;
-					retval.tasks.Add(t);
+					retval.tasks.Add(Roar.DomainObjects.Task.CreateFromXml(task, ixcrm_parser));
 				}
 				return retval;
 			}

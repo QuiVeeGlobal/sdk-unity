@@ -671,7 +671,51 @@ namespace Roar
 			public string ikey;
 			public string label;
 			public string description;
-			//TODO: Add any other fields
+			public string location;
+			public int mastery_level;
+			public int mastery_progress;
+			public IList<DomainObjects.Cost> costs = new List<DomainObjects.Cost>();
+			public IList<DomainObjects.Modifier> rewards = new List<DomainObjects.Modifier>();
+			public IList<DomainObjects.Requirement> requirements = new List<DomainObjects.Requirement>();
+			public IList<string> tags = new List<string>();
+			
+			public static Task CreateFromXml (IXMLNode n, Roar.DataConversion.IXCRMParser ixcrm_parser)
+			{
+				DomainObjects.Task retval = new DomainObjects.Task();
+				retval.ikey = n.GetAttribute("ikey");
+				IXMLNode node = n.GetFirstChild("label");
+				if (node != null)
+				{
+					retval.label = node.Text;
+				}
+				node = n.GetFirstChild("description");
+				if (node != null)
+				{
+					retval.description = node.Text;
+				}
+				node = n.GetFirstChild("location");
+				if (node != null)
+				{
+					retval.location = node.Text;
+				}
+				node = n.GetFirstChild("mastery");
+				if (node != null)
+				{
+					if (! System.Int32.TryParse(node.GetAttribute("level"), out retval.mastery_level))
+					{
+						throw new InvalidXMLElementException("Unable to parse mastery level to integer");
+					}
+					if (! System.Int32.TryParse(node.GetAttribute("progress"), out retval.mastery_progress))
+					{
+						throw new InvalidXMLElementException("Untable to parse mastery progress to integer");
+					}
+				}
+				retval.costs = ixcrm_parser.ParseCostList(n.GetNode("costs>0"));
+				retval.rewards = ixcrm_parser.ParseModifierList(n.GetNode("rewards>0"));
+				retval.requirements = ixcrm_parser.ParseRequirementList(n.GetNode("requires>0"));
+				retval.tags = ixcrm_parser.ParseTagList(n.GetNode("tags>0"));
+				return retval;
+			}
 		}
 		
 

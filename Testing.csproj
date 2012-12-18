@@ -63,6 +63,7 @@
     <Compile Include="tests\LeaderboardXmlTests.cs" />
     <Compile Include="tests\XmlToItemsTest.cs" />
     <Compile Include="tests\ShopXmlTests.cs" />
+    <Compile Include="tests\XmlToTasksTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
