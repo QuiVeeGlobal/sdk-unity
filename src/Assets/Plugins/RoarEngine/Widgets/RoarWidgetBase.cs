@@ -32,21 +32,12 @@ public class Apearance
 	public Texture boundingImage = null;
 }
 
-//A simplified stripped down version of the RoarUIWidget - used to test out and demo the behaviour.
-//Will probably need to pull most of this out into a common base class so that we can demo the behaviour i na more robust way.
-public class TestWidget : MonoBehaviour
+public abstract class RoarWidgetBase : MonoBehaviour
 {
-	protected bool fixedPosition = false;
-	
-	// Initial geometry
-	//   These are just the initial settings
-	//   Any programattic changes should occur to bounds and contentBounds instead.
-
 	public Rect bounds;
 	public Rect contentBounds;
 	
-	
-	public GUISkin customGUISkin;
+	protected GUISkin skin;
 	
 	public int depth;
 
@@ -63,11 +54,6 @@ public class TestWidget : MonoBehaviour
 	public bool alwaysShowHorizontalScrollBar = false;
 	public bool alwaysShowVerticalScrollBar = false;
 	
-	public bool autoEnableOnLogIn = false;
-	public bool autoDisableOnLogout = true;
-	
-	protected GUISkin skin;
-	protected DefaultRoar roar;
 	
 	// Whether the window should be fixed in place each render frame.
 	// Easiest if this is set to true unless you have a dragable window
@@ -123,9 +109,7 @@ public class TestWidget : MonoBehaviour
 	}
 
 	protected virtual void Awake()
-	{
-		skin = customGUISkin;
-		
+	{		
 		boundingGUIContent = new GUIContent(apearance.boundingTitle, apearance.boundingImage);
 		
 		scrollViewRect = bounds;
@@ -220,9 +204,11 @@ public class TestWidget : MonoBehaviour
 			GUI.DragWindow();
 		}
 	}
-
-
-	protected void DrawGUI(int windowId)
+	
+	protected abstract void DrawGUI(int windowId);
+	
+	/*
+	protected virtual void DrawGUI(int windowId)
 	{
 		Color old_color = GUI.color;
 		Color new_color = old_color;
@@ -234,7 +220,7 @@ public class TestWidget : MonoBehaviour
 		nbb.y=0;
 		GUI.Box( nbb, "Content Goes Here!", "ContentStyle");
 		GUI.color = old_color;
-	}
+	}*/
 	
 	public void ResetScrollPosition()
 	{
