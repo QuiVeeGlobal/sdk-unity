@@ -5,14 +5,16 @@ public enum AlignmentHorizontal
 {
 	Left = 0,
 	Center = 1,
-	Right = 2
+	Right = 2,
+	None = 3
 }
 
 public enum AlignmentVertical
 {
 	Top = 0,
 	Center = 1,
-	Bottom = 2
+	Bottom = 2,
+	None = 3
 }
 
 public abstract class RoarModule : MonoBehaviour
