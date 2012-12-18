@@ -140,6 +140,40 @@ namespace Testing
 			Assert.AreEqual(response.tasks[0].requirements, task_data.requirements);
 			Assert.AreEqual(response.tasks[0].tags, task_data.tags);
 		}
+		
+		[Test()]
+		public void TestTasksStartXmlGetAttributes()
+		{
+			string xml =
+			@"<roar tick=""128555552127"">
+				<tasks>
+					<start status=""ok""/>
+				</tasks>
+				<server>
+					<task_complete>
+						<ikey>task_ikey</ikey>
+						<label>Task label</label>
+						<description>Task description</description>
+						<location/>
+						<tags>comma,separated,tags</tags>
+						<costs>
+							<stat_change ikey=""energy"" value=""10""/>
+						</costs>
+						<modifiers>
+							<stat_change ikey=""xp"" value=""20""/>
+						</modifiers>
+						<mastery level=""3"" progress=""100""/>
+					</task_complete>
+					<update type=""resource"" ikey=""energy"" value=""20""/>
+					<update type=""xp"" ikey=""xp"" value=""20""/>
+				</server>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Tasks.Start start_parser = new Roar.DataConversion.Responses.Tasks.Start();
+			StartResponse response = start_parser.Build(nn);
+			Assert.IsNotNull(response);
+		}
 	}
 }
 
