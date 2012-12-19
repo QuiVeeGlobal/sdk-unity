@@ -48,13 +48,13 @@ public class RoarManager
 
 	public class PurchaseInfo
 	{
-		public PurchaseInfo( string in_ikey, Roar.DomainObjects.ShopBuyResponse in_response )
+		public PurchaseInfo( string in_ikey, Roar.DomainObjects.ModifierResult in_response )
 		{
 			ikey = in_ikey;
 			response = in_response;
 		}
 		public string ikey;
-		public Roar.DomainObjects.ShopBuyResponse response;
+		public Roar.DomainObjects.ModifierResult response;
 	};
 
 	public class CallInfo
