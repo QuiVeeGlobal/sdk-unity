@@ -76,6 +76,22 @@ namespace Testing
 			ChangeNameResponse response = change_name_parser.Build(nn);
 			Assert.IsNotNull(response);
 		}
+		
+		[Test()]
+		public void TestUserNetdriveSetXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""135589359998"">
+				<user>
+					<netdrive_set status=""ok""/>
+				</user>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.User.NetdriveSave netdrive_save_parser = new Roar.DataConversion.Responses.User.NetdriveSave();
+			NetdriveSaveResponse response = netdrive_save_parser.Build(nn);
+			Assert.IsNotNull(response);
+		}
 	}
 }
 
