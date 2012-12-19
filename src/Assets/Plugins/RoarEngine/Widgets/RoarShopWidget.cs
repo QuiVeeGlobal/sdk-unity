@@ -89,7 +89,7 @@ public class RoarShopWidget : RoarUIWidget
 		Debug.Log("======================================");
 		
 		ScrollViewContentWidth = shopItemBounds.width;
-		ScrollViewContentHeight = shopEntries.Count * (shopItemBounds.height + shopItemSpacing);
+		ScrollViewContentHeight = Mathf.Min(contentBounds.height, shopEntries.Count * (shopItemBounds.height + shopItemSpacing));
 	}
 	
 	protected override void DrawGUI(int windowId)

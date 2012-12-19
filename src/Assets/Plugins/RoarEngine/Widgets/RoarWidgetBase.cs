@@ -112,7 +112,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	{		
 		boundingGUIContent = new GUIContent(apearance.boundingTitle, apearance.boundingImage);
 		
-		scrollViewRect = bounds;
+		scrollViewRect = new Rect();
 		
 		if (contentBounds.width == 0)
 			contentBounds.width = bounds.width;
@@ -172,6 +172,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 
 	protected void StartContentRegion()
 	{
+		
 		if (useScrollView)
 		{
 			scrollPosition = GUI.BeginScrollView(contentBounds, scrollPosition, scrollViewRect, alwaysShowHorizontalScrollBar, alwaysShowVerticalScrollBar);
@@ -224,6 +225,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	
 	public void ResetScrollPosition()
 	{
+		Debug.Log("resetting scroll");
 		scrollPosition = Vector3.zero;
 	}
 	

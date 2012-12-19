@@ -102,21 +102,22 @@ public class RoarRankingsWidget : RoarUIWidget
 	
 	protected override void DrawGUI(int windowId)
 	{
+		
 		if (isFetching)
 		{
 			GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Fetching leaderboard ranking data...", "StatusNormal");
-			ScrollViewContentHeight = 0;
+			ScrollViewContentHeight = contentBounds.height;
 		}
 		else
 		{
 			if (leaderboard == null || (leaderboard.Count == 0 && page == 1) )
 			{
 				GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "No ranking data.", "StatusNormal");
-				ScrollViewContentHeight = 0;
+				ScrollViewContentHeight = contentBounds.height;
 			}
 			else
 			{
-				ScrollViewContentHeight = (leaderboard.Count+1) * (rankingItemBounds.height + rankingItemSpacing);
+				ScrollViewContentHeight = Mathf.Min(contentBounds.height, (leaderboard.Count+1) * (rankingItemBounds.height + rankingItemSpacing));
 				//Render some navigation widgets:
 				Rect entryRect = rankingItemBounds;
 				GUI.BeginGroup(entryRect);
