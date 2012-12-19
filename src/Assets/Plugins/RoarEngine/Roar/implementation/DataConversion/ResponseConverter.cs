@@ -1094,6 +1094,21 @@ namespace Roar.DataConversion.Responses
 				return retval;
 			}
 		}
+		//Response from user/private_get
+		public class PrivateGet : IXmlToObject< Roar.WebObjects.User.PrivateGetResponse >
+		{
+			public Roar.WebObjects.User.PrivateGetResponse Build(IXMLNode n)
+			{
+				Roar.WebObjects.User.PrivateGetResponse retval = new Roar.WebObjects.User.PrivateGetResponse();
+				IXMLNode private_field_node = n.GetNode("roar>0>user>0>private_get>0>private_field>0");
+				if (private_field_node != null)
+				{
+					retval.ikey = private_field_node.GetAttribute("ikey");
+					retval.data = private_field_node.GetAttribute("data");
+				}
+				return retval;
+			}
+		}
 
  	}
 	namespace Urbanairship

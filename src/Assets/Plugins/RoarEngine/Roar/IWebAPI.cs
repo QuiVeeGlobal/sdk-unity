@@ -175,6 +175,7 @@ public abstract class IWebAPI
 		void _set( Roar.WebObjects.User.SetArguments args, ZWebAPI.Callback<Roar.WebObjects.User.SetResponse> cb);
 		void view( Roar.WebObjects.User.ViewArguments args, ZWebAPI.Callback<Roar.WebObjects.User.ViewResponse> cb);
 		void private_set( Roar.WebObjects.User.PrivateSetArguments args, ZWebAPI.Callback<Roar.WebObjects.User.PrivateSetResponse> cb);
+		void private_get( Roar.WebObjects.User.PrivateGetArguments args, ZWebAPI.Callback<Roar.WebObjects.User.PrivateGetResponse> cb);
 	}
 
 	public interface IUrbanairshipActions

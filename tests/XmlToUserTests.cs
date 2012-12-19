@@ -241,6 +241,25 @@ namespace Testing
 			PrivateSetResponse response = private_set_parser.Build(nn);
 			Assert.IsNotNull(response);
 		}
+		
+		[Test()]
+		public void TestPrivateGetXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""128455475133"">
+				<user>
+					<private_get status=""ok"">
+						<private_field ikey=""gold"" data=""5 pieces""/>
+					</private_get>
+				</user>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.User.PrivateGet private_get_parser = new Roar.DataConversion.Responses.User.PrivateGet();
+			PrivateGetResponse response = private_get_parser.Build(nn);
+			Assert.AreEqual(response.ikey, "gold");
+			Assert.AreEqual(response.data, "5 pieces");
+		}
 	}
 }
 

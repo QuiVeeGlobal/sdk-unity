@@ -543,6 +543,17 @@
               {"name":"ikey", "type":"string"},
               {"name":"data", "type":"string"}
             ]
+          },
+          {
+            "name":"private_get",
+            "arguments":[
+              {"name":"ikey", "type":"string"}
+            ],
+            "response":{
+              "members":[
+                {"name":"ikey", "type":"string"},
+                {"name":"data", "type":"string"}
+            ] }
           }
         ]
       },

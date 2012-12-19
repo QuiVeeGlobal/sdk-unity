@@ -1409,6 +1409,27 @@ namespace Roar.WebObjects
 
 		}
 
+		// Arguments to user/private_get
+		public class PrivateGetArguments
+		{
+			public string ikey;
+
+			public Hashtable ToHashtable()
+			{
+				Hashtable retval = new Hashtable();
+				retval["ikey"] = ikey;
+				return retval;
+			}
+		}
+		
+		// Response from user/private_get
+		public class PrivateGetResponse
+		{
+			public string ikey;
+			public string data;
+
+		}
+
 	}
 
 	//Namespace for typesafe arguments and responses to Roars urbanairship/foo calls.
