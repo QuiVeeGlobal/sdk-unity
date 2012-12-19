@@ -225,6 +225,22 @@ namespace Testing
 			Assert.AreEqual(response.achievements[1].progress, "2/2");
 			Assert.AreEqual(response.achievements[1].description, "Find the jewel two times!");
 		}
+		
+		[Test()]
+		public void TestPrivateSetXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""128455475133"">
+				<user>
+					<private_set status=""ok"" />
+				</user>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.User.PrivateSet private_set_parser = new Roar.DataConversion.Responses.User.PrivateSet();
+			PrivateSetResponse response = private_set_parser.Build(nn);
+			Assert.IsNotNull(response);
+		}
 	}
 }
 

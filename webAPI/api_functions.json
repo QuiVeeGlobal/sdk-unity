@@ -536,6 +536,13 @@
               "members":[
               {"name":"attributes", "type":"List<DomainObjects.PlayerAttribute>"}
             ] }
+          },
+          {
+            "name":"private_set",
+            "arguments":[
+              {"name":"ikey", "type":"string"},
+              {"name":"data", "type":"string"}
+            ]
           }
         ]
       },

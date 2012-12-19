@@ -654,6 +654,7 @@ public class WebAPI : IWebAPI
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.User.NetdriveFetchResponse> netdrive_fetch_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.User.SetResponse> set_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.User.ViewResponse> view_response_parser;
+		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.User.PrivateSetResponse> private_set_response_parser;
 
 		public UserActions (IRequestSender caller) : base(caller)
 		{
@@ -668,6 +669,7 @@ public class WebAPI : IWebAPI
 			netdrive_fetch_response_parser = new Roar.DataConversion.Responses.User.NetdriveFetch();
 			set_response_parser = new Roar.DataConversion.Responses.User.Set();
 			view_response_parser = new Roar.DataConversion.Responses.User.View();
+			private_set_response_parser = new Roar.DataConversion.Responses.User.PrivateSet();
 
 		}
 
@@ -724,6 +726,11 @@ public class WebAPI : IWebAPI
 		public void view( Roar.WebObjects.User.ViewArguments args, ZWebAPI.Callback<Roar.WebObjects.User.ViewResponse> cb)
 		{
 			api.MakeCall ("user/view", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.User.ViewResponse>(cb, view_response_parser));
+		}
+
+		public void private_set( Roar.WebObjects.User.PrivateSetArguments args, ZWebAPI.Callback<Roar.WebObjects.User.PrivateSetResponse> cb)
+		{
+			api.MakeCall ("user/private_set", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.User.PrivateSetResponse>(cb, private_set_response_parser));
 		}
 
 	}
