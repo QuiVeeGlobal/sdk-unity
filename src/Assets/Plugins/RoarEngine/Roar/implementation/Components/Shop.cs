@@ -16,8 +16,6 @@ namespace Roar.implementation.Components
 			this.shopActions = shopActions;
 			this.dataStore = dataStore;
 			this.logger = logger;
-
-			RoarManager.shopReadyEvent += () => CacheFromShop ();
 		}
 
 		public void Fetch (Roar.Callback<IDictionary<string,DomainObjects.ShopEntry> > callback)
@@ -79,28 +77,6 @@ namespace Roar.implementation.Components
 					) );
 			}
 		}
-
-		// Builds a list of items to fetch from Server by comparing
-		// what's in the Shop list and what's currently in the cache
-		public bool CacheFromShop ()
-		{
-			if (dataStore.shop.HasDataFromServer) {
-				// Build sanitised ARRAY of ikeys from Shop.list()
-				IList<DomainObjects.ShopEntry> l = dataStore.shop.List ();
-				var ikeyList = new List<string> ();
-
-				foreach (DomainObjects.ShopEntry v in l) {
-					// TODO: This is a new-style fudge that should be undone.
-					ikeyList.Add (v.ikey);
-				}
-
-				return dataStore.cache.AddToCache (ikeyList);
-			} else
-				return false;
-		}
-
-
-
 	}
 
 }
