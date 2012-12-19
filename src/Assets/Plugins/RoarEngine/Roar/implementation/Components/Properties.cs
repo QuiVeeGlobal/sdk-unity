@@ -50,6 +50,7 @@ namespace Roar.implementation.Components
 			DomainObjects.PlayerAttribute v = GetProperty (update.GetAttribute ("ikey"));
 			if (v != null) {
 				v.value = update.GetAttribute ("value");
+				dataStore.properties.AddOrUpdate(v.ikey,v); // This is only really needed to generate the change event.
 			}
 		}
 
