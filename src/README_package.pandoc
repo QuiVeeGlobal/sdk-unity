@@ -1,0 +1,115 @@
+# Roar Unity Plugin
+
+<!-- Description of Roar from the web page -->
+Roar’s award-winning development platform, the RoarEngine offers game
+developers and development studios a unique toolset for rapid backend
+development of cross platform social and casual games.  The core system is
+powered by a rich game mechanics engine which allows developers to create
+complex functionality including:  creating and managing virtual goods,
+developing quests and tasks, integrating badges, achievements and leaderboards,
+and earning real revenue through premium virtual currency sales.   With
+RoarEngine, developers focus on making games fun, engaging and profitable
+rather than on building complex technical backend systems.  Cloud-based, the
+RoarEngine offers true cross platform game development and distribution on all
+platfirms including:  (need list)  Roar takes development times of months, even
+years to weeks and days.
+
+<!-- description of the plugin -->
+The Roar Unity plugin makes adding these features to your game easy.
+You can add leaderboards, shops, server authorative stats and more.
+
+## Setting up the plugin
+
+### unpackaging and adding to your project
+
+### adding the root widget / defaut roar object
+
+### adding the child GUIs
+
+## Adding and enabling widgets
+
+## Styling widgets
+
+### Positioning the widgets
+
+The overall position of each widget is controlled by several factors.
+The initial dimensions and position are controlled by the `bounds` variable.
+If alignment is set to something other than `None` then `bounds" are modified to
+respect that alignment. Finally any offset values are applied.
+
+The actual *content* of the widget is then contained within a region inside the
+`bounds` called `contentBounds` (The positioning of `contentBounds` is relative
+to `bounds` and if set to `(0,0,0,0)` will default to the entirity of `bounds`.
+
+#### Insert Picture of layout here
+
+### Positioning and styling the contents
+
+The contents of each widget can be controlled through the use of a GUI skin.
+Each of the widgets contents is made from a variety of components each skinable
+and positionable independantly.
+
+GUI skins contain texture, text and positioning information for each component state.
+Through customising the skin you can make the roar widgets look however you like.
+
+## List of widgets
+
+### `RoarFriendsListWidget`
+* "Fetching Friends" message - StatusNormal
+* "Error Loading Friends" message - StatusNormal
+* Actual friends entries **Not yet skinned**
+
+### `RoarLeaderboardsWidget`
+* "Fetching leaderboard data..." message - `GUI.Label`, `StatusNormal`
+* "No leaderboards to display" message - `GUI.Label`, `StatusNormal`
+* Each entry - `GUI.Button` - `leaderboardEntryStyle` from config
+    * dimensions of entry: `leaderboardItemBounds`, spaced  down by `leaderboardItemSpacing`. (Both from config)
+
+### `RoarRankingsWidget`
+* "Fetching leaderboard ranking data..." `GUI.Label` (0,0,`ContentWidth`,`ContentHeight`) `"StatusNormal"`
+*  "No ranking data.", `GUI.Label` (0,0,`ContentWidth`,`ContentHeight`) `"StatusNormal"`
+* Next page button **Not yet skinned**
+* Previous page button **Not yet skinned**
+* Each entry positioned inside rankingItemBounds, spaced down by rankingItemSpacing each time.
+* Each entry has two pieces:
+    * custom Property : `GUI.Label` `rankingEntryPlayerRankStyle`
+    * ranking info : `GUI.Label` `rankingEntryPlayerScoreStyle`
+         * **Should probably be two pieces each with formatting too**
+
+### `RoarShopWidget`
+*  "Fetching shop data..." `GUI.Label` (0,0,ContentWidth,ContentHeight) `"StatusNormal"`
+* each entry:
+    * item label: `GUI.Label` `shopItemLabelStyle`
+    * item description `GUI.Label` `shopItemDescriptionStyle`
+    * buy button `GUI.Button` `shopItemBuyButtonStyle`
+
+### `RoarStatsWidget`
+Each individual stat can have its own style associated with it.
+
+* Each entry:
+    * title/label : `GUI.Label` `stat.titleStyle`
+    * value : `GUI.Label` `stat.valueStyle`
+
+### Login "widget"
+All sub-widgets are styled using the one skin.
+
+* status : `GUI.Label`,  `statusErrorStyle` or `statusNormalStyle` depending on what status is
+* username : `GUI.TextField`
+* password : `GUI.PasswordField`
+* Log In button : `GUI.Button`
+* Create Account button : `GUI.Button`
+
+
+
+## What is not yet implemented
+
+## How to use the low level code
+### How the code is structured
+
+#### Widgets
+#### Cache / DataModel
+#### WebAPI
+
+#### Callbacks
+#### Events
+
