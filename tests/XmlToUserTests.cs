@@ -113,6 +113,22 @@ namespace Testing
 			Assert.AreEqual(response.ikey, "sonda");
 			Assert.AreEqual(response.data, "mariner");
 		}
+		
+		[Test()]
+		public void TestUserLogoutXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""135589507667"">
+				<user>
+					<logout status=""ok""/>
+				</user>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.User.Logout logout_parser = new Roar.DataConversion.Responses.User.Logout();
+			LogoutResponse response = logout_parser.Build(nn);
+			Assert.IsNotNull(response);
+		}
 	}
 }
 
