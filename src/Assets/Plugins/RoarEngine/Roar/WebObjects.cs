@@ -1183,10 +1183,16 @@ namespace Roar.WebObjects
 		// Arguments to user/change_name
 		public class ChangeNameArguments
 		{
+			public string name;
+			public string password;
+			public string new_name;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["name"] = name;
+				retval["password"] = password;
+				retval["new_name"] = new_name;
 				return retval;
 			}
 		}

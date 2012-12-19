@@ -457,7 +457,13 @@
         "functions":
         [
           {"name":"achievements", "obj":"null"},
-          {"name":"change_name"},
+          {
+            "name":"change_name",
+            "arguments":[
+              {"name":"name","type":"string"},
+              {"name":"password","type":"string"},
+              {"name":"new_name","type":"string"}
+            ] },
           {
             "name":"change_password",
             "arguments":[

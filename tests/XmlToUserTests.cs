@@ -60,6 +60,22 @@ namespace Testing
 			Assert.AreEqual(response.auth_token, "17248630753098207878");
 			Assert.AreEqual(response.player_id, "635902077904630318");
 		}
+		
+		[Test()]
+		public void TestUserChangeNameXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""128455461333"">
+				<user>
+					<change_password status=""ok""/>
+				</user>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.User.ChangeName change_name_parser = new Roar.DataConversion.Responses.User.ChangeName();
+			ChangeNameResponse response = change_name_parser.Build(nn);
+			Assert.IsNotNull(response);
+		}
 	}
 }
 
