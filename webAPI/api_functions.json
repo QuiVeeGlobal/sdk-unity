@@ -456,7 +456,14 @@
         "name":"user",
         "functions":
         [
-          {"name":"achievements", "obj":"null"},
+          {
+            "name":"achievements",
+            "obj":"null",
+            "response":{
+              "members":[
+                { "name":"achievements", "type":"List<DomainObjects.Achievement>" }
+           ] }
+          },
           {
             "name":"change_name",
             "arguments":[

@@ -718,6 +718,46 @@ namespace Roar
 			}
 		}
 		
+		public class Achievement
+		{
+			public string ikey;
+			public string status;
+			public string label;
+			public string progress;
+			public string description;
+			
+			public static Achievement CreateFromXml (IXMLNode n)
+			{
+				Achievement retval = new Achievement();
+				IXMLNode node = n.GetNode("ikey>0");
+				if (node != null)
+				{
+					retval.ikey = node.Text;
+				}
+				node = n.GetNode("status>0");
+				if (node != null)
+				{
+					retval.status = node.Text;
+				}
+				node = n.GetNode("label>0");
+				if (node != null)
+				{
+					retval.label = node.Text;
+				}
+				node = n.GetNode("progress>0");
+				if (node != null)
+				{
+					retval.progress = node.Text;
+				}
+				node = n.GetNode("description>0");
+				if (node != null)
+				{
+					retval.description = node.Text;
+				}
+				return retval;
+			}
+		}
+		
 
 
 	}

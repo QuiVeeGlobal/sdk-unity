@@ -950,7 +950,12 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.User.AchievementsResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.User.AchievementsResponse retval = new Roar.WebObjects.User.AchievementsResponse();
-				//TODO: Implement me
+				retval.achievements = new List<Achievement>();
+				IList<IXMLNode> achievement_nodes = n.GetNodeList("roar>0>user>0>achievements>0>achievement");
+				foreach (IXMLNode achievement_node in achievement_nodes)
+				{
+					retval.achievements.Add(Achievement.CreateFromXml(achievement_node));
+				}
 				return retval;
 			}
 		}

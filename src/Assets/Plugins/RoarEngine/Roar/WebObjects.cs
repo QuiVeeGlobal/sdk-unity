@@ -1177,6 +1177,7 @@ namespace Roar.WebObjects
 		// Response from user/achievements
 		public class AchievementsResponse
 		{
+			public List<DomainObjects.Achievement> achievements;
 
 		}
 

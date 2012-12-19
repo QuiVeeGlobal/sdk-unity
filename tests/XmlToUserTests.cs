@@ -129,6 +129,51 @@ namespace Testing
 			LogoutResponse response = logout_parser.Build(nn);
 			Assert.IsNotNull(response);
 		}
+		
+		[Test()]
+		public void TestUserAchievementsXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""128755501434"">
+				<user>
+					<achievements status=""ok"">
+						<achievement>
+							<ikey>the_big_one</ikey>
+							<status>active</status>
+							<label>The Big One</label>
+							<progress>0/3</progress>
+							<description>Find the dragon three times!</description>
+						</achievement>
+						<achievement>
+							<ikey>the_small_one</ikey>
+							<status>completed</status>
+							<label>The Small One</label>
+							<progress>2/2</progress>
+							<description>Find the jewel two times!</description>
+						</achievement>
+					</achievements>
+				</user>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.User.Achievements achievements_parser = new Roar.DataConversion.Responses.User.Achievements();
+			AchievementsResponse response = achievements_parser.Build(nn);
+			
+			Assert.IsNotNull(response.achievements);
+			Assert.AreEqual(response.achievements.Count, 2);
+			
+			Assert.AreEqual(response.achievements[0].ikey, "the_big_one");
+			Assert.AreEqual(response.achievements[0].status, "active");
+			Assert.AreEqual(response.achievements[0].label, "The Big One");
+			Assert.AreEqual(response.achievements[0].progress, "0/3");
+			Assert.AreEqual(response.achievements[0].description, "Find the dragon three times!");
+			
+			Assert.AreEqual(response.achievements[1].ikey, "the_small_one");
+			Assert.AreEqual(response.achievements[1].status, "completed");
+			Assert.AreEqual(response.achievements[1].label, "The Small One");
+			Assert.AreEqual(response.achievements[1].progress, "2/2");
+			Assert.AreEqual(response.achievements[1].description, "Find the jewel two times!");
+		}
 	}
 }
 
