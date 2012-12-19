@@ -63,41 +63,20 @@ namespace Roar.implementation.Components
 
 		protected class ShopBuyCallback : CBBase<WebObjects.Shop.BuyResponse>
 		{
-			//Shop shop;
 			string ikey;
 
 			public ShopBuyCallback ( Roar.Callback<WebObjects.Shop.BuyResponse> in_cb, Shop in_shop, string in_ikey) : base(in_cb)
 			{
-				//shop = in_shop;
 				ikey = in_ikey;
 			}
 
 			public override void HandleSuccess (CallbackInfo<WebObjects.Shop.BuyResponse> info)
 			{
-				//TODO: This needs to be implemented!
-				//IXMLNode result = info.data.GetNode ("roar>0>shop>0>buy>0");
-
-				// Obtain the server id for the purchased item
-				// NOTE: Assumes ONLY ONE item per "shopitem" entity
-				//TODO : So this assumption needs to be fixed!
-
-				//IXMLNode cost = result.GetNode ("costs>0>cost>0");
-				//IXMLNode item = result.GetNode ("modifiers>0>modifier>0");
-
-
-				//string id = item.GetAttribute ("item_id");
-
-				//RoarManager.OnGoodBought (
-				//	new RoarManager.PurchaseInfo (
-				//		cost.GetAttribute ("ikey"), //currency_name
-				//		int.Parse (cost.GetAttribute ("value")), // item_price
-				//		ikey, // iitem_id
-				//		1                                      //item_qty
-				//));
-
-				//Hashtable data = new Hashtable ();
-				//data ["id"] = id;
-				//data ["ikey"] = ikey;
+				RoarManager.OnGoodBought (
+					new RoarManager.PurchaseInfo (
+						ikey,
+						info.data.buy_response
+					) );
 			}
 		}
 
