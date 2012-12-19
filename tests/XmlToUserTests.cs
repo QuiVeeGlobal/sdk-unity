@@ -131,6 +131,41 @@ namespace Testing
 		}
 		
 		[Test()]
+		public void TestUserViewXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""135595331857"">
+				<user>
+					<view status=""ok"">
+						<attribute type=""special"" ikey=""id"" value=""635902077904630318""/>
+						<attribute type=""special"" ikey=""xp"" value=""16807"" level_start=""5"" next_level=""7""/>
+						<attribute ikey=""energy"" label=""Energy"" value=""10"" type=""resource"" min=""2"" max=""10"" regen_amount=""1"" regen_every=""18000""/>
+						<attribute name=""status"" value=""No current status update available"" type=""custom""/>
+					<regen_scripts/>
+					</view>
+				</user>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.User.View view_parser = new Roar.DataConversion.Responses.User.View();
+			ViewResponse response = view_parser.Build(nn);
+			
+			Assert.IsNotNull(response.attributes);
+			Assert.AreEqual(response.attributes.Count, 4);
+			Assert.AreEqual(response.attributes[0].type, "special");
+			Assert.AreEqual(response.attributes[0].ikey, "id");
+			Assert.AreEqual(response.attributes[0].value, "635902077904630318");
+			Assert.AreEqual(response.attributes[1].level_start, "5");
+			Assert.AreEqual(response.attributes[1].next_level, "7");
+			Assert.AreEqual(response.attributes[2].label, "Energy");
+			Assert.AreEqual(response.attributes[2].min, "2");
+			Assert.AreEqual(response.attributes[2].max, "10");
+			Assert.AreEqual(response.attributes[2].regen_amount, "1");
+			Assert.AreEqual(response.attributes[2].regen_every, "18000");
+			Assert.AreEqual(response.attributes[3].name, "status");
+		}
+		
+		[Test()]
 		public void TestUserSetXmlGetAttributes ()
 		{
 			string xml =

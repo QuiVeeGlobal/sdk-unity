@@ -600,6 +600,8 @@ namespace Roar
 			public string max = null;
 			public string regen_amount = null;
 			public string regen_every = null;
+			public string level_start = null;
+			public string next_level = null;
 			
 			public void ParseXml( IXMLNode nn )
 			{
@@ -615,6 +617,8 @@ namespace Roar
 				kv.TryGetValue("max",out max);
 				kv.TryGetValue("regen_amount",out regen_amount);
 				kv.TryGetValue("regen_every",out regen_every);
+				kv.TryGetValue("level_start",out level_start);
+				kv.TryGetValue("next_level",out next_level);
 			}
 		}
 		
