@@ -1343,6 +1343,7 @@ namespace Roar.WebObjects
 		// Response from user/netdrive_fetch
 		public class NetdriveFetchResponse
 		{
+			public string ikey;
 			public string data;
 
 		}

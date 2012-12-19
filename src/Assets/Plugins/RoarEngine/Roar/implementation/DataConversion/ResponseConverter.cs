@@ -1039,7 +1039,16 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.User.NetdriveFetchResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.User.NetdriveFetchResponse retval = new Roar.WebObjects.User.NetdriveFetchResponse();
-				//TODO: Implement me
+				IXMLNode node = n.GetNode("roar>0>user>0>netdrive_get>0>netdrive_field>0");
+				if (node != null)
+				{
+					retval.ikey = node.GetAttribute("ikey");
+					node = node.GetNode("data>0");
+					if (node != null)
+					{
+						retval.data = node.Text;
+					}
+				}
 				return retval;
 			}
 		}

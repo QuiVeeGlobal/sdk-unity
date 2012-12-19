@@ -92,6 +92,27 @@ namespace Testing
 			NetdriveSaveResponse response = netdrive_save_parser.Build(nn);
 			Assert.IsNotNull(response);
 		}
+		
+		[Test()]
+		public void TestUserNetDriveGetXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""135589388345"">
+				<user>
+					<netdrive_get status=""ok"">
+						<netdrive_field ikey=""sonda"">
+							<data>mariner</data>
+						</netdrive_field>
+					</netdrive_get>
+				</user>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.User.NetdriveFetch netdrive_fetch_parser = new Roar.DataConversion.Responses.User.NetdriveFetch();
+			NetdriveFetchResponse response = netdrive_fetch_parser.Build(nn);
+			Assert.AreEqual(response.ikey, "sonda");
+			Assert.AreEqual(response.data, "mariner");
+		}
 	}
 }
 
