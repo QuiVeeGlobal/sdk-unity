@@ -458,7 +458,13 @@
         [
           {"name":"achievements", "obj":"null"},
           {"name":"change_name"},
-          {"name":"change_password"},
+          {
+            "name":"change_password",
+            "arguments":[
+              {"name":"name","type":"string"},
+              {"name":"old_password","type":"string"},
+              {"name":"new_password","type":"string"}
+            ] },
           {
             "name":"create",
             "arguments":[

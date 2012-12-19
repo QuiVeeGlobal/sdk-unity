@@ -25,6 +25,22 @@ namespace Testing
 		}
 		
 		[Test()]
+		public void TestUserChangePasswordXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""135589197910"">
+				<user>
+					<change_password status=""ok""/>
+				</user>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.User.ChangePassword change_password_parser = new Roar.DataConversion.Responses.User.ChangePassword();
+			ChangePasswordResponse response = change_password_parser.Build(nn);
+			Assert.IsNotNull(response);
+		}
+		
+		[Test()]
 		public void TestUserLoginXmlGetAttributes ()
 		{
 			string xml =

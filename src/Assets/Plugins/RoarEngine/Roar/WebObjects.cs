@@ -1200,10 +1200,16 @@ namespace Roar.WebObjects
 		// Arguments to user/change_password
 		public class ChangePasswordArguments
 		{
+			public string name;
+			public string old_password;
+			public string new_password;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["name"] = name;
+				retval["old_password"] = old_password;
+				retval["new_password"] = new_password;
 				return retval;
 			}
 		}
