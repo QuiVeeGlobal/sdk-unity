@@ -1352,10 +1352,14 @@ namespace Roar.WebObjects
 		// Arguments to user/set
 		public class SetArguments
 		{
+			public string ikey;
+			public string value;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["ikey"] = ikey;
+				retval["value"] = value;
 				return retval;
 			}
 		}

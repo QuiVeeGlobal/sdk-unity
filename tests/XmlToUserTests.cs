@@ -131,6 +131,22 @@ namespace Testing
 		}
 		
 		[Test()]
+		public void TestUserSetXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""125554966267"">
+				<user>
+					<set status=""ok""/>
+				</user>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.User.Set set_parser = new Roar.DataConversion.Responses.User.Set();
+			SetResponse response = set_parser.Build(nn);
+			Assert.IsNotNull(response);
+		}
+		
+		[Test()]
 		public void TestUserAchievementsXmlGetAttributes ()
 		{
 			string xml =

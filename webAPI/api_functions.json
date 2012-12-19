@@ -522,7 +522,13 @@
               { "name":"data", "type":"string" }
             ] }
           },
-          {"name":"set"},
+          {
+            "name":"set",
+            "arguments":[
+              {"name":"ikey", "type":"string"},
+              {"name":"value", "type":"string"}
+            ]
+          },
           {
             "name":"view",
             "obj":"null",
