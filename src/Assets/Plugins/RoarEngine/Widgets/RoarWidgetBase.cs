@@ -37,7 +37,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	public Rect bounds;
 	public Rect contentBounds;
 	
-	protected GUISkin skin;
+	public GUISkin skin;
 	
 	public int depth;
 
