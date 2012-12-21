@@ -111,43 +111,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 557038d1010f541dbbd8a410bdef04fc, type: 3}
   m_Name: 
-  customGUISkin: {fileID: 0}
-  depth: 0
-  bounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 512
-    height: 386
-  contentBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 512
-    height: 386
-  color: {r: 1, g: 1, b: 1, a: 1}
-  boundType: 2
-  boundingStyle: WidgetBoundingStyle
-  boundingTitle: 
-  boundingImage: {fileID: 0}
-  draggableWindowFullScreen: 1
-  draggableWindowBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  horizontalAlignment: 0
-  verticalAlignment: 0
-  horizontalOffset: 0
-  verticalOffset: 0
-  useScrollView: 0
-  initialContentWidth: 512
-  initialContentHeight: 386
-  alwaysShowHorizontalScrollBar: 0
-  alwaysShowVerticalScrollBar: 0
-  autoEnableOnLogIn: 0
-  autoDisableOnLogout: 1
 --- !u!1 &97676202
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,8 +137,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3051ebc19fd84e198fbc470bd8f870d, type: 3}
   m_Name: 
-  customGUISkin: {fileID: 0}
-  depth: 0
   bounds:
     serializedVersion: 2
     x: 0
@@ -188,25 +149,21 @@ MonoBehaviour:
     y: 32
     width: 496
     height: 338
-  color: {r: 1, g: 1, b: 1, a: 1}
-  boundType: 1
-  boundingStyle: WidgetBoundingStyle
-  boundingTitle: Leaderboards
-  boundingImage: {fileID: 0}
-  draggableWindowFullScreen: 1
-  draggableWindowBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
   horizontalAlignment: 0
   verticalAlignment: 1
   horizontalOffset: 8
   verticalOffset: 0
   useScrollView: 1
-  initialContentWidth: 0
-  initialContentHeight: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
   autoEnableOnLogIn: 0
@@ -606,8 +563,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d1746b72df9849eaa2e6708df2cc52c, type: 3}
   m_Name: 
-  customGUISkin: {fileID: 0}
-  depth: 0
   bounds:
     serializedVersion: 2
     x: 0
@@ -620,25 +575,21 @@ MonoBehaviour:
     y: 32
     width: 496
     height: 338
-  color: {r: 1, g: 1, b: 1, a: 1}
-  boundType: 1
-  boundingStyle: WidgetBoundingStyle
-  boundingTitle: 
-  boundingImage: {fileID: 0}
-  draggableWindowFullScreen: 1
-  draggableWindowBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
   horizontalAlignment: 2
   verticalAlignment: 1
   horizontalOffset: -8
   verticalOffset: 0
   useScrollView: 1
-  initialContentWidth: 0
-  initialContentHeight: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
   autoEnableOnLogIn: 0
@@ -926,8 +877,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a55eaf128067445d79aca84095dd8391, type: 3}
   m_Name: 
-  customGUISkin: {fileID: 0}
-  depth: -1
   bounds:
     serializedVersion: 2
     x: 0
@@ -940,25 +889,21 @@ MonoBehaviour:
     y: 32
     width: 496
     height: 88
-  color: {r: 1, g: 1, b: 1, a: 1}
-  boundType: 3
-  boundingStyle: WidgetBoundingStyle
-  boundingTitle: Player Stats
-  boundingImage: {fileID: 0}
-  draggableWindowFullScreen: 1
-  draggableWindowBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  skin: {fileID: 0}
+  depth: -1
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
   horizontalAlignment: 0
   verticalAlignment: 0
   horizontalOffset: 32
   verticalOffset: 32
   useScrollView: 1
-  initialContentWidth: 0
-  initialContentHeight: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
   autoEnableOnLogIn: 0
@@ -1068,8 +1013,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cc557724edd074bb2baba52996bc7f96, type: 3}
   m_Name: 
-  customGUISkin: {fileID: 0}
-  depth: 0
   bounds:
     serializedVersion: 2
     x: 0
@@ -1082,25 +1025,21 @@ MonoBehaviour:
     y: 16
     width: 486
     height: 354
-  color: {r: 1, g: 1, b: 1, a: 1}
-  boundType: 1
-  boundingStyle: WidgetBoundingStyle
-  boundingTitle: 
-  boundingImage: {fileID: 0}
-  draggableWindowFullScreen: 1
-  draggableWindowBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
   horizontalAlignment: 1
   verticalAlignment: 1
   horizontalOffset: 0
   verticalOffset: 0
   useScrollView: 0
-  initialContentWidth: 0
-  initialContentHeight: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
   autoEnableOnLogIn: 0
@@ -1331,8 +1270,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e3051ebc19fd84e198fbc470bd8f870d, type: 3}
   m_Name: 
-  customGUISkin: {fileID: 0}
-  depth: 0
   bounds:
     serializedVersion: 2
     x: 100
@@ -1345,25 +1282,21 @@ MonoBehaviour:
     y: 32
     width: 496
     height: 338
-  color: {r: 1, g: 1, b: 1, a: 1}
-  boundType: 1
-  boundingStyle: WidgetBoundingStyle
-  boundingTitle: Leaderboards
-  boundingImage: {fileID: 0}
-  draggableWindowFullScreen: 1
-  draggableWindowBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
   horizontalAlignment: 0
   verticalAlignment: 1
   horizontalOffset: 0
   verticalOffset: 0
   useScrollView: 1
-  initialContentWidth: 0
-  initialContentHeight: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
   autoEnableOnLogIn: 0
@@ -1674,8 +1607,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 942a3f54f784546fb92399363c2495c9, type: 3}
   m_Name: 
-  customGUISkin: {fileID: 0}
-  depth: 0
   bounds:
     serializedVersion: 2
     x: 0
@@ -1688,25 +1619,21 @@ MonoBehaviour:
     y: 32
     width: 496
     height: 338
-  color: {r: 1, g: 1, b: 1, a: 1}
-  boundType: 1
-  boundingStyle: WidgetBoundingStyle
-  boundingTitle: 
-  boundingImage: {fileID: 0}
-  draggableWindowFullScreen: 1
-  draggableWindowBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
   horizontalAlignment: 2
   verticalAlignment: 1
   horizontalOffset: 0
   verticalOffset: 0
   useScrollView: 0
-  initialContentWidth: 0
-  initialContentHeight: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
   autoEnableOnLogIn: 0
@@ -1720,6 +1647,12 @@ MonoBehaviour:
     y: 0
     width: 476
     height: 32
+  playerIdFormatString: '{0}'
+  playerIdFormat: FriendsId
+  nameFormatString: '{0}'
+  nameFormat: FriendsName
+  levelFormatString: '{0}'
+  levelFormat: FriendsLevel
 --- !u!1 &1654474000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,43 +1690,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 226d847a60a434ac49c824bea2d0cedc, type: 3}
   m_Name: 
-  customGUISkin: {fileID: 0}
-  depth: 0
-  bounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 512
-    height: 386
-  contentBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 512
-    height: 386
-  color: {r: 1, g: 1, b: 1, a: 1}
-  boundType: 2
-  boundingStyle: WidgetBoundingStyle
-  boundingTitle: 
-  boundingImage: {fileID: 0}
-  draggableWindowFullScreen: 1
-  draggableWindowBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  horizontalAlignment: 0
-  verticalAlignment: 0
-  horizontalOffset: 0
-  verticalOffset: 0
-  useScrollView: 0
-  initialContentWidth: 512
-  initialContentHeight: 386
-  alwaysShowHorizontalScrollBar: 0
-  alwaysShowVerticalScrollBar: 0
-  autoEnableOnLogIn: 0
-  autoDisableOnLogout: 1
 --- !u!1 &1685386026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1986,8 +1882,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d1746b72df9849eaa2e6708df2cc52c, type: 3}
   m_Name: 
-  customGUISkin: {fileID: 0}
-  depth: 0
   bounds:
     serializedVersion: 2
     x: 0
@@ -2000,25 +1894,21 @@ MonoBehaviour:
     y: 32
     width: 496
     height: 338
-  color: {r: 1, g: 1, b: 1, a: 1}
-  boundType: 1
-  boundingStyle: WidgetBoundingStyle
-  boundingTitle: 
-  boundingImage: {fileID: 0}
-  draggableWindowFullScreen: 1
-  draggableWindowBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
   horizontalAlignment: 2
   verticalAlignment: 1
   horizontalOffset: 0
   verticalOffset: 0
   useScrollView: 1
-  initialContentWidth: 0
-  initialContentHeight: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
   autoEnableOnLogIn: 0
@@ -2147,8 +2037,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a55eaf128067445d79aca84095dd8391, type: 3}
   m_Name: 
-  customGUISkin: {fileID: 0}
-  depth: -1
   bounds:
     serializedVersion: 2
     x: 0
@@ -2161,25 +2049,21 @@ MonoBehaviour:
     y: 8
     width: 240
     height: 64
-  color: {r: 1, g: 1, b: 1, a: 1}
-  boundType: 1
-  boundingStyle: WidgetBoundingStyle
-  boundingTitle: 
-  boundingImage: {fileID: 0}
-  draggableWindowFullScreen: 1
-  draggableWindowBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
+  skin: {fileID: 0}
+  depth: -1
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
   horizontalAlignment: 2
   verticalAlignment: 0
   horizontalOffset: -32
   verticalOffset: 32
   useScrollView: 0
-  initialContentWidth: 0
-  initialContentHeight: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
   autoEnableOnLogIn: 1
