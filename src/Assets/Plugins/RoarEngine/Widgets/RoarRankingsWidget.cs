@@ -131,7 +131,7 @@ public class RoarRankingsWidget : RoarUIWidget
 			}
 			else
 			{
-				ScrollViewContentHeight = Mathf.Min(contentBounds.height, (leaderboard.Count+1) * (rankingItemBounds.height + rankingItemSpacing));
+				ScrollViewContentHeight = Mathf.Max(contentBounds.height, (leaderboard.Count+1) * (rankingItemBounds.height + rankingItemSpacing));
 				//Render some navigation widgets:
 				Rect entryRect = rankingItemBounds;
 				GUI.BeginGroup(entryRect);

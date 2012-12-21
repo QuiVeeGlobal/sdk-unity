@@ -93,7 +93,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 			}
 			else
 			{
-				ScrollViewContentHeight = Mathf.Min(contentBounds.height, leaderboards.Count * (leaderboardItemBounds.height + leaderboardItemSpacing));
+				ScrollViewContentHeight = Mathf.Max(contentBounds.height, leaderboards.Count * (leaderboardItemBounds.height + leaderboardItemSpacing));
 				Rect entry = leaderboardItemBounds;
 				foreach (LeaderboardInfo leaderboard in leaderboards)
 				{

@@ -72,7 +72,7 @@ public class RoarFriendsListWidget : RoarUIWidget
 			return;
 		}
 		
-		ScrollViewContentHeight = friendsDict.Count * (entryBounds.height + entrySpacing);
+		ScrollViewContentHeight = Mathf.Max (contentBounds.height, friendsDict.Count * (entryBounds.height + entrySpacing));
 		Rect entry = entryBounds;
 		foreach (KeyValuePair<string,Roar.DomainObjects.Friend> f in friendsDict)
 		{
