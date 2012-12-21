@@ -610,6 +610,11 @@ MonoBehaviour:
   previousButtonStyle: LeaderboardRankingPrev
   nextButtonLabel: Next page
   nextButtonStyle: LeaderboardRankingNext
+  customDataFormat: '{0}:{1}'
+  rankFormat: '{0}'
+  rankStyle: LeaderboardRankingRank
+  valueFormat: '{0}'
+  valueStyle: LeaderboardRankingValue
   leaderboardId: 
   page: 1
 --- !u!1 &576289523
@@ -1933,6 +1938,11 @@ MonoBehaviour:
   previousButtonStyle: LeaderboardRankingPrev
   nextButtonLabel: Next page
   nextButtonStyle: LeaderboardRankingNext
+  customDataFormat: '{0}:{1}'
+  rankFormat: '{0}'
+  rankStyle: LeaderboardRankingRank
+  valueFormat: '{0}'
+  valueStyle: LeaderboardRankingValue
   leaderboardId: 
   page: 1
 --- !u!1 &1924684293
