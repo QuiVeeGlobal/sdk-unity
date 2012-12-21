@@ -15,6 +15,13 @@ public class RoarFriendsListWidget : RoarUIWidget
 	public float entrySpacing;
 	public Rect  entryBounds;
 	
+	public string playerIdFormatString ="{0}";
+	public string playerIdFormat = "FriendsId";
+	public string nameFormatString = "{0}";
+	public string nameFormat = "FriendsName";
+	public string levelFormatString = "{0}";
+	public string levelFormat = "FriendsLevel";
+	
 	IDictionary<string, Roar.DomainObjects.Friend> friendsDict = null;
 	
 	protected override void OnEnable ()
@@ -61,7 +68,7 @@ public class RoarFriendsListWidget : RoarUIWidget
 		
 		if( friends==null)
 		{
-			GUI.Label(new Rect(this.bounds.width/2f - 256,this.bounds.height/2f - 32,512,64), "Error loading friends...", "StatusNormal");
+			GUI.Label(new Rect(this.bounds.width/2f - 256,this.bounds.height/2f - 32,512,64), "Error loading friends...", "StatusError");
 			return;
 		}
 		
@@ -69,7 +76,9 @@ public class RoarFriendsListWidget : RoarUIWidget
 		Rect entry = entryBounds;
 		foreach (KeyValuePair<string,Roar.DomainObjects.Friend> f in friendsDict)
 		{
-			GUI.Label(entry, string.Format("[{0}] {1} (Level {2})", f.Value.player_id, f.Value.name, f.Value.level) );
+			GUI.Label(entry, string.Format( playerIdFormatString, f.Value.player_id ), playerIdFormat );
+			GUI.Label(entry, string.Format( nameFormatString, f.Value.name ), nameFormat );
+			GUI.Label(entry, string.Format( levelFormatString, f.Value.level ), levelFormat );
 			entry.y += entry.height + entrySpacing;
 		}
 	}
