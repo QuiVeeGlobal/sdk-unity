@@ -21,7 +21,15 @@ public class RoarRankingsWidget : RoarUIWidget
 	public string previousButtonStyle = "LeaderboardRankingPrev";
 	public string nextButtonLabel = "Next page";
 	public string nextButtonStyle = "LeaderboardRankingNext";
-
+	
+	public string customDataFormat = "{0}:{1}";
+	public string rankFormat = "{0}";
+	public string rankStyle = "LeaderboardRankingRank";
+	public string valueFormat = "{0}";
+	public string valueStyle = "LeaderboardRankingValue";
+	
+	
+	
 
 	//public string rankingNavigatePageValueStyle = "LabelPageValue";
 	//public string rankingNavigateLeftButtonStyle = "ButtonNavigatePageLeft";
@@ -152,9 +160,13 @@ public class RoarRankingsWidget : RoarUIWidget
 				
 				foreach (LeaderboardEntry leaderboardEntry in leaderboard)
 				{
-					string prop_string = string.Join("\n", leaderboardEntry.properties.Select( p => (p.ikey+":"+p.value) ).ToArray() );
+					string prop_string = string.Join(
+						"\n",
+						leaderboardEntry.properties.Select( p => ( string.Format( customDataFormat, p.ikey, p.value ) ) ).ToArray()
+						);
 					GUI.Label(entryRect, prop_string, rankingEntryPlayerRankStyle);
-					GUI.Label(entryRect, "["+leaderboardEntry.rank.ToString()+"] " + leaderboardEntry.value.ToString(), rankingEntryPlayerScoreStyle );
+					GUI.Label(entryRect, string.Format( rankFormat, leaderboardEntry.rank), rankStyle );
+					GUI.Label(entryRect, string.Format( valueFormat, leaderboardEntry.value), valueStyle );
 					entryRect.y += entryRect.height + rankingItemSpacing;
 				}
 				//useScrollView = utilizeScrollView && ((entry.y + entry.height) > contentBounds.height);
