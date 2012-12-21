@@ -107,14 +107,6 @@ public class RoarShopWidget : RoarUIWidget
 				GUI.Label(itemRect, item.label, shopItemLabelStyle);
 				GUI.Label(itemRect, item.description, shopItemDescriptionStyle);
 				//GUI.Label(itemRect, string.Format("{0} {1}", item.costs[0].amount.ToString(), RoarTypesCache.UserStatByKey(item.costs[0].key).Title), shopItemCostStyle);
-				GUI.BeginGroup(itemRect);
-				
-				//For now only check the costs
-				bool can_buy = true;
-				foreach( Roar.DomainObjects.Cost cost in item.costs)
-				{
-					if( ! cost.ok ) { can_buy = false; break; }
-				}
 				
 				//Only render if theres exactly one cost and its a stat cost.
 				if (item.costs.Count == 1)
@@ -123,10 +115,19 @@ public class RoarShopWidget : RoarUIWidget
 					if( stat_cost != null )
 					{
 						//TODO: This is not rendering in the right place.
-						GUI.Label (itemRect, string.Format ("Costs {0} {1}", stat_cost.value, stat_cost.ikey) ) ;
+						GUI.Label (itemRect, string.Format ("Costs {0} {1}", stat_cost.value, stat_cost.ikey), shopItemCostStyle ) ;
 					}
 				}
 				
+				GUI.BeginGroup(itemRect);
+				
+				//For now only check the costs
+				bool can_buy = true;
+				foreach( Roar.DomainObjects.Cost cost in item.costs)
+				{
+					if( ! cost.ok ) { can_buy = false; break; }
+				}
+
 				GUI.enabled = can_buy;
 				
 				if (GUI.Button(buyButtonBounds, "Buy", shopItemBuyButtonStyle))
