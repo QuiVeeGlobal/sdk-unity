@@ -10,9 +10,8 @@ public abstract class RoarUIWidgetInspector : RoarInspector
 	protected SerializedProperty contentBounds;
 	protected SerializedProperty color;
 	protected SerializedProperty boundType;
-	protected SerializedProperty boundingStyle;
-	protected SerializedProperty boundingTitle;
-	protected SerializedProperty boundingImage;
+	protected SerializedProperty apearance;
+	protected SerializedProperty windowInfo;	
 	protected SerializedProperty draggableWindowFullScreen;
 	protected SerializedProperty draggableWindowBounds;
 	protected SerializedProperty horizontalAlignment;
@@ -31,17 +30,13 @@ public abstract class RoarUIWidgetInspector : RoarInspector
 	{
 		base.OnEnable ();
 		
-		customGUISkin = serializedObject.FindProperty("customGUISkin");
+		customGUISkin = serializedObject.FindProperty("skin");
 		depth = serializedObject.FindProperty("depth");
 		bounds = serializedObject.FindProperty("bounds");
 		contentBounds = serializedObject.FindProperty("contentBounds");
-		color = serializedObject.FindProperty("color");
 		boundType = serializedObject.FindProperty("boundType");
-		boundingStyle = serializedObject.FindProperty("boundingStyle");
-		boundingTitle = serializedObject.FindProperty("boundingTitle");
-		boundingImage = serializedObject.FindProperty("boundingImage");
-		draggableWindowFullScreen = serializedObject.FindProperty("draggableWindowFullScreen");
-		draggableWindowBounds = serializedObject.FindProperty("draggableWindowBounds");
+		apearance = (serializedObject.FindProperty("apearance"));
+		windowInfo = (serializedObject.FindProperty("windowInfo"));
 		horizontalAlignment = serializedObject.FindProperty("horizontalAlignment");
 		verticalAlignment = serializedObject.FindProperty("verticalAlignment");
 		horizontalOffset = serializedObject.FindProperty("horizontalOffset");
@@ -65,7 +60,6 @@ public abstract class RoarUIWidgetInspector : RoarInspector
 		// rendering properties
 		Comment("Widget rendering properties.");
 		EditorGUILayout.PropertyField(depth, new GUIContent("Draw Order"));		
-		EditorGUILayout.PropertyField(color);
 		EditorGUILayout.PropertyField(horizontalAlignment);
 		EditorGUILayout.PropertyField(horizontalOffset);
 		EditorGUILayout.PropertyField(verticalAlignment);
@@ -75,7 +69,7 @@ public abstract class RoarUIWidgetInspector : RoarInspector
 		
 		// boundary properties
 		Comment("Draw boundary properties.");
-		EditorGUILayout.PropertyField(boundType, new GUIContent("Type"));
+		//EditorGUILayout.PropertyField(boundType, new GUIContent("Type"));
 		EditorGUILayout.PropertyField(bounds, new GUIContent("Render Bounds"));
 		if (bounds.rectValue.width <= 0 || bounds.rectValue.height <= 0)
 		{
@@ -87,23 +81,14 @@ public abstract class RoarUIWidgetInspector : RoarInspector
 			EditorGUILayout.HelpBox("Since the content bounds width and/or height is 0, nothing will be visible.", MessageType.Warning);
 		}
 		EditorGUILayout.Space();
-		if (boundType.enumValueIndex == 3) // DraggableWindow
-		{
-			EditorGUILayout.PropertyField(draggableWindowFullScreen, new GUIContent("Draggable Fullscreen"));
-			if (!draggableWindowFullScreen.boolValue)
-			{
-				EditorGUILayout.PropertyField(draggableWindowBounds, new GUIContent("Draggable Bounds"));
-				EditorGUILayout.Space();
-			}
-		}
-		EditorGUILayout.PropertyField(boundingStyle, new GUIContent("Style"));
-		EditorGUILayout.PropertyField(boundingTitle, new GUIContent("Title"));
-		EditorGUILayout.PropertyField(boundingImage, new GUIContent("Image"));
+		EditorGUILayout.PropertyField(windowInfo, true, null);
+
+		EditorGUILayout.PropertyField(apearance, true, null);
 		EditorGUILayout.PropertyField(useScrollView, new GUIContent("Enable Scrolling"));	
 		if (useScrollView.boolValue)
 		{
-			EditorGUILayout.PropertyField(initialContentWidth);
-			EditorGUILayout.PropertyField(initialContentHeight);
+//			EditorGUILayout.PropertyField(initialContentWidth);
+//			EditorGUILayout.PropertyField(initialContentHeight);
 			EditorGUILayout.PropertyField(alwaysShowHorizontalScrollBar, new GUIContent("Always Show Horiz. Bar"));
 			EditorGUILayout.PropertyField(alwaysShowVerticalScrollBar, new GUIContent("Always Show Vert. Bar"));
 		}

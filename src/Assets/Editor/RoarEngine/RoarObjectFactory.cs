@@ -53,6 +53,118 @@ public class RoarObjectFactory : Editor
 		Selection.activeGameObject = go;
 	}
 	
+	[MenuItem("GameObject/Create Other/Roar/Leaderboard Widget", false, 2002)]
+	public static void CreateRoarLeaderboardsWidgetObject()
+	{
+		if (!ExistingComponentTypeExists(typeof(DefaultRoar)))
+		{
+			if (EditorUtility.DisplayDialog("Sorry!", "A DefaultRoar system component cannot be found in this scene. Add one now?", "OK", "Later"))
+			{
+				CreateRoarSceneObject();
+				_CreateRoarLeaderboardsWidgetObject();
+			}
+		}
+		else
+		{
+			_CreateRoarLeaderboardsWidgetObject();
+		}
+	}
+	
+	private static void _CreateRoarLeaderboardsWidgetObject()
+	{
+		GameObject go = RoarObjectFactory.CreateGameObjectInScene("RoarLeaderboardsWidget");
+		go.AddComponent<RoarLeaderboardsWidget>();
+	
+		DefaultRoar defaultRoar = GameObject.FindObjectOfType(typeof(DefaultRoar)) as DefaultRoar;
+		go.transform.parent = defaultRoar.transform;		
+		
+		Selection.activeGameObject = go;
+	}
+	
+	[MenuItem("GameObject/Create Other/Roar/Rankings Widget", false, 2003)]
+	public static void CreateRoarRankingsWidgetObject()
+	{
+		if (!ExistingComponentTypeExists(typeof(DefaultRoar)))
+		{
+			if (EditorUtility.DisplayDialog("Sorry!", "A DefaultRoar system component cannot be found in this scene. Add one now?", "OK", "Later"))
+			{
+				CreateRoarSceneObject();
+				_CreateRoarRankingsWidgetObject();
+			}
+		}
+		else
+		{
+			_CreateRoarRankingsWidgetObject();
+		}
+	}
+	
+	private static void _CreateRoarRankingsWidgetObject()
+	{
+		GameObject go = RoarObjectFactory.CreateGameObjectInScene("RoarRankingsWidget");
+		go.AddComponent<RoarRankingsWidget>();
+	
+		DefaultRoar defaultRoar = GameObject.FindObjectOfType(typeof(DefaultRoar)) as DefaultRoar;
+		go.transform.parent = defaultRoar.transform;		
+		
+		Selection.activeGameObject = go;
+	}
+	
+	[MenuItem("GameObject/Create Other/Roar/Shop Widget", false, 2004)]
+	public static void CreateRoarShopWidgetObject()
+	{
+		if (!ExistingComponentTypeExists(typeof(DefaultRoar)))
+		{
+			if (EditorUtility.DisplayDialog("Sorry!", "A DefaultRoar system component cannot be found in this scene. Add one now?", "OK", "Later"))
+			{
+				CreateRoarSceneObject();
+				_CreateRoarShopWidgetObject();
+			}
+		}
+		else
+		{
+			_CreateRoarShopWidgetObject();
+		}
+	}
+	
+	private static void _CreateRoarShopWidgetObject()
+	{
+		GameObject go = RoarObjectFactory.CreateGameObjectInScene("RoarShopWidget");
+		go.AddComponent<RoarShopWidget>();
+	
+		DefaultRoar defaultRoar = GameObject.FindObjectOfType(typeof(DefaultRoar)) as DefaultRoar;
+		go.transform.parent = defaultRoar.transform;		
+		
+		Selection.activeGameObject = go;
+	}
+	
+	[MenuItem("GameObject/Create Other/Roar/Friends List Widget", false, 2005)]
+	public static void CreateRoarFriendsListWidgetObject()
+	{
+		if (!ExistingComponentTypeExists(typeof(DefaultRoar)))
+		{
+			if (EditorUtility.DisplayDialog("Sorry!", "A DefaultRoar system component cannot be found in this scene. Add one now?", "OK", "Later"))
+			{
+				CreateRoarSceneObject();
+				_CreateRoarFriendsListWidgetObject();
+			}
+		}
+		else
+		{
+			_CreateRoarFriendsListWidgetObject();
+		}
+	}
+	
+	private static void _CreateRoarFriendsListWidgetObject()
+	{
+		GameObject go = RoarObjectFactory.CreateGameObjectInScene("RoarShopWidget");
+		go.AddComponent<RoarFriendsListWidget>();
+	
+		DefaultRoar defaultRoar = GameObject.FindObjectOfType(typeof(DefaultRoar)) as DefaultRoar;
+		go.transform.parent = defaultRoar.transform;		
+		
+		Selection.activeGameObject = go;
+	}
+	
 	public static bool ExistingComponentTypeExists(System.Type type)
 	{
 		Component c = FindObjectOfType(type) as Component;

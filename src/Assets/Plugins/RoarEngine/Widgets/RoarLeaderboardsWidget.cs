@@ -78,21 +78,22 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 	
 	protected override void DrawGUI(int windowId)
 	{
+		
 		if (isFetching)
 		{
 			GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Fetching leaderboard data...", "StatusNormal");
-			ScrollViewContentHeight = 0;
+			ScrollViewContentHeight = contentBounds.height;
 		}
 		else
 		{
 			if (!boards.HasBoardList || leaderboards == null || leaderboards.Count == 0)
 			{
 				GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "No leaderboards to display", "StatusNormal");
-				ScrollViewContentHeight = 0;
+				ScrollViewContentHeight = contentBounds.height;
 			}
 			else
 			{
-				ScrollViewContentHeight = leaderboards.Count * (leaderboardItemBounds.height + leaderboardItemSpacing);
+				ScrollViewContentHeight = Mathf.Max(contentBounds.height, leaderboards.Count * (leaderboardItemBounds.height + leaderboardItemSpacing));
 				Rect entry = leaderboardItemBounds;
 				foreach (LeaderboardInfo leaderboard in leaderboards)
 				{
@@ -105,5 +106,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 				}
 			}
 		}
+		
+		
 	}
 }

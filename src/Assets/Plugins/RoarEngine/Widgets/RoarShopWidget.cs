@@ -6,7 +6,7 @@ using Roar.DomainObjects;
 
 public class RoarShopWidget : RoarUIWidget
 {
-	public delegate void RoarShopWidgetBuyHandler(string itemShopKey, string itemCostKey);
+	public delegate void RoarShopWidgetBuyHandler(Roar.DomainObjects.ShopEntry shop_entry);
 	public static event RoarShopWidgetBuyHandler OnItemBuyRequest;
 	
 	public enum WhenToFetch { OnEnable, Once, Occassionally, Manual };
@@ -89,7 +89,7 @@ public class RoarShopWidget : RoarUIWidget
 		Debug.Log("======================================");
 		
 		ScrollViewContentWidth = shopItemBounds.width;
-		ScrollViewContentHeight = shopEntries.Count * (shopItemBounds.height + shopItemSpacing);
+		ScrollViewContentHeight = Mathf.Max(contentBounds.height, shopEntries.Count * (shopItemBounds.height + shopItemSpacing));
 	}
 	
 	protected override void DrawGUI(int windowId)
@@ -107,18 +107,42 @@ public class RoarShopWidget : RoarUIWidget
 				GUI.Label(itemRect, item.label, shopItemLabelStyle);
 				GUI.Label(itemRect, item.description, shopItemDescriptionStyle);
 				//GUI.Label(itemRect, string.Format("{0} {1}", item.costs[0].amount.ToString(), RoarTypesCache.UserStatByKey(item.costs[0].key).Title), shopItemCostStyle);
+				
+				//Only render if theres exactly one cost and its a stat cost.
+				if (item.costs.Count == 1)
+				{
+					Roar.DomainObjects.Costs.Stat stat_cost = item.costs[0] as Roar.DomainObjects.Costs.Stat;
+					if( stat_cost != null )
+					{
+						//TODO: This is not rendering in the right place.
+						GUI.Label (itemRect, string.Format ("Costs {0} {1}", stat_cost.value, stat_cost.ikey), shopItemCostStyle ) ;
+					}
+				}
+				
 				GUI.BeginGroup(itemRect);
+				
+				//For now only check the costs
+				bool can_buy = true;
+				foreach( Roar.DomainObjects.Cost cost in item.costs)
+				{
+					if( ! cost.ok ) { can_buy = false; break; }
+				}
+
+				GUI.enabled = can_buy;
+				
 				if (GUI.Button(buyButtonBounds, "Buy", shopItemBuyButtonStyle))
 				{
-					//if (Debug.isDebugBuild)
-					//{
-					//	Debug.Log(string.Format("buy request: {0} for {1} {2}", item.ikey, item.costs[0].amount, item.costs[0].key));
-					//}
-					//if (OnItemBuyRequest != null)
-					//{
-					//	OnItemBuyRequest(item.ikey, item.costs[0].ikey);
-					//}
+					if (Debug.isDebugBuild)
+					{
+						Debug.Log(string.Format("buy request: {0}", item.ikey));
+					}
+					if (OnItemBuyRequest != null)
+					{
+						OnItemBuyRequest(item);
+					}
+					shop.Buy( item.ikey, null );
 				}
+				GUI.enabled = true;
 				GUI.EndGroup();
 				
 				itemRect.y += itemRect.height + shopItemSpacing;

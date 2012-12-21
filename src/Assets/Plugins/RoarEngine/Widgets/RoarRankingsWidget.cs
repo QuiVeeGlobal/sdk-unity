@@ -16,6 +16,20 @@ public class RoarRankingsWidget : RoarUIWidget
 	public string rankingEntryPlayerRankStyle = "LeaderboardRankingPlayerRank";
 	public string rankingEntryPlayerNameStyle = "LeaderboardRankingPlayerName";
 	public string rankingEntryPlayerScoreStyle = "LeaderboardRankingPlayerScore";
+	
+	public string previousButtonLabel = "Previous page";
+	public string previousButtonStyle = "LeaderboardRankingPrev";
+	public string nextButtonLabel = "Next page";
+	public string nextButtonStyle = "LeaderboardRankingNext";
+	
+	public string customDataFormat = "{0}:{1}";
+	public string rankFormat = "{0}";
+	public string rankStyle = "LeaderboardRankingRank";
+	public string valueFormat = "{0}";
+	public string valueStyle = "LeaderboardRankingValue";
+	
+	
+	
 
 	//public string rankingNavigatePageValueStyle = "LabelPageValue";
 	//public string rankingNavigateLeftButtonStyle = "ButtonNavigatePageLeft";
@@ -102,21 +116,22 @@ public class RoarRankingsWidget : RoarUIWidget
 	
 	protected override void DrawGUI(int windowId)
 	{
+		
 		if (isFetching)
 		{
 			GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Fetching leaderboard ranking data...", "StatusNormal");
-			ScrollViewContentHeight = 0;
+			ScrollViewContentHeight = contentBounds.height;
 		}
 		else
 		{
 			if (leaderboard == null || (leaderboard.Count == 0 && page == 1) )
 			{
 				GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "No ranking data.", "StatusNormal");
-				ScrollViewContentHeight = 0;
+				ScrollViewContentHeight = contentBounds.height;
 			}
 			else
 			{
-				ScrollViewContentHeight = (leaderboard.Count+1) * (rankingItemBounds.height + rankingItemSpacing);
+				ScrollViewContentHeight = Mathf.Max(contentBounds.height, (leaderboard.Count+1) * (rankingItemBounds.height + rankingItemSpacing));
 				//Render some navigation widgets:
 				Rect entryRect = rankingItemBounds;
 				GUI.BeginGroup(entryRect);
@@ -125,7 +140,7 @@ public class RoarRankingsWidget : RoarUIWidget
 				bool requires_refetch = false;
 				
 				if( page==1 ) { GUI.enabled = false; }
-				if( GUI.Button(new Rect(0,0,entryRect.width/2,entryRect.height), "Previous Page") )
+				if( GUI.Button(new Rect(0,0,entryRect.width/2,entryRect.height), previousButtonLabel, previousButtonStyle) )
 				{
 					page = page - 1;
 					requires_refetch = true;
@@ -133,7 +148,7 @@ public class RoarRankingsWidget : RoarUIWidget
 				GUI.enabled = true;
 				
 				if( leaderboard.Count == 0 ) { GUI.enabled = false; }
-				if( GUI.Button(new Rect(entryRect.width/2,0,entryRect.width/2,entryRect.height), "Next Page") )
+				if( GUI.Button(new Rect(entryRect.width/2,0,entryRect.width/2,entryRect.height), nextButtonLabel, nextButtonStyle) )
 				{
 					page = page +1;
 					requires_refetch = true;
@@ -145,9 +160,13 @@ public class RoarRankingsWidget : RoarUIWidget
 				
 				foreach (LeaderboardEntry leaderboardEntry in leaderboard)
 				{
-					string prop_string = string.Join("\n", leaderboardEntry.properties.Select( p => (p.ikey+":"+p.value) ).ToArray() );
+					string prop_string = string.Join(
+						"\n",
+						leaderboardEntry.properties.Select( p => ( string.Format( customDataFormat, p.ikey, p.value ) ) ).ToArray()
+						);
 					GUI.Label(entryRect, prop_string, rankingEntryPlayerRankStyle);
-					GUI.Label(entryRect, "["+leaderboardEntry.rank.ToString()+"] " + leaderboardEntry.value.ToString(), rankingEntryPlayerScoreStyle );
+					GUI.Label(entryRect, string.Format( rankFormat, leaderboardEntry.rank), rankStyle );
+					GUI.Label(entryRect, string.Format( valueFormat, leaderboardEntry.value), valueStyle );
 					entryRect.y += entryRect.height + rankingItemSpacing;
 				}
 				//useScrollView = utilizeScrollView && ((entry.y + entry.height) > contentBounds.height);

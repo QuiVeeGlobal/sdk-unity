@@ -70,17 +70,12 @@ public class RoarStatsWidget : RoarUIWidget
 				stat.valueFormat = defaultValueFormat;
 			}
 		}
+
+		RoarManager.propertiesChangeEvent += LoadPropertyData;
 	}
 	
-	protected override void OnEnable ()
+	protected void LoadPropertyData()
 	{
-		base.OnEnable ();
-		properties = DefaultRoar.Instance.Properties;
-		if (Debug.isDebugBuild && properties == null)
-		{
-			Debug.LogWarning("Properties is null; unable to render stats widget");
-		}
-		
 		if (properties != null)
 		{
 			foreach (Stat stat in statsToDisplay)
@@ -122,6 +117,17 @@ public class RoarStatsWidget : RoarUIWidget
 		}
 	}
 	
+	protected override void OnEnable ()
+	{
+		base.OnEnable ();
+		properties = DefaultRoar.Instance.Properties;
+		if (Debug.isDebugBuild && properties == null)
+		{
+			Debug.LogWarning("Properties is null; unable to render stats widget");
+		}
+
+		LoadPropertyData();
+	}
 	
 	protected override void DrawGUI(int windowId)
 	{
