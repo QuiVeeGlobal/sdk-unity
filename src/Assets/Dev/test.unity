@@ -606,6 +606,10 @@ MonoBehaviour:
   rankingEntryPlayerRankStyle: LeaderboardRankingPlayerRank
   rankingEntryPlayerNameStyle: LeaderboardRankingPlayerName
   rankingEntryPlayerScoreStyle: LeaderboardRankingPlayerScore
+  previousButtonLabel: Previous page
+  previousButtonStyle: LeaderboardRankingPrev
+  nextButtonLabel: Next page
+  nextButtonStyle: LeaderboardRankingNext
   leaderboardId: 
   page: 1
 --- !u!1 &576289523
@@ -1925,6 +1929,10 @@ MonoBehaviour:
   rankingEntryPlayerRankStyle: LeaderboardRankingPlayerRank
   rankingEntryPlayerNameStyle: LeaderboardRankingPlayerName
   rankingEntryPlayerScoreStyle: LeaderboardRankingPlayerScore
+  previousButtonLabel: Previous page
+  previousButtonStyle: LeaderboardRankingPrev
+  nextButtonLabel: Next page
+  nextButtonStyle: LeaderboardRankingNext
   leaderboardId: 
   page: 1
 --- !u!1 &1924684293

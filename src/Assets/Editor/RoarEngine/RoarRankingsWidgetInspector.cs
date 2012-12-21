@@ -13,6 +13,11 @@ public class RoarRankingsWidgetInspector : RoarUIWidgetInspector
 	private SerializedProperty rankingEntryPlayerRankStyle;
 	private SerializedProperty rankingEntryPlayerNameStyle;
 	private SerializedProperty rankingEntryPlayerScoreStyle;
+	
+	private SerializedProperty previousButtonLabel;
+	private SerializedProperty previousButtonStyle;
+	private SerializedProperty nextButtonLabel;
+	private SerializedProperty nextButtonStyle;
 
 	
 	private SerializedProperty leaderboardId;
@@ -30,6 +35,11 @@ public class RoarRankingsWidgetInspector : RoarUIWidgetInspector
 		rankingEntryPlayerRankStyle = serializedObject.FindProperty("rankingEntryPlayerRankStyle");
 		rankingEntryPlayerNameStyle = serializedObject.FindProperty("rankingEntryPlayerNameStyle");
 		rankingEntryPlayerScoreStyle = serializedObject.FindProperty("rankingEntryPlayerScoreStyle");
+		
+		previousButtonLabel = serializedObject.FindProperty("previousButtonLabel");
+		previousButtonStyle = serializedObject.FindProperty("previousButtonStyle");
+		nextButtonLabel = serializedObject.FindProperty("nextButtonLabel");
+		nextButtonStyle = serializedObject.FindProperty("nextButtonStyle");
 		
 		leaderboardId = serializedObject.FindProperty("leaderboardId");
 		page = serializedObject.FindProperty("page");
@@ -52,6 +62,13 @@ public class RoarRankingsWidgetInspector : RoarUIWidgetInspector
 		EditorGUILayout.PropertyField(rankingEntryPlayerRankStyle);
 		EditorGUILayout.PropertyField(rankingEntryPlayerNameStyle);
 		EditorGUILayout.PropertyField(rankingEntryPlayerScoreStyle);
+		
+		Comment ("Paging controls");
+		
+		EditorGUILayout.PropertyField(previousButtonLabel);
+		EditorGUILayout.PropertyField(previousButtonStyle);
+		EditorGUILayout.PropertyField(nextButtonLabel);
+		EditorGUILayout.PropertyField(nextButtonStyle);
 		
 		// 
 		Comment("Specific leaderboard data.");

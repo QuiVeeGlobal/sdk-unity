@@ -16,6 +16,12 @@ public class RoarRankingsWidget : RoarUIWidget
 	public string rankingEntryPlayerRankStyle = "LeaderboardRankingPlayerRank";
 	public string rankingEntryPlayerNameStyle = "LeaderboardRankingPlayerName";
 	public string rankingEntryPlayerScoreStyle = "LeaderboardRankingPlayerScore";
+	
+	public string previousButtonLabel = "Previous page";
+	public string previousButtonStyle = "LeaderboardRankingPrev";
+	public string nextButtonLabel = "Next page";
+	public string nextButtonStyle = "LeaderboardRankingNext";
+
 
 	//public string rankingNavigatePageValueStyle = "LabelPageValue";
 	//public string rankingNavigateLeftButtonStyle = "ButtonNavigatePageLeft";
@@ -126,7 +132,7 @@ public class RoarRankingsWidget : RoarUIWidget
 				bool requires_refetch = false;
 				
 				if( page==1 ) { GUI.enabled = false; }
-				if( GUI.Button(new Rect(0,0,entryRect.width/2,entryRect.height), "Previous Page") )
+				if( GUI.Button(new Rect(0,0,entryRect.width/2,entryRect.height), previousButtonLabel, previousButtonStyle) )
 				{
 					page = page - 1;
 					requires_refetch = true;
@@ -134,7 +140,7 @@ public class RoarRankingsWidget : RoarUIWidget
 				GUI.enabled = true;
 				
 				if( leaderboard.Count == 0 ) { GUI.enabled = false; }
-				if( GUI.Button(new Rect(entryRect.width/2,0,entryRect.width/2,entryRect.height), "Next Page") )
+				if( GUI.Button(new Rect(entryRect.width/2,0,entryRect.width/2,entryRect.height), nextButtonLabel, nextButtonStyle) )
 				{
 					page = page +1;
 					requires_refetch = true;
