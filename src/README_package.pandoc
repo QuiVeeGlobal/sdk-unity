@@ -18,15 +18,55 @@ years to weeks and days.
 The Roar Unity plugin makes adding these features to your game easy.
 You can add leaderboards, shops, server authorative stats and more.
 
-## Setting up the plugin
+## Quick-start
 
-### unpackaging and adding to your project
+This is meant to explain how to create the test scene usually found in the
+`dev` folder of the Unity3D project. The test scene is a very simple scene that
+utilizes a few widgets and can make calls to the roar engine using these
+widgets.  This document should be updated as and when the test scene itself is
+updated with new features added to the Unity3D Roar plugin.
 
-### adding the root widget / defaut roar object
+You start off with an empty scene and nothing but a camera. To begin you need
+to add the main Roar system object. You do this through the Unity menu
+(`GameObject`$\to$`Create Other`$\to$`Roar`$\to$`System Object`). If this menu is not available
+it means you are missing the Assets/Editor/Roarengine/RoarObjectFactory.cs
+file. This will create a system object in your scene and this object is what
+you use to configure Roar. You need to enter your game key in the `Game Key`
+section here. This is the key that all calls using the Unity plugin will use.
 
-### adding the child GUIs
+You can now begin dropping widgets into your game. Widgets are small scripts
+that can be configured to display information from the roar server. You can
+create a widget either by going to the menu at the top and selecting
+(`GameObject`$\to$`Create Other`$\to$`Roar`$\to$). This will create an empty game object in
+your scene with the selected widget script attached. Currently the Stats,
+Rankings, Leaderboards, Shop and Friends list widgets are available. 
 
-## Adding and enabling widgets
+If the widget you are looking for is not available in this menu and is in your
+project you can manually drop it onto any game object by looking for the .cs
+file and dragging it onto an empty game object. 
+
+Widgets that are created can be configured by tweaking the custom inspector
+available when selecting a widget. There are some common properties of all
+widgets such as whether they are a dragable window and their alignments on the
+screen. At the bottom are custom properties based on the type of widget
+selected. Look out for warnings and alerts from the inspector window such as
+content bounds with width and height being 0. 
+
+Finally you need a way to trigger the widgets to enable and disable them. The
+test scene uses 3d rotating cubes that when clicked on will toggle the
+`enabled` property of the widget script on the gameobject. You can use any
+means to enable and disable scripts but avoid using GUI as they could interfere
+with the GUI of the widgets itself. A script like this will cause the widget
+component/script to toggle between enable and disable on clicking on it:
+
+~~~{.cs}
+void OnMouseDown() {
+ target.GetComponent<RoarLeaderboardsWidget>().enabled = ! target.GetComponent<RoarLeaderboardsWidget>().enabled;
+ }
+~~~
+
+`target` is the gameobject that holds the widget itself. Make sure the game
+object that holds this fragment has a collider attached to it. 
 
 ## Styling widgets
 
@@ -55,33 +95,42 @@ Through customising the skin you can make the roar widgets look however you like
 ## List of widgets
 
 ### `RoarFriendsListWidget`
-* "Fetching Friends" message - StatusNormal
-* "Error Loading Friends" message - StatusNormal
-* Actual friends entries **Not yet skinned**
+* Messages
+    * "Fetching Friends" message - style:`"StatusNormal"`
+    * "Error Loading Friends" message - style:`"StatusError"`
+* Actual friends entries 
+    * friend id - formatting:`playerIdFormatString` style:`playerIdFormat`
+    * friend name -  formatting:`nameFormatString` style:`nameFormat`
+    * friend level -  formatting:`levelFormatString` style:`levelFormat`
 
 ### `RoarLeaderboardsWidget`
-* "Fetching leaderboard data..." message - `GUI.Label`, `StatusNormal`
-* "No leaderboards to display" message - `GUI.Label`, `StatusNormal`
-* Each entry - `GUI.Button` - `leaderboardEntryStyle` from config
+* Messages
+    * "Fetching leaderboard data..." message - style:`StatusNormal`
+    * "No leaderboards to display" message - style:`StatusNormal`
+* Each entry - style:`leaderboardEntryStyle` from config
     * dimensions of entry: `leaderboardItemBounds`, spaced  down by `leaderboardItemSpacing`. (Both from config)
 
 ### `RoarRankingsWidget`
-* "Fetching leaderboard ranking data..." `GUI.Label` (0,0,`ContentWidth`,`ContentHeight`) `"StatusNormal"`
-*  "No ranking data.", `GUI.Label` (0,0,`ContentWidth`,`ContentHeight`) `"StatusNormal"`
-* Next page button **Not yet skinned**
-* Previous page button **Not yet skinned**
-* Each entry positioned inside rankingItemBounds, spaced down by rankingItemSpacing each time.
-* Each entry has two pieces:
-    * custom Property : `GUI.Label` `rankingEntryPlayerRankStyle`
-    * ranking info : `GUI.Label` `rankingEntryPlayerScoreStyle`
-         * **Should probably be two pieces each with formatting too**
+* Messages
+    * "Fetching leaderboard ranking data..." - style:`"StatusNormal"`
+    *  "No ranking data.", - style:`"StatusNormal"`
+* Navigation buttons
+    * Next page button 
+    * Previous page button 
+* Entries
+    * Each entry positioned inside rankingItemBounds, spaced down by rankingItemSpacing each time.
+    * Each entry has three pieces:
+         * custom Property - format:`customDataFormat` style:`rankingEntryPlayerRankStyle`
+         * rank - format:`rankFormat` style:`rankStyle`
+         * value - format:`valueFormat` style:`valueStyle`
 
 ### `RoarShopWidget`
-*  "Fetching shop data..." `GUI.Label` (0,0,ContentWidth,ContentHeight) `"StatusNormal"`
-* each entry:
-    * item label: `GUI.Label` `shopItemLabelStyle`
-    * item description `GUI.Label` `shopItemDescriptionStyle`
-    * buy button `GUI.Button` `shopItemBuyButtonStyle`
+* Messages:
+    *  "Fetching shop data..." style:`"StatusNormal"`
+* Entries
+    * item label - style:`shopItemLabelStyle`
+    * item description - style:`shopItemDescriptionStyle`
+    * buy button - `shopItemBuyButtonStyle`
 
 ### `RoarStatsWidget`
 Each individual stat can have its own style associated with it.
@@ -99,9 +148,6 @@ All sub-widgets are styled using the one skin.
 * Log In button : `GUI.Button`
 * Create Account button : `GUI.Button`
 
-
-
-## What is not yet implemented
 
 ## How to use the low level code
 
