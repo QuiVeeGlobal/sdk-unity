@@ -104,14 +104,43 @@ All sub-widgets are styled using the one skin.
 ## What is not yet implemented
 
 ## How to use the low level code
+
+Before the Roar SDK can be used, it has to be properly installed.
+Please, follow these instructions.
+
+1. The latest Roar.unityPackage can be downloaded from 
+https://github.com/roarengine/sdks/downloads 
+and imported into a newly created or existing unity project.
+
+2. Run the Unity Editor and open the project that you wish to use Roar with or create a new one.
+
+3. Import the Roar Unity sdk package via the menu item at
+Assets->Import Package->Custom Package...
+
+4. Ensure that all files are selected for import and click 'Import'.
+This will add a Plugins/Roar folder to your project.
+
+5. Next create a Roar game object via the menu item at
+Game Object->Create Other->Roar->Scene Object
+
+6. To begin using the Roar SDK, set the game key. This is the same
+name that you used when you created the game from the Roar Admin.
+e.g. http://api.roar.io/yourgamekey
+
+At this point you will be able to make calls to IRoar to interact with the roar server.
+
+
+
 ### How the code is structured
+
+
 
 #### Widgets
 #### Cache / DataModel
-#### WebAPI
+### Roar Object Layer
 
-All communication with the Roar Server is handled by an instance of an IRoar class.
-You can obtain it through the DefaultRoar as in the code example below.
+The communication with the Roar Server can be done through an instance of an IRoar class.
+You can obtain it from the DefaultRoar as in the code example below.
 
 ~~~{.cs}
 using UnityEngine;
@@ -218,3 +247,11 @@ public class MyLoginClass : MonoBehaviour
 	}
 }
 ~~~
+
+The most recent definition of all events and their parameters can be found in src/Assets/Plugins/RoarEngine/RoarManager.cs source file.
+
+### WebAPI
+
+#### Callbacks
+
+#### Events
