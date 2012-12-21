@@ -34,6 +34,11 @@ file. This will create a system object in your scene and this object is what
 you use to configure Roar. You need to enter your game key in the `Game Key`
 section here. This is the key that all calls using the Unity plugin will use.
 
+It is convenient to have the login module to activate on startup for the purposes of this scene. 
+The module is automatically created by default under the main Roar systems object. 
+The exact path in the scene hierarchy is Roar/RoarUI/Login. Select this gameobject 
+and uncheck the ‘disable on awake’ option to have the module be enabled when you startup.
+
 You can now begin dropping widgets into your game. Widgets are small scripts
 that can be configured to display information from the roar server. You can
 create a widget either by going to the menu at the top and selecting
