@@ -110,6 +110,111 @@ All sub-widgets are styled using the one skin.
 #### Cache / DataModel
 #### WebAPI
 
+All communication with the Roar Server is handled by an instance of an IRoar class.
+You can obtain it through the DefaultRoar as in the code example below.
+
+~~~{.cs}
+using UnityEngine;
+
+public class MyClass : MonoBehaviour
+{
+	IRoar roar = null;
+	
+	public void SomeFunction ()
+	{
+		roar = DefaultRoar.Instance;
+	}
+}
+~~~
+
+Once you have obtained the access to the roar object, you can start communicating with the Roar Server.
+
+Please note, however, that calls to the roar object do not return anything.
+You can obtain the results from the server by either setting up an event handler or by providing a callback function.
+Some interface functions fire events, some others accept callbacks. In cases where a function supports both event and callback, the choice is yours.
+
 #### Callbacks
+
+Using a callback is quite simple. All you need to do is write a callback methods (OnLogin in our case) and pass it to the roar interface call.
+In this case we use the Login method, which accepts the user name, password and the callback.
+Once the result comes from the server, this callback is activated.
+
+Please observe, the type of the result is Roar.WebObjects.User.LoginResponse.
+It contains several fields, such as code and msg.
+If code = 200 then the login was successful.
+Otherwise, the code and msg fields indicate the reason for failure.
+
+The next two sections examine these two approaches in detail.
+Since the IRoar.Login function support both methods it is easy to compare them.
+
+
+~~~{.cs}
+using UnityEngine;
+
+public class MyLoginClass : MonoBehaviour
+{
+	IRoar roar = null;
+	
+	public void Start ()
+	{
+		roar = DefaultRoar.Instance;
+	}
+	
+	public void OnLogin (Roar.CallbackInfo<Roar.WebObjects.User.LoginResponse> info)
+	{
+		if (info.code == 200)
+		{
+			Debug.Log ("Login Successful!");
+		} else {
+			Debug.Log ("Login Failed (reason: " + info.msg + ")!");
+		}
+	}
+	
+	public void OnMouseDown ()
+	{
+		roar.Login("my_user_name", "my_password", OnLogin);
+	}
+}
+~~~
+
 #### Events
 
+There are few difference between providing a callback and setting up an event.
+
+* The callback method is now split into two different methods: OnLoginSuccess and OnLoginFailure.
+* These events accapt different arguments than Roar.WebObjects.User.LoginResponse. In particular, OnLoginFailure accepts a string indicating the reson, while OnLoginSuccess does not accept anything.
+* The IRoar.Login call passes the null value in place of the callback method.
+* Both events have to be registered through the RoarManager.
+
+
+
+~~~{.cs}
+using UnityEngine;
+
+public class MyLoginClass : MonoBehaviour
+{
+	IRoar roar = null;
+	
+	public void Start ()
+	{
+		roar = DefaultRoar.Instance;
+		RoarManager.loggedInEvent += OnLoginSuccess;
+		RoarManager.logInFailedEvent += OnLoginFailure;
+	}
+	
+	public void OnLoginSuccess ()
+	{
+		Debug.Log ("SUCCESS");
+	}
+	
+	public void OnLoginFailure (string reason)
+	{
+		Debug.Log ("FAILURE (reason = " + reason + ")");
+	}
+	
+	public void OnMouseDown ()
+	{
+		roar.Login("my_user_name", "my_password", null);
+	}
+}
+~~~
