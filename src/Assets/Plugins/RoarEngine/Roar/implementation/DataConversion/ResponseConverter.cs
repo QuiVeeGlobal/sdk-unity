@@ -103,25 +103,16 @@ namespace Roar.DataConversion.Responses
 		//Response from appstore/shop_list
 		public class ShopList : IXmlToObject< Roar.WebObjects.Appstore.ShopListResponse >
 		{
+			public IXCRMParser ixcrm_parser = new XCRMParser();
+			
 			public Roar.WebObjects.Appstore.ShopListResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Appstore.ShopListResponse retval = new Roar.WebObjects.Appstore.ShopListResponse();
-				retval.productIdentifiers = new List<string>();
-				
-				// extract the product identifiers from the xml
-				string path = "roar>0>appstore>0>shop_list>0>shopitem";
-				List<IXMLNode> products = n.GetNodeList (path);
-				if (products == null) {
-					return retval;
-					// TODO: Reinstate some logging here
-					// logger.DebugLog (string.Format ("data.GetNodeList('{0}') return null", path));
-				}
-				foreach (IXMLNode product in products)
+				retval.shop_list = new List<AppstoreShopEntry>();
+				IList<IXMLNode> product_nodes = n.GetNodeList("roar>0>appstore>0>shop_list>0>shopitem");
+				foreach (IXMLNode product_node in product_nodes)
 				{
-					string pid = product.GetAttribute ("product_identifier");
-					if (!string.IsNullOrEmpty (pid)) {
-						retval.productIdentifiers.Add (pid);
-					}
+					retval.shop_list.Add(AppstoreShopEntry.CreateFromXml(product_node, ixcrm_parser));
 				}
 				return retval;
 			}

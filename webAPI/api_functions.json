@@ -32,10 +32,7 @@
             "response":
             {
               "members":[
-                {
-                  "name":"productIdentifiers",
-                  "type":"List<string>"
-                }
+                {"name":"shop_list", "type":"List<DomainObjects.AppstoreShopEntry>"}
               ]
             }
           }

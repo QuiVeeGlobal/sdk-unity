@@ -136,7 +136,7 @@ namespace Roar.WebObjects
 		// Response from appstore/shop_list
 		public class ShopListResponse
 		{
-			public List<string> productIdentifiers;
+			public List<DomainObjects.AppstoreShopEntry> shop_list;
 
 		}
 

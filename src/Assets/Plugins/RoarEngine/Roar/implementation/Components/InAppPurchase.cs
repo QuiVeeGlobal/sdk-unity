@@ -69,7 +69,7 @@ namespace Roar.implementation.Components
 			{
 				appstore.isServerCalling = false;
 				appstore.logger.DebugLog (string.Format ("onAppstoreList.onSuccess() called with: {0}", info.data.ToString()));
-				string combinedProductIdentifiers = string.Join (",", (string[])info.data.productIdentifiers.ToArray());
+				string combinedProductIdentifiers = string.Join (",", (string[])info.data.shop_list.ConvertAll<string>(e => e.product_identifier).ToArray());
 #if UNITY_IOS && !UNITY_EDITOR
 				_StoreKitRequestProductData(combinedProductIdentifiers);
 #else

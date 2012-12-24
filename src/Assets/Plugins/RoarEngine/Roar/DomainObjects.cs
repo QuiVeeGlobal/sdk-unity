@@ -664,6 +664,23 @@ namespace Roar
 			}
 		}
 		
+		public class AppstoreShopEntry
+		{
+			public string product_identifier;
+			public string label;
+			public IList<Modifier> modifiers = new List<Modifier>();
+			
+			public static AppstoreShopEntry CreateFromXml (IXMLNode n, Roar.DataConversion.IXCRMParser ixcrm_parser)
+			{
+				AppstoreShopEntry retval = new AppstoreShopEntry();
+				Dictionary<string, string> kv = n.Attributes.ToDictionary(v => v.Key, v => v.Value);
+				kv.TryGetValue("product_identifier", out retval.product_identifier);
+				kv.TryGetValue("label", out retval.label);
+				retval.modifiers = ixcrm_parser.ParseModifierList(n.GetNode("modifiers>0"));
+				return retval;
+			}
+		}
+		
 		public class ScriptRunResult
 		{
 			public IXMLNode resultNode;	
