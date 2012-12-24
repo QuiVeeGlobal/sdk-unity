@@ -84,6 +84,23 @@ namespace Testing
 			Assert.AreEqual(response.shop_list[0].label, "A label");
 			Assert.AreEqual(response.shop_list[0].modifiers, modifier_list);
 		}
+		
+		[Test()]
+		public void TestAppstoreBuyXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""130695522924"">
+				<appstore>
+					<buy status=""ok""\>
+				</appstore>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Appstore.Buy buy_parser = new Roar.DataConversion.Responses.Appstore.Buy();
+			BuyResponse response = buy_parser.Build(nn);
+			
+			Assert.IsNotNull(response);
+		}
 	}
 }
 
