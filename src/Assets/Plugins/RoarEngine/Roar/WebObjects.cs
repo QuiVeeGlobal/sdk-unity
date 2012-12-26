@@ -1458,10 +1458,14 @@ namespace Roar.WebObjects
 		// Arguments to urbanairship/push
 		public class PushArguments
 		{
+			public string roar_id;
+			public string message;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["roar_id"] = roar_id;
+				retval["message"] = message;
 				return retval;
 			}
 		}

@@ -564,7 +564,13 @@
               {"name":"device_token", "type":"string"}
             ]
           },
-          {"name":"push"}
+          {
+            "name":"push",
+            "arguments":[
+              {"name":"roar_id", "type":"string"},
+              {"name":"message", "type":"string"}
+            ]
+          }
         ]
       }
    ]
