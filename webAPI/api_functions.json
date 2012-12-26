@@ -558,7 +558,12 @@
         "name":"urbanairship",
         "functions":
         [
-          {"name":"ios_register"},
+          {
+            "name":"ios_register",
+            "arguments":[
+              {"name":"device_token", "type":"string"}
+            ]
+          },
           {"name":"push"}
         ]
       }

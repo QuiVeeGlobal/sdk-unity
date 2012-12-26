@@ -1439,10 +1439,12 @@ namespace Roar.WebObjects
 		// Arguments to urbanairship/ios_register
 		public class IosRegisterArguments
 		{
+			public string device_token;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["device_token"] = device_token;
 				return retval;
 			}
 		}
