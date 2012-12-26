@@ -972,10 +972,16 @@ namespace Roar.WebObjects
 		// Arguments to mail/send
 		public class SendArguments
 		{
+			public string recipient_id;
+			public string mailable_id;
+			public string message;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["recipient_id"] = recipient_id;
+				retval["mailable_id"] = mailable_id;
+				retval["message"] = message;
 				return retval;
 			}
 		}
