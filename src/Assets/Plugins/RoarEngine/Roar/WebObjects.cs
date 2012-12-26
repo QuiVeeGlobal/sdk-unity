@@ -953,10 +953,12 @@ namespace Roar.WebObjects
 		// Arguments to mail/accept
 		public class AcceptArguments
 		{
+			public string mail_id;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["mail_id"] = mail_id;
 				return retval;
 			}
 		}

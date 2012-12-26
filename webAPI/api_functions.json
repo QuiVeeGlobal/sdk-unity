@@ -371,7 +371,12 @@
         "name":"mail",
         "functions":
         [
-          { "name":"accept" },
+          {
+            "name":"accept",
+            "arguments":[
+              {"name":"mail_id", "type":"string"}
+            ]
+          },
           { "name":"send" },
           { "name":"what_can_i_accept" },
           { "name":"what_can_i_send" }
