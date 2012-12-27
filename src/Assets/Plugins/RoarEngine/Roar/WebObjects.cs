@@ -160,6 +160,7 @@ namespace Roar.WebObjects
 		// Response from chrome_web_store/list
 		public class ListResponse
 		{
+			public List<DomainObjects.ChromeWebStoreShopEntry> shop_items;
 
 		}
 

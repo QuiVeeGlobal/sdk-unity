@@ -739,6 +739,31 @@ namespace Roar
 			}
 		}
 		
+		public class ChromeWebStoreShopEntry
+		{
+			public string ikey;
+			public string label;
+			public string description;
+			public string price;
+			public string jwt;
+			public IList<Modifier> modifiers = new List<Modifier>();
+			public IList<string> tags = new List<string>();
+			
+			public static ChromeWebStoreShopEntry CreateFromXml (IXMLNode n, Roar.DataConversion.IXCRMParser ixcrm_parser)
+			{
+				ChromeWebStoreShopEntry retval = new ChromeWebStoreShopEntry();
+				Dictionary<string, string> kv = n.Attributes.ToDictionary(v => v.Key, v => v.Value);
+				kv.TryGetValue("ikey", out retval.ikey);
+				kv.TryGetValue("label", out retval.label);
+				kv.TryGetValue("description", out retval.description);
+				kv.TryGetValue("price", out retval.price);
+				kv.TryGetValue("jwt", out retval.jwt);
+				retval.modifiers = ixcrm_parser.ParseModifierList(n.GetNode("modifiers>0"));
+				retval.tags = ixcrm_parser.ParseTagList(n.GetNode("tags>0"));
+				return retval;
+			}
+		}
+		
 		public class ScriptRunResult
 		{
 			public IXMLNode resultNode;	

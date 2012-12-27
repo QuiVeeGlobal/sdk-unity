@@ -42,7 +42,14 @@
        "name":"chrome_web_store",
        "functions":
        [
-         { "name":"list" }
+         {
+           "name":"list",
+           "response":{
+             "members":[
+               {"name":"shop_items", "type":"List<DomainObjects.ChromeWebStoreShopEntry>"}
+             ]
+           }
+         }
        ]
      },
      {

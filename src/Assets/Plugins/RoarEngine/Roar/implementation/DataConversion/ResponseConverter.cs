@@ -124,10 +124,17 @@ namespace Roar.DataConversion.Responses
 		//Response from chrome_web_store/list
 		public class List : IXmlToObject< Roar.WebObjects.ChromeWebStore.ListResponse >
 		{
+			public IXCRMParser ixcrm_parser = new XCRMParser();
+			
 			public Roar.WebObjects.ChromeWebStore.ListResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.ChromeWebStore.ListResponse retval = new Roar.WebObjects.ChromeWebStore.ListResponse();
-				//TODO: Implement me
+				retval.shop_items = new List<ChromeWebStoreShopEntry>();
+				IList<IXMLNode> shop_item_nodes = n.GetNodeList("roar>0>chrome_web_store>0>list>0>shopitem");
+				foreach (IXMLNode shop_item_node in shop_item_nodes)
+				{
+					retval.shop_items.Add(ChromeWebStoreShopEntry.CreateFromXml(shop_item_node, ixcrm_parser));
+				}
 				return retval;
 			}
 		}
