@@ -565,9 +565,10 @@ namespace Roar.DataConversion
 			{
 				return tags;
 			}
-			foreach (IXMLNode nn in n.Children)
+			IList<IXMLNode> tag_nodes = n.GetNodeList("tag");
+			foreach (IXMLNode tag_node in tag_nodes)
 			{
-				tags.Add( nn.GetAttribute("value") );
+				tags.Add(tag_node.GetAttribute("value"));
 			}
 			return tags;
 		}
