@@ -526,10 +526,12 @@ namespace Roar.WebObjects
 		// Arguments to google/bind_user_token
 		public class BindUserTokenArguments
 		{
+			public string token;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["token"] = token;
 				return retval;
 			}
 		}

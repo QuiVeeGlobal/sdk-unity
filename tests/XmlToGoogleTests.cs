@@ -22,6 +22,22 @@ namespace Testing
 			BindUserResponse response = bind_user_parser.Build(nn);
 			Assert.IsNotNull(response);
 		}
+		
+		[Test()]
+		public void TestGoogleBindUserTokenXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""128455369786"">
+				<google>
+					<bind_user status=""ok""/>
+				</google>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Google.BindUserToken bind_user_token_parser = new Roar.DataConversion.Responses.Google.BindUserToken();
+			BindUserTokenResponse response = bind_user_token_parser.Build(nn);
+			Assert.IsNotNull(response);
+		}
 	}
 }
 
