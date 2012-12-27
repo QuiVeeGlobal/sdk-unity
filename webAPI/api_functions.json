@@ -242,7 +242,20 @@
               {"name":"token", "type":"string"}
             ]
           },
-          { "name":"create_user" },
+          {
+            "name":"create_user",
+            "arguments":[
+              {"name":"code", "type":"string"},
+              {"name":"name", "type":"string"},
+              {"name":"google_client_id", "type":"string"}
+            ],
+            "response":{
+              "members":[
+                {"name":"auth_token", "type":"string"},
+                {"name":"player_id", "type":"string"}
+              ]
+            }
+          },
           { "name":"create_user_token" },
           { "name":"friends" },
           { "name":"login_user" },

@@ -545,10 +545,16 @@ namespace Roar.WebObjects
 		// Arguments to google/create_user
 		public class CreateUserArguments
 		{
+			public string code;
+			public string name;
+			public string google_client_id;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["code"] = code;
+				retval["name"] = name;
+				retval["google_client_id"] = google_client_id;
 				return retval;
 			}
 		}
@@ -556,6 +562,8 @@ namespace Roar.WebObjects
 		// Response from google/create_user
 		public class CreateUserResponse
 		{
+			public string auth_token;
+			public string player_id;
 
 		}
 

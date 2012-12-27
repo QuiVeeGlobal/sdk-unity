@@ -396,7 +396,20 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Google.CreateUserResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Google.CreateUserResponse retval = new Roar.WebObjects.Google.CreateUserResponse();
-				//TODO: Implement me
+				IXMLNode create_user_node = n.GetNode("roar>0>google>0>create_user>0");
+				if (create_user_node != null)
+				{
+					IXMLNode node = create_user_node.GetNode("auth_token>0");
+					if (node != null)
+					{
+						retval.auth_token = node.Text;
+					}
+					node = create_user_node.GetNode("player_id>0");
+					if (node != null)
+					{
+						retval.player_id = node.Text;
+					}
+				}
 				return retval;
 			}
 		}

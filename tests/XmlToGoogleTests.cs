@@ -38,6 +38,27 @@ namespace Testing
 			BindUserTokenResponse response = bind_user_token_parser.Build(nn);
 			Assert.IsNotNull(response);
 		}
+		
+		[Test()]
+		public void TestGoogleCreateUserXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""128455369786"">
+				<google>
+					<create_user status=""ok"">
+						<auth_token>ABCDEF</auth_token>
+						<player_id>1231231</player_id>
+					</create_user>
+				</google>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Google.CreateUser create_user_parser = new Roar.DataConversion.Responses.Google.CreateUser();
+			CreateUserResponse response = create_user_parser.Build(nn);
+			
+			Assert.AreEqual(response.auth_token, "ABCDEF");
+			Assert.AreEqual(response.player_id, "1231231");
+		}
 	}
 }
 
