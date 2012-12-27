@@ -570,10 +570,14 @@ namespace Roar.WebObjects
 		// Arguments to google/create_user_token
 		public class CreateUserTokenArguments
 		{
+			public string token;
+			public string name;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["token"] = token;
+				retval["name"] = name;
 				return retval;
 			}
 		}
@@ -581,6 +585,8 @@ namespace Roar.WebObjects
 		// Response from google/create_user_token
 		public class CreateUserTokenResponse
 		{
+			public string auth_token;
+			public string player_id;
 
 		}
 

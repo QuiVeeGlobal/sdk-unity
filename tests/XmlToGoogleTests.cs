@@ -59,6 +59,27 @@ namespace Testing
 			Assert.AreEqual(response.auth_token, "ABCDEF");
 			Assert.AreEqual(response.player_id, "1231231");
 		}
+		
+		[Test()]
+		public void TestGoogleCreateUserTokenXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""128455369786"">
+				<google>
+					<create_user status=""ok"">
+						<auth_token>ABCDEF</auth_token>
+						<player_id>1231231</player_id>
+					</create_user>
+				</google>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Google.CreateUserToken create_user_token_parser = new Roar.DataConversion.Responses.Google.CreateUserToken();
+			CreateUserTokenResponse response = create_user_token_parser.Build(nn);
+			
+			Assert.AreEqual(response.auth_token, "ABCDEF");
+			Assert.AreEqual(response.player_id, "1231231");
+		}
 	}
 }
 
