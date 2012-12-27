@@ -505,10 +505,14 @@ namespace Roar.WebObjects
 		// Arguments to google/bind_user
 		public class BindUserArguments
 		{
+			public string code;
+			public string google_client_id;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["code"] = code;
+				retval["google_client_id"] = google_client_id;
 				return retval;
 			}
 		}

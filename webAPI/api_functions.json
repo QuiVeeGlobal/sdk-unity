@@ -229,7 +229,13 @@
         "name":"google",
         "functions":
         [
-          { "name":"bind_user" },
+          {
+            "name":"bind_user",
+            "arguments":[
+              {"name":"code", "type":"string"},
+              {"name":"google_client_id", "type":"string"}
+            ]
+          },
           { "name":"bind_user_token" },
           { "name":"create_user" },
           { "name":"create_user_token" },
