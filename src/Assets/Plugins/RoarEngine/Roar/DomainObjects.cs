@@ -588,6 +588,37 @@ namespace Roar
 			}
 		}
 		
+		public class MailPackage
+		{
+			public string id;
+			public string type;
+			public string sender_id;
+			public string sender_name;
+			public string message;
+			public IList<InventoryItem> items = new List<InventoryItem>();
+			public IList<string> tags = new List<string>();
+			public IList<DomainObjects.Modifier> modifiers = new List<DomainObjects.Modifier>();
+			
+			public static MailPackage CreateFromXml (IXMLNode n, Roar.DataConversion.IXCRMParser ixcrm_parser)
+			{
+				MailPackage retval = new MailPackage();
+				Dictionary<string, string> kv = n.Attributes.ToDictionary(v => v.Key, v => v.Value);
+				kv.TryGetValue("id", out retval.id);
+				kv.TryGetValue("type", out retval.type);
+				kv.TryGetValue("sender_id", out retval.sender_id);
+				kv.TryGetValue("sender_name", out retval.sender_name);
+				kv.TryGetValue("message", out retval.message);
+				IList<IXMLNode> item_nodes = n.GetNodeList("item");
+				foreach (IXMLNode item_node in item_nodes)
+				{
+					retval.items.Add(InventoryItem.CreateFromXml(item_node, ixcrm_parser));
+				}
+				retval.tags = ixcrm_parser.ParseTagList(n);
+				retval.modifiers = ixcrm_parser.ParseModifierList(n.GetNode("modifiers>0"));
+				return retval;
+			}
+		}
+		
 		
 		public class PlayerAttribute
 		{

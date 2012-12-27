@@ -1006,6 +1006,7 @@ namespace Roar.WebObjects
 		// Response from mail/what_can_i_accept
 		public class WhatCanIAcceptResponse
 		{
+			public List<DomainObjects.MailPackage> packages;
 
 		}
 

@@ -385,7 +385,14 @@
               {"name":"message", "type":"string"}
             ]
           },
-          { "name":"what_can_i_accept" },
+          {
+            "name":"what_can_i_accept",
+            "response":{
+              "members":[
+                {"name":"packages", "type":"List<DomainObjects.MailPackage>"}
+              ]
+            }
+          },
           { "name":"what_can_i_send" }
         ]
      },

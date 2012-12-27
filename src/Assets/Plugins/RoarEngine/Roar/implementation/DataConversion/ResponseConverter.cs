@@ -826,10 +826,17 @@ namespace Roar.DataConversion.Responses
 		//Response from mail/what_can_i_accept
 		public class WhatCanIAccept : IXmlToObject< Roar.WebObjects.Mail.WhatCanIAcceptResponse >
 		{
+			public IXCRMParser ixcrm_parser = new XCRMParser();
+			
 			public Roar.WebObjects.Mail.WhatCanIAcceptResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Mail.WhatCanIAcceptResponse retval = new Roar.WebObjects.Mail.WhatCanIAcceptResponse();
-				//TODO: Implement me
+				retval.packages = new List<MailPackage>();
+				IList<IXMLNode> package_nodes = n.GetNodeList("roar>0>mail>0>what_can_i_accept>0>package");
+				foreach (IXMLNode package_node in package_nodes)
+				{
+					retval.packages.Add(MailPackage.CreateFromXml(package_node, ixcrm_parser));
+				}
 				return retval;
 			}
 		}
