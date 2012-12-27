@@ -619,6 +619,33 @@ namespace Roar
 			}
 		}
 		
+		public class Mailable
+		{
+			public string id;
+			public string type;
+			public string label;
+			public IList<DomainObjects.Requirement> requirements = new List<DomainObjects.Requirement>();
+			public IList<DomainObjects.Cost> costs = new List<DomainObjects.Cost>();
+			public IList<DomainObjects.Modifier> on_accept = new List<DomainObjects.Modifier>();
+			public IList<DomainObjects.Modifier> on_give = new List<DomainObjects.Modifier>();
+			public IList<string> tags = new List<string>();
+			
+			public static Mailable CreateFromXml (IXMLNode n, IXCRMParser ixcrm_parser)
+			{
+				Mailable retval = new Mailable();
+				Dictionary<string, string> kv = n.Attributes.ToDictionary(v => v.Key, v => v.Value);
+				kv.TryGetValue("id", out retval.id);
+				kv.TryGetValue("type", out retval.type);
+				kv.TryGetValue("label", out retval.label);
+				retval.requirements = ixcrm_parser.ParseRequirementList(n.GetNode("requirements>0"));
+				retval.costs = ixcrm_parser.ParseCostList(n.GetNode("costs>0"));
+				retval.on_accept = ixcrm_parser.ParseModifierList(n.GetNode("on_accept>0"));
+				retval.on_give = ixcrm_parser.ParseModifierList(n.GetNode("on_give>0"));
+				retval.tags = ixcrm_parser.ParseTagList(n.GetNode("tags>0"));
+				return retval;
+			}
+		}
+		
 		
 		public class PlayerAttribute
 		{

@@ -843,10 +843,17 @@ namespace Roar.DataConversion.Responses
 		//Response from mail/what_can_i_send
 		public class WhatCanISend : IXmlToObject< Roar.WebObjects.Mail.WhatCanISendResponse >
 		{
+			public IXCRMParser ixcrm_parser = new XCRMParser();
+			
 			public Roar.WebObjects.Mail.WhatCanISendResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Mail.WhatCanISendResponse retval = new Roar.WebObjects.Mail.WhatCanISendResponse();
-				//TODO: Implement me
+				retval.mailables = new List<Mailable>();
+				IList<IXMLNode> mailable_nodes = n.GetNodeList("roar>0>mail>0>what_can_i_send>0>mailable");
+				foreach (IXMLNode mailable_node in mailable_nodes)
+				{
+					retval.mailables.Add(Mailable.CreateFromXml(mailable_node, ixcrm_parser));
+				}
 				return retval;
 			}
 		}

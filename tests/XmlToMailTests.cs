@@ -159,6 +159,137 @@ namespace Testing
 			Assert.AreEqual(response.packages[0].tags, tag_list);
 			Assert.AreEqual(response.packages[0].modifiers, modifier_list);
 		}
+		
+		[Test()]
+		public void TestWhatCanISendGetXmlAttributes ()
+		{
+			string xml =
+			@"<roar tick=""12835555872"">
+				<mail>
+					<what_can_i_send status=""ok"">
+						<mailable id=""3467"" type=""gift"" label=""a label"">
+							<requirements>
+								<friends_requirement required=""5"" ok=""false"" reason=""Insufficient friends""/>
+								<level_requirement level=""3"" ok=""true"" reason=""requires level 3""/>
+							</requirements>
+							<costs>
+								<item_cost ikey=""mariner"" number_required=""3"" ok=""false"" reason=""requires mariner(3)""/>
+								<stat_cost type=""currency"" ikey=""premium_currency"" value=""477"" ok=""true""/>
+							</costs>
+							<on_accept>
+								<grant_item ikey=""your_gift_item_ikey""/>
+							</on_accept>
+							<on_give>
+								<grant_xp value=""500""/>
+							</on_give>
+							<tags>
+								<tag value=""tag 1""/>
+								<tag value=""tag 2""/>
+							</tags>
+						</mailable>
+					</what_can_i_send>
+				</mail>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Mail.WhatCanISend what_can_i_send_parser = new Roar.DataConversion.Responses.Mail.WhatCanISend();
+			Roar.WebObjects.Mail.WhatCanISendResponse response = what_can_i_send_parser.Build(nn);
+			
+			Assert.IsNotNull(response.mailables);
+			Assert.AreEqual(response.mailables.Count, 1);
+			Assert.AreEqual(response.mailables[0].id, "3467");
+			Assert.AreEqual(response.mailables[0].type, "gift");
+			Assert.AreEqual(response.mailables[0].label, "a label");
+			Assert.AreEqual(response.mailables[0].requirements.Count, 2);
+			Assert.AreEqual((response.mailables[0].requirements[0] as Roar.DomainObjects.Requirements.Friends).required, 5);
+			Assert.AreEqual((response.mailables[0].requirements[0] as Roar.DomainObjects.Requirements.Friends).reason, "Insufficient friends");
+			Assert.IsFalse((response.mailables[0].requirements[0] as Roar.DomainObjects.Requirements.Friends).ok);
+			Assert.AreEqual((response.mailables[0].requirements[1] as Roar.DomainObjects.Requirements.Level).level, 3);
+			Assert.AreEqual((response.mailables[0].requirements[1] as Roar.DomainObjects.Requirements.Level).reason, "requires level 3");
+			Assert.IsTrue((response.mailables[0].requirements[1] as Roar.DomainObjects.Requirements.Level).ok);
+			Assert.AreEqual(response.mailables[0].costs.Count, 2);
+			Assert.AreEqual((response.mailables[0].costs[0] as Roar.DomainObjects.Costs.Item).ikey, "mariner");
+			Assert.AreEqual((response.mailables[0].costs[0] as Roar.DomainObjects.Costs.Item).number_required, 3);
+			Assert.AreEqual((response.mailables[0].costs[0] as Roar.DomainObjects.Costs.Item).reason, "requires mariner(3)");
+			Assert.IsFalse((response.mailables[0].costs[0] as Roar.DomainObjects.Costs.Item).ok);
+			Assert.AreEqual((response.mailables[0].costs[1] as Roar.DomainObjects.Costs.Stat).ikey, "premium_currency");
+			Assert.AreEqual((response.mailables[0].costs[1] as Roar.DomainObjects.Costs.Stat).type, "currency");
+			Assert.AreEqual((response.mailables[0].costs[1] as Roar.DomainObjects.Costs.Stat).value, 477);
+			Assert.IsTrue((response.mailables[0].costs[1] as Roar.DomainObjects.Costs.Stat).ok);
+			Assert.AreEqual(response.mailables[0].on_accept.Count, 1);
+			Assert.AreEqual((response.mailables[0].on_accept[0] as Roar.DomainObjects.Modifiers.GrantItem).ikey, "your_gift_item_ikey");
+			Assert.AreEqual(response.mailables[0].on_give.Count, 1);
+			Assert.AreEqual((response.mailables[0].on_give[0] as Roar.DomainObjects.Modifiers.GrantXp).value, 500);
+			Assert.AreEqual(response.mailables[0].tags.Count, 2);
+			Assert.AreEqual(response.mailables[0].tags[0], "tag 1");
+			Assert.AreEqual(response.mailables[0].tags[1], "tag 2");
+		}
+		
+		[Test()]
+		public void TestWhatCanISendParseMechanics ()
+		{
+			string xml =
+			@"<roar tick=""12835555872"">
+				<mail>
+					<what_can_i_send status=""ok"">
+						<mailable id=""3467"" type=""gift"" label=""a label"">
+							<requirements>
+								<friends_requirement required=""5"" ok=""false"" reason=""Insufficient friends""/>
+								<level_requirement level=""3"" ok=""true"" reason=""requires level 3""/>
+							</requirements>
+							<costs>
+								<item_cost ikey=""mariner"" number_required=""3"" ok=""false"" reason=""requires mariner(3)""/>
+								<stat_cost type=""currency"" ikey=""premium_currency"" value=""477"" ok=""true""/>
+							</costs>
+							<on_accept>
+								<grant_item ikey=""your_gift_item_ikey""/>
+							</on_accept>
+							<on_give>
+								<grant_xp value=""500""/>
+							</on_give>
+							<tags>
+								<tag value=""tag 1""/>
+								<tag value=""tag 2""/>
+							</tags>
+						</mailable>
+					</what_can_i_send>
+				</mail>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Mail.WhatCanISend what_can_i_send_parser = new Roar.DataConversion.Responses.Mail.WhatCanISend();
+			
+			Mockery mockery = new Mockery();
+			Roar.DataConversion.IXCRMParser ixcrm_parser = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
+			what_can_i_send_parser.ixcrm_parser = ixcrm_parser;
+			
+			IList<Roar.DomainObjects.Requirement> requirement_list = new List<Roar.DomainObjects.Requirement>();
+			IList<Roar.DomainObjects.Cost> cost_list = new List<Roar.DomainObjects.Cost>();
+			IList<Roar.DomainObjects.Modifier> accept_list = new List<Roar.DomainObjects.Modifier>();
+			IList<Roar.DomainObjects.Modifier> give_list = new List<Roar.DomainObjects.Modifier>();
+			IList<string> tag_list = new List<string>();
+			
+			Expect.Once.On(ixcrm_parser).Method("ParseRequirementList").With(nn.GetNode("roar>0>mail>0>what_can_i_send>0>mailable>0>requirements>0")).Will(Return.Value(requirement_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseCostList").With(nn.GetNode("roar>0>mail>0>what_can_i_send>0>mailable>0>costs>0")).Will(Return.Value(cost_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.GetNode("roar>0>mail>0>what_can_i_send>0>mailable>0>on_accept>0")).Will(Return.Value(accept_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.GetNode("roar>0>mail>0>what_can_i_send>0>mailable>0>on_give>0")).Will(Return.Value(give_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.GetNode("roar>0>mail>0>what_can_i_send>0>mailable>0>tags>0")).Will(Return.Value(tag_list));
+			
+			Roar.WebObjects.Mail.WhatCanISendResponse response = what_can_i_send_parser.Build(nn);
+			
+			mockery.VerifyAllExpectationsHaveBeenMet();
+			
+			Assert.IsNotNull(response.mailables);
+			Assert.AreEqual(response.mailables.Count, 1);
+			Assert.AreEqual(response.mailables[0].id, "3467");
+			Assert.AreEqual(response.mailables[0].type, "gift");
+			Assert.AreEqual(response.mailables[0].label, "a label");
+			Assert.AreEqual(response.mailables[0].requirements, requirement_list);
+			Assert.AreEqual(response.mailables[0].costs, cost_list);
+			Assert.AreEqual(response.mailables[0].on_accept, accept_list);
+			Assert.AreEqual(response.mailables[0].on_give, give_list);
+			Assert.AreEqual(response.mailables[0].tags, tag_list);
+		}
 	}
 }
 

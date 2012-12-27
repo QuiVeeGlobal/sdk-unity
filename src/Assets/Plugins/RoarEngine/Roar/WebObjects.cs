@@ -1024,6 +1024,7 @@ namespace Roar.WebObjects
 		// Response from mail/what_can_i_send
 		public class WhatCanISendResponse
 		{
+			public List<DomainObjects.Mailable> mailables;
 
 		}
 

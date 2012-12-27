@@ -393,7 +393,14 @@
               ]
             }
           },
-          { "name":"what_can_i_send" }
+          {
+            "name":"what_can_i_send",
+            "response":{
+              "members":[
+                {"name":"mailables", "type":"List<DomainObjects.Mailable>"}
+              ]
+            }
+          }
         ]
      },
      {
