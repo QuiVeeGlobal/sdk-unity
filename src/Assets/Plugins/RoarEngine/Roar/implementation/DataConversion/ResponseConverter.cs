@@ -485,7 +485,20 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Google.LoginUserResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Google.LoginUserResponse retval = new Roar.WebObjects.Google.LoginUserResponse();
-				//TODO: Implement me
+				IXMLNode login_user_node = n.GetNode("roar>0>google>0>login_user>0");
+				if (login_user_node != null)
+				{
+					IXMLNode node = login_user_node.GetNode("auth_token>0");
+					if (node != null)
+					{
+						retval.auth_token = node.Text;
+					}
+					node = login_user_node.GetNode("player_id>0");
+					if (node != null)
+					{
+						retval.player_id = node.Text;
+					}
+				}
 				return retval;
 			}
 		}

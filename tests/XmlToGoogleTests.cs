@@ -138,6 +138,27 @@ namespace Testing
 			Assert.AreEqual(response.player_id, "1231231");
 			Assert.AreEqual(response.mode, "create");
 		}
+		
+		[Test()]
+		public void TestGoogleLoginUserXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""128455369786"">
+				<google>
+					<login_user status=""ok"">
+						<auth_token>ABCDEF</auth_token>
+						<player_id>1231231</player_id>
+					</login_user>
+				</google>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Google.LoginUser login_user_parser = new Roar.DataConversion.Responses.Google.LoginUser();
+			LoginUserResponse response = login_user_parser.Build(nn);
+			
+			Assert.AreEqual(response.auth_token, "ABCDEF");
+			Assert.AreEqual(response.player_id, "1231231");
+		}
 	}
 }
 
