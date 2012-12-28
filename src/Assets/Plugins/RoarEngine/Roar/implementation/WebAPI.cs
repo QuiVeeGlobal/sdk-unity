@@ -354,6 +354,7 @@ public class WebAPI : IWebAPI
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Google.LoginOrCreateUserResponse> login_or_create_user_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Google.LoginUserResponse> login_user_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Google.LoginUserTokenResponse> login_user_token_response_parser;
+		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Google.TokenResponse> token_response_parser;
 
 		public GoogleActions (IRequestSender caller) : base(caller)
 		{
@@ -365,6 +366,7 @@ public class WebAPI : IWebAPI
 			login_or_create_user_response_parser = new Roar.DataConversion.Responses.Google.LoginOrCreateUser();
 			login_user_response_parser = new Roar.DataConversion.Responses.Google.LoginUser();
 			login_user_token_response_parser = new Roar.DataConversion.Responses.Google.LoginUserToken();
+			token_response_parser = new Roar.DataConversion.Responses.Google.Token();
 
 		}
 
@@ -406,6 +408,11 @@ public class WebAPI : IWebAPI
 		public void login_user_token( Roar.WebObjects.Google.LoginUserTokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.LoginUserTokenResponse> cb)
 		{
 			api.MakeCall ("google/login_user_token", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Google.LoginUserTokenResponse>(cb, login_user_token_response_parser));
+		}
+
+		public void token( Roar.WebObjects.Google.TokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.TokenResponse> cb)
+		{
+			api.MakeCall ("google/token", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Google.TokenResponse>(cb, token_response_parser));
 		}
 
 	}

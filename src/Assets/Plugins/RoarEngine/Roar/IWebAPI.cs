@@ -108,6 +108,7 @@ public abstract class IWebAPI
 		void login_or_create_user( Roar.WebObjects.Google.LoginOrCreateUserArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.LoginOrCreateUserResponse> cb);
 		void login_user( Roar.WebObjects.Google.LoginUserArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.LoginUserResponse> cb);
 		void login_user_token( Roar.WebObjects.Google.LoginUserTokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.LoginUserTokenResponse> cb);
+		void token( Roar.WebObjects.Google.TokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.TokenResponse> cb);
 	}
 
 	public interface IInfoActions

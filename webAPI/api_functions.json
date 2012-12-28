@@ -315,6 +315,14 @@
                 {"name":"player_id", "type":"string"}
               ]
             }
+          },
+          {
+            "name":"token",
+            "response":{
+              "members":[
+                {"name":"token", "type":"string"}
+              ]
+            }
           }
         ]
      },

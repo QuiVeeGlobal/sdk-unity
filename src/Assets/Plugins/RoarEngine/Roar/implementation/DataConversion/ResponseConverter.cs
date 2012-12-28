@@ -525,6 +525,20 @@ namespace Roar.DataConversion.Responses
 				return retval;
 			}
 		}
+		//Response from google/token
+		public class Token : IXmlToObject< Roar.WebObjects.Google.TokenResponse >
+		{
+			public Roar.WebObjects.Google.TokenResponse Build(IXMLNode n)
+			{
+				Roar.WebObjects.Google.TokenResponse retval = new Roar.WebObjects.Google.TokenResponse();
+				IXMLNode token_node = n.GetNode("roar>0>google>0>token>0>token>0");
+				if (token_node != null)
+				{
+					retval.token = token_node.GetAttribute("value");
+				}
+				return retval;
+			}
+		}
 
  	}
 	namespace Info

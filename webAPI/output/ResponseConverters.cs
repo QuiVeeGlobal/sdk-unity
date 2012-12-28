@@ -376,6 +376,16 @@ namespace Roar.DataConversion.Responses
 				return retval;
 			}
 		}
+		//Response from google/token
+		public class Token : IXmlToObject< Roar.WebObjects.Google.TokenResponse >
+		{
+			public Roar.WebObjects.Google.TokenResponse Build(IXMLNode n)
+			{
+				Roar.WebObjects.Google.TokenResponse retval = new Roar.WebObjects.Google.TokenResponse();
+				//TODO: Implement me
+				return retval;
+			}
+		}
 
  	}
 	namespace Info

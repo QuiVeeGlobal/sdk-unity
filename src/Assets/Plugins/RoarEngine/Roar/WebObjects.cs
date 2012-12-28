@@ -676,6 +676,24 @@ namespace Roar.WebObjects
 
 		}
 
+		// Arguments to google/token
+		public class TokenArguments
+		{
+
+			public Hashtable ToHashtable()
+			{
+				Hashtable retval = new Hashtable();
+				return retval;
+			}
+		}
+		
+		// Response from google/token
+		public class TokenResponse
+		{
+			public string token;
+
+		}
+
 	}
 
 	//Namespace for typesafe arguments and responses to Roars info/foo calls.

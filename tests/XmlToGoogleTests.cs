@@ -180,6 +180,25 @@ namespace Testing
 			Assert.AreEqual(response.auth_token, "ABCDEF");
 			Assert.AreEqual(response.player_id, "1231231");
 		}
+		
+		[Test()]
+		public void TestGoogleTokenXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""128455369786"">
+				<google>
+					<token status=""ok"">
+						<token value=""abcdef"" />
+					</token>
+				</google>
+			</roar>";
+			
+			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			Roar.DataConversion.Responses.Google.Token token_parser = new Roar.DataConversion.Responses.Google.Token();
+			TokenResponse response = token_parser.Build(nn);
+			
+			Assert.AreEqual(response.token, "abcdef");
+		}
 	}
 }
 
