@@ -351,6 +351,7 @@ public class WebAPI : IWebAPI
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Google.CreateUserResponse> create_user_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Google.CreateUserTokenResponse> create_user_token_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Google.FriendsResponse> friends_response_parser;
+		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Google.LoginOrCreateUserResponse> login_or_create_user_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Google.LoginUserResponse> login_user_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Google.LoginUserTokenResponse> login_user_token_response_parser;
 
@@ -361,6 +362,7 @@ public class WebAPI : IWebAPI
 			create_user_response_parser = new Roar.DataConversion.Responses.Google.CreateUser();
 			create_user_token_response_parser = new Roar.DataConversion.Responses.Google.CreateUserToken();
 			friends_response_parser = new Roar.DataConversion.Responses.Google.Friends();
+			login_or_create_user_response_parser = new Roar.DataConversion.Responses.Google.LoginOrCreateUser();
 			login_user_response_parser = new Roar.DataConversion.Responses.Google.LoginUser();
 			login_user_token_response_parser = new Roar.DataConversion.Responses.Google.LoginUserToken();
 
@@ -389,6 +391,11 @@ public class WebAPI : IWebAPI
 		public void friends( Roar.WebObjects.Google.FriendsArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.FriendsResponse> cb)
 		{
 			api.MakeCall ("google/friends", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Google.FriendsResponse>(cb, friends_response_parser));
+		}
+
+		public void login_or_create_user( Roar.WebObjects.Google.LoginOrCreateUserArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.LoginOrCreateUserResponse> cb)
+		{
+			api.MakeCall ("google/login_or_create_user", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Google.LoginOrCreateUserResponse>(cb, login_or_create_user_response_parser));
 		}
 
 		public void login_user( Roar.WebObjects.Google.LoginUserArguments args, ZWebAPI.Callback<Roar.WebObjects.Google.LoginUserResponse> cb)

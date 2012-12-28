@@ -608,6 +608,30 @@ namespace Roar.WebObjects
 
 		}
 
+		// Arguments to google/login_or_create_user
+		public class LoginOrCreateUserArguments
+		{
+			public string code;
+			public string google_client_id;
+
+			public Hashtable ToHashtable()
+			{
+				Hashtable retval = new Hashtable();
+				retval["code"] = code;
+				retval["google_client_id"] = google_client_id;
+				return retval;
+			}
+		}
+		
+		// Response from google/login_or_create_user
+		public class LoginOrCreateUserResponse
+		{
+			public string auth_token;
+			public string player_id;
+			public string mode;
+
+		}
+
 		// Arguments to google/login_user
 		public class LoginUserArguments
 		{

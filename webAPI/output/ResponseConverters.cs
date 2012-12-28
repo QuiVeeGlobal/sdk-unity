@@ -346,6 +346,16 @@ namespace Roar.DataConversion.Responses
 				return retval;
 			}
 		}
+		//Response from google/login_or_create_user
+		public class LoginOrCreateUser : IXmlToObject< Roar.WebObjects.Google.LoginOrCreateUserResponse >
+		{
+			public Roar.WebObjects.Google.LoginOrCreateUserResponse Build(IXMLNode n)
+			{
+				Roar.WebObjects.Google.LoginOrCreateUserResponse retval = new Roar.WebObjects.Google.LoginOrCreateUserResponse();
+				//TODO: Implement me
+				return retval;
+			}
+		}
 		//Response from google/login_user
 		public class LoginUser : IXmlToObject< Roar.WebObjects.Google.LoginUserResponse >
 		{

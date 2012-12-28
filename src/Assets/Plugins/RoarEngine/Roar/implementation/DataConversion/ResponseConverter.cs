@@ -451,6 +451,34 @@ namespace Roar.DataConversion.Responses
 				return retval;
 			}
 		}
+		//Response from google/login_or_create_user
+		public class LoginOrCreateUser : IXmlToObject< Roar.WebObjects.Google.LoginOrCreateUserResponse >
+		{
+			public Roar.WebObjects.Google.LoginOrCreateUserResponse Build(IXMLNode n)
+			{
+				Roar.WebObjects.Google.LoginOrCreateUserResponse retval = new Roar.WebObjects.Google.LoginOrCreateUserResponse();
+				IXMLNode login_or_create_user_node = n.GetNode("roar>0>google>0>login_or_create_user>0");
+				if (login_or_create_user_node != null)
+				{
+					IXMLNode node = login_or_create_user_node.GetNode("auth_token>0");
+					if (node != null)
+					{
+						retval.auth_token = node.Text;
+					}
+					node = login_or_create_user_node.GetNode("player_id>0");
+					if (node != null)
+					{
+						retval.player_id = node.Text;
+					}
+					node = login_or_create_user_node.GetNode("mode>0");
+					if (node != null)
+					{
+						retval.mode = node.Text;
+					}
+				}
+				return retval;
+			}
+		}
 		//Response from google/login_user
 		public class LoginUser : IXmlToObject< Roar.WebObjects.Google.LoginUserResponse >
 		{

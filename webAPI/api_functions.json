@@ -277,6 +277,20 @@
               ]
             }
           },
+          {
+            "name":"login_or_create_user",
+            "arguments":[
+              {"name":"code", "type":"string"},
+              {"name":"google_client_id", "type":"string"}
+            ],
+            "response":{
+              "members":[
+                {"name":"auth_token", "type":"string"},
+                {"name":"player_id", "type":"string"},
+                {"name":"mode", "type":"string"}
+              ]
+            }
+          },
           { "name":"login_user" },
           { "name":"login_user_token" }
         ]
