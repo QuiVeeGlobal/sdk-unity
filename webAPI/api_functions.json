@@ -304,7 +304,18 @@
               ]
             }
           },
-          { "name":"login_user_token" }
+          {
+            "name":"login_user_token",
+            "arguments":[
+              {"name":"token", "type":"string"}
+            ],
+            "response":{
+              "members":[
+                {"name":"auth_token", "type":"string"},
+                {"name":"player_id", "type":"string"}
+              ]
+            }
+          }
         ]
      },
      {

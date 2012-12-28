@@ -658,10 +658,12 @@ namespace Roar.WebObjects
 		// Arguments to google/login_user_token
 		public class LoginUserTokenArguments
 		{
+			public string token;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["token"] = token;
 				return retval;
 			}
 		}
@@ -669,6 +671,8 @@ namespace Roar.WebObjects
 		// Response from google/login_user_token
 		public class LoginUserTokenResponse
 		{
+			public string auth_token;
+			public string player_id;
 
 		}
 
