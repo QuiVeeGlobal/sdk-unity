@@ -604,6 +604,7 @@ namespace Roar.WebObjects
 		// Response from google/friends
 		public class FriendsResponse
 		{
+			public List<DomainObjects.GoogleFriend> friends;
 
 		}
 

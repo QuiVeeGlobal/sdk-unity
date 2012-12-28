@@ -396,6 +396,25 @@ namespace Roar
 			public Dictionary<string, string> stats = new Dictionary<string, string>();
 			public Dictionary<string, string> properties = new Dictionary<string, string>();
 		};
+		
+		public class GoogleFriend
+		{
+			public string id;
+			public string name;
+			public string gplus_id;
+			public string gplus_name;
+			
+			public static GoogleFriend CreateFromXml (IXMLNode n)
+			{
+				GoogleFriend retval = new GoogleFriend();
+				Dictionary<string, string> kv = n.Attributes.ToDictionary( v => v.Key, v => v.Value );
+				kv.TryGetValue("id", out retval.id);
+				kv.TryGetValue("name", out retval.name);
+				kv.TryGetValue("gplus_id", out retval.gplus_id);
+				kv.TryGetValue("gplus_name", out retval.gplus_name);
+				return retval;
+			}
+		}
 
 		public class LeaderboardInfo
 		{

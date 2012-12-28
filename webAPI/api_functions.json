@@ -269,7 +269,14 @@
               ]
             }
           },
-          { "name":"friends" },
+          {
+            "name":"friends",
+            "response":{
+              "members":[
+                {"name":"friends", "type":"List<DomainObjects.GoogleFriend>"}
+              ]
+            }
+          },
           { "name":"login_user" },
           { "name":"login_user_token" }
         ]

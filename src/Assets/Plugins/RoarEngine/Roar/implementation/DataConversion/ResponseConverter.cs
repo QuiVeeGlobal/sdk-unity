@@ -442,7 +442,12 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Google.FriendsResponse Build(IXMLNode n)
 			{
 				Roar.WebObjects.Google.FriendsResponse retval = new Roar.WebObjects.Google.FriendsResponse();
-				//TODO: Implement me
+				retval.friends = new List<GoogleFriend>();
+				IList<IXMLNode> friend_nodes = n.GetNodeList("roar>0>google>0>friends>0>friend");
+				foreach (IXMLNode friend_node in friend_nodes)
+				{
+					retval.friends.Add(GoogleFriend.CreateFromXml(friend_node));
+				}
 				return retval;
 			}
 		}
