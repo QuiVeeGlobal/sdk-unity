@@ -4,7 +4,7 @@ using Roar;
 
 public class RoarStatsWidget : RoarUIWidget
 {
-	public bool autoCalculateContentBounds = true;
+	public bool autoCalculateContentBounds = false;
 	public string defaultValueFormat = "N0";
 	public Stat[] statsToDisplay;
 	
@@ -26,6 +26,11 @@ public class RoarStatsWidget : RoarUIWidget
 		
 		private Roar.DomainObjects.PlayerAttribute userStat;
 		private string value;
+		
+		public Stat()
+		{
+			this.bounds = new Rect(0, 0, 150, 100);	
+		}
 		
 		public string Value
 		{

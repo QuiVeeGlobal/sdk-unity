@@ -11,7 +11,7 @@ public class RoarRankingsWidget : RoarUIWidget
 	public WhenToFetch whenToFetch = WhenToFetch.OnEnable;
 	public float howOftenToFetch = 60;
 	
-	public Rect rankingItemBounds;
+	public Rect rankingItemBounds = new Rect(0, 0, 450, 50);
 	public float rankingItemSpacing;
 	public string rankingEntryPlayerRankStyle = "LeaderboardRankingPlayerRank";
 	public string rankingEntryPlayerNameStyle = "LeaderboardRankingPlayerName";

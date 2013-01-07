@@ -13,7 +13,7 @@ public class RoarFriendsListWidget : RoarUIWidget
 	private Roar.Components.IFriends friends;
 	
 	public float entrySpacing;
-	public Rect  entryBounds;
+	public Rect  entryBounds = new Rect(0, 0, 350, 25);
 	
 	public string playerIdFormatString ="{0}";
 	public string playerIdFormat = "FriendsId";

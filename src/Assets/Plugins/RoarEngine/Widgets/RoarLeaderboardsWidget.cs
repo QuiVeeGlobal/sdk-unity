@@ -17,8 +17,8 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 	public WhenToFetch whenToFetch = WhenToFetch.OnEnable;
 	public float howOftenToFetch = 60;
 
-	public Rect leaderboardItemBounds;
-	public float leaderboardItemSpacing;
+	public Rect leaderboardItemBounds = new Rect(0, 0, 450, 30);
+	public float leaderboardItemSpacing = 1;
 	public string leaderboardEntryStyle = "LeaderboardEntryButton";
 	
 	private bool isFetching;

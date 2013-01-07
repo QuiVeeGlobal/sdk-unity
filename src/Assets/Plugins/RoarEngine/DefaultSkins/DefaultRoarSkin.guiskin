@@ -2354,8 +2354,8 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: FriendsId
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 76c7c32f78e614d0c9453f83f726e55c, type: 3}
-      m_TextColor: {r: .79088825, g: .79088825, b: .79088825, a: 1}
+      m_Background: {fileID: 0}
+      m_TextColor: {r: .000436190225, g: .000334149576, b: .0149253607, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: .79088825, g: .79088825, b: .79088825, a: 1}
@@ -2398,14 +2398,14 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 9
+    m_FontSize: 20
     m_FontStyle: 0
     m_Alignment: 2
     m_WordWrap: 0
     m_RichText: 1
     m_TextClipping: 0
     m_ImagePosition: 0
-    m_ContentOffset: {x: -3.01999998, y: 3.05999994}
+    m_ContentOffset: {x: 0, y: 0}
     m_FixedWidth: 0
     m_FixedHeight: 0
     m_StretchWidth: 0
@@ -2413,7 +2413,7 @@ MonoBehaviour:
   - m_Name: FriendsName
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: .79088825, g: .79088825, b: .79088825, a: 1}
+      m_TextColor: {r: .0452388525, g: .0106927957, b: .716417909, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: .79088825, g: .79088825, b: .79088825, a: 1}
@@ -2471,7 +2471,7 @@ MonoBehaviour:
   - m_Name: FriendsLevel
     m_Normal:
       m_Background: {fileID: 0}
-      m_TextColor: {r: .79088825, g: .79088825, b: .79088825, a: 1}
+      m_TextColor: {r: .177956372, g: 0, b: .462686539, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
       m_TextColor: {r: .79088825, g: .79088825, b: .79088825, a: 1}

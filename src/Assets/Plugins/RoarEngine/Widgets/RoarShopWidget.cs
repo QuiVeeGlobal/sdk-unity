@@ -17,9 +17,9 @@ public class RoarShopWidget : RoarUIWidget
 	public string shopItemDescriptionStyle = "ShopItemDescription";
 	public string shopItemCostStyle = "ShopItemCost";
 	public string shopItemBuyButtonStyle = "ShopItemBuyButton";
-	public Rect shopItemBounds;
-	public Rect buyButtonBounds;
-	public float shopItemSpacing;
+	public Rect shopItemBounds = new Rect(0, 0, 450, 90);
+	public Rect buyButtonBounds= new Rect(200, 25, 100, 40);
+	public float shopItemSpacing = 12;
 	
 	private bool isFetching;
 	private float whenLastFetched;
