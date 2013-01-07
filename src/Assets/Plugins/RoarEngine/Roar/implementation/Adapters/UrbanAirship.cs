@@ -3,6 +3,7 @@ using System.Collections;
 using System;
 
 using Roar.Adapters;
+using Roar;
 
 namespace Roar.implementation.Adapters
 {
@@ -88,33 +89,33 @@ namespace Roar.implementation.Adapters
 
 			// Swaps out XX-YY-ZZ to the required format XXYYZZ
 			string formatToken = System.BitConverter.ToString( token ).Replace( "-", "" );
-
-			Hashtable post = new Hashtable();
-			post["device_token"] = formatToken;
+			
+			WebObjects.Urbanairship.IosRegisterArguments args = new WebObjects.Urbanairship.IosRegisterArguments();
+			args.device_token = formatToken;
 
 			// Send registration token to UrbanAirship
-			webAPI.urbanairship.ios_register( post, new HandleUASIOSRegister(null,this) );
+			webAPI.urbanairship.ios_register( args, new HandleUASIOSRegister(null,this) );
 		}
 
 		// Called with the response from the call to roar to register the deviceToken.
-		class HandleUASIOSRegister : SimpleRequestCallback<IXMLNode>
+		class HandleUASIOSRegister : CBBase< WebObjects.Urbanairship.IosRegisterResponse >
 		{
 			protected UrbanAirship urbanAirship;
-			public HandleUASIOSRegister( Roar.Callback in_cb, UrbanAirship in_urbanAirship) : base(in_cb)
+			
+			public HandleUASIOSRegister( Roar.Callback< WebObjects.Urbanairship.IosRegisterResponse > in_cb, UrbanAirship in_urbanAirship) : base(in_cb)
 			{
 				urbanAirship = in_urbanAirship;
 			}
-
-			public override void onFailure( RequestResult info )
+			
+			public override void HandleError( Roar.RequestResult info )
 			{
 				if( urbanAirshipRegistrationFailed!=null) urbanAirshipRegistrationFailed(info.msg);
 			}
 
-			public override object onSuccess( RequestResult info )
+			public override void HandleSuccess( Roar.CallbackInfo<WebObjects.Urbanairship.IosRegisterResponse> info )
 			{
 				urbanAirship.hasTokenBeenSentToUA = true;
 				if( UrbanAirship.urbanAirshipRegistrationSucceeded!=null) UrbanAirship.urbanAirshipRegistrationSucceeded();
-				return null;
 			}
 		}
 
@@ -143,11 +144,11 @@ namespace Roar.implementation.Adapters
 			// Only allow send if this device has been registered
 			if (!hasTokenBeenSentToUA) return;
 
-			Hashtable post = new Hashtable();
-			post["message"] = message;
-			post["roar_id"] = targetUserID;
+			WebObjects.Urbanairship.PushArguments args = new WebObjects.Urbanairship.PushArguments();
+			args.message = message;
+			args.roar_id = targetUserID;
 
-			webAPI.urbanairship.push( post, null );
+			webAPI.urbanairship.push( args, null );
 		}
 
 

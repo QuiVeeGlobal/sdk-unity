@@ -229,5 +229,8 @@ code > span.er { color: #ff0000; font-weight: bold; }
 <h3 id="webapi">WebAPI</h3>
 <h4 id="callbacks-1">Callbacks</h4>
 <h4 id="events-1">Events</h4>
+<h2 id="building-on-ios">Building on iOS</h2>
+<p>To make the roar SDK work on iOS, you need to switch to iOS deployment and build. The first build will fail, however it will generate and open an XCode project for you. You will then need to copy all .h and .m files from src/Assets/Plugins/RoarEngine/StoreKit/NativeIOS/ into the Classes folder of resulting Xcode project.</p>
+<p>Then building should succeed ( Assuming you have set up the device signing certificates required by XCode ).</p>
 </body>
 </html>

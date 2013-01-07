@@ -26,6 +26,11 @@ utilizes a few widgets and can make calls to the roar engine using these
 widgets.  This document should be updated as and when the test scene itself is
 updated with new features added to the Unity3D Roar plugin.
 
+It is convenient to have the login module to activate on startup for the purposes of this scene. 
+The module is automatically created by default under the main Roar systems object. 
+The exact path in the scene hierarchy is Roar/RoarUI/Login. Select this gameobject 
+and uncheck the ‘disable on awake’ option to have the module be enabled when you startup.
+
 You start off with an empty scene and nothing but a camera. To begin you need
 to add the main Roar system object. You do this through the Unity menu
 (`GameObject`$\to$`Create Other`$\to$`Roar`$\to$`System Object`). If this menu is not available
@@ -33,11 +38,6 @@ it means you are missing the Assets/Editor/Roarengine/RoarObjectFactory.cs
 file. This will create a system object in your scene and this object is what
 you use to configure Roar. You need to enter your game key in the `Game Key`
 section here. This is the key that all calls using the Unity plugin will use.
-
-It is convenient to have the login module to activate on startup for the purposes of this scene. 
-The module is automatically created by default under the main Roar systems object. 
-The exact path in the scene hierarchy is Roar/RoarUI/Login. Select this gameobject 
-and uncheck the ‘disable on awake’ option to have the module be enabled when you startup.
 
 You can now begin dropping widgets into your game. Widgets are small scripts
 that can be configured to display information from the roar server. You can
@@ -306,3 +306,14 @@ The most recent definition of all events and their parameters can be found in sr
 #### Callbacks
 
 #### Events
+
+## Building on iOS
+
+To make the roar SDK work on iOS, you need to switch to iOS deployment and build.
+The first build will fail, however it will generate and open an XCode project
+for you. You will then need to copy all .h and .m files from
+src/Assets/Plugins/RoarEngine/StoreKit/NativeIOS/ into the Classes folder of
+resulting Xcode project.
+
+Then building should succeed ( Assuming you have set up the 
+device signing certificates required by XCode ).
