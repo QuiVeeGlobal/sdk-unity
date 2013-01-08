@@ -105,11 +105,47 @@ public class Json
     str += "}";
     return str;
   }
-
-  public static string StringToJSON( string s )
+  
+  // Implemented according to JSON specification at http://www.json.org
+  public static string StringToJSON( string text )
   {
-    //TODO: We need to properly escape this string!
-    return "\"" + s + "\"";
+    string ret = "\"";
+    foreach (char ch in text) {
+      switch (ch)
+      {
+        case '"':
+          ret += "\\\"";
+          break;
+        case '\\':
+          ret += "\\\\";
+          break;
+        case '\b':
+          ret += "\\b";
+          break;
+        case '\f':
+          ret += "\\f";
+          break;
+        case '\n':
+          ret += "\\n";
+          break;
+        case '\r':
+          ret += "\\r";
+          break;
+        case '\t':
+          ret += "\\t";
+          break;
+        default:
+          if (ch >= 32) {
+            ret += ch;
+          } else {
+            int i = ch;
+            ret += "\\u" + i.ToString("X4");
+          }
+          break;
+      }
+    }
+    ret += "\"";
+    return ret;
   }
 }
 
