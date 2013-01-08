@@ -224,11 +224,8 @@ public class RoarManager
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
-	 * @xmlonly
-	 * <example title="">
-	 * <item_use item_id="1234"/>
-	 * </example>
-	 * @endxmlonly
+	 * 
+	 *     <item_use item_id="1234">
 	 */
 	public static event Action<IXMLNode> roarServerItemUseEvent;
 	public static void OnRoarServerItemUse( IXMLNode info ) { if(roarServerItemUseEvent!=null) roarServerItemUseEvent(info); }
@@ -236,17 +233,15 @@ public class RoarManager
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
-	 * @xmlonly
-	 * <example title="">
-	 * <item_lose item_id="1234" item_ikey="somthing"/>
-	 * </example>
-	 * @endxmlonly
+	 * 
+	 *     <item_lose item_id="1234" item_ikey="somthing"/>
 	 */
 	public static event Action<IXMLNode> roarServerItemLoseEvent;
 	public static void OnRoarServerItemLose( IXMLNode info ) { if(roarServerItemLoseEvent!=null) roarServerItemLoseEvent(info); }
 
 	/**
-	 * @todo Ugly to be using a hash here. common.php says there is no info in this xml so probably dont need to parse it.
+	 * common.php says there is no info in this xml so probably dont need to parse it.
+	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
 	 */
 	public static event Action<IXMLNode> roarServerInventoryChangedEvent;
@@ -260,13 +255,10 @@ public class RoarManager
 	public static void OnRoarServerRegen( IXMLNode info ) { if(roarServerRegenEvent!=null) roarServerRegenEvent(info); }
 
 	/**
-	 * @todo Ugly to be using a hash here.
-	 * @todo Implement more server update functions.
-	 * @xmlonly
-	 * <example title="">
-	 * <item_add item_id="1234" item_ikey="somthing"/>
-	 * </example>
-	 * @endxmlonly
+	 * @todo Ugly to be using a hash here
+	 * @todo Implement more server update functions
+	 * 
+	 *     <item_add item_id="1234" item_ikey="somthing"/>
 	 */
 	public static event Action<IXMLNode> roarServerItemAddEvent;
 	public static void OnRoarServerItemAdd( IXMLNode info ) { if(roarServerItemAddEvent!=null) roarServerItemAddEvent(info); }
@@ -278,141 +270,111 @@ public class RoarManager
 	public static event Action<IXMLNode> roarServerTaskCompleteEvent;
 	public static void OnRoarServerTaskComplete( IXMLNode info ) { if(roarServerTaskCompleteEvent!=null) roarServerTaskCompleteEvent(info); }
 
-/**
+	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
 	 */
 	public static event Action<Roar.DomainObjects.Achievement> roarServerAchievementCompleteEvent;
 	public static void OnRoarServerAchievementComplete( Roar.DomainObjects.Achievement info ) { if(roarServerAchievementCompleteEvent!=null) roarServerAchievementCompleteEvent(info); }
-	
+
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
-	 * * @xmlonly
-	 * <example title="">
-	 * <level_up value="5" />
-	 * </example>
-	 * @endxmlonly
+	 * 
+	 *     <level_up value="5" />
 	 */
 	public static event Action<IXMLNode> roarServerLevelUpEvent;
 	public static void OnRoarServerLevelUp( IXMLNode info ) { if(roarServerLevelUpEvent!=null) roarServerLevelUpEvent(info); }
-	
+
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
-	 *  * @xmlonly
-	 * <example title="">
-	 * <collect_changed ikey="health" next="12313231" />
-	 * </example>
-	 * @endxmlonly
+	 * 
+	 *     <collect_changed ikey="health" next="12313231" />
 	 */
 	public static event Action<IXMLNode> roarServerCollectChangedEvent;
 	public static void OnRoarServerCollectChanged( IXMLNode info ) { if(roarServerCollectChangedEvent!=null) roarServerCollectChangedEvent(info); }
-	
+
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
-	 * * @xmlonly
-	 * <example title="">
-	 * <invite_accepted name="Lex Luthor" player_id="12313231" level="123" />
-	 * </example>
-	 * @endxmlonly
+	 * 
+	 *     <invite_accepted name="Lex Luthor" player_id="12313231" level="123" />
 	 */
 	public static event Action<IXMLNode> roarServerInviteAcceptedEvent;
 	public static void OnRoarServerInviteAccepted( IXMLNode info ) { if(roarServerInviteAcceptedEvent!=null) roarServerInviteAcceptedEvent(info); }
-	
+
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
-	 * * @xmlonly
-	 * <example title="">
-	 * <friend_request name="Lex Luthor" from_player_id="12313231" level="123" friend_invite_row_id="12341345" />
-	 * </example>
-	 * @endxmlonly
+	 * 
+	 *     <friend_request name="Lex Luthor" from_player_id="12313231" level="123" />
 	 */
 	public static event Action<IXMLNode> roarServerFriendRequestEvent;
 	public static void OnRoarServerFriendRequest( IXMLNode info ) { if(roarServerFriendRequestEvent!=null) roarServerFriendRequestEvent(info); }
-	
+
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
-	 * * @xmlonly
-	 * <example title="">
-	 * <transaction ikey="diamonds" value="120" />
-	 * </example>
-	 * @endxmlonly
+	 * 
+	 *     <transaction ikey="diamonds" value="120" /> 
 	 */
 	public static event Action<IXMLNode> roarServerTransactionEvent;
 	public static void OnRoarServerTransaction( IXMLNode info ) { if(roarServerTransactionEvent!=null) roarServerTransactionEvent(info); }
-	
+
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
-	 * @xmlonly
-	 * <example title="">
-	 * <mail_in/>
-	 * </example>
-	 * @endxmlonly
+	 * 
+	 *     <mail_in/>
 	 */
 	public static event Action<IXMLNode> roarServerMailInEvent;
 	public static void OnRoarServerMailIn( IXMLNode info ) { if(roarServerMailInEvent!=null) roarServerMailInEvent(info); }
-	
+
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
-	 * @xmlonly
-	 * <example title="">
-	 * <equip item_id="1234"/>
-	 * </example>
-	 * @endxmlonly
-
+	 * 
+	 *     <equip item_id="1234"/>
 	 */
 	public static event Action<IXMLNode> roarServerEquipEvent;
 	public static void OnRoarServerEquip( IXMLNode info ) { if(roarServerEquipEvent!=null) roarServerEquipEvent(info); }
-	
+
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
-	 * * @xmlonly
-	 * <example title="">
-	 * <unequip item_id="1234"/>
-	 * </example>
-	 * @endxmlonly
+	 * 
+	 *     <unequip item_id="1234"/>
 	 */
 	public static event Action<IXMLNode> roarServerUnequipEvent;
 	public static void OnRoarServerUnequip( IXMLNode info ) { if(roarServerUnequipEvent!=null) roarServerUnequipEvent(info); }
-	
+
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
-	 * @xmlonly
-	 * <example title="p:notify('abc','blah')">
-	 * <script key="abc" value="blah"/>
-	 * </example>
-	 * @endxmlonly
 	 * 
+	 * Generated by lua like this
+	 * 
+	 *     p:notify('abc','blah')
+	 * 
+	 *     <script key="abc" value="blah"/>
 	 */
 	public static event Action<IXMLNode> roarServerScriptEvent;
 	public static void OnRoarServerScript( IXMLNode info ) { if(roarServerScriptEvent!=null) roarServerScriptEvent(info); }
-	
+
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
-	 * @xmlonly
-	 * <example title="">
-	 * <chrome_web_store ikey="abc" transaction_id="abc">
-	 *   <costs>
-	 *     ...
-	 *   </costs>
-	 *   <
-	 *   ...
-	 * </chrome_web_store>
-	 * </example>
-	 * @endxmlonly
+	 * 
+	 *     <chrome_web_store ikey="abc" transaction_id="def">
+	 *       <costs> ... </costs>
+	 *       ...
+	 *     </chrome_web_store>
 	 */
 	public static event Action<IXMLNode> roarServerChromeWebStoreEvent;
 	public static void OnRoarServerChromeWebStore( IXMLNode info ) { if(roarServerChromeWebStoreEvent!=null) roarServerChromeWebStoreEvent(info); }
-	
+
+
   	/**
   	 * Fire the correct event for a server chunk.
 	 *
@@ -477,6 +439,7 @@ public class RoarManager
 			case "chrome_web_store":
 				OnRoarServerChromeWebStore(info);
 				break;
+
 			default:
 				Debug.Log("Server event "+key+" not yet implemented");
 				break;

@@ -117,13 +117,13 @@ function build_event_manager()
       events.data.events.push(
         {
           "name":e+"Ready",
-          "notes":["Fired when the data have been retrieved from the server"],
+          "notes":["Fired when the data have been retrieved from the server."],
           "args":[]
         } );
       events.data.events.push(
         {
           "name":e+"Change",
-          "notes":["Fired when the data changes"],
+          "notes":["Fired when the data changes."],
           "args":[]
         } );
     } );

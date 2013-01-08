@@ -32,7 +32,7 @@
         "args":[{"type":"GoodInfo","name":"info"}]
       },
       { "name":"goodBought", 
-        "notes":["Fired when a shop item has been successfully purchased"],
+        "notes":["Fired when a shop item has been successfully purchased."],
         "args":[{"type":"PurchaseInfo","name":"info"}]
       },
       { "name":"eventDone", 
@@ -54,49 +54,195 @@
         "args":[{"type":"CallInfo","name":"info"}]
       },
       { "name":"roarServerAll",
-        "notes":["@note The object is really an XML Node", "@todo It's ugly to be using an implementation detail like this"],
+        "notes":[
+          "@note The object is really an XML Node.",
+          "@todo It's ugly to be using an implementation detail like this."
+        ],
         "args":[{"type":"object","name":"info"}]
       },
       { "name":"xxxChange",
-        "notes":["@todo These should be generated for each component"],
+        "notes":["@todo These should be generated for each component."],
         "args":[]
       }
     ],
     "server_events":[
       { "name":"roarServerUpdate",
-        "notes":["@todo Ugly to be using a hash here", "@todo Implement more server update functions"],
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions."
+            ],
         "args":[{"type":"IXMLNode","name":"info"}],
         "server_name":"update"
       },
       { "name":"roarServerItemUse",
-        "notes":["@todo Ugly to be using a hash here", "@todo Implement more server update functions"],
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions.",
+          "",
+          "    <item_use item_id=\"1234\">"
+        ],
         "args":[{"type":"IXMLNode","name":"info"}],
         "server_name":"item_use"
       },
       { "name":"roarServerItemLose",
-        "notes":["@todo Ugly to be using a hash here", "@todo Implement more server update functions"],
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions.",
+          "",
+          "    <item_lose item_id=\"1234\" item_ikey=\"somthing\"/>"
+        ],
         "args":[{"type":"IXMLNode","name":"info"}],
         "server_name":"item_lose"
       },
       { "name":"roarServerInventoryChanged",
-        "notes":["@todo Ugly to be using a hash here", "@todo Implement more server update functions"],
+        "notes":[
+          "common.php says there is no info in this xml so probably dont need to parse it.",
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions."
+        ],
         "args":[{"type":"IXMLNode","name":"info"}],
         "server_name":"inventory_changed"
       },
       { "name":"roarServerRegen",
-        "notes":["@todo Ugly to be using a hash here", "@todo Implement more server update functions"],
+        "notes":[
+           "@todo Ugly to be using a hash here.",
+           "@todo Implement more server update functions."
+        ],
         "args":[{"type":"IXMLNode","name":"info"}],
         "server_name":"regen"
       },
       { "name":"roarServerItemAdd",
-        "notes":["@todo Ugly to be using a hash here", "@todo Implement more server update functions"],
+        "notes":[
+          "@todo Ugly to be using a hash here",
+          "@todo Implement more server update functions",
+          "",
+          "    <item_add item_id=\"1234\" item_ikey=\"somthing\"/>"
+        ],
         "args":[{"type":"IXMLNode","name":"info"}],
         "server_name":"item_add"
       },
       { "name":"roarServerTaskComplete",
-        "notes":["@todo Ugly to be using a hash here", "@todo Implement more server update functions"],
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions."
+        ],
         "args":[{"type":"IXMLNode","name":"info"}],
         "server_name":"task_complete"
+      },
+      { "name":"roarServerAchievementComplete",
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions."
+        ],
+        "args":[{"type":"Roar.DomainObjects.Achievement","name":"info"}],
+        "server_name":"achievement_complete"
+      },
+      { "name":"roarServerLevelUp",
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions.",
+          "",
+          "    <level_up value=\"5\" />"
+        ],
+        "args":[{"type":"IXMLNode","name":"info"}],
+        "server_name":"level_up"
+      },
+      { "name":"roarServerCollectChanged",
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions.",
+          "",
+          "    <collect_changed ikey=\"health\" next=\"12313231\" />"
+        ],
+        "args":[{"type":"IXMLNode","name":"info"}],
+        "server_name":"collect_changed"
+      },
+      { "name":"roarServerInviteAccepted",
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions.",
+          "",
+          "    <invite_accepted name=\"Lex Luthor\" player_id=\"12313231\" level=\"123\" />"
+        ],
+        "args":[{"type":"IXMLNode","name":"info"}],
+        "server_name":"invite_accepted"
+      },
+      { "name":"roarServerFriendRequest",
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions.",
+          "",
+          "    <friend_request name=\"Lex Luthor\" from_player_id=\"12313231\" level=\"123\" />"
+        ],
+        "args":[{"type":"IXMLNode","name":"info"}],
+        "server_name":"friend_request"
+      },
+      { "name":"roarServerTransaction",
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions.",
+          "",
+          "    <transaction ikey=\"diamonds\" value=\"120\" /> "
+        ],
+        "args":[{"type":"IXMLNode","name":"info"}],
+        "server_name":"transaction"
+      },
+      { "name":"roarServerMailIn",
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions.",
+          "",
+          "    <mail_in/>"
+        ],
+        "args":[{"type":"IXMLNode","name":"info"}],
+        "server_name":"mail_in"
+      },
+      { "name":"roarServerEquip",
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions.",
+          "",
+          "    <equip item_id=\"1234\"/>"
+        ],
+        "args":[{"type":"IXMLNode","name":"info"}],
+        "server_name":"equip"
+      },
+      { "name":"roarServerUnequip",
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions.",
+          "",
+          "    <unequip item_id=\"1234\"/>"
+        ],
+        "args":[{"type":"IXMLNode","name":"info"}],
+        "server_name":"unequip"
+      },
+      { "name":"roarServerScript",
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions.",
+          "",
+          "Generated by lua like this",
+          "",
+          "    p:notify('abc','blah')",
+          "",
+          "    <script key=\"abc\" value=\"blah\"/>"
+        ],
+        "args":[{"type":"IXMLNode","name":"info"}],
+        "server_name":"script"
+      },
+      { "name":"roarServerChromeWebStore",
+        "notes":[
+          "@todo Ugly to be using a hash here.",
+          "@todo Implement more server update functions.",
+          "",
+          "    <chrome_web_store ikey=\"abc\" transaction_id=\"def\">",
+          "      <costs> ... </costs>",
+          "      ...",
+          "    </chrome_web_store>"
+        ],
+        "args":[{"type":"IXMLNode","name":"info"}],
+        "server_name":"chrome_web_store"
       }
     ],
     "components":[

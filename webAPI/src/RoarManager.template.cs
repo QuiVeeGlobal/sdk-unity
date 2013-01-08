@@ -48,17 +48,13 @@ public class RoarManager
 
 	public class PurchaseInfo
 	{
-		public PurchaseInfo( string in_currency, int in_price, string in_ikey, int in_quantity )
+		public PurchaseInfo( string in_ikey, Roar.DomainObjects.ModifierResult in_response )
 		{
-			currency = in_currency;
-			price = in_price;
 			ikey = in_ikey;
-			quantity = in_quantity;
+			response = in_response;
 		}
-		public string currency;
-		public int price;
 		public string ikey;
-		public int quantity;
+		public Roar.DomainObjects.ModifierResult response;
 	};
 
 	public class CallInfo
@@ -84,7 +80,7 @@ public class RoarManager
     args = _.map( e.args, function(x) { return x.name }). join(", ");
   }
   var event_name = e.name + "Event";
-%><% if (e.notes) { print("\n\t/**\n"); _.each(e.notes, function(x) { print("\t * "+x+".\n"); }); print("\t */"); } %>
+%><% if (e.notes) { print("\n\t/**\n"); _.each(e.notes, function(x) { print("\t * "+x+"\n"); }); print("\t */"); } %>
 	public static event <%= action_type %> <%= event_name %>;
 	public static void On<%= capitalizeFirst(e.name) %>(<%= args_with_type %>) { if(<%= event_name %>!=null) <%= event_name %>(<%= args %>); }
 <% } ) %>
@@ -102,7 +98,14 @@ public class RoarManager
 <%
   _.each( data.server_events, function(e,i,l) {
       print("\t\t\tcase \""+e.server_name+"\":\n");
-      print("\t\t\t\tOn"+capitalizeFirst(e.name)+"(info);\n");
+      if( e.args[0].type == "IXMLNode" ) 
+      {
+         print("\t\t\t\tOn"+capitalizeFirst(e.name)+"(info);\n");
+      }
+      else
+      {
+         print("\t\t\t\tOn"+capitalizeFirst(e.name)+"("+ e.args[0].type + ".CreateFromXml(info));\n");
+      }
       print("\t\t\t\tbreak;\n");
     } );
 %>
