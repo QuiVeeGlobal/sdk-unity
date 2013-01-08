@@ -156,7 +156,7 @@ public class RoarObjectFactory : Editor
 	
 	private static void _CreateRoarFriendsListWidgetObject()
 	{
-		GameObject go = RoarObjectFactory.CreateGameObjectInScene("RoarShopWidget");
+		GameObject go = RoarObjectFactory.CreateGameObjectInScene("RoarFriendsWidget");
 		go.AddComponent<RoarFriendsListWidget>();
 	
 		DefaultRoar defaultRoar = GameObject.FindObjectOfType(typeof(DefaultRoar)) as DefaultRoar;
