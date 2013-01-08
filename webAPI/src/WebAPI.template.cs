@@ -83,10 +83,11 @@ public class WebAPI : IWebAPI
      var response  = "Roar.WebObjects."+underscoreToCamel(m.name)+"."+underscoreToCamel(f.name)+"Response"
      url = f.url ? f.url : (m.name+"/"+f.name);
      obj = f.obj ? f.obj : "obj";
+     var requires_auth = ("requires_auth" in f) ? f.requires_auth : true;
      var converter = f.name + "_response_parser";
 %>		public void <%= fix_reserved_word(f.name) %>( <%= arg %> args, ZWebAPI.Callback<<%= response %>> cb)
 		{
-			api.MakeCall ("<%= url %>", args.ToHashtable(), new CallbackBridge<<%= response %>>(cb, <%= converter %>));
+			api.MakeCall ("<%= url %>", args.ToHashtable(), new CallbackBridge<<%= response %>>(cb, <%= converter %>), <%= requires_auth ? "true":"false" %>);
 		}
 
 <% } ) %>	}

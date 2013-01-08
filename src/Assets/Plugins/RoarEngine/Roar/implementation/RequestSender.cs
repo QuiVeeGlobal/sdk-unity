@@ -20,12 +20,30 @@ public class RequestSender : IRequestSender
 		this.logger = logger;
 	}
 		
-	public void MakeCall( string apicall, Hashtable args, IRequestCallback cb )
+	public void MakeCall( string apicall, Hashtable args, IRequestCallback cb, bool requires_auth_token )
 	{
-		unityObject.DoCoroutine( SendCore( apicall, args, cb ) );
+		unityObject.DoCoroutine( SendCore( apicall, args, cb, requires_auth_token ) );
+	}
+
+	protected void AddAuthToken( Hashtable args, WWWForm post )
+	{
+		// Note: we dont add it here if it is in args
+		// as it will be added automatically by the addition of the args
+		// This means that uses can override the auth_token at the
+		// lowest level if they want to.
+		if( args!=null && args.ContainsKey("auth_token") ) return;
+
+		if( RoarAuthToken == null || RoarAuthToken == "" )
+		{
+			//TODO: Ugly that this is a System.Exception, and not some derived class.
+			throw new System.Exception("No auth_token provided - you must be logged in to make this call." );
+		}
+
+		// Add the auth_token to the POST
+		post.AddField( "auth_token", RoarAuthToken );
 	}
 	
-	protected IEnumerator SendCore( string apicall, Hashtable args, IRequestCallback cb )
+	protected IEnumerator SendCore( string apicall, Hashtable args, IRequestCallback cb, bool requires_auth_token )
 	{
 		if ( GameKey == "")
 		{
@@ -45,8 +63,11 @@ public class RequestSender : IRequestSender
 				post.AddField( param.Key as string, param.Value as string );
 			}
 		}
-		// Add the auth_token to the POST
-		post.AddField( "auth_token", RoarAuthToken );
+
+		if( requires_auth_token )
+		{
+			AddAuthToken(args,post);
+		}
 		
 		// Fire call sending event
 		RoarManager.OnRoarNetworkStart();
@@ -54,6 +75,12 @@ public class RequestSender : IRequestSender
 		//Debug.Log ( "roar_api_url = " + RoarAPIUrl );
 		if (Debug.isDebugBuild)
 			Debug.Log ( "Requesting : " + RoarAPIUrl+GameKey+"/"+apicall+"/" );
+		
+		//NOTE: This is a work-around for unity not supporting zero length body for POST requests
+		if ( post.data.Length == 0 )
+		{
+			post.AddField("dummy","x");
+		}
 		
 		var xhr = new WWW( RoarAPIUrl+GameKey+"/"+apicall+"/", post);
 		yield return xhr;
@@ -76,7 +103,7 @@ public class RequestSender : IRequestSender
 		
 		// -- Parse the Roar response
 		// Unexpected server response 
-		if (raw[0] != '<')
+		if ( raw==null || raw.Length==0 || raw[0] != '<')
 		{
 			// Error: fire the error callback
 			IXMLNode errorXml = IXMLNodeFactory.instance.Create("error", raw);

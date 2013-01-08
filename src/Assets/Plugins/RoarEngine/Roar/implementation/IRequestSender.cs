@@ -47,6 +47,6 @@ public interface IRequestCallback
 
 public interface IRequestSender
 {
-	void MakeCall (string apicall, Hashtable args, IRequestCallback cb);
+	void MakeCall (string apicall, Hashtable args, IRequestCallback cb, bool requires_auth_token);
 }
 
