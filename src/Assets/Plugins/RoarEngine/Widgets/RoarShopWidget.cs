@@ -26,6 +26,8 @@ public class RoarShopWidget : RoarUIWidget
 	private Roar.Components.IShop shop;
 	private IList<ShopEntry> shopEntries;
 	
+	private IList<string> errorMessages = new List<string>();
+	
 	protected override void OnEnable ()
 	{
 		if (IsLoggedIn)
@@ -59,37 +61,27 @@ public class RoarShopWidget : RoarUIWidget
 		shop.Fetch(OnRoarFetchShopComplete);
 	}
 	
+	void CalculateScrollBounds()
+	{
+		ScrollViewContentWidth = shopItemBounds.width;
+		ScrollViewContentHeight = Mathf.Max(contentBounds.height, (shopEntries.Count + errorMessages.Count) * (shopItemBounds.height + shopItemSpacing));
+	}
+	
 	void OnRoarFetchShopComplete(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.ShopEntry> > info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;
 		shopEntries = shop.List();
+		errorMessages = new List<string>();
 		
 		if( info.code!=IWebAPI.OK)
 		{
 			Debug.Log ( string.Format("Error loading shop:{0}:{1}", info.code, info.msg) );
+			FlashError( info.msg ); //This updates the scroll bounds.
 			return;
 		}
-		
-		int cnt = 0;
-		
-		Debug.Log("======================================");
-		foreach ( KeyValuePair<string,Roar.DomainObjects.ShopEntry> item in info.data)
-		{
-			Debug.Log( string.Format("{0}:{1}:{2}", cnt, item.Key, item.Value.label) );
-			if( item.Value.costs.Count == 1)
-			{
-				Roar.DomainObjects.Costs.Stat stat_cost = item.Value.costs[0] as Roar.DomainObjects.Costs.Stat;
-				if( stat_cost != null )
-				{
-					Debug.Log ( string.Format ("Costs {0} {1} ({2} {3})", stat_cost.value, stat_cost.ikey, stat_cost.ok, stat_cost.reason ) );
-				}
-			}
-		}
-		Debug.Log("======================================");
-		
-		ScrollViewContentWidth = shopItemBounds.width;
-		ScrollViewContentHeight = Mathf.Max(contentBounds.height, shopEntries.Count * (shopItemBounds.height + shopItemSpacing));
+
+		CalculateScrollBounds();
 	}
 	
 	protected override void DrawGUI(int windowId)
@@ -100,8 +92,16 @@ public class RoarShopWidget : RoarUIWidget
 			GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Fetching shop data...", "StatusNormal");
 		}
 		else
-		{			
+		{
+			//TODO: Dont use same rect for errors and items
 			Rect itemRect = shopItemBounds;
+
+			foreach( string e in errorMessages )
+			{
+				GUI.Label ( itemRect, e );
+				itemRect.y += itemRect.height + shopItemSpacing;
+			}
+			
 			foreach (ShopEntry item in shopEntries)
 			{
 				GUI.Label(itemRect, item.label, shopItemLabelStyle);
@@ -140,7 +140,7 @@ public class RoarShopWidget : RoarUIWidget
 					{
 						OnItemBuyRequest(item);
 					}
-					shop.Buy( item.ikey, null );
+					shop.Buy( item.ikey, OnBuyComplete );
 				}
 				GUI.enabled = true;
 				GUI.EndGroup();
@@ -148,5 +148,19 @@ public class RoarShopWidget : RoarUIWidget
 				itemRect.y += itemRect.height + shopItemSpacing;
 			}
 		}
+	}
+	
+	protected void OnBuyComplete( CallbackInfo<Roar.WebObjects.Shop.BuyResponse> response )
+	{
+		if( response.code!=WebAPI.OK )
+		{
+			FlashError( response.msg );
+		}
+	}
+	
+	protected void FlashError( string mesg )
+	{
+		errorMessages.Add( mesg );
+		CalculateScrollBounds();
 	}
 }
