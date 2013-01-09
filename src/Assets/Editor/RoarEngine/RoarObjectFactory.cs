@@ -165,6 +165,34 @@ public class RoarObjectFactory : Editor
 		Selection.activeGameObject = go;
 	}
 	
+	[MenuItem("GameObject/Create Other/Roar/Inventory Widget", false, 2006)]
+	public static void CreateRoarInventoryWidgetObject()
+	{
+		if (!ExistingComponentTypeExists(typeof(DefaultRoar)))
+		{
+			if (EditorUtility.DisplayDialog("Sorry!", "A DefaultRoar system component cannot be found in this scene. Add one now?", "OK", "Later"))
+			{
+				CreateRoarSceneObject();
+				_CreateRoarInventoryWidgetObject();
+			}
+		}
+		else
+		{
+			_CreateRoarInventoryWidgetObject();
+		}
+	}
+	
+	private static void _CreateRoarInventoryWidgetObject()
+	{
+		GameObject go = RoarObjectFactory.CreateGameObjectInScene("RoarInventoryWidget");
+		go.AddComponent<RoarInventoryWidget>();
+	
+		DefaultRoar defaultRoar = GameObject.FindObjectOfType(typeof(DefaultRoar)) as DefaultRoar;
+		go.transform.parent = defaultRoar.transform;		
+		
+		Selection.activeGameObject = go;
+	}
+	
 	public static bool ExistingComponentTypeExists(System.Type type)
 	{
 		Component c = FindObjectOfType(type) as Component;
