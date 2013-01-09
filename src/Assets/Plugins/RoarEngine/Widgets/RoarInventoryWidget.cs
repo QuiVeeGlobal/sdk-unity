@@ -38,12 +38,11 @@ public class RoarInventoryWidget : RoarUIWidget
 		//TODO: Fixup the hardcoded dimensions here!
 		Rect rect = new Rect(0,0,ContentWidth, 32);
 		GUI.Label ( rect, string.Format("Contains {0} items", items.Count) );
-		rect.y += 32;
-
+		rect.y += rowHeight;
 		foreach( Roar.DomainObjects.InventoryItem item in items )
 		{
 			GUI.Label ( rect, item.label);
-			rect.y += 32;
+			rect.y += rowHeight;
 		}
 	}
 	

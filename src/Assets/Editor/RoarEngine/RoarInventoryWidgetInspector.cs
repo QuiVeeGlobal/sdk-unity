@@ -15,6 +15,7 @@ public class RoarInventoryWidgetInspector : RoarUIWidgetInspector
 	private SerializedProperty inventoryMaxLabelWidth;
 	private SerializedProperty inventoryMaxDescriptionWidth;
 	private SerializedProperty inventoryMaxTypeWidth;
+	private SerializedProperty inventoryRowHeight;
 	
 	protected override void OnEnable ()
 	{
@@ -30,6 +31,7 @@ public class RoarInventoryWidgetInspector : RoarUIWidgetInspector
 		inventoryMaxLabelWidth = serializedObject.FindProperty("maxLabelWidth");
 		inventoryMaxDescriptionWidth = serializedObject.FindProperty("maxDescriptionFormatWidth");
 		inventoryMaxTypeWidth = serializedObject.FindProperty("maxTypeWidth");
+		inventoryRowHeight = serializedObject.FindProperty("rowHeight");
 	}
 	
 	protected override void DrawGUI()
@@ -51,5 +53,6 @@ public class RoarInventoryWidgetInspector : RoarUIWidgetInspector
 		EditorGUILayout.PropertyField(inventoryMaxLabelWidth);
 		EditorGUILayout.PropertyField(inventoryMaxDescriptionWidth);
 		EditorGUILayout.PropertyField(inventoryMaxTypeWidth);
+		EditorGUILayout.PropertyField(inventoryRowHeight);
 	}
 }
