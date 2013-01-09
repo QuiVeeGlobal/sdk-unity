@@ -109,20 +109,16 @@ namespace Roar.implementation.Components
 			args.receipt = receiptId;
 			args.sandbox = isSandbox;
 
-			actions.buy (args, new OnReceiptValidation (callback, this, receiptId));
+			actions.buy (args, new OnReceiptValidation (this));
 		}
 
 		class OnReceiptValidation : ZWebAPI.Callback<WebObjects.Appstore.BuyResponse>
 		{
 			InAppPurchase appstore;
-			string receiptId;
-			Roar.Callback<WebObjects.Appstore.BuyResponse> cb;
 
-			public OnReceiptValidation (Roar.Callback<WebObjects.Appstore.BuyResponse> in_cb, InAppPurchase in_appstore, string in_receiptId) 
+			public OnReceiptValidation (InAppPurchase in_appstore)
 			{
 				appstore = in_appstore;
-				receiptId = in_receiptId;
-				cb = in_cb;
 			}
 
 			public void OnSuccess (CallbackInfo<WebObjects.Appstore.BuyResponse> info)
