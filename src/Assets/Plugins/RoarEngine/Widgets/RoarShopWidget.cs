@@ -22,6 +22,7 @@ public class RoarShopWidget : RoarUIWidget
 	public float shopItemSpacing = 12;
 	
 	private bool isFetching;
+	private bool isBuying = false;
 	private float whenLastFetched;
 	private Roar.Components.IShop shop;
 	private IList<ShopEntry> shopEntries;
@@ -142,7 +143,7 @@ public class RoarShopWidget : RoarUIWidget
 					if( ! cost.ok ) { can_buy = false; break; }
 				}
 
-				GUI.enabled = can_buy;
+				GUI.enabled = can_buy && !isBuying;
 				
 				if (GUI.Button(buyButtonBounds, "Buy", shopItemBuyButtonStyle))
 				{
@@ -154,6 +155,7 @@ public class RoarShopWidget : RoarUIWidget
 					{
 						OnItemBuyRequest(item);
 					}
+					isBuying = true;
 					shop.Buy( item.ikey, OnBuyComplete );
 				}
 				GUI.enabled = true;
@@ -166,6 +168,7 @@ public class RoarShopWidget : RoarUIWidget
 	
 	protected void OnBuyComplete( CallbackInfo<Roar.WebObjects.Shop.BuyResponse> response )
 	{
+		isBuying = false;
 		if( response.code!=WebAPI.OK )
 		{
 			FlashError( response.msg );
