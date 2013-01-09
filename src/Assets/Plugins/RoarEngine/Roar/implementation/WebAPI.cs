@@ -706,7 +706,7 @@ public class WebAPI : IWebAPI
 
 		public void create( Roar.WebObjects.User.CreateArguments args, ZWebAPI.Callback<Roar.WebObjects.User.CreateResponse> cb)
 		{
-			api.MakeCall ("user/create", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.User.CreateResponse>(cb, create_response_parser), true);
+			api.MakeCall ("user/create", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.User.CreateResponse>(cb, create_response_parser), false);
 		}
 
 		public void login( Roar.WebObjects.User.LoginArguments args, ZWebAPI.Callback<Roar.WebObjects.User.LoginResponse> cb)

@@ -615,6 +615,7 @@
             ] },
           {
             "name":"create",
+            "requires_auth":false,
             "arguments":[
               {"name":"name","type":"string"},
               {"name":"hash","type":"string"}
