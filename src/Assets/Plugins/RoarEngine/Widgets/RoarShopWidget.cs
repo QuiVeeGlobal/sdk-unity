@@ -125,6 +125,20 @@ public class RoarShopWidget : RoarUIWidget
 				bool can_buy = true;
 				foreach( Roar.DomainObjects.Cost cost in item.costs)
 				{
+					// If its a stat cost we should check against the current value of the players stat rather than trusting the 
+					// cached value from the shop.
+					Roar.DomainObjects.Costs.Stat stat_cost = cost as Roar.DomainObjects.Costs.Stat;
+					if( stat_cost != null )
+					{
+						string v = roar.Properties.GetValue( stat_cost.ikey );
+						int vv;
+						//If we can't get the info we need, we'll need to rely on the value from the shop.
+						if( v!=null && System.Int32.TryParse(v, out vv ) )
+						{
+							if( vv < stat_cost.value ) { can_buy = false; break; }
+							continue;
+						}
+					}
 					if( ! cost.ok ) { can_buy = false; break; }
 				}
 
