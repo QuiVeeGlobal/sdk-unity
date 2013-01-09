@@ -39,7 +39,7 @@ namespace Roar.implementation.Components
 			return (x!=null)?x.value:null;
 		}
 
-		protected void OnUpdate (IXMLNode update)
+		protected void OnUpdate (Events.UpdateEvent update)
 		{
 			//Since you can get change events from login calls, when the Properties object is not yet setup we need to be careful here:
 			if (! HasDataFromServer)
@@ -47,9 +47,9 @@ namespace Roar.implementation.Components
 
 			//var d = event['data'] as Hashtable;
 
-			DomainObjects.PlayerAttribute v = GetProperty (update.GetAttribute ("ikey"));
+			DomainObjects.PlayerAttribute v = GetProperty (update.ikey);
 			if (v != null) {
-				v.value = update.GetAttribute ("value");
+				v.value = update.val;
 				dataStore.properties.AddOrUpdate(v.ikey,v); // This is only really needed to generate the change event.
 			}
 		}

@@ -218,8 +218,8 @@ public class RoarManager
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
 	 */
-	public static event Action<IXMLNode> roarServerUpdateEvent;
-	public static void OnRoarServerUpdate( IXMLNode info ) { if(roarServerUpdateEvent!=null) roarServerUpdateEvent(info); }
+	public static event Action<Roar.Events.UpdateEvent> roarServerUpdateEvent;
+	public static void OnRoarServerUpdate( Roar.Events.UpdateEvent info ) { if(roarServerUpdateEvent!=null) roarServerUpdateEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -227,8 +227,8 @@ public class RoarManager
 	 * 
 	 *     <item_use item_id="1234">
 	 */
-	public static event Action<IXMLNode> roarServerItemUseEvent;
-	public static void OnRoarServerItemUse( IXMLNode info ) { if(roarServerItemUseEvent!=null) roarServerItemUseEvent(info); }
+	public static event Action<Roar.Events.ItemUseEvent> roarServerItemUseEvent;
+	public static void OnRoarServerItemUse( Roar.Events.ItemUseEvent info ) { if(roarServerItemUseEvent!=null) roarServerItemUseEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -236,23 +236,23 @@ public class RoarManager
 	 * 
 	 *     <item_lose item_id="1234" item_ikey="somthing"/>
 	 */
-	public static event Action<IXMLNode> roarServerItemLoseEvent;
-	public static void OnRoarServerItemLose( IXMLNode info ) { if(roarServerItemLoseEvent!=null) roarServerItemLoseEvent(info); }
+	public static event Action<Roar.Events.ItemLoseEvent> roarServerItemLoseEvent;
+	public static void OnRoarServerItemLose( Roar.Events.ItemLoseEvent info ) { if(roarServerItemLoseEvent!=null) roarServerItemLoseEvent(info); }
 
 	/**
 	 * common.php says there is no info in this xml so probably dont need to parse it.
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
 	 */
-	public static event Action<IXMLNode> roarServerInventoryChangedEvent;
-	public static void OnRoarServerInventoryChanged( IXMLNode info ) { if(roarServerInventoryChangedEvent!=null) roarServerInventoryChangedEvent(info); }
+	public static event Action<Roar.Events.InventoryChangedEvent> roarServerInventoryChangedEvent;
+	public static void OnRoarServerInventoryChanged( Roar.Events.InventoryChangedEvent info ) { if(roarServerInventoryChangedEvent!=null) roarServerInventoryChangedEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
 	 */
-	public static event Action<IXMLNode> roarServerRegenEvent;
-	public static void OnRoarServerRegen( IXMLNode info ) { if(roarServerRegenEvent!=null) roarServerRegenEvent(info); }
+	public static event Action<Roar.Events.RegenEvent> roarServerRegenEvent;
+	public static void OnRoarServerRegen( Roar.Events.RegenEvent info ) { if(roarServerRegenEvent!=null) roarServerRegenEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here
@@ -260,22 +260,22 @@ public class RoarManager
 	 * 
 	 *     <item_add item_id="1234" item_ikey="somthing"/>
 	 */
-	public static event Action<IXMLNode> roarServerItemAddEvent;
-	public static void OnRoarServerItemAdd( IXMLNode info ) { if(roarServerItemAddEvent!=null) roarServerItemAddEvent(info); }
+	public static event Action<Roar.Events.ItemAddEvent> roarServerItemAddEvent;
+	public static void OnRoarServerItemAdd( Roar.Events.ItemAddEvent info ) { if(roarServerItemAddEvent!=null) roarServerItemAddEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
 	 */
-	public static event Action<IXMLNode> roarServerTaskCompleteEvent;
-	public static void OnRoarServerTaskComplete( IXMLNode info ) { if(roarServerTaskCompleteEvent!=null) roarServerTaskCompleteEvent(info); }
+	public static event Action<Roar.Events.TaskCompleteEvent> roarServerTaskCompleteEvent;
+	public static void OnRoarServerTaskComplete( Roar.Events.TaskCompleteEvent info ) { if(roarServerTaskCompleteEvent!=null) roarServerTaskCompleteEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
 	 */
-	public static event Action<Roar.DomainObjects.Achievement> roarServerAchievementCompleteEvent;
-	public static void OnRoarServerAchievementComplete( Roar.DomainObjects.Achievement info ) { if(roarServerAchievementCompleteEvent!=null) roarServerAchievementCompleteEvent(info); }
+	public static event Action<Roar.Events.AchievementCompleteEvent> roarServerAchievementCompleteEvent;
+	public static void OnRoarServerAchievementComplete( Roar.Events.AchievementCompleteEvent info ) { if(roarServerAchievementCompleteEvent!=null) roarServerAchievementCompleteEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -283,8 +283,8 @@ public class RoarManager
 	 * 
 	 *     <level_up value="5" />
 	 */
-	public static event Action<IXMLNode> roarServerLevelUpEvent;
-	public static void OnRoarServerLevelUp( IXMLNode info ) { if(roarServerLevelUpEvent!=null) roarServerLevelUpEvent(info); }
+	public static event Action<Roar.Events.LevelUpEvent> roarServerLevelUpEvent;
+	public static void OnRoarServerLevelUp( Roar.Events.LevelUpEvent info ) { if(roarServerLevelUpEvent!=null) roarServerLevelUpEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -292,8 +292,8 @@ public class RoarManager
 	 * 
 	 *     <collect_changed ikey="health" next="12313231" />
 	 */
-	public static event Action<IXMLNode> roarServerCollectChangedEvent;
-	public static void OnRoarServerCollectChanged( IXMLNode info ) { if(roarServerCollectChangedEvent!=null) roarServerCollectChangedEvent(info); }
+	public static event Action<Roar.Events.CollectChangedEvent> roarServerCollectChangedEvent;
+	public static void OnRoarServerCollectChanged( Roar.Events.CollectChangedEvent info ) { if(roarServerCollectChangedEvent!=null) roarServerCollectChangedEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -301,8 +301,8 @@ public class RoarManager
 	 * 
 	 *     <invite_accepted name="Lex Luthor" player_id="12313231" level="123" />
 	 */
-	public static event Action<IXMLNode> roarServerInviteAcceptedEvent;
-	public static void OnRoarServerInviteAccepted( IXMLNode info ) { if(roarServerInviteAcceptedEvent!=null) roarServerInviteAcceptedEvent(info); }
+	public static event Action<Roar.Events.InviteAcceptedEvent> roarServerInviteAcceptedEvent;
+	public static void OnRoarServerInviteAccepted( Roar.Events.InviteAcceptedEvent info ) { if(roarServerInviteAcceptedEvent!=null) roarServerInviteAcceptedEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -310,8 +310,8 @@ public class RoarManager
 	 * 
 	 *     <friend_request name="Lex Luthor" from_player_id="12313231" level="123" />
 	 */
-	public static event Action<IXMLNode> roarServerFriendRequestEvent;
-	public static void OnRoarServerFriendRequest( IXMLNode info ) { if(roarServerFriendRequestEvent!=null) roarServerFriendRequestEvent(info); }
+	public static event Action<Roar.Events.FriendRequestEvent> roarServerFriendRequestEvent;
+	public static void OnRoarServerFriendRequest( Roar.Events.FriendRequestEvent info ) { if(roarServerFriendRequestEvent!=null) roarServerFriendRequestEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -319,8 +319,8 @@ public class RoarManager
 	 * 
 	 *     <transaction ikey="diamonds" value="120" /> 
 	 */
-	public static event Action<IXMLNode> roarServerTransactionEvent;
-	public static void OnRoarServerTransaction( IXMLNode info ) { if(roarServerTransactionEvent!=null) roarServerTransactionEvent(info); }
+	public static event Action<Roar.Events.TransactionEvent> roarServerTransactionEvent;
+	public static void OnRoarServerTransaction( Roar.Events.TransactionEvent info ) { if(roarServerTransactionEvent!=null) roarServerTransactionEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -328,8 +328,8 @@ public class RoarManager
 	 * 
 	 *     <mail_in/>
 	 */
-	public static event Action<IXMLNode> roarServerMailInEvent;
-	public static void OnRoarServerMailIn( IXMLNode info ) { if(roarServerMailInEvent!=null) roarServerMailInEvent(info); }
+	public static event Action<Roar.Events.MailInEvent> roarServerMailInEvent;
+	public static void OnRoarServerMailIn( Roar.Events.MailInEvent info ) { if(roarServerMailInEvent!=null) roarServerMailInEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -337,8 +337,8 @@ public class RoarManager
 	 * 
 	 *     <equip item_id="1234"/>
 	 */
-	public static event Action<IXMLNode> roarServerEquipEvent;
-	public static void OnRoarServerEquip( IXMLNode info ) { if(roarServerEquipEvent!=null) roarServerEquipEvent(info); }
+	public static event Action<Roar.Events.EquipEvent> roarServerEquipEvent;
+	public static void OnRoarServerEquip( Roar.Events.EquipEvent info ) { if(roarServerEquipEvent!=null) roarServerEquipEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -346,8 +346,8 @@ public class RoarManager
 	 * 
 	 *     <unequip item_id="1234"/>
 	 */
-	public static event Action<IXMLNode> roarServerUnequipEvent;
-	public static void OnRoarServerUnequip( IXMLNode info ) { if(roarServerUnequipEvent!=null) roarServerUnequipEvent(info); }
+	public static event Action<Roar.Events.UnequipEvent> roarServerUnequipEvent;
+	public static void OnRoarServerUnequip( Roar.Events.UnequipEvent info ) { if(roarServerUnequipEvent!=null) roarServerUnequipEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -359,8 +359,8 @@ public class RoarManager
 	 * 
 	 *     <script key="abc" value="blah"/>
 	 */
-	public static event Action<IXMLNode> roarServerScriptEvent;
-	public static void OnRoarServerScript( IXMLNode info ) { if(roarServerScriptEvent!=null) roarServerScriptEvent(info); }
+	public static event Action<Roar.Events.ScriptEvent> roarServerScriptEvent;
+	public static void OnRoarServerScript( Roar.Events.ScriptEvent info ) { if(roarServerScriptEvent!=null) roarServerScriptEvent(info); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -371,8 +371,8 @@ public class RoarManager
 	 *       ...
 	 *     </chrome_web_store>
 	 */
-	public static event Action<IXMLNode> roarServerChromeWebStoreEvent;
-	public static void OnRoarServerChromeWebStore( IXMLNode info ) { if(roarServerChromeWebStoreEvent!=null) roarServerChromeWebStoreEvent(info); }
+	public static event Action<Roar.Events.ChromeWebStoreEvent> roarServerChromeWebStoreEvent;
+	public static void OnRoarServerChromeWebStore( Roar.Events.ChromeWebStoreEvent info ) { if(roarServerChromeWebStoreEvent!=null) roarServerChromeWebStoreEvent(info); }
 
 
   	/**
@@ -386,58 +386,58 @@ public class RoarManager
 		switch(key)
 		{
 			case "update":
-				OnRoarServerUpdate(info);
+				OnRoarServerUpdate(Roar.Events.UpdateEvent.CreateFromXml(info));
 				break;
 			case "item_use":
-				OnRoarServerItemUse(info);
+				OnRoarServerItemUse(Roar.Events.ItemUseEvent.CreateFromXml(info));
 				break;
 			case "item_lose":
-				OnRoarServerItemLose(info);
+				OnRoarServerItemLose(Roar.Events.ItemLoseEvent.CreateFromXml(info));
 				break;
 			case "inventory_changed":
-				OnRoarServerInventoryChanged(info);
+				OnRoarServerInventoryChanged(Roar.Events.InventoryChangedEvent.CreateFromXml(info));
 				break;
 			case "regen":
-				OnRoarServerRegen(info);
+				OnRoarServerRegen(Roar.Events.RegenEvent.CreateFromXml(info));
 				break;
 			case "item_add":
-				OnRoarServerItemAdd(info);
+				OnRoarServerItemAdd(Roar.Events.ItemAddEvent.CreateFromXml(info));
 				break;
 			case "task_complete":
-				OnRoarServerTaskComplete(info);
+				OnRoarServerTaskComplete(Roar.Events.TaskCompleteEvent.CreateFromXml(info));
 				break;
 			case "achievement_complete":
-				OnRoarServerAchievementComplete(Roar.DomainObjects.Achievement.CreateFromXml(info));
+				OnRoarServerAchievementComplete(Roar.Events.AchievementCompleteEvent.CreateFromXml(info));
 				break;
 			case "level_up":
-				OnRoarServerLevelUp(info);
+				OnRoarServerLevelUp(Roar.Events.LevelUpEvent.CreateFromXml(info));
 				break;
 			case "collect_changed":
-				OnRoarServerCollectChanged(info);
+				OnRoarServerCollectChanged(Roar.Events.CollectChangedEvent.CreateFromXml(info));
 				break;
 			case "invite_accepted":
-				OnRoarServerInviteAccepted(info);
+				OnRoarServerInviteAccepted(Roar.Events.InviteAcceptedEvent.CreateFromXml(info));
 				break;
 			case "friend_request":
-				OnRoarServerFriendRequest(info);
+				OnRoarServerFriendRequest(Roar.Events.FriendRequestEvent.CreateFromXml(info));
 				break;
 			case "transaction":
-				OnRoarServerTransaction(info);
+				OnRoarServerTransaction(Roar.Events.TransactionEvent.CreateFromXml(info));
 				break;
 			case "mail_in":
-				OnRoarServerMailIn(info);
+				OnRoarServerMailIn(Roar.Events.MailInEvent.CreateFromXml(info));
 				break;
 			case "equip":
-				OnRoarServerEquip(info);
+				OnRoarServerEquip(Roar.Events.EquipEvent.CreateFromXml(info));
 				break;
 			case "unequip":
-				OnRoarServerUnequip(info);
+				OnRoarServerUnequip(Roar.Events.UnequipEvent.CreateFromXml(info));
 				break;
 			case "script":
-				OnRoarServerScript(info);
+				OnRoarServerScript(Roar.Events.ScriptEvent.CreateFromXml(info));
 				break;
 			case "chrome_web_store":
-				OnRoarServerChromeWebStore(info);
+				OnRoarServerChromeWebStore(Roar.Events.ChromeWebStoreEvent.CreateFromXml(info));
 				break;
 
 			default:

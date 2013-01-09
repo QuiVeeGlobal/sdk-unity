@@ -243,7 +243,7 @@ namespace Roar.implementation.Components
 			return dataStore.inventory.Get (id);
 		}
 
-		protected void OnServerItemAdd (IXMLNode d)
+		protected void OnServerItemAdd (Events.ItemAddEvent d)
 		{
 			// Only add to inventory if it Has previously been intialised
 			if (HasDataFromServer) {
@@ -251,8 +251,8 @@ namespace Roar.implementation.Components
 				//TODO: Implement this!
 				
 				DomainObjects.InventoryItem item = new DomainObjects.InventoryItem();
-				item.id = d.GetAttribute ("item_id");
-				item.ikey = d.GetAttribute ("item_ikey");
+				item.id = d.item_id;
+				item.ikey = d.item_ikey;
 				
 
 				if ( ! dataStore.cache.List ().Any( i => (i.ikey == item.ikey) ) )

@@ -71,7 +71,7 @@
           "@todo Ugly to be using a hash here.",
           "@todo Implement more server update functions."
             ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.UpdateEvent","name":"info"}],
         "server_name":"update"
       },
       { "name":"roarServerItemUse",
@@ -81,7 +81,7 @@
           "",
           "    <item_use item_id=\"1234\">"
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.ItemUseEvent","name":"info"}],
         "server_name":"item_use"
       },
       { "name":"roarServerItemLose",
@@ -91,7 +91,7 @@
           "",
           "    <item_lose item_id=\"1234\" item_ikey=\"somthing\"/>"
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.ItemLoseEvent","name":"info"}],
         "server_name":"item_lose"
       },
       { "name":"roarServerInventoryChanged",
@@ -100,7 +100,7 @@
           "@todo Ugly to be using a hash here.",
           "@todo Implement more server update functions."
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.InventoryChangedEvent","name":"info"}],
         "server_name":"inventory_changed"
       },
       { "name":"roarServerRegen",
@@ -108,7 +108,7 @@
            "@todo Ugly to be using a hash here.",
            "@todo Implement more server update functions."
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.RegenEvent","name":"info"}],
         "server_name":"regen"
       },
       { "name":"roarServerItemAdd",
@@ -118,7 +118,7 @@
           "",
           "    <item_add item_id=\"1234\" item_ikey=\"somthing\"/>"
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.ItemAddEvent","name":"info"}],
         "server_name":"item_add"
       },
       { "name":"roarServerTaskComplete",
@@ -126,7 +126,7 @@
           "@todo Ugly to be using a hash here.",
           "@todo Implement more server update functions."
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.TaskCompleteEvent","name":"info"}],
         "server_name":"task_complete"
       },
       { "name":"roarServerAchievementComplete",
@@ -134,7 +134,7 @@
           "@todo Ugly to be using a hash here.",
           "@todo Implement more server update functions."
         ],
-        "args":[{"type":"Roar.DomainObjects.Achievement","name":"info"}],
+        "args":[{"type":"Roar.Events.AchievementCompleteEvent","name":"info"}],
         "server_name":"achievement_complete"
       },
       { "name":"roarServerLevelUp",
@@ -144,7 +144,7 @@
           "",
           "    <level_up value=\"5\" />"
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.LevelUpEvent","name":"info"}],
         "server_name":"level_up"
       },
       { "name":"roarServerCollectChanged",
@@ -154,7 +154,7 @@
           "",
           "    <collect_changed ikey=\"health\" next=\"12313231\" />"
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.CollectChangedEvent","name":"info"}],
         "server_name":"collect_changed"
       },
       { "name":"roarServerInviteAccepted",
@@ -164,7 +164,7 @@
           "",
           "    <invite_accepted name=\"Lex Luthor\" player_id=\"12313231\" level=\"123\" />"
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.InviteAcceptedEvent","name":"info"}],
         "server_name":"invite_accepted"
       },
       { "name":"roarServerFriendRequest",
@@ -174,7 +174,7 @@
           "",
           "    <friend_request name=\"Lex Luthor\" from_player_id=\"12313231\" level=\"123\" />"
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.FriendRequestEvent","name":"info"}],
         "server_name":"friend_request"
       },
       { "name":"roarServerTransaction",
@@ -184,7 +184,7 @@
           "",
           "    <transaction ikey=\"diamonds\" value=\"120\" /> "
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.TransactionEvent","name":"info"}],
         "server_name":"transaction"
       },
       { "name":"roarServerMailIn",
@@ -194,7 +194,7 @@
           "",
           "    <mail_in/>"
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.MailInEvent","name":"info"}],
         "server_name":"mail_in"
       },
       { "name":"roarServerEquip",
@@ -204,7 +204,7 @@
           "",
           "    <equip item_id=\"1234\"/>"
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.EquipEvent","name":"info"}],
         "server_name":"equip"
       },
       { "name":"roarServerUnequip",
@@ -214,7 +214,7 @@
           "",
           "    <unequip item_id=\"1234\"/>"
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.UnequipEvent","name":"info"}],
         "server_name":"unequip"
       },
       { "name":"roarServerScript",
@@ -228,7 +228,7 @@
           "",
           "    <script key=\"abc\" value=\"blah\"/>"
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.ScriptEvent","name":"info"}],
         "server_name":"script"
       },
       { "name":"roarServerChromeWebStore",
@@ -241,7 +241,7 @@
           "      ...",
           "    </chrome_web_store>"
         ],
-        "args":[{"type":"IXMLNode","name":"info"}],
+        "args":[{"type":"Roar.Events.ChromeWebStoreEvent","name":"info"}],
         "server_name":"chrome_web_store"
       }
     ],
