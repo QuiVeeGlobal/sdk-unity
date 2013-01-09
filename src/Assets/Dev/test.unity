@@ -74,86 +74,6 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
---- !u!1 &77706503
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 77706504}
-  - 114: {fileID: 77706505}
-  m_Layer: 0
-  m_Name: RoarInventoryWidget
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &77706504
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 77706503}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -11.7944164}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
---- !u!114 &77706505
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 77706503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 32e72dbc40584914aa9969948d513090, type: 3}
-  m_Name: 
-  bounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 512
-    height: 512
-  contentBounds:
-    serializedVersion: 2
-    x: 5
-    y: 5
-    width: 500
-    height: 500
-  skin: {fileID: 0}
-  depth: 0
-  apearance:
-    color: {r: 1, g: 1, b: 1, a: 1}
-    boundingStyle: WidgetBoundingStyle
-    boundingTitle: 
-    boundingImage: {fileID: 0}
-  windowInfo:
-    isWindowed: 0
-    supportsDragging: 0
-  horizontalAlignment: 3
-  verticalAlignment: 3
-  horizontalOffset: 0
-  verticalOffset: 0
-  useScrollView: 0
-  alwaysShowHorizontalScrollBar: 0
-  alwaysShowVerticalScrollBar: 0
-  autoEnableOnLogIn: 0
-  autoDisableOnLogout: 1
-  whenToFetch: 2
-  howOftenToFetch: 60
-  labelFormat: InventoryLabel
-  descriptionFormat: InventoryDescription
-  typeFormat: InventoryType
-  consumeButtonFormat: InventoryConsumeButton
-  showDescription: 1
-  showType: 1
-  allowSorting: 1
-  maxLabelWidth: 150
-  maxDescriptionFormatWidth: 350
-  maxTypeWidth: 100
 --- !u!1 &97676202
 GameObject:
   m_ObjectHideFlags: 0
@@ -1115,6 +1035,87 @@ MonoBehaviour:
     width: 96
     height: 32
   shopItemSpacing: 8
+--- !u!1 &828452760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 828452762}
+  - 114: {fileID: 828452761}
+  m_Layer: 0
+  m_Name: RoarInventoryWidget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &828452761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 828452760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eee19e2339f24f146becfc7b54c6da61, type: 3}
+  m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 512
+    height: 386
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
+  whenToFetch: 2
+  howOftenToFetch: 60
+  labelFormat: InventoryLabel
+  descriptionFormat: InventoryDescription
+  typeFormat: InventoryType
+  consumeButtonFormat: InventoryConsumeButton
+  showDescription: 1
+  showType: 1
+  allowSorting: 1
+  maxLabelWidth: 150
+  maxDescriptionFormatWidth: 350
+  maxTypeWidth: 100
+  rowHeight: 32
+--- !u!4 &828452762
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 828452760}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &834810405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1487,7 +1488,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1059046595}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.02987289, y: -3.85839558, z: .502860546}
+  m_LocalPosition: {x: -2.38495493, y: -3.85839558, z: .502860546}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2153,7 +2154,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1949122398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.0372257, y: -4.53567505, z: 26.3173485}
+  m_LocalPosition: {x: -16.3923111, y: -4.53567505, z: 26.3173485}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1076514028}
@@ -2165,9 +2166,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1949122398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b8450f36817bafb4bad492a631bf45d9, type: 3}
+  m_Script: {fileID: 11500000, guid: f8955924bf2769d46abaf63731161f9c, type: 3}
   m_Name: 
-  target: {fileID: 77706503}
+  target: {fileID: 828452760}
 --- !u!114 &1949122401
 MonoBehaviour:
   m_ObjectHideFlags: 0
