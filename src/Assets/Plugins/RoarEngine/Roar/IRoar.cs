@@ -193,6 +193,11 @@ public interface IRoar
    * the other functions in #IRoar .
    */
 	IWebAPI WebAPI { get; }
+	
+	/**
+	 * Core user functions.
+	 */
+	Roar.Components.IUser User { get; }
 
 	/**
    * Get access to the players properties and stats.
@@ -249,62 +254,6 @@ public interface IRoar
    */
 	string Version ();
 
-	/**
-   * Login a player.
-   *
-   * Requests an authentication token from the server for the player,
-   * which is used to validate subsequent requests.
-   *
-   * On success:
-   * - invokes callback with empty data parameter, success code and success message
-   * - fires a RoarManager#loggedInEvent
-   *
-   * On failure:
-   * - invokes callback with empty data parameter, error code and error message
-   * - fires a RoarManager#logInFailedEvent containing a failure message
-   *
-   * @param name the players username
-   * @param hash the players password
-   * @param cb the callback function to be passed the result of doLogin.
-   **/
-	void Login( string username, string password, Roar.Callback<Roar.WebObjects.User.LoginResponse> callback=null );
-
-	/**
-   * Logs out a user.
-   * Clears the authentication token for a user. Must re-login to authenticate.
-   *
-   * On success:
-   * - fires a RoarManager#loggedOutEvent
-   *
-   * On failure:
-   * - invokes callback with empty data parameter, error code and error message
-   *
-   * @param the callback function to be passed the result of doLoginFacebookOAuth.
-   **/
-	void Logout( Roar.Callback<Roar.WebObjects.User.LogoutResponse> callback=null );
-
-	/**
-   * Creates a new user with the given username and password, and logs
-   * that player in.
-   *
-   * On success:
-   * - fires a RoarManager#createdUserEvent
-   * - automatically calls doLogin()
-   *
-   * On failure:
-   * - invokes callback with empty data parameter, error code and error message
-   * - fires a RoarManager#createUserFailedEvent containing a failure message
-   *
-   * @param name the players username
-   * @param hash the players password
-   * @param cb the callback function to be passed the result of doCreate.
-   **/
-	void Create( string username, string password, Roar.Callback<Roar.WebObjects.User.CreateResponse> callback=null );
-
-	/**
-   * @todo Document me!
-   */
-	string WhoAmI ();
 }
 
 

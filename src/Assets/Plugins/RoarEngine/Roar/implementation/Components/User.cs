@@ -32,7 +32,7 @@ namespace Roar.implementation.Components
 		// ---- Access Methods ----
 		// ------------------------
 
-		public void DoLogin (string name, string hash, Roar.Callback<WebObjects.User.LoginResponse> cb)
+		public void Login (string name, string hash, Roar.Callback<WebObjects.User.LoginResponse> cb)
 		{
 			if (name == "" || hash == "") {
 				logger.DebugLog ("[roar] -- Must specify username and password for login");
@@ -68,7 +68,7 @@ namespace Roar.implementation.Components
 		}
 
 
-		public void DoLogout (Roar.Callback<WebObjects.User.LogoutResponse> cb)
+		public void Logout (Roar.Callback<WebObjects.User.LogoutResponse> cb)
 		{
 			WebObjects.User.LogoutArguments args = new Roar.WebObjects.User.LogoutArguments();
 			userActions.logout (args, new LogoutCallback (cb, this));
@@ -92,7 +92,7 @@ namespace Roar.implementation.Components
 		};
 
 
-		public void DoCreate (string name, string hash, Roar.Callback<WebObjects.User.CreateResponse> cb)
+		public void Create (string name, string hash, Roar.Callback<WebObjects.User.CreateResponse> cb)
 		{
 			if (name == "" || hash == "") {
 				logger.DebugLog ("[roar] -- Must specify username and password for login");
@@ -125,6 +125,53 @@ namespace Roar.implementation.Components
 				RoarManager.OnLoggedIn ();
 			}
 		}
+
+
+		public void ChangeName (string name, Roar.Callback<WebObjects.User.ChangeNameResponse> cb)
+		{
+			if (name == "" ) {
+				logger.DebugLog ("[roar] -- Must specify name for ChangeName");
+				return;
+			}
+			
+			WebObjects.User.ChangeNameArguments args = new Roar.WebObjects.User.ChangeNameArguments();
+			args.name = name;
+
+			userActions.change_name(args, new CBBase<WebObjects.User.ChangeNameResponse> (cb) );
+		}
+
+
+		public void ChangePassword (string name, string new_password, string old_password, Roar.Callback<WebObjects.User.ChangePasswordResponse> cb)
+		{
+			if (name == "" ) {
+				logger.DebugLog ("[roar] -- Must specify name for ChangePassword");
+				return;
+			}
+			if (new_password == "" ) {
+				logger.DebugLog ("[roar] -- Must specify new_password for ChangePassword");
+				return;
+			}
+			if (old_password == "" ) {
+				logger.DebugLog ("[roar] -- Must specify old_password for ChangePassword");
+				return;
+			}
+			
+			WebObjects.User.ChangePasswordArguments args = new Roar.WebObjects.User.ChangePasswordArguments();
+			args.name = name;
+			args.new_password = new_password;
+			args.old_password = old_password;
+
+			userActions.change_password(args, new CBBase<WebObjects.User.ChangePasswordResponse> (cb) );
+		}
+
+
+		public string WhoAmI()
+		{
+			//Note: This is borrowed from Properties::GetValue
+			var x = dataStore.properties.Get("name");
+			return (x!=null)?x.value:null;
+		}
+
 
 		//TODO: not sure this belongs in this class!
 		public void CacheFromInventory ()

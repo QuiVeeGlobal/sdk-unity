@@ -27,13 +27,13 @@ public class RoarShopTest : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		IRoar roar = DefaultRoar.Instance;
-		roar.Login("mike","mike", onLogin);
+		roar.User.Login("mike","mike", onLogin);
 	}
 	
 	void OnMouseDown() {
 		Debug.Log ("OnMouseDown Called");
 		IRoar roar = DefaultRoar.Instance;
-		roar.Login("mike","mike", onLogin);
+		roar.User.Login("mike","mike", onLogin);
 	}
 	
 	// Update is called once per frame

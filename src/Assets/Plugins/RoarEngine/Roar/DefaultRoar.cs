@@ -191,25 +191,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		return version;
 	}
 
-	public void Login( string username, string password, Roar.Callback<Roar.WebObjects.User.LoginResponse> callback=null )
-	{
-		User.DoLogin(username,password,callback);
-	}
 
-	public void Logout( Roar.Callback<Roar.WebObjects.User.LogoutResponse> callback=null )
-	{
-		User.DoLogout(callback);
-	}
-
-	public void Create( string username, string password, Roar.Callback<Roar.WebObjects.User.CreateResponse> callback=null )
-	{
-		User.DoCreate(username,password,callback);
-	}
-
-	public string WhoAmI()
-	{
-		return Properties.GetValue( "name" );
-	}
 
 	public string PlayerId()
 	{

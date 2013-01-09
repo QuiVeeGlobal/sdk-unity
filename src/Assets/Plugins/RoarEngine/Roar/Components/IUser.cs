@@ -25,7 +25,7 @@ namespace Roar.Components
 		 * @param hash the players password
 		 * @param cb the callback function to be passed the result of doCreate.
 		 */
-		void DoCreate( string name, string hash, Roar.Callback<WebObjects.User.CreateResponse> cb );
+		void Create( string name, string hash, Roar.Callback<WebObjects.User.CreateResponse> cb );
 
 
 		/**
@@ -46,7 +46,7 @@ namespace Roar.Components
 		 * @param hash the players password
 		 * @param cb the callback function to be passed the result of doLogin.
 		 **/
-		void DoLogin (string name, string hash, Roar.Callback<WebObjects.User.LoginResponse> cb);
+		void Login (string name, string hash, Roar.Callback<WebObjects.User.LoginResponse> cb);
 
 
 		/**
@@ -61,6 +61,35 @@ namespace Roar.Components
 		 *
 		 * @param the callback function to be passed the result of doLoginFacebookOAuth.
 		 **/
-		void DoLogout (Roar.Callback<WebObjects.User.LogoutResponse> cb);
+		void Logout (Roar.Callback<WebObjects.User.LogoutResponse> cb);
+
+
+		/**
+		 * Change the users name.
+		 *
+		 * On failure:
+		 * - invokes callback with empty data parameter, error code and error message
+		 *
+		 * @param the callback function to be passed the result object..
+		 **/
+		void ChangeName ( string name, Roar.Callback<WebObjects.User.ChangeNameResponse> cb);
+
+
+		/**
+		 * Change the users password.
+		 *
+		 * On failure:
+		 * - invokes callback with empty data parameter, error code and error message
+		 *
+		 * @param the callback function to be passed the result object..
+		 **/
+		void ChangePassword (string name, string new_password, string old_password, Roar.Callback<WebObjects.User.ChangePasswordResponse> cb);
+		
+		
+		/**
+		 * @todo Document me!
+		 **/
+		string WhoAmI ();
+
 	}
 }

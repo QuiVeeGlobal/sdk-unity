@@ -163,7 +163,7 @@ public class RoarLoginModule : RoarModule
 			}
 			if (Debug.isDebugBuild)
 				Debug.Log(string.Format("[Debug] Logging in as [{0}] with password [{1}].", username, password));
-			roar.Login(username, password, OnRoarLoginComplete);
+			roar.User.Login(username, password, OnRoarLoginComplete);
 		}
 		if (GUI.Button(createButtonRect, "Create Account"))
 		{
@@ -172,7 +172,7 @@ public class RoarLoginModule : RoarModule
 #endif
 			status = "Creating new player account...";
 			networkActionInProgress = true;
-			roar.Create(username, password, OnRoarAccountCreateComplete);
+			roar.User.Create(username, password, OnRoarAccountCreateComplete);
 		}
 		
 		GUI.enabled = true;

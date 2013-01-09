@@ -106,7 +106,7 @@ public class RoarLoginWidget : RoarUIWidget
 			}
 			if (Debug.isDebugBuild)
 				Debug.Log(string.Format("[Debug] Logging in as [{0}] with password [{1}].", username, password));
-			roar.Login(username, password, OnRoarLoginComplete);
+			roar.User.Login(username, password, OnRoarLoginComplete);
 		}
 			currentRect.y+= buttonSpacing + buttonHeight;
 		if (GUI.Button(currentRect, "Create Account", buttonStyle))
@@ -114,7 +114,7 @@ public class RoarLoginWidget : RoarUIWidget
 
 			status = "Creating new player account...";
 			networkActionInProgress = true;
-			roar.Create(username, password, OnRoarAccountCreateComplete);
+			roar.User.Create(username, password, OnRoarAccountCreateComplete);
 		}
 		
 		
