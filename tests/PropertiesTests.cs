@@ -114,12 +114,12 @@ public class PropertiesTests : ComponentTests
   public void testGetProperty() {
     
     //returns null on no data from server
-    Assert.IsNull(properties.GetProperty("stamina"));
+    Assert.IsNull(properties.getProperty("stamina"));
     
     mockFetch(userView, null);
     
     //returns Hashtable of property if exists
-    Roar.DomainObjects.PlayerAttribute staminaProperty = properties.GetProperty("stamina");
+    Roar.DomainObjects.PlayerAttribute staminaProperty = properties.getProperty("stamina");
     Assert.IsNotNull( staminaProperty );
     StringAssert.IsMatch("5", staminaProperty.value);
     StringAssert.IsMatch("resource", staminaProperty.type);
@@ -129,7 +129,7 @@ public class PropertiesTests : ComponentTests
     StringAssert.IsMatch("Stamina", staminaProperty.label);
 
     //returns null on property not existing
-    Assert.IsNull(properties.GetProperty("doesnotexist"));
+    Assert.IsNull(properties.getProperty("doesnotexist"));
   }
 
   [Test]
@@ -144,7 +144,7 @@ public class PropertiesTests : ComponentTests
     StringAssert.IsMatch("5", properties.GetValue("stamina") as String);
     
     //returns null on property not existing
-    Assert.IsNull(properties.GetProperty("doesnotexist"));
+    Assert.IsNull(properties.getProperty("doesnotexist"));
   }
   
   [Test]

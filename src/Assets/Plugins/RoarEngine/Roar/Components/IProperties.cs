@@ -73,7 +73,7 @@ namespace Roar.Components
 	     * @returns the property Hashtable associated with the *key*
 	     *          or null if the property does not exist in the data store.
 	     **/
-		DomainObjects.PlayerAttribute GetProperty (string key);
+		DomainObjects.PlayerAttribute getProperty (string key);
 
 		/**
 	     * Returns the *value* attribute of a property object.

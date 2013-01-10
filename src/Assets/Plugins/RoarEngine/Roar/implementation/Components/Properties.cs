@@ -27,7 +27,7 @@ namespace Roar.implementation.Components
 		}
 
 		// Returns the *object* associated with attribute `key`
-		public DomainObjects.PlayerAttribute GetProperty (string key)
+		public DomainObjects.PlayerAttribute getProperty (string key)
 		{
 			return dataStore.properties.Get (key);
 		}
