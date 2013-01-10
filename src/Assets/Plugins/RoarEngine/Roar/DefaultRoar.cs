@@ -71,8 +71,8 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 	public Roar.Components.IShop Shop { get { return shop; } }
 	protected Roar.Components.IShop shop;
 
-	public Roar.Components.IActions Actions { get { return actions; } }
-	protected Roar.Components.IActions actions;
+	public Roar.Components.ITasks Tasks { get { return tasks; } }
+	protected Roar.Components.ITasks tasks;
 
 	public Roar.Components.IAchievements Achievements { get { return achievements; } }
 	protected Roar.Components.IAchievements achievements;
@@ -161,7 +161,7 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		inventory = new Roar.implementation.Components.Inventory( webAPI.items, datastore, logger);
 		data = new Roar.implementation.Components.Data( webAPI.user, datastore, logger);
 		shop = new Roar.implementation.Components.Shop( webAPI.shop, datastore, logger );
-		actions = new Roar.implementation.Components.Actions( webAPI.tasks, datastore );
+		tasks = new Roar.implementation.Components.Tasks( webAPI.tasks, datastore );
 		facebook = new Roar.implementation.Components.Facebook(webAPI.facebook, datastore, logger);
 
 		if (!Application.isEditor)

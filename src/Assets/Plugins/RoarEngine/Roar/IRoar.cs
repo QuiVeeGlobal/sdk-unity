@@ -217,7 +217,7 @@ public interface IRoar
 	/**
    * Get access to the tasks/actions functions.
    */
-	Roar.Components.IActions Actions { get; }
+	Roar.Components.ITasks Tasks { get; }
 
 	/**
    * Get access to the achievements functions.

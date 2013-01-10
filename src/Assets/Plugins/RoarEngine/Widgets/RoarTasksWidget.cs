@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class RoarTasksWidget : RoarUIWidget
 {
 	
-	protected Roar.Components.IActions actions;
+	protected Roar.Components.ITasks tasks;
 	protected bool isFetching=false;
 	
 	protected override void OnEnable ()
@@ -19,14 +19,14 @@ public class RoarTasksWidget : RoarUIWidget
 			return;
 		}
 		
-		actions = DefaultRoar.Instance.Actions;		
+		tasks = DefaultRoar.Instance.Tasks;		
 		Fetch();
 	}
 	
 		
 	protected override void DrawGUI(int windowId)
 	{
-		if (actions == null || !IsLoggedIn) return;
+		if (tasks == null || !IsLoggedIn) return;
 		
 		if (isFetching)
 		{
@@ -34,14 +34,14 @@ public class RoarTasksWidget : RoarUIWidget
 			return;
 		}
 		
-		if( ! actions.HasDataFromServer )
+		if( ! tasks.HasDataFromServer )
 		{
 			GUI.Label (new Rect(0,0,ContentWidth,ContentHeight), "Inventory data not loaded!", "StatusNormal");
 			return;
 		}
 		
 
-		IList<Roar.DomainObjects.Task> items = actions.List();
+		IList<Roar.DomainObjects.Task> items = tasks.List();
 
 		//TODO: Fixup the hardcoded dimensions here!
 		Rect rect = new Rect(0,0,ContentWidth, 32);
@@ -58,10 +58,10 @@ public class RoarTasksWidget : RoarUIWidget
 	public void Fetch()
 	{
 		isFetching = true;
-		actions.Fetch(OnRoarFetchActionsComplete);
+		tasks.Fetch(OnRoarFetchTasksComplete);
 	}
 	
-	void OnRoarFetchActionsComplete( Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.Task> > data )
+	void OnRoarFetchTasksComplete( Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.Task> > data )
 	{
 		isFetching = false;
 	}

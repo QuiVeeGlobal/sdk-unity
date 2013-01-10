@@ -5,9 +5,9 @@ namespace Roar.Components
 {
 
 /**
- * \brief IActions is an interface for listing and executing user actions.
+ * \brief An interface for listing and executing user actions.
  *
- * Actions typically have three main lists: requirements, costs and rewards:
+ * Tasks typically have three main lists: requirements, costs and rewards:
  * - Requirements must be met in order for task to be able to complete
  * - Costs are deducted from a user (and must be met to successfully complete the task)
  * - Rewards describes the rewards that are given to a user for completing the task
@@ -37,50 +37,19 @@ namespace Roar.Components
  *
  * You can get the list of all actions via the #list function,
  * and execute an action via the #execute function.
- *
- * An action can be accessed via its Hashtable interface:
- *
- * \code
- *
- * Hashtable action = Actions.list()[0];
- *
- * string actionKey = action["ikey"];
- * string actionLabel = action["label"];
- * string actionDescription = action["description"];
- *
- * Hashtable requirement = action["requirements"][0];
- * string requirementType = requirement["type"];
- * string requirementIkey = requirement["ikey"];
- * string requirementValue = requirement["value"];
- *
- * Hashtable cost = action["costs"][0];
- * string costType = cost["type"];
- * string costKey = cost["ikey"];
- * string costValue = cost["value"];
- * string costStatus = cost["ok"];
- * string costReason = cost["reason"];
- *
- * Hashtable reward = action["rewards"][0];
- * string rewardType = reward["type"];
- * string rewardKey = reward["ikey"];
- * string rewardVale = reward["value"];
- *
- * Hashtable tag = action["tags"][0];
- * string tagValue = tag["value"];
- *
- * \endcode
+ * *
  *
  * @note The #list functions can only be called after the actions have been fetched from the server via a call to #fetch.
  * @note once #fetch has received and processed actions from the server, the #hasDataFromServer
  * property will return true and calls to #list will be functional.
  **/
-	public interface IActions
+	public interface ITasks
 	{
 		/**
 	   * Fetch user actions from the server.
 	   *
 	   * On success:
-	   * - invokes callback with parameter *Hastable data* containing the actions for the user
+	   * - invokes callback with parameter *data* containing the actions for the user
 	   * - sets #hasDataFromServer to true
 	   *
 	   * On failure:
@@ -102,7 +71,7 @@ namespace Roar.Components
 		/**
 	   * Get a list of all the actions for the authenticated user.
 	   *
-	   * @returns A list of Hashtables for each action.
+	   * @returns A list of each action.
 	   *
 	   * @note This does _not_ make a server call. It requires the actions to
 	   *       have already been fetched via a call to #fetch. If this function

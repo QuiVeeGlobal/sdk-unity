@@ -3,12 +3,12 @@ using Roar.Components;
 
 namespace Roar.implementation.Components
 {
-	public class Actions : IActions
+	public class Tasks : ITasks
 	{
 		protected IDataStore dataStore;
 		protected IWebAPI.ITasksActions taskActions;
 
-		public Actions (IWebAPI.ITasksActions taskActions, IDataStore dataStore)
+		public Tasks (IWebAPI.ITasksActions taskActions, IDataStore dataStore)
 		{
 			this.taskActions = taskActions;
 			this.dataStore = dataStore;

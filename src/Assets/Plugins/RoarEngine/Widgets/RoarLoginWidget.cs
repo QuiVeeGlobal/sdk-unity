@@ -8,7 +8,7 @@ using System.Collections.Generic;
 public class RoarLoginWidget : RoarUIWidget
 {
 	
-	protected Roar.Components.IActions actions;
+	protected Roar.Components.ITasks actions;
 	protected bool isFetching=false;
 	
 	public bool fetchPropertiesOnLogin = true;
