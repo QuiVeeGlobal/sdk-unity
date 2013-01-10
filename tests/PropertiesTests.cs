@@ -155,8 +155,12 @@ public class PropertiesTests : ComponentTests
     StringAssert.IsMatch("5", properties.GetValue("stamina") as String);
     
     IXMLNode updateNode = IXMLNodeFactory.instance.Create("<update type='attribute' ikey='stamina' value='2'/>").GetFirstChild("update");
-    
-    RoarManager.OnRoarServerUpdate(Roar.Events.UpdateEvent.CreateFromXml(updateNode));
+    Roar.Events.UpdateEvent e = Roar.Events.UpdateEvent.CreateFromXml(updateNode);
+    StringAssert.IsMatch("stamina",e.ikey);
+    StringAssert.IsMatch("attribute",e.type);
+    StringAssert.IsMatch("2",e.val);
+
+    RoarManager.OnRoarServerUpdate(e);
     
     StringAssert.IsMatch("2", properties.GetValue("stamina") as String);
     
