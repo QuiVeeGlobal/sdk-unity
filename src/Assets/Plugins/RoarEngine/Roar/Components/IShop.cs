@@ -110,7 +110,7 @@ namespace Roar.Components
 	   * @returns the shop item Hashtable associated with the *ikey*
 	   *          or null if the shop item does not exist in the data store.
 	   */
-		DomainObjects.ShopEntry GetShopItem (string ikey);
+		DomainObjects.ShopEntry getShopItem (string ikey);
 	}
 
 }

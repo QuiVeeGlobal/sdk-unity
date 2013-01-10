@@ -37,7 +37,7 @@ namespace Roar.implementation.Components
 
 
 		// Returns the *object* associated with attribute `key`
-		public DomainObjects.ShopEntry GetShopItem (string ikey)
+		public DomainObjects.ShopEntry getShopItem (string ikey)
 		{
 			return dataStore.shop.Get (ikey);
 		}

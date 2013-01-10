@@ -153,12 +153,12 @@ public class ShopTests : ComponentTests
   public void testGetShopItem() {
     
     //returns null on no data from server
-    Assert.IsNull(shop.GetShopItem("shop_item_ikey_1"));
+    Assert.IsNull(shop.getShopItem("shop_item_ikey_1"));
     
     mockFetch(shopList, null);
     
     //returns Hashtable of property if exists
-    Roar.DomainObjects.ShopEntry shopItem = shop.GetShopItem("shop_item_ikey_1");
+    Roar.DomainObjects.ShopEntry shopItem = shop.getShopItem("shop_item_ikey_1");
     IList<Roar.DomainObjects.Cost> costs= shopItem.costs;
     Roar.DomainObjects.Costs.Stat costA = costs[0] as Roar.DomainObjects.Costs.Stat;
     Roar.DomainObjects.Costs.Stat costB = costs[1] as Roar.DomainObjects.Costs.Stat;
@@ -172,7 +172,7 @@ public class ShopTests : ComponentTests
     StringAssert.IsMatch("item_ikey_1", modifier.ikey );
 
     //returns null on property not existing
-    Assert.IsNull(shop.GetShopItem("doesnotexist"));
+    Assert.IsNull(shop.getShopItem("doesnotexist"));
   }
         
   [Test]
