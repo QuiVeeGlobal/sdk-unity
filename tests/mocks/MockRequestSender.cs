@@ -11,7 +11,7 @@ public class MockRequestSender : RequestSender, IRequestSender
     responses = new Hashtable();
   }
   
-  new public void MakeCall( string apicall, Hashtable args, IRequestCallback cb ) {
+  new public void MakeCall( string apicall, Hashtable args, IRequestCallback cb, bool requires_auth_token ) {
     Assert.IsTrue(responses.ContainsKey(apicall), "no mock response setup for api path '" + apicall + "'");
     OnServerResponse(responses[apicall] as String, apicall, cb);
   }
