@@ -7,10 +7,12 @@ using System.Collections.Generic;
 
 public class RoarLoginWidget : RoarUIWidget
 {
-	
-	protected Roar.Components.ITasks actions;
+	public delegate void RoarLoginWidgetHandler();
+	public static event RoarLoginWidgetHandler OnFullyLoggedIn; // logged in & stats fetched
+	protected Roar.Components.IActions actions;
 	protected bool isFetching=false;
 	
+	public bool enableOnAwake = true;
 	public bool fetchPropertiesOnLogin = true;
 	public bool saveUsername = true;
 	public bool savePassword = false;
@@ -22,22 +24,29 @@ public class RoarLoginWidget : RoarUIWidget
 	private bool isError;
 	private string username = string.Empty;
 	private string password = string.Empty;
-	public int loginBoxSpacing = 50;
-	public int leftOffset = 250;
+	public int loginBoxSpacing = 10;
+	public int leftOffset = 50;
 	public int topOffset = 50;
-	public int passwordBoxSpacing = 50;
+	public int passwordBoxSpacing = 10;
 	public float labelWidth = 90;
+	public float statusWidth = 400;
 	public float fieldHeight = 30;
 	public float fieldWidth = 140;
-	public float buttonWidth = 120;
+	public float buttonWidth = 200;
 	public float buttonHeight = 40;
-	public float buttonSpacing = 40;
+	public float buttonSpacing = 10;
 	private bool networkActionInProgress;
 	public string buttonStyle="LoginButton";
 	public string boxStyle="LoginField";
 	public string loginLabelStyle = "LoginLabel";
 	public string statusStyle = "LoginStatus";
 	
+	protected override void Awake ()
+	{
+		base.Awake ();
+		if(enableOnAwake)
+			enabled = true;
+	}
 	
 	protected override void OnEnable ()
 	{
@@ -56,6 +65,7 @@ public class RoarLoginWidget : RoarUIWidget
 		
 	protected override void DrawGUI(int windowId)
 	{
+		
 		if(networkActionInProgress)
 		{
 			GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Logging In", "StatusNormal");
@@ -64,7 +74,7 @@ public class RoarLoginWidget : RoarUIWidget
 		else
 		{
 		
-			Rect currentRect = new Rect(leftOffset, topOffset, contentBounds.width, fieldHeight);
+			Rect currentRect = new Rect(leftOffset, topOffset, statusWidth, fieldHeight);
 		GUI.Label(currentRect, status, statusStyle);
 			currentRect.y += 100;
 		currentRect.width = labelWidth;
@@ -91,7 +101,7 @@ public class RoarLoginWidget : RoarUIWidget
 			
 		GUI.enabled = username.Length > 0 && password.Length > 0 && !networkActionInProgress;
 		
-		if (GUI.Button(currentRect, "Log In", buttonStyle))
+		if (GUI.Button(currentRect, "Log In", buttonStyle) || ( Event.current.keyCode == KeyCode.Return))
 		{
 
 			status = "Logging in...";
@@ -119,6 +129,7 @@ public class RoarLoginWidget : RoarUIWidget
 		
 		
 		}
+		GUI.enabled = true;
 		
 	}
 	
@@ -195,8 +206,7 @@ public class RoarLoginWidget : RoarUIWidget
 	void OnRoarPropertiesFetched(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.PlayerAttribute> > info)
 	{
 		networkActionInProgress = false;
-		
-		//if (OnFullyLoggedIn != null) OnFullyLoggedIn();
+		if (OnFullyLoggedIn != null) OnFullyLoggedIn();
 	}
 
 }

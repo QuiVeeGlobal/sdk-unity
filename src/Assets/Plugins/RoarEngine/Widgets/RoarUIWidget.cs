@@ -18,8 +18,8 @@ public abstract class RoarUIWidget : RoarWidgetBase
 		if (skin == null) skin = roar.defaultGUISkin;
 
 		// listen for log-in event
-		RoarLoginModule.OnFullyLoggedIn -= OnRoarLogin;
-		RoarLoginModule.OnFullyLoggedIn += OnRoarLogin;
+		RoarLoginWidget.OnFullyLoggedIn -= OnRoarLogin;
+		RoarLoginWidget.OnFullyLoggedIn += OnRoarLogin;
 		RoarManager.loggedOutEvent -= OnRoarLogout;
 		RoarManager.loggedOutEvent += OnRoarLogout;
 		

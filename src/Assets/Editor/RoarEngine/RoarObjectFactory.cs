@@ -17,11 +17,6 @@ public class RoarObjectFactory : Editor
 			go.AddComponent<DefaultRoar>();
 			go.transform.parent = null;
 			
-			GameObject ui = new GameObject("RoarUI");
-			ui.transform.parent = go.transform;
-			RoarModuleController uiController = ui.AddComponent<RoarModuleController>();			
-			uiController.ResetToDefaultConfiguration();
-			
 			Selection.activeGameObject = go;
 		}
 	}
@@ -186,6 +181,34 @@ public class RoarObjectFactory : Editor
 	{
 		GameObject go = RoarObjectFactory.CreateGameObjectInScene("RoarInventoryWidget");
 		go.AddComponent<RoarInventoryWidget>();
+	
+		DefaultRoar defaultRoar = GameObject.FindObjectOfType(typeof(DefaultRoar)) as DefaultRoar;
+		go.transform.parent = defaultRoar.transform;		
+		
+		Selection.activeGameObject = go;
+	}
+	
+	[MenuItem("GameObject/Create Other/Roar/Login Widget", false, 2007)]
+	public static void CreateRoarLoginWidgetObject()
+	{
+		if (!ExistingComponentTypeExists(typeof(DefaultRoar)))
+		{
+			if (EditorUtility.DisplayDialog("Sorry!", "A DefaultRoar system component cannot be found in this scene. Add one now?", "OK", "Later"))
+			{
+				CreateRoarSceneObject();
+				_CreateRoarLoginWidgetObject();
+			}
+		}
+		else
+		{
+			_CreateRoarLoginWidgetObject();
+		}
+	}
+	
+	private static void _CreateRoarLoginWidgetObject()
+	{
+		GameObject go = RoarObjectFactory.CreateGameObjectInScene("RoarLoginWidget");
+		go.AddComponent<RoarLoginWidget>();
 	
 		DefaultRoar defaultRoar = GameObject.FindObjectOfType(typeof(DefaultRoar)) as DefaultRoar;
 		go.transform.parent = defaultRoar.transform;		
