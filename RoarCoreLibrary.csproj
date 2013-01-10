@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="3.5" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>RoarCoreLibrary</RootNamespace>
     <AssemblyName>RoarCoreLibrary</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -39,7 +39,6 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Facebook\FacebookManager.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Adapters\IUrbanAirship.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IAchievements.cs" />
-    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IActions.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IGifts.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IInAppPurchase.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IInventory.cs" />
@@ -55,7 +54,6 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\ToJson.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Adapters\UrbanAirship.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Achievements.cs" />
-    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Actions.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Gifts.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\InAppPurchase.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Inventory.cs" />
@@ -90,6 +88,9 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IFacebook.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Facebook.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\DataConversion\ResponseConverter.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\ServerEvents.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\ITasks.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Tasks.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

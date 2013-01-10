@@ -17,7 +17,7 @@ public class MockRoar : DefaultRoar, IRoar
     inventory = new Roar.implementation.Components.Inventory (webAPI.items, data_store, logger);
     shop = new Roar.implementation.Components.Shop (webAPI.shop, data_store, logger);
     friends = new Roar.implementation.Components.Friends (webAPI.friends, data_store, logger);
-    actions = new Roar.implementation.Components.Actions (webAPI.tasks, data_store);
+    tasks = new Roar.implementation.Components.Tasks (webAPI.tasks, data_store);
 
     urbanAirship = new Roar.implementation.Adapters.UrbanAirship (webAPI);
 
