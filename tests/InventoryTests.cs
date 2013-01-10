@@ -78,7 +78,7 @@ public class InventoryTests
 
   [Test]
   [Ignore]
-  public void testActivate() {
+  public void testEquip() {
     //assertions:
     //correct event triggered with expected arguments (GoodInfo)
     //callback executed with expected arguments (GoodInfo)
@@ -86,7 +86,7 @@ public class InventoryTests
   
   [Test]
   [Ignore]
-  public void testDeactivate() {
+  public void testUnequip() {
     //assertions:
     //correct event triggered with expected arguments (GoodInfo)
     //callback executed with expected arguments (GoodInfo)
@@ -108,14 +108,14 @@ public class InventoryTests
 
   [Test]
   [Ignore]
-  public void testActivateFailureServerDown() {
+  public void testEquipFailureServerDown() {
     //assertions:
     //callback called with expected error code    
   }
 
   [Test]
   [Ignore]
-  public void testDeactivateFailureServerDown() {
+  public void testUnequipFailureServerDown() {
     //assertions:
     //callback called with expected error code    
   }

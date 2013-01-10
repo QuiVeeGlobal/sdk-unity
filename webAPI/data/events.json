@@ -19,10 +19,10 @@
       { "name":"createdUser", 
         "args":[]
       },
-      { "name":"goodActivated", 
+      { "name":"goodEquipped", 
         "args":[{"type":"GoodInfo","name":"info"}]
       },
-      { "name":"goodDeactivated", 
+      { "name":"goodUnequipped", 
         "args":[{"type":"GoodInfo","name":"info"}]
       },
       { "name":"goodUsed", 

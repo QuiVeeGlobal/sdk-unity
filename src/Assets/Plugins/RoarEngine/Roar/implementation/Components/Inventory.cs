@@ -32,7 +32,7 @@ namespace Roar.implementation.Components
 			return dataStore.inventory.List ();
 		}
 
-		public void Activate (string id, Roar.Callback<Roar.WebObjects.Items.EquipResponse> callback)
+		public void Equip (string id, Roar.Callback<Roar.WebObjects.Items.EquipResponse> callback)
 		{
 			var item = dataStore.inventory.Get (id);
 			if (item == null) {
@@ -44,17 +44,17 @@ namespace Roar.implementation.Components
 			Roar.WebObjects.Items.EquipArguments args = new Roar.WebObjects.Items.EquipArguments();
 			args.item_id = id;
 			
-			itemActions.equip (args, new ActivateCallback (callback, this, id));
+			itemActions.equip (args, new EquipCallback (callback, this, id));
 		}
 		
 
 		
-		class ActivateCallback : CBBase<Roar.WebObjects.Items.EquipResponse>
+		class EquipCallback : CBBase<Roar.WebObjects.Items.EquipResponse>
 		{
 			Inventory inventory;
 			string id;
 
-			public ActivateCallback (Callback<Roar.WebObjects.Items.EquipResponse> in_cb, Inventory in_inventory, string in_id) : base(in_cb)
+			public EquipCallback (Callback<Roar.WebObjects.Items.EquipResponse> in_cb, Inventory in_inventory, string in_id) : base(in_cb)
 			{
 				inventory = in_inventory;
 				id = in_id;
@@ -71,11 +71,11 @@ namespace Roar.implementation.Components
 				returnObj ["ikey"] = item.ikey;
 				returnObj ["label"] = item.label;
 
-				RoarManager.OnGoodActivated (new RoarManager.GoodInfo (id, item.ikey, item.label));
+				RoarManager.OnGoodEquipped (new RoarManager.GoodInfo (id, item.ikey, item.label));
 			}
 		}
 
-		public void Deactivate (string id, Roar.Callback<Roar.WebObjects.Items.UnequipResponse> callback)
+		public void Unequip (string id, Roar.Callback<Roar.WebObjects.Items.UnequipResponse> callback)
 		{
 			var item = dataStore.inventory.Get (id as string);
 			if (item == null) {
@@ -86,15 +86,15 @@ namespace Roar.implementation.Components
 			WebObjects.Items.UnequipArguments args = new Roar.WebObjects.Items.UnequipArguments();
 			args.item_id = id;
 
-			itemActions.unequip (args, new DeactivateCallback (callback, this, id));
+			itemActions.unequip (args, new UnequipCallback (callback, this, id));
 		}
-		class DeactivateCallback : CBBase<Roar.WebObjects.Items.UnequipResponse>
+		class UnequipCallback : CBBase<Roar.WebObjects.Items.UnequipResponse>
 		{
 			Inventory inventory;
 			string id;
 
 
-			public DeactivateCallback (Callback<Roar.WebObjects.Items.UnequipResponse> in_cb, Inventory in_inventory, string in_id) : base( in_cb )
+			public UnequipCallback (Callback<Roar.WebObjects.Items.UnequipResponse> in_cb, Inventory in_inventory, string in_id) : base( in_cb )
 			{
 				inventory = in_inventory;
 				id = in_id;
@@ -111,7 +111,7 @@ namespace Roar.implementation.Components
 				returnObj ["ikey"] = item.ikey;
 				returnObj ["label"] = item.label;
 
-				RoarManager.OnGoodDeactivated (new RoarManager.GoodInfo (item.id, item.ikey, item.label));
+				RoarManager.OnGoodUnequipped (new RoarManager.GoodInfo (item.id, item.ikey, item.label));
 			}
 		}
 
@@ -235,12 +235,6 @@ namespace Roar.implementation.Components
 
 				RoarManager.OnGoodUsed (new RoarManager.GoodInfo (item.id, item.ikey, item.label));
 			}
-		}
-
-		// `remove(id)` for now is simply an *alias* to sell
-		public void Remove (string id, Roar.Callback<Roar.WebObjects.Items.SellResponse> callback)
-		{
-			Sell (id, callback);
 		}
 
 		// Returns raw data object for inventory

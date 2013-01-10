@@ -81,11 +81,11 @@ public class RoarManager
 	public static event Action createdUserEvent;
 	public static void OnCreatedUser() { if(createdUserEvent!=null) createdUserEvent(); }
 
-	public static event Action<GoodInfo> goodActivatedEvent;
-	public static void OnGoodActivated( GoodInfo info ) { if(goodActivatedEvent!=null) goodActivatedEvent(info); }
+	public static event Action<GoodInfo> goodEquippedEvent;
+	public static void OnGoodEquipped( GoodInfo info ) { if(goodEquippedEvent!=null) goodEquippedEvent(info); }
 
-	public static event Action<GoodInfo> goodDeactivatedEvent;
-	public static void OnGoodDeactivated( GoodInfo info ) { if(goodDeactivatedEvent!=null) goodDeactivatedEvent(info); }
+	public static event Action<GoodInfo> goodUnequippedEvent;
+	public static void OnGoodUnequipped( GoodInfo info ) { if(goodUnequippedEvent!=null) goodUnequippedEvent(info); }
 
 	public static event Action<GoodInfo> goodUsedEvent;
 	public static void OnGoodUsed( GoodInfo info ) { if(goodUsedEvent!=null) goodUsedEvent(info); }

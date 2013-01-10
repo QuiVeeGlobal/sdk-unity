@@ -9,11 +9,10 @@ namespace Roar.Components
  * \brief IInventory is an interface for viewing and manipulating a user's inventory.
  *
  * One can perform the following functions on an inventory item:
- * - activate
- * - deactivate
+ * - equip
+ * - unequip
  * - sell
  * - use
- * - remove
  *
  * An inventory is composed of a list of inventory items.
  *
@@ -87,10 +86,10 @@ namespace Roar.Components
 		IList<DomainObjects.InventoryItem> List ();
 
 		/**
-	   * Activates an item in the user's inventory.
+	   * Equippes an item in the user's inventory.
 	   *
 	   * On success:
-	   * - fires the RoarManager.goodActivatedEvent
+	   * - fires the RoarManager.goodEquippedEvent
 	   * - invokes callback passing *data* parameter a Hashtable containing the:
 	   *  - "id" : the id of the inventory item instance
 	   *  - "ikey" : the id of the inventory item type
@@ -105,13 +104,13 @@ namespace Roar.Components
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   *
 	   **/
-		void Activate (string id, Roar.Callback<Roar.WebObjects.Items.EquipResponse> callback);
+		void Equip (string id, Roar.Callback<Roar.WebObjects.Items.EquipResponse> callback);
 
 		/**
-	   * Deactivates an item in the user's inventory.
+	   * Unequippes an item in the user's inventory.
 	   *
 	   * On success:
-	   * - fires the RoarManager.goodDeactivatedEvent
+	   * - fires the RoarManager.goodUnequippedEvent
 	   * - invokes callback passing *data* parameter a Hashtable containing the:
 	   *  - "id" : the id of the inventory item instance
 	   *  - "ikey" : the id of the inventory item type
@@ -126,7 +125,7 @@ namespace Roar.Components
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   *
 	   **/
-		void Deactivate (string id, Roar.Callback<Roar.WebObjects.Items.UnequipResponse> callback);
+		void Unequip (string id, Roar.Callback<Roar.WebObjects.Items.UnequipResponse> callback);
 
 		/**
 	   * Checks if the user's inventory contains at least one of a given item.
@@ -192,11 +191,6 @@ namespace Roar.Components
 	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
 	   **/
 		void Use (string id, Roar.Callback<Roar.WebObjects.Items.UseResponse> callback);
-
-		/**
-	   * The remove function for now is simply an *alias* to #sell
-	   **/
-		void Remove (string id, Roar.Callback<Roar.WebObjects.Items.SellResponse> callback);
 
 		/**
 	   * Returns the inventory item for a given key.
