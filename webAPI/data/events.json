@@ -63,6 +63,24 @@
       { "name":"xxxChange",
         "notes":["@todo These should be generated for each component."],
         "args":[]
+      },
+      { "name":"facebookShopList",
+        "args":[ {"name":"shop_list","type":"List<Roar.DomainObjects.FacebookShopEntry>"} ]
+      },
+      { "name":"facebookShopListFailed",
+        "args":[ {"name":"mesg","type":"string"} ]
+      },
+      { "name":"facebookBindUserOAuth",
+        "args":[]
+      },
+      { "name":"facebookBindUserOAuthFailed",
+        "args":[]
+      },
+      { "name":"facebookBindUserSigned",
+        "args":[]
+      },
+      { "name":"facebookBindUserSignedFailed",
+        "args":[]
       }
     ],
     "server_events":[
