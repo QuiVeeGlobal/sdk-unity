@@ -51,6 +51,64 @@ namespace Roar.implementation.Components
 				// @todo Perform auto loading of game and player data
 			}
 		}
+		
+		public void BindUserOAuth (string oauth_token, Roar.Callback<WebObjects.Facebook.BindOauthResponse> cb)
+		{
+			if (oauth_token == "")
+			{
+				logger.DebugLog ("[roar] -- Must specify oauth_token for facebook binding");
+				return;
+			}
+			Roar.WebObjects.Facebook.BindOauthArguments args = new Roar.WebObjects.Facebook.BindOauthArguments();
+			args.oauth_token = oauth_token;
+			facebook.bind_oauth (args, new BindOAuthCallback (cb));
+		}
+		
+		class BindOAuthCallback : CBBase<WebObjects.Facebook.BindOauthResponse>
+		{
+			public BindOAuthCallback (Roar.Callback<WebObjects.Facebook.BindOauthResponse> in_cb) : base(in_cb)
+			{
+			}
+			
+			public override void HandleError (Roar.RequestResult info)
+			{
+				RoarManager.OnFacebookBindUserOAuthFailed ();
+			}
+			
+			public override void HandleSuccess (CallbackInfo<WebObjects.Facebook.BindOauthResponse> info)
+			{
+				RoarManager.OnFacebookBindUserOAuth ();
+			}
+		}
+		
+		public void BindUserSigned (string signed_request, Roar.Callback<WebObjects.Facebook.BindSignedResponse> cb)
+		{
+			if (signed_request == "")
+			{
+				logger.DebugLog ("[roar] -- Must specify signed request for facebook binding");
+				return;
+			}
+			Roar.WebObjects.Facebook.BindSignedArguments args = new Roar.WebObjects.Facebook.BindSignedArguments();
+			args.signed_request = signed_request;
+			facebook.bind_signed (args, new BindSignedCallback (cb));
+		}
+		
+		class BindSignedCallback : CBBase<WebObjects.Facebook.BindSignedResponse>
+		{
+			public BindSignedCallback (Roar.Callback<WebObjects.Facebook.BindSignedResponse> in_cb) : base(in_cb)
+			{
+			}
+			
+			public override void HandleError (Roar.RequestResult info)
+			{
+				RoarManager.OnFacebookBindUserSignedFailed ();
+			}
+			
+			public override void HandleSuccess (CallbackInfo<WebObjects.Facebook.BindSignedResponse> info)
+			{
+				RoarManager.OnFacebookBindUserSigned ();
+			}
+		}
 
 
 		public void CreateOAuth (string name, string oAuthToken, Roar.Callback<WebObjects.Facebook.CreateOauthResponse> cb)
@@ -84,6 +142,29 @@ namespace Roar.implementation.Components
 			{
 				RoarManager.OnCreatedUser ();
 				RoarManager.OnLoggedIn ();
+			}
+		}
+		
+		public void ShopList (Roar.Callback<WebObjects.Facebook.ShopListResponse> cb)
+		{
+			Roar.WebObjects.Facebook.ShopListArguments args = new Roar.WebObjects.Facebook.ShopListArguments();
+			facebook.shop_list (args, new ShopListCallback (cb));
+		}
+		
+		protected class ShopListCallback : CBBase<WebObjects.Facebook.ShopListResponse>
+		{
+			public ShopListCallback (Roar.Callback<WebObjects.Facebook.ShopListResponse> in_cb) : base(in_cb)
+			{
+			}
+			
+			public override void HandleError (Roar.RequestResult info)
+			{
+				RoarManager.OnFacebookShopListFailed (info.msg);
+			}
+			
+			public override void HandleSuccess (CallbackInfo<WebObjects.Facebook.ShopListResponse> info)
+			{
+				RoarManager.OnFacebookShopList (info.data.shop_list);
 			}
 		}
 

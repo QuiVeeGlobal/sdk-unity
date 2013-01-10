@@ -130,6 +130,24 @@ public class RoarManager
 	public static event Action xxxChangeEvent;
 	public static void OnXxxChange() { if(xxxChangeEvent!=null) xxxChangeEvent(); }
 
+	public static event Action<List<Roar.DomainObjects.FacebookShopEntry>> facebookShopListEvent;
+	public static void OnFacebookShopList( List<Roar.DomainObjects.FacebookShopEntry> shop_list ) { if(facebookShopListEvent!=null) facebookShopListEvent(shop_list); }
+
+	public static event Action<string> facebookShopListFailedEvent;
+	public static void OnFacebookShopListFailed( string mesg ) { if(facebookShopListFailedEvent!=null) facebookShopListFailedEvent(mesg); }
+
+	public static event Action facebookBindUserOAuthEvent;
+	public static void OnFacebookBindUserOAuth() { if(facebookBindUserOAuthEvent!=null) facebookBindUserOAuthEvent(); }
+
+	public static event Action facebookBindUserOAuthFailedEvent;
+	public static void OnFacebookBindUserOAuthFailed() { if(facebookBindUserOAuthFailedEvent!=null) facebookBindUserOAuthFailedEvent(); }
+
+	public static event Action facebookBindUserSignedEvent;
+	public static void OnFacebookBindUserSigned() { if(facebookBindUserSignedEvent!=null) facebookBindUserSignedEvent(); }
+
+	public static event Action facebookBindUserSignedFailedEvent;
+	public static void OnFacebookBindUserSignedFailed() { if(facebookBindUserSignedFailedEvent!=null) facebookBindUserSignedFailedEvent(); }
+
 	/**
 	 * Fired when the data have been retrieved from the server.
 	 */

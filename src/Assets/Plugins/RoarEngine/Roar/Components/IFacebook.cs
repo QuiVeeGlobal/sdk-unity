@@ -24,7 +24,32 @@ namespace Roar.Components
 		 * @param cb the callback function to be passed the result of doLogin.
 		 **/
 		void LoginOAuth(string oauth_token, Roar.Callback<WebObjects.Facebook.LoginOauthResponse> cb);
-
+		
+		/**
+		 * Binds OAuth
+		 *
+		 * On success:
+		 * - fires a RoarManager#facebookBindUserOAuthEvent
+		 *
+		 * On failure:
+		 * - fires a RoarManager#facebookBindUserSignedFailedEvent
+		 *
+		 * @param cb the callback function to be passed the result
+		 */
+		void BindUserOAuth (string oauth_token, Roar.Callback<WebObjects.Facebook.BindOauthResponse> cb);
+		
+		/**
+		 * Binds Signed Request
+		 *
+		 * On success:
+		 * - fires a RoarManager#facebookBindUserSignedEvent
+		 *
+		 * On failure:
+		 * - fires a RoarManager#facebookBindUserSignedFailedEvent
+		 *
+		 * @aparam cb the callback function to be passed the result
+		 */
+		void BindUserSigned (string signed_request, Roar.Callback<WebObjects.Facebook.BindSignedResponse> cb);
 
 		/**
 		 * Creates a new user with the given username and facebook authToken, and logs
@@ -44,5 +69,18 @@ namespace Roar.Components
 		 * @param cb the callback function to be passed the result of doCreate.
 		 */
 		void CreateOAuth(string name, string oAuthToken, Roar.Callback<WebObjects.Facebook.CreateOauthResponse> cb);
+		
+		/**
+		 * List shop
+		 *
+		 * On success:
+		 * - fires a RoarManager#facebookShopListEvent
+		 *
+		 * On failuire:
+		 * - fires a RoarManager#facebookShopListFailedEvent
+		 *
+		 * @param cb the callback function to be passed the result of the ShopList.
+		 */
+		void ShopList(Roar.Callback<WebObjects.Facebook.ShopListResponse> cb);
 	}
 }
