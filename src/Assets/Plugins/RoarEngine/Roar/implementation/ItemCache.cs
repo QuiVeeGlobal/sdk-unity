@@ -13,7 +13,7 @@ namespace Roar.implementation
 {
 	public interface IItemCache : IDataModel<DomainObjects.ItemPrototype,Roar.WebObjects.Items.ViewResponse>
 	{
-		bool AddToCache ( IList<string> items, Roar.Callback<IDictionary<string, DomainObjects.ItemPrototype> > cb=null);
+		bool AddToCache ( IList<string> items, Roar.Callback<IDictionary<string, DomainObjects.ItemPrototype> > cb);
 		IList<string> ItemsNotInCache (IList<string> items);
 	}
 	
@@ -27,7 +27,7 @@ namespace Roar.implementation
 		/**
 	    * Fetches details about `items` array and adds to item Cache Model
 	    */
-		public bool AddToCache ( IList<string> items, Roar.Callback<IDictionary<string, DomainObjects.ItemPrototype> > cb=null)
+		public bool AddToCache ( IList<string> items, Roar.Callback<IDictionary<string, DomainObjects.ItemPrototype> > cb)
 		{
 			IList<string> batch = ItemsNotInCache (items);
 

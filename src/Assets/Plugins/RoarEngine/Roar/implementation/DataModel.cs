@@ -6,7 +6,8 @@ using Roar.DomainObjects;
 
 public interface IDataModel<CT,DT> where DT:class
 {
-	void Clear( bool silent = false );
+	void Clear();
+	void Clear( bool silent );
 	bool HasDataFromServer { get; set; }
 	
 	bool Fetch (Roar.Callback< IDictionary<string,CT> > cb);
@@ -67,7 +68,10 @@ public class DataModel<CT,DT> : IDataModel<CT,DT> where DT:class
 	}
 
 	// Removes all attributes from the model
-	public void Clear (bool silent = false)
+	public void Clear () { Clear(false); }
+
+	// Removes all attributes from the model
+	public void Clear (bool silent)
 	{
 		attributes = new Dictionary<string,CT> ();
 

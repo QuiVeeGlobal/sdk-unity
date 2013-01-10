@@ -117,9 +117,26 @@ namespace Roar.implementation.Components
 
 		// `has( key, num )` boolean checks whether user has object `key`
 		// and optionally checks for a `num` number of `keys` *(default 1)*
-		public bool Has (string ikey, int num=1)
+		public bool Has (string ikey, int num)
 		{
 			return dataStore.inventory.List().Where( v => (v.ikey == ikey) ).Count() >= num;
+		}
+
+
+		/**
+		 * Checks if the user's inventory contains at least one of a given item.
+		 *
+		 * @param ikey the key that identifies an inventory item.
+		 * @returns true if one or more instances of a given inventory item belong to the user.
+		 *
+		 * @note This does _not_ make a server call. It requires the inventory to
+		 *       have already been fetched via a call to #fetch. If this function
+		 *       is called prior to the successful completion of a #fetch call,
+		 *       it will return false.
+		 **/
+		public bool Has (string ikey)
+		{
+			return Has (ikey,1);
 		}
 
 

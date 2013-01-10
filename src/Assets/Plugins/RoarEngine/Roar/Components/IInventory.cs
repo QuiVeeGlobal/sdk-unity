@@ -128,17 +128,33 @@ namespace Roar.Components
 		void Unequip (string id, Roar.Callback<Roar.WebObjects.Items.UnequipResponse> callback);
 
 		/**
-	   * Checks if the user's inventory contains at least one of a given item.
-	   *
-	   * @param ikey the key that identifies an inventory item.
-	   * @returns true if one or more instances of a given inventory item belong to the user.
-	   *
-	   * @note This does _not_ make a server call. It requires the inventory to
-	   *       have already been fetched via a call to #fetch. If this function
-	   *       is called prior to the successful completion of a #fetch call,
-	   *       it will return false.
-	   **/
-		bool Has (string ikey, int num=1);
+		 * Checks if the user's inventory contains at least num of a given item.
+		 *
+		 * @param ikey the key that identifies an inventory item.
+		 * @param num the required number of the item.
+		 * @returns true if num or more instances of a given inventory item belong to the user.
+		 *
+		 * @note This does _not_ make a server call. It requires the inventory to
+		 *       have already been fetched via a call to #fetch. If this function
+		 *       is called prior to the successful completion of a #fetch call,
+		 *       it will return false.
+		 **/
+		bool Has (string ikey, int num);
+
+
+		/**
+		 * Checks if the user's inventory contains at least one of a given item.
+		 *
+		 * @param ikey the key that identifies an inventory item.
+		 * @returns true if one or more instances of a given inventory item belong to the user.
+		 *
+		 * @note This does _not_ make a server call. It requires the inventory to
+		 *       have already been fetched via a call to #fetch. If this function
+		 *       is called prior to the successful completion of a #fetch call,
+		 *       it will return false.
+		 **/
+		bool Has (string ikey);
+
 
 		/**
 	   * @param ikey the key that identifies an inventory item.

@@ -158,14 +158,17 @@ namespace Roar
 		public int code;
 		public string msg;
 
-		public CallbackInfo (T in_data, int in_code=IWebAPI.OK, string in_msg="")
+		public CallbackInfo (T in_data, int in_code, string in_msg)
 		{
 			data = in_data;
 			code = in_code;
 			msg = in_msg;
 		}
-	};	
-	
+
+		public CallbackInfo (T in_data, int in_code ) : this(in_data, in_code, "") {}
+		public CallbackInfo (T in_data) : this( in_data, IWebAPI.OK, "") {}
+	};
+
 	public delegate void Callback<T> (CallbackInfo<T> h);
 }
 
