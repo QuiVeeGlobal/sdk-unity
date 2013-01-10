@@ -39,6 +39,8 @@ namespace UnityEngine
 		public void AddField(string K, string V)
 		{
 		}
+
+		public byte[] data = new byte[10];
 	}
 
 	public class WWW
