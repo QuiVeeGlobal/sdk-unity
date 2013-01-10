@@ -31,7 +31,7 @@ namespace Roar.Components
 
 		IList<AppstoreShopEntry> List ();
 
-		AppstoreShopEntry GetShopItem (string productIdentifier);
+		AppstoreShopEntry getShopItem (string productIdentifier);
 
 		void Purchase (string productId, Roar.Callback<string> cb, Roar.Callback<Roar.WebObjects.Appstore.BuyResponse> cbx);
 

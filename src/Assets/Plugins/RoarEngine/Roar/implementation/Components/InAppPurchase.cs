@@ -92,7 +92,7 @@ namespace Roar.implementation.Components
 			return  productsList;
 		}
 
-		public AppstoreShopEntry GetShopItem (string productIdentifier)
+		public AppstoreShopEntry getShopItem (string productIdentifier)
 		{
 			return productsMap [productIdentifier];
 		}
