@@ -1214,26 +1214,6 @@ namespace Roar.WebObjects
 
 		}
 
-		// Arguments to shop/buy
-		public class BuyArguments
-		{
-			public string shop_item_ikey;
-
-			public Hashtable ToHashtable()
-			{
-				Hashtable retval = new Hashtable();
-				retval["shop_item_ikey"] = shop_item_ikey;
-				return retval;
-			}
-		}
-		
-		// Response from shop/buy
-		public class BuyResponse
-		{
-			public DomainObjects.ModifierResult buy_response;
-
-		}
-
 	}
 
 	//Namespace for typesafe arguments and responses to Roars scripts/foo calls.

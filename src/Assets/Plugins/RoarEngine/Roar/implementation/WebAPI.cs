@@ -600,23 +600,16 @@ public class WebAPI : IWebAPI
 	public class ShopActions : APIBridge, IShopActions
 	{
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Shop.ListResponse> list_response_parser;
-		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Shop.BuyResponse> buy_response_parser;
 
 		public ShopActions (IRequestSender caller) : base(caller)
 		{
 			list_response_parser = new Roar.DataConversion.Responses.Shop.List();
-			buy_response_parser = new Roar.DataConversion.Responses.Shop.Buy();
 
 		}
 
 		public void list( Roar.WebObjects.Shop.ListArguments args, ZWebAPI.Callback<Roar.WebObjects.Shop.ListResponse> cb)
 		{
 			api.MakeCall ("shop/list", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Shop.ListResponse>(cb, list_response_parser), true);
-		}
-
-		public void buy( Roar.WebObjects.Shop.BuyArguments args, ZWebAPI.Callback<Roar.WebObjects.Shop.BuyResponse> cb)
-		{
-			api.MakeCall ("shop/buy", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Shop.BuyResponse>(cb, buy_response_parser), true);
 		}
 
 	}

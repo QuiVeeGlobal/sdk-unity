@@ -72,25 +72,6 @@ namespace Roar.Components
 		bool HasDataFromServer { get; }
 
 		/**
-	   * Checks on the server that purcahse requirements are met and, if they are, purchases an item, adding it to the user's
-	   * inventory and deducting the cost from the appropriate user model statistic.
-	   *
-	   * On success:
-	   * - invokes callback with parameter *Hastable data* containing the "id" of the purchased item and the "ikey" of the shop
-	   * - fires the RoarManager#goodBoughtEvent
-	   * - fires the RoarManager#roarServerInventoryChangedEvent
-	   *
-	   * On failure:
-	   * - invokes callback with error code and error message
-	   *
-	   * @param shop_ikey the shop_ikey of the item to purchase.
-	   * @param callback the callback function to be passed this function's result.
-	   *
-	   * @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
-	   */
-		void Buy (string shop_ikey, Roar.Callback<WebObjects.Shop.BuyResponse> callback);
-
-		/**
 	   * Get a list of all the available items in the shop.
 	   *
 	   * @returns A list of Hashtables for each shop item.

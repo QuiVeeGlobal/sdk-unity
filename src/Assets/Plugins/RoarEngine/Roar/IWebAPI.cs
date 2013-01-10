@@ -150,7 +150,6 @@ public abstract class IWebAPI
 	public interface IShopActions
 	{
 		void list( Roar.WebObjects.Shop.ListArguments args, ZWebAPI.Callback<Roar.WebObjects.Shop.ListResponse> cb);
-		void buy( Roar.WebObjects.Shop.BuyArguments args, ZWebAPI.Callback<Roar.WebObjects.Shop.BuyResponse> cb);
 	}
 
 	public interface IScriptsActions

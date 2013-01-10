@@ -596,16 +596,6 @@
               "members":[
               { "name":"shop_entries", "type":"List<DomainObjects.ShopEntry>" }
             ] }
-          },
-          {
-            "name":"buy",
-            "arguments":[
-              {"name":"shop_item_ikey","type":"string"}
-            ],
-            "response":{
-              "members":[
-              { "name":"buy_response", "type":"DomainObjects.ModifierResult" }
-            ] }
           }
         ]
      },

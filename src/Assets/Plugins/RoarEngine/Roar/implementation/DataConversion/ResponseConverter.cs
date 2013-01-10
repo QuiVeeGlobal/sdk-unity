@@ -940,17 +940,6 @@ namespace Roar.DataConversion.Responses
 				return retval;
 			}
 		}
-		//Response from shop/buy
-		public class Buy : IXmlToObject< Roar.WebObjects.Shop.BuyResponse >
-		{
-			public Roar.WebObjects.Shop.BuyResponse Build(System.Xml.XmlElement n)
-			{
-				Roar.WebObjects.Shop.BuyResponse retval = new Roar.WebObjects.Shop.BuyResponse();
-				System.Xml.XmlNode buy_node = n.SelectSingleNode("./shop/buy");
-				retval.buy_response = Roar.DomainObjects.ModifierResult.CreateFromXml(buy_node as System.Xml.XmlElement);
-				return retval;
-			}
-		}
 
  	}
 	namespace Scripts

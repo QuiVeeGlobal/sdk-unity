@@ -616,16 +616,6 @@ namespace Roar.DataConversion.Responses
 				return retval;
 			}
 		}
-		//Response from shop/buy
-		public class Buy : IXmlToObject< Roar.WebObjects.Shop.BuyResponse >
-		{
-			public Roar.WebObjects.Shop.BuyResponse Build(IXMLNode n)
-			{
-				Roar.WebObjects.Shop.BuyResponse retval = new Roar.WebObjects.Shop.BuyResponse();
-				//TODO: Implement me
-				return retval;
-			}
-		}
 
  	}
 	namespace Scripts
