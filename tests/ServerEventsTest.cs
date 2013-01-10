@@ -22,7 +22,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("update", nn);
+		RoarManager.OnServerEvent(nn);
 	}
 	
 	[Test()]
@@ -33,7 +33,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("item_use", nn);
+		RoarManager.OnServerEvent(nn);
 		
 	}
 	
@@ -45,7 +45,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("item_lose", nn);
+		RoarManager.OnServerEvent(nn);
 		
 	}
 	
@@ -57,7 +57,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("inventory_changed", nn);
+		RoarManager.OnServerEvent(nn);
 		
 	}
 	
@@ -70,7 +70,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("regen", nn);
+		RoarManager.OnServerEvent(nn);
 	}
 	
 	[Test()]
@@ -81,7 +81,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("item_add", nn);
+		RoarManager.OnServerEvent(nn);
 		
 	}
 	
@@ -110,7 +110,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("task_complete", nn);
+		RoarManager.OnServerEvent(nn);
 	}
 	
 	[Test()]
@@ -129,7 +129,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("achievement_complete", nn);
+		RoarManager.OnServerEvent(nn);
 		
 	}
 	
@@ -142,7 +142,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("level_up", nn);
+		RoarManager.OnServerEvent(nn);
 	}
 	[Test()]
 	public void TestCollectChanged()
@@ -152,7 +152,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("collect_changed", nn);
+		RoarManager.OnServerEvent(nn);
 		
 	}
 	[Test()]
@@ -163,7 +163,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("invite_accepted", nn);
+		RoarManager.OnServerEvent(nn);
 		
 		
 	}
@@ -175,7 +175,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("friend_request", nn);
+		RoarManager.OnServerEvent(nn);
 		
 	}
 	[Test()]
@@ -186,7 +186,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("transaction", nn);
+		RoarManager.OnServerEvent(nn);
 		
 	}
 	[Test()]
@@ -197,7 +197,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("mail_in", nn);
+		RoarManager.OnServerEvent(nn);
 		
 	}
 	[Test()]
@@ -208,7 +208,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("equip", nn);
+		RoarManager.OnServerEvent(nn);
 		
 	}
 	[Test()]
@@ -219,7 +219,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("unequip", nn);
+		RoarManager.OnServerEvent(nn);
 		
 	}
 	[Test()]
@@ -230,7 +230,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		
-		RoarManager.OnServerEvent("script", nn);
+		RoarManager.OnServerEvent(nn);
 		
 	}
 	[Test()]
@@ -245,7 +245,7 @@ public class ServerEventsTest
 	
 		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
 		//Not sure what the exact XMLNode is supposed to be.
-		//RoarManager.OnServerEvent("item_lose", nn);
+		RoarManager.OnServerEvent(nn);
 	}
 	
 	

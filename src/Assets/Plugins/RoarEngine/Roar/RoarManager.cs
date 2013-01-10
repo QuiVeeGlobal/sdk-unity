@@ -399,9 +399,9 @@ public class RoarManager
   	 * @param key the event name.
   	 * @param info the event info.
   	 **/
-	public static void OnServerEvent( string key, IXMLNode info )
+	public static void OnServerEvent( IXMLNode info )
 	{
-		switch(key)
+		switch(info.Name)
 		{
 			case "update":
 				OnRoarServerUpdate(Roar.Events.UpdateEvent.CreateFromXml(info));
@@ -459,7 +459,7 @@ public class RoarManager
 				break;
 
 			default:
-				Debug.Log("Server event "+key+" not yet implemented");
+				Debug.Log("Server event "+info.Name+" not yet implemented");
 				break;
 		}
 	}
@@ -547,7 +547,7 @@ public class RoarManager
 		OnRoarServerAll( node );
 		foreach( IXMLNode nn in node.Children )
 		{
-			OnServerEvent( nn.Name, nn );
+			OnServerEvent( nn );
 		}
 	}
 
