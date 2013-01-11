@@ -5,6 +5,7 @@ using System.Collections;
 [CustomEditor(typeof(RoarLoginWidget))]
 public class RoarLoginWidgetInspector : RoarUIWidgetInspector
 {
+	private SerializedProperty enableOnAwake;
 	private SerializedProperty whenToFetch;
 	private SerializedProperty howOftenToFetch;
 	
@@ -26,6 +27,8 @@ public class RoarLoginWidgetInspector : RoarUIWidgetInspector
 	protected override void OnEnable ()
 	{
 		base.OnEnable ();
+		
+		enableOnAwake = serializedObject.FindProperty("enableOnAwake");
 		
 		loginLeftOffset = serializedObject.FindProperty("leftOffset");
 		loginTopOffset = serializedObject.FindProperty("topOffset");
@@ -49,6 +52,7 @@ public class RoarLoginWidgetInspector : RoarUIWidgetInspector
 		base.DrawGUI();
 
 		// rendering properties
+		EditorGUILayout.PropertyField(enableOnAwake);
 		Comment("Login presentation.");
 		EditorGUILayout.PropertyField(loginLeftOffset);
 		EditorGUILayout.PropertyField(loginTopOffset);
