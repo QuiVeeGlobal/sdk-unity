@@ -2,66 +2,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Roar.DataConversion;
 using Roar.Events;
+using UnityEngine;
 
 namespace Roar
 {
 	namespace Events
 	{
-//		case "update":
-//				OnRoarServerUpdate(info);
-//				break;
-//			case "item_use":
-//				OnRoarServerItemUse(info);
-//				break;
-//			case "item_lose":
-//				OnRoarServerItemLose(info);
-//				break;
-//			case "inventory_changed":
-//				OnRoarServerInventoryChanged(info);
-//				break;
-//			case "regen":
-//				OnRoarServerRegen(info);
-//				break;
-//			case "item_add":
-//				OnRoarServerItemAdd(info);
-//				break;
-//			case "task_complete":
-//				OnRoarServerTaskComplete(info);
-//				break;
-//			case "achievement_complete":
-//				OnRoarServerAchievementComplete(Roar.DomainObjects.Achievement.CreateFromXml(info));
-//				break;
-//			case "level_up":
-//				OnRoarServerLevelUp(info);
-//				break;
-//			case "collect_changed":
-//				OnRoarServerCollectChanged(info);
-//				break;
-//			case "invite_accepted":
-//				OnRoarServerInviteAccepted(info);
-//				break;
-//			case "friend_request":
-//				OnRoarServerFriendRequest(info);
-//				break;
-//			case "transaction":
-//				OnRoarServerTransaction(info);
-//				break;
-//			case "mail_in":
-//				OnRoarServerMailIn(info);
-//				break;
-//			case "equip":
-//				OnRoarServerEquip(info);
-//				break;
-//			case "unequip":
-//				OnRoarServerUnequip(info);
-//				break;
-//			case "script":
-//				OnRoarServerScript(info);
-//				break;
-//			case "chrome_web_store":
-//				OnRoarServerChromeWebStore(info);
-//				break;
-//		
+
 		public class UpdateEvent
 		{
 			public string type;
@@ -71,11 +18,10 @@ namespace Roar
 			public static UpdateEvent CreateFromXml(IXMLNode n)
 			{
 				Events.UpdateEvent e = new Events.UpdateEvent();
-				//System.Console.Out.WriteLine("update create" + n.ToString());
 				
-				//e.type = n.GetAttribute("type");
-				//e.ikey = n.GetAttribute("ikey");
-				//e.val = n.GetAttribute("value");
+				e.type = n.GetAttribute("type");
+				e.ikey = n.GetAttribute("ikey");
+				e.val = n.GetAttribute("value");
 				
 				return e;
 			}
@@ -102,10 +48,9 @@ namespace Roar
 			public static ItemLoseEvent CreateFromXml(IXMLNode n)
 			{
 				Events.ItemLoseEvent e = new Events.ItemLoseEvent();
-				IXMLNode node=n.GetNode("item_lose>0");
 				
-				e.item_id = node.GetAttribute("item_id");
-				e.item_ikey = node.GetAttribute("item_ikey");
+				e.item_id = n.GetAttribute("item_id");
+				e.item_ikey = n.GetAttribute("item_ikey");
 				return e;
 				
 			}
@@ -133,7 +78,6 @@ namespace Roar
 				e.name = n.GetAttribute("name");
 				e.next = n.GetAttribute("next");
 				return e;
-				
 			}
 		}
 		
@@ -145,10 +89,9 @@ namespace Roar
 			public static ItemAddEvent CreateFromXml(IXMLNode n)
 			{
 				Events.ItemAddEvent e = new Events.ItemAddEvent();
-				IXMLNode node=n.GetNode("item_add>0");
-				
-				e.item_id = node.GetAttribute("item_id");
-				e.item_ikey = node.GetAttribute("item_ikey");
+
+				e.item_id = n.GetAttribute("item_id");
+				e.item_ikey = n.GetAttribute("item_ikey");
 				return e;
 				
 			}
@@ -162,8 +105,7 @@ namespace Roar
 			{
 				Events.TaskCompleteEvent e = new Events.TaskCompleteEvent();
 				e.task = DomainObjects.Task.CreateFromXml(n, new XCRMParser());
-				
-				
+
 				return e;
 				
 			}
@@ -185,54 +127,28 @@ namespace Roar
 			{
 				
 				Events.AchievementCompleteEvent e = new Events.AchievementCompleteEvent();
-				
-				IXMLNode node = n.GetNode("achievement_complete>0");
-				if (node != null)
-				{
-					e.ikey = node.GetAttribute("ikey");
-				}
-				if (node != null)
-				{
-					e.steps = node.GetAttribute("steps");
-				}
-				if (node != null)
-				{
-					e.label = node.GetAttribute("label");
-				}
-				if (node != null)
-				{
-					e.progress_count = node.GetAttribute("progress_count");
-				}
-				if (node != null)
-				{
-					e.description = node.GetAttribute("description");
-				}
-				if (node != null)
-				{
-					e.task_ikey = node.GetAttribute("task_ikey");
-				}
-				if (node != null)
-				{
-					e.task_label = node.GetAttribute("task_label");
-				}
-				
+
+				e.ikey = n.GetAttribute("ikey");
+				e.steps = n.GetAttribute("steps");
+				e.label = n.GetAttribute("label");
+				e.progress_count = n.GetAttribute("progress_count");
+				e.description = n.GetAttribute("description");
+				e.task_ikey = n.GetAttribute("job_ikey");
+				e.task_label = n.GetAttribute("job_label");
+
 				return e;
 			}
 			
 		}
-		
+
 		public class LevelUpEvent
 		{
-			public string level_up;
+			public string val;
 			public static LevelUpEvent CreateFromXml(IXMLNode n)
 			{
 				LevelUpEvent e = new LevelUpEvent();
 				
-				IXMLNode node=n.GetNode("levelup>0");
-				if( node != null)
-				{
-					e.level_up = node.GetAttribute("value");
-				}
+				e.val = n.GetAttribute("value");
 				
 				return e;
 				
@@ -249,12 +165,8 @@ namespace Roar
 			{
 				CollectChangedEvent e = new CollectChangedEvent();
 				
-				IXMLNode node =n.GetNode("collect_changed>0");
-				if(node != null)
-				{
-					e.ikey = node.GetAttribute("ikey");
-					e.next = node.GetAttribute("next");
-				}
+				e.ikey = n.GetAttribute("ikey");
+				e.next = n.GetAttribute("next");
 				
 				return e;
 			}
@@ -270,14 +182,10 @@ namespace Roar
 			{
 				InviteAcceptedEvent e = new InviteAcceptedEvent();
 				
-				IXMLNode node =n.GetNode("invite_accepted>0");
-				if(node != null)
-				{
-					e.name = node.GetAttribute("name");
-					e.player_id = node.GetAttribute("player_id");
-					e.level = node.GetAttribute("level");
-				}
-				
+				e.name = n.GetAttribute("name");
+				e.player_id = n.GetAttribute("player_id");
+				e.level = n.GetAttribute("level");
+
 				return e;
 			}
 			
@@ -293,16 +201,12 @@ namespace Roar
 			public static FriendRequestEvent CreateFromXml(IXMLNode n)
 			{
 				FriendRequestEvent e = new FriendRequestEvent();
-				
-				IXMLNode node =n.GetNode("friend_request>0");
-				if(node != null)
-				{
-					e.name = node.GetAttribute("name");
-					e.from_player_id = node.GetAttribute("from_player_id");
-					e.level = node.GetAttribute("level");
-					e.friend_invite_row_id = node.GetAttribute("friend_invite_row_id");
-				}
-				
+
+				e.name = n.GetAttribute("name");
+				e.from_player_id = n.GetAttribute("from_player_id");
+				e.level = n.GetAttribute("level");
+				e.friend_invite_row_id = n.GetAttribute("friend_invite_row_id");
+
 				return e;
 			}
 		}
@@ -315,14 +219,10 @@ namespace Roar
 			public static TransactionEvent CreateFromXml(IXMLNode n)
 			{
 				TransactionEvent e = new TransactionEvent();
-				
-				IXMLNode node =n.GetNode("transaction>0");
-				if(node != null)
-				{
-					e.ikey = node.GetAttribute("ikey");
-					e.val = node.GetAttribute("value");
-				}
-				
+
+				e.ikey = n.GetAttribute("ikey");
+				e.val = n.GetAttribute("value");
+
 				return e;
 			}
 		}
@@ -336,12 +236,8 @@ namespace Roar
 			{
 				MailInEvent e = new MailInEvent();
 				
-				IXMLNode node =n.GetNode("mail_in>0");
-				if(node != null)
-				{
-					e.sender_id = node.GetAttribute("sender_id");
-					e.sender_name = node.GetAttribute("sender_name");
-				}
+				e.sender_id = n.GetAttribute("sender_id");
+				e.sender_name = n.GetAttribute("sender_name");
 				
 				return e;
 			}
@@ -355,11 +251,7 @@ namespace Roar
 			{
 				EquipEvent e = new EquipEvent();
 				
-				IXMLNode node =n.GetNode("equip>0");
-				if(node != null)
-				{
-					e.item_id = node.GetAttribute("item_id");
-				}
+				e.item_id = n.GetAttribute("item_id");
 				
 				return e;
 			}
@@ -374,12 +266,7 @@ namespace Roar
 			{
 				UnequipEvent e = new UnequipEvent();
 				
-				IXMLNode node =n.GetNode("unequip>0");
-				if(node != null)
-				{
-					e.item_id = node.GetAttribute("item_id");
-				}
-				
+				e.item_id = n.GetAttribute("item_id");
 				return e;
 			}
 		}
@@ -393,12 +280,8 @@ namespace Roar
 			{
 				ScriptEvent e = new ScriptEvent();
 				
-				IXMLNode node =n.GetNode("script>0");
-				if(node != null)
-				{
-					e.key = node.GetAttribute("key");
-					e.val = node.GetAttribute("value");
-				}
+				e.key = n.GetAttribute("key");
+				e.val = n.GetAttribute("value");
 				
 				return e;
 			}
@@ -417,21 +300,17 @@ namespace Roar
 				ChromeWebStoreEvent e = new ChromeWebStoreEvent();
 				e.costsList = new List<string>();
 				e.modifierList = new List<string>();
-				IXMLNode node =n.GetNode("chrome_web_store>0");
-				if(node != null)
-				{
-					e.ikey = node.GetAttribute("ikey");
-					e.transaction_id = node.GetAttribute("transaction_id");
-				}
-				
-				IXMLNode costsNode = node.GetNode("costs>0");
+				e.ikey = n.GetAttribute("ikey");
+				e.transaction_id = n.GetAttribute("transaction_id");
+
+				IXMLNode costsNode = n.GetNode("costs>0");
 				
 				foreach (IXMLNode nn in costsNode.Children)
 				{
 					e.costsList.Add (nn.Text);
 				}
 				
-				IXMLNode attributesNode = node.GetNode("modifiers>0");
+				IXMLNode attributesNode = n.GetNode("modifiers>0");
 				
 				foreach (IXMLNode nn in attributesNode.Children)
 				{
