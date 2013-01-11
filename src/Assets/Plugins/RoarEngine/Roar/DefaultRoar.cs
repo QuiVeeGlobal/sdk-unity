@@ -73,9 +73,6 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 	public Roar.Components.ITasks Tasks { get { return tasks; } }
 	protected Roar.Components.ITasks tasks;
 
-	public Roar.Components.IAchievements Achievements { get { return achievements; } }
-	protected Roar.Components.IAchievements achievements;
-
 	public Roar.Components.IGifts Gifts { get { return gifts; } }
 	protected Roar.Components.IGifts gifts;
 

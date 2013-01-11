@@ -223,11 +223,6 @@ public interface IRoar
 	Roar.Components.ITasks Tasks { get; }
 
 	/**
-   * Get access to the achievements functions.
-   */
-	Roar.Components.IAchievements Achievements { get; }
-
-	/**
    * Get access to the gifts functions.
    */
 	Roar.Components.IGifts Gifts { get; }

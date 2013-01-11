@@ -38,7 +38,6 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Facebook\FacebookBinding.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Facebook\FacebookManager.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Adapters\IUrbanAirship.cs" />
-    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IAchievements.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IGifts.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IInAppPurchase.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IInventory.cs" />
@@ -53,7 +52,6 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\RoarManager.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\ToJson.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Adapters\UrbanAirship.cs" />
-    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Achievements.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Gifts.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\InAppPurchase.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Inventory.cs" />
