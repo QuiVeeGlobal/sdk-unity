@@ -91,6 +91,8 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\ServerEvents.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\ITasks.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Tasks.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IGoogle.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Google.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
