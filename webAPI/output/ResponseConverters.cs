@@ -66,6 +66,16 @@ namespace Roar.DataConversion.Responses
 				return retval;
 			}
 		}
+		//Response from admin/login_user
+		public class LoginUser : IXmlToObject< Roar.WebObjects.Admin.LoginUserResponse >
+		{
+			public Roar.WebObjects.Admin.LoginUserResponse Build(IXMLNode n)
+			{
+				Roar.WebObjects.Admin.LoginUserResponse retval = new Roar.WebObjects.Admin.LoginUserResponse();
+				//TODO: Implement me
+				return retval;
+			}
+		}
 		//Response from admin/set
 		public class Set : IXmlToObject< Roar.WebObjects.Admin.SetResponse >
 		{

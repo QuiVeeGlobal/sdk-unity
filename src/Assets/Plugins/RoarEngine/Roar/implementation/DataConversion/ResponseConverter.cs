@@ -67,6 +67,17 @@ namespace Roar.DataConversion.Responses
 				return retval;
 			}
 		}
+		//Response from admin/login_user
+		public class LoginUser : IXmlToObject< Roar.WebObjects.Admin.LoginUserResponse >
+		{
+			public Roar.WebObjects.Admin.LoginUserResponse Build(System.Xml.XmlElement n)
+			{
+				Roar.WebObjects.Admin.LoginUserResponse retval = new Roar.WebObjects.Admin.LoginUserResponse();
+				retval.auth_token = n.SelectSingleNode("./admin/login_user/auth_token").GetInnerTextOrDefault(null);
+				retval.player_id = n.SelectSingleNode("./admin/login_user/player_id").GetInnerTextOrDefault(null);
+				return retval;
+			}
+		}
 		//Response from admin/set
 		public class Set : IXmlToObject< Roar.WebObjects.Admin.SetResponse >
 		{

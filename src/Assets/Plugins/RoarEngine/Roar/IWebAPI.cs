@@ -59,6 +59,7 @@ public abstract class IWebAPI
 		void create_player( Roar.WebObjects.Admin.CreatePlayerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.CreatePlayerResponse> cb);
 		void delete_player( Roar.WebObjects.Admin.DeletePlayerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.DeletePlayerResponse> cb);
 		void increment_stat( Roar.WebObjects.Admin.IncrementStatArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.IncrementStatResponse> cb);
+		void login_user( Roar.WebObjects.Admin.LoginUserArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.LoginUserResponse> cb);
 		void _set( Roar.WebObjects.Admin.SetArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.SetResponse> cb);
 		void set_custom( Roar.WebObjects.Admin.SetCustomArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.SetCustomResponse> cb);
 		void view_player( Roar.WebObjects.Admin.ViewPlayerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.ViewPlayerResponse> cb);

@@ -131,6 +131,7 @@ public class WebAPI : IWebAPI
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Admin.CreatePlayerResponse> create_player_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Admin.DeletePlayerResponse> delete_player_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Admin.IncrementStatResponse> increment_stat_response_parser;
+		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Admin.LoginUserResponse> login_user_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Admin.SetResponse> set_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Admin.SetCustomResponse> set_custom_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Admin.ViewPlayerResponse> view_player_response_parser;
@@ -140,6 +141,7 @@ public class WebAPI : IWebAPI
 			create_player_response_parser = new Roar.DataConversion.Responses.Admin.CreatePlayer();
 			delete_player_response_parser = new Roar.DataConversion.Responses.Admin.DeletePlayer();
 			increment_stat_response_parser = new Roar.DataConversion.Responses.Admin.IncrementStat();
+			login_user_response_parser = new Roar.DataConversion.Responses.Admin.LoginUser();
 			set_response_parser = new Roar.DataConversion.Responses.Admin.Set();
 			set_custom_response_parser = new Roar.DataConversion.Responses.Admin.SetCustom();
 			view_player_response_parser = new Roar.DataConversion.Responses.Admin.ViewPlayer();
@@ -159,6 +161,11 @@ public class WebAPI : IWebAPI
 		public void increment_stat( Roar.WebObjects.Admin.IncrementStatArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.IncrementStatResponse> cb)
 		{
 			api.MakeCall ("admin/increment_stat", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Admin.IncrementStatResponse>(cb, increment_stat_response_parser), false);
+		}
+
+		public void login_user( Roar.WebObjects.Admin.LoginUserArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.LoginUserResponse> cb)
+		{
+			api.MakeCall ("admin/login_user", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Admin.LoginUserResponse>(cb, login_user_response_parser), false);
 		}
 
 		public void _set( Roar.WebObjects.Admin.SetArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.SetResponse> cb)

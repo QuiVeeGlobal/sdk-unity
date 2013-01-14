@@ -38,6 +38,21 @@
                {"name":"amount", "type":"string"}
              ]
            },
+           { "name":"login_user", "requires_auth":false,
+             "arguments":
+             [
+               {"name":"admin_token", "type":"string"},
+               {"name":"name", "type":"string", "optional":true, "note":"name is mutually exclusive with id"},
+               {"name":"id", "type":"string", "optional":true, "note":"id is mutually exclusive with name"}
+             ],
+             "response":
+             {
+               "members":[
+                 {"name":"auth_token", "type":"string"},
+                 {"name":"player_id", "type":"string"}
+               ]
+             }
+           },
            { "name":"set", "requires_auth":false },
            { "name":"set_custom", "requires_auth":false },
            { "name":"view_player", "requires_auth":false }

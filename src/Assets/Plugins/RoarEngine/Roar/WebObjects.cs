@@ -79,6 +79,37 @@ namespace Roar.WebObjects
 
 		}
 
+		// Arguments to admin/login_user
+		public class LoginUserArguments
+		{
+			public string admin_token;
+			public string name; // name is mutually exclusive with id 
+			public string id; // id is mutually exclusive with name 
+
+			public Hashtable ToHashtable()
+			{
+				Hashtable retval = new Hashtable();
+				retval["admin_token"] = admin_token;
+				if( name!=null )
+				{
+				retval["name"] = name;
+				}
+				if( id!=null )
+				{
+				retval["id"] = id;
+				}
+				return retval;
+			}
+		}
+		
+		// Response from admin/login_user
+		public class LoginUserResponse
+		{
+			public string auth_token;
+			public string player_id;
+
+		}
+
 		// Arguments to admin/set
 		public class SetArguments
 		{
