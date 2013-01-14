@@ -22,7 +22,13 @@
                ]
              }
            },
-           { "name":"delete_player", "requires_auth":false },
+           { "name":"delete_player", "requires_auth":false,
+             "arguments":
+             [
+               {"name":"admin_token", "type":"string"},
+               {"name":"player_id", "type":"string"}
+             ]
+           },
            { "name":"increment_stat", "requires_auth":false },
            { "name":"set", "requires_auth":false },
            { "name":"set_custom", "requires_auth":false },

@@ -36,10 +36,14 @@ namespace Roar.WebObjects
 		// Arguments to admin/delete_player
 		public class DeletePlayerArguments
 		{
+			public string admin_token;
+			public string player_id;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["admin_token"] = admin_token;
+				retval["player_id"] = player_id;
 				return retval;
 			}
 		}

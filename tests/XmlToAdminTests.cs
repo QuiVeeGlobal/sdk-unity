@@ -28,6 +28,24 @@ namespace Testing
 			Assert.AreEqual(response.auth_token, "2034623793");
 			Assert.AreEqual(response.player_id, "12312312312");
 		}
+		
+		[Test()]
+		public void TestAdminDeletePlayerXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""128455461333"">
+				<admin>
+					<delete_player status=""ok"">
+					</delete_player>
+				</admin>
+			</roar>";
+			
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
+			Roar.DataConversion.Responses.Admin.DeletePlayer delete_player_parser = new Roar.DataConversion.Responses.Admin.DeletePlayer();
+			DeletePlayerResponse response = delete_player_parser.Build(nn);
+			
+			Assert.IsNotNull(response);
+		}
 	}
 }
 
