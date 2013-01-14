@@ -138,6 +138,87 @@ Transform:
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!1 &199454294
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 199454296}
+  - 114: {fileID: 199454295}
+  m_Layer: 0
+  m_Name: RoarInventoryWidget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &199454295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 199454294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d12c40df3041ff749a83e0a351c1fbd4, type: 3}
+  m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 512
+    height: 386
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
+  whenToFetch: 2
+  howOftenToFetch: 60
+  labelFormat: InventoryLabel
+  descriptionFormat: InventoryDescription
+  typeFormat: InventoryType
+  consumeButtonFormat: InventoryConsumeButton
+  showDescription: 1
+  showType: 1
+  allowSorting: 1
+  maxLabelWidth: 150
+  maxDescriptionFormatWidth: 350
+  maxTypeWidth: 100
+  rowHeight: 32
+--- !u!4 &199454296
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 199454294}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &327688141
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,43 +809,6 @@ MonoBehaviour:
     width: 96
     height: 32
   shopItemSpacing: 8
---- !u!1 &828452760
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 828452762}
-  - 114: {fileID: 828452761}
-  m_Layer: 0
-  m_Name: RoarInventoryWidget
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &828452761
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 828452760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eee19e2339f24f146becfc7b54c6da61, type: 3}
-  m_Name: 
---- !u!4 &828452762
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 828452760}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &834810405
 GameObject:
   m_ObjectHideFlags: 0
@@ -1455,8 +1499,39 @@ MonoBehaviour:
   m_GameObject: {fileID: 1654474000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 226d847a60a434ac49c824bea2d0cedc, type: 3}
+  m_Script: {fileID: 11500000, guid: bde7b340d65a4684e9cce5ecfd821114, type: 3}
   m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
 --- !u!1 &1685386026
 GameObject:
   m_ObjectHideFlags: 0
@@ -1742,8 +1817,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1949122398}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8955924bf2769d46abaf63731161f9c, type: 3}
+  m_Script: {fileID: 11500000, guid: a6f098ab93323d747bcdff318923f36a, type: 3}
   m_Name: 
+  target: {fileID: 199454294}
 --- !u!114 &1949122401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1890,3 +1966,90 @@ MonoBehaviour:
     valueFormat: 
     valueStyle: StatsValueStyle
     valueType: 1
+--- !u!1 &2063613868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2063613870}
+  - 114: {fileID: 2063613869}
+  m_Layer: 0
+  m_Name: RoarLoginWidget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2063613869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2063613868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bfd7f9b1c655b64fb5aa8282d78aee4, type: 3}
+  m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 512
+    height: 386
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
+  enableOnAwake: 1
+  fetchPropertiesOnLogin: 1
+  saveUsername: 1
+  savePassword: 0
+  loginBoxSpacing: 10
+  leftOffset: 50
+  topOffset: 50
+  passwordBoxSpacing: 10
+  labelWidth: 90
+  statusWidth: 400
+  fieldHeight: 30
+  fieldWidth: 140
+  buttonWidth: 200
+  buttonHeight: 40
+  buttonSpacing: 10
+  buttonStyle: LoginButton
+  boxStyle: LoginField
+  loginLabelStyle: LoginLabel
+  statusStyle: LoginStatus
+--- !u!4 &2063613870
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2063613868}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1, z: -11.7944164}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
