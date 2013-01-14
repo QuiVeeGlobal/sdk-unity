@@ -602,33 +602,7 @@ namespace Roar.DataConversion.Responses
 			public Roar.WebObjects.Info.UserResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Info.UserResponse retval = new Roar.WebObjects.Info.UserResponse();
-				retval.player = new Roar.DomainObjects.Player();
-				System.Xml.XmlNodeList attribute_nodes = n.SelectNodes("./info/user/attribute");
-				foreach( System.Xml.XmlElement nn in attribute_nodes )
-				{
-					switch (nn.GetAttribute("ikey"))
-					{
-					case "id":
-						retval.player.id = nn.GetAttribute("value");
-						break;
-					case "name":
-						retval.player.name = nn.GetAttribute("value");
-						break;
-					case "level":
-						System.Int32.TryParse(nn.GetAttribute("value"), out retval.player.level);
-						break;
-					case "xp":
-						System.Int32.TryParse(nn.GetAttribute("value"), out retval.player.xp.value);
-						System.Int32.TryParse(nn.GetAttribute("level_start"), out retval.player.xp.level_start);
-						System.Int32.TryParse(nn.GetAttribute("next_level"), out retval.player.xp.next_level);
-						break;
-					default:
-						Roar.DomainObjects.PlayerAttribute attr = new Roar.DomainObjects.PlayerAttribute();
-						attr.ParseXml(nn);
-						retval.player.attributes.Add(attr.ikey, attr);
-						break;
-					}
-				}
+				retval.player = Player.CreateFromXml(n.SelectSingleNode("./info/user") as System.Xml.XmlElement);
 				return retval;
 			}
 		}

@@ -394,8 +394,44 @@ namespace Roar
 			public int level;
 			public XPAttributes xp = new XPAttributes();
 			public Dictionary<string, PlayerAttribute> attributes = new Dictionary<string, PlayerAttribute>();
+			
+			public static Player CreateFromXml (System.Xml.XmlElement n)
+			{
+				Player retval = new Player();
+				if (n == null)
+				{
+					return retval;
+				}
+				System.Xml.XmlNodeList attribute_nodes = n.SelectNodes("./attribute");
+				foreach( System.Xml.XmlElement nn in attribute_nodes )
+				{
+					switch (nn.GetAttribute("ikey"))
+					{
+					case "id":
+						retval.id = nn.GetAttribute("value");
+						break;
+					case "name":
+						retval.name = nn.GetAttribute("value");
+						break;
+					case "level":
+						System.Int32.TryParse(nn.GetAttribute("value"), out retval.level);
+						break;
+					case "xp":
+						System.Int32.TryParse(nn.GetAttribute("value"), out retval.xp.value);
+						System.Int32.TryParse(nn.GetAttribute("level_start"), out retval.xp.level_start);
+						System.Int32.TryParse(nn.GetAttribute("next_level"), out retval.xp.next_level);
+						break;
+					default:
+						Roar.DomainObjects.PlayerAttribute attr = new Roar.DomainObjects.PlayerAttribute();
+						attr.ParseXml(nn);
+						retval.attributes.Add(attr.ikey, attr);
+						break;
+					}
+				}
+				return retval;
+			}
 		};
-
+		
 		public class BulkPlayerInfo
 		{
 			public Dictionary<string, string> stats = new Dictionary<string, string>();
