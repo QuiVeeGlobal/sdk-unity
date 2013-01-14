@@ -64,12 +64,6 @@ namespace Roar.implementation.Components
 			{
 				DomainObjects.InventoryItem item = inventory.dataStore.inventory.Get (id);
 				item.equipped = true;
-				
-				//TODO: Fixup this return value
-				Hashtable returnObj = new Hashtable ();
-				returnObj ["id"] = item.id;
-				returnObj ["ikey"] = item.ikey;
-				returnObj ["label"] = item.label;
 
 				RoarManager.OnGoodEquipped (new RoarManager.GoodInfo (id, item.ikey, item.label));
 			}
@@ -104,13 +98,6 @@ namespace Roar.implementation.Components
 			{
 				DomainObjects.InventoryItem item = inventory.dataStore.inventory.Get (id);
 				item.equipped = false;
-				
-				//TODO: Fix this up
-				Hashtable returnObj = new Hashtable ();
-				returnObj ["id"] = item.id;
-				returnObj ["ikey"] = item.ikey;
-				returnObj ["label"] = item.label;
-
 				RoarManager.OnGoodUnequipped (new RoarManager.GoodInfo (item.id, item.ikey, item.label));
 			}
 		}
@@ -186,15 +173,7 @@ namespace Roar.implementation.Components
 			public override void HandleSuccess (Roar.CallbackInfo<Roar.WebObjects.Items.SellResponse> info)
 			{
 				DomainObjects.InventoryItem item = inventory.dataStore.inventory.Get (id);
-				
-				//TODO: Fix this up
-				Hashtable returnObj = new Hashtable ();
-				returnObj ["id"] = id;
-				returnObj ["ikey"] = item.ikey;
-				returnObj ["label"] = item.label;
-
 				inventory.dataStore.inventory.Unset(item.id);
-
 				RoarManager.OnGoodSold (new RoarManager.GoodInfo (item.id, item.ikey, item.label));
 			}
 		}
@@ -241,15 +220,7 @@ namespace Roar.implementation.Components
 			public override void HandleSuccess (Roar.CallbackInfo<Roar.WebObjects.Items.UseResponse> info)
 			{
 				DomainObjects.InventoryItem item = inventory.dataStore.inventory.Get (id);
-				
-				//TODO: Make this work
-				Hashtable returnObj = new Hashtable ();
-				returnObj ["id"] = item.id;
-				returnObj ["ikey"] = item.ikey;
-				returnObj ["label"] = item.label;
-
 				inventory.dataStore.inventory.Unset (item.id);
-
 				RoarManager.OnGoodUsed (new RoarManager.GoodInfo (item.id, item.ikey, item.label));
 			}
 		}
