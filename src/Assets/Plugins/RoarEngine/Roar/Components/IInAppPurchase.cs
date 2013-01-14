@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using WebObjects = Roar.WebObjects;
+using Roar.DomainObjects;
 
 namespace Roar.Components
 {
@@ -28,9 +29,9 @@ namespace Roar.Components
 	     **/
 		bool HasDataFromServer { get; }
 
-		IList<Hashtable> List ();
+		IList<AppstoreShopEntry> List ();
 
-		Hashtable GetShopItem (string productIdentifier);
+		AppstoreShopEntry GetShopItem (string productIdentifier);
 
 		void Purchase (string productId, Roar.Callback<string> cb, Roar.Callback<Roar.WebObjects.Appstore.BuyResponse> cbx);
 

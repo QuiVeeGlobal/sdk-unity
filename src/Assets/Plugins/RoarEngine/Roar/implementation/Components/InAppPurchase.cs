@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Roar.Components;
 using UnityEngine;
 using System.Runtime.InteropServices;
+using Roar.DomainObjects;
 
 namespace Roar.implementation.Components
 {
@@ -15,8 +16,8 @@ namespace Roar.implementation.Components
 		protected bool isSandbox;
 		protected bool hasDataFromAppstore;
 		protected bool isServerCalling;
-		protected IDictionary<string, Hashtable> productsMap;
-		protected IList<Hashtable> productsList;
+		protected IDictionary<string, AppstoreShopEntry> productsMap;
+		protected IList<AppstoreShopEntry> productsList;
 		
 		//TODO: Ugly that we need two of these for now.
 		protected Roar.Callback<string> purchaseCallback;
@@ -29,8 +30,8 @@ namespace Roar.implementation.Components
 			this.isSandbox = isSandbox;
 			hasDataFromAppstore = false;
 			isServerCalling = false;
-			productsMap = new Dictionary<string, Hashtable> ();
-			productsList = new List<Hashtable> ();
+			productsMap = new Dictionary<string, AppstoreShopEntry> ();
+			productsList = new List<AppstoreShopEntry> ();
     		#if UNITY_IOS && !UNITY_EDITOR
       		_StoreKitInit(nativeCallbackGameObject);
     		#else
@@ -86,12 +87,12 @@ namespace Roar.implementation.Components
 			}
 		}
 
-		public IList<Hashtable> List ()
+		public IList<AppstoreShopEntry> List ()
 		{
 			return  productsList;
 		}
 
-		public Hashtable GetShopItem (string productIdentifier)
+		public AppstoreShopEntry GetShopItem (string productIdentifier)
 		{
 			return productsMap [productIdentifier];
 		}
@@ -166,6 +167,8 @@ namespace Roar.implementation.Components
 			return false;
     		#endif
 		}
+		
+		public Roar.DataConversion.IXCRMParser ixcrm_parser = new Roar.DataConversion.XCRMParser();
 
 		// Store Kit wrapper to roar Unity client communication methods
 
@@ -182,16 +185,10 @@ namespace Roar.implementation.Components
 
 			if (children != null) {
 				foreach (IXMLNode shopItemXml in children) {
-					string pid = shopItemXml.GetAttribute ("product_identifier");
-					Hashtable shopItemHashtable = new Hashtable ();
-					foreach (KeyValuePair<string, string> attribute in shopItemXml.Attributes) {
-						logger.DebugLog (string.Format ("Adding product {0} property {1}:{2}", pid, attribute.Key, attribute.Value));
-						shopItemHashtable [attribute.Key] = attribute.Value;
-					}
-					logger.DebugLog (string.Format ("Adding {0} to productsList_:", pid));
-					logger.DebugLog (Roar.Json.HashToJSON (shopItemHashtable));
-					productsList.Add (shopItemHashtable);
-					productsMap.Add (pid, shopItemHashtable);
+					Roar.DomainObjects.AppstoreShopEntry entry = Roar.DomainObjects.AppstoreShopEntry.CreateFromXml(shopItemXml,ixcrm_parser);
+
+					productsList.Add (entry);
+					productsMap.Add (entry.product_identifier, entry);
 				}
 			} else {
 				logger.DebugLog ("No products passed to OnProductData()");
