@@ -88,6 +88,23 @@ namespace Testing
 		}
 		
 		[Test()]
+		public void TestSetXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""125555206993"">
+				<admin>
+					<set status=""ok""/>
+				</admin>
+			</roar>";
+			
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
+			Roar.DataConversion.Responses.Admin.Set set_parser = new Roar.DataConversion.Responses.Admin.Set();
+			SetResponse response = set_parser.Build(nn);
+			
+			Assert.IsNotNull(response);
+		}
+		
+		[Test()]
 		public void TestSetCustomXmlGetAttributes ()
 		{
 			string xml =

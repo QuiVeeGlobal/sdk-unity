@@ -53,7 +53,15 @@
                ]
              }
            },
-           { "name":"set", "requires_auth":false },
+           { "name":"set", "requires_auth":false,
+             "arguments":
+             [
+               {"name":"admin_token", "type":"string"},
+               {"name":"id", "type":"string"},
+               {"name":"stat", "type":"string"},
+               {"name":"amount", "type":"string"}
+             ]
+           },
            { "name":"set_custom", "requires_auth":false,
              "arguments":
              [
