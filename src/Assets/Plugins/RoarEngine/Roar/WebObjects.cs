@@ -57,10 +57,18 @@ namespace Roar.WebObjects
 		// Arguments to admin/increment_stat
 		public class IncrementStatArguments
 		{
+			public string admin_token;
+			public string id;
+			public string stat;
+			public string amount;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["admin_token"] = admin_token;
+				retval["id"] = id;
+				retval["stat"] = stat;
+				retval["amount"] = amount;
 				return retval;
 			}
 		}

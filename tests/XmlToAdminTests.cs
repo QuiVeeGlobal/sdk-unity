@@ -46,6 +46,24 @@ namespace Testing
 			
 			Assert.IsNotNull(response);
 		}
+		
+		[Test()]
+		public void TestAdminIncrementStatXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""128455461333"">
+				<admin>
+					<delete_player status=""ok"">
+					</delete_player>
+				</admin>
+			</roar>";
+			
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
+			Roar.DataConversion.Responses.Admin.IncrementStat increment_stat_parser = new Roar.DataConversion.Responses.Admin.IncrementStat();
+			IncrementStatResponse response = increment_stat_parser.Build(nn);
+			
+			Assert.IsNotNull(response);
+		}
 	}
 }
 
