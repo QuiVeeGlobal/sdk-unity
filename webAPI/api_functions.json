@@ -54,7 +54,15 @@
              }
            },
            { "name":"set", "requires_auth":false },
-           { "name":"set_custom", "requires_auth":false },
+           { "name":"set_custom", "requires_auth":false,
+             "arguments":
+             [
+               {"name":"admin_token", "type":"string"},
+               {"name":"id", "type":"string"},
+               {"name":"property_ikey", "type":"string"},
+               {"name":"value", "type":"string"}
+             ]
+           },
            { "name":"view_player", "requires_auth":false }
         ]
      },

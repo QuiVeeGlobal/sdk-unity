@@ -86,6 +86,23 @@ namespace Testing
 			Assert.AreEqual(response.auth_token, "2034623793");
 			Assert.AreEqual(response.player_id, "12312312312");
 		}
+		
+		[Test()]
+		public void TestSetCustomXmlGetAttributes ()
+		{
+			string xml =
+			@"<roar tick=""125555206993"">
+				<admin>
+					<set_custom status=""ok""/>
+				</admin>
+			</roar>";
+			
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
+			Roar.DataConversion.Responses.Admin.SetCustom set_custom_parser = new Roar.DataConversion.Responses.Admin.SetCustom();
+			SetCustomResponse response = set_custom_parser.Build(nn);
+			
+			Assert.IsNotNull(response);
+		}
 	}
 }
 
