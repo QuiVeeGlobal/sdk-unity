@@ -101,10 +101,17 @@ namespace Roar.DataConversion.Responses
 		//Response from admin/view_player
 		public class ViewPlayer : IXmlToObject< Roar.WebObjects.Admin.ViewPlayerResponse >
 		{
+			public IXCRMParser ixcrm_parser = new XCRMParser();
 			public Roar.WebObjects.Admin.ViewPlayerResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Admin.ViewPlayerResponse retval = new Roar.WebObjects.Admin.ViewPlayerResponse();
-				//TODO: Implement me
+				retval.player = Player.CreateFromXml(n.SelectSingleNode("./admin/view_player") as System.Xml.XmlElement);
+				retval.items = new List<InventoryItem>();
+				System.Xml.XmlNodeList item_nodes = n.SelectNodes("./admin/view_player/items/item");
+				foreach (System.Xml.XmlElement item_node in item_nodes)
+				{
+					retval.items.Add(DomainObjects.InventoryItem.CreateFromXml(item_node, ixcrm_parser));
+				}
 				return retval;
 			}
 		}

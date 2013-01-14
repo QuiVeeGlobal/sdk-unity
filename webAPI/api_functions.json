@@ -71,7 +71,20 @@
                {"name":"value", "type":"string"}
              ]
            },
-           { "name":"view_player", "requires_auth":false }
+           { "name":"view_player", "requires_auth":false,
+             "arguments":
+             [
+               {"name":"admin_token", "type":"string"},
+               {"name":"id", "type":"string"}
+             ],
+             "response":
+             {
+               "members":[
+                 {"name":"player", "type":"Roar.DomainObjects.Player"},
+                 {"name":"items", "type":"List<DomainObjects.InventoryItem>"}
+               ]
+             }
+           }
         ]
      },
      {

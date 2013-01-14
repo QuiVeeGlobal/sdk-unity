@@ -163,10 +163,14 @@ namespace Roar.WebObjects
 		// Arguments to admin/view_player
 		public class ViewPlayerArguments
 		{
+			public string admin_token;
+			public string id;
 
 			public Hashtable ToHashtable()
 			{
 				Hashtable retval = new Hashtable();
+				retval["admin_token"] = admin_token;
+				retval["id"] = id;
 				return retval;
 			}
 		}
@@ -174,6 +178,8 @@ namespace Roar.WebObjects
 		// Response from admin/view_player
 		public class ViewPlayerResponse
 		{
+			public Roar.DomainObjects.Player player;
+			public List<DomainObjects.InventoryItem> items;
 
 		}
 
