@@ -128,6 +128,7 @@ public class WebAPI : IWebAPI
 
 	public class AdminActions : APIBridge, IAdminActions
 	{
+		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Admin.CreatePlayerResponse> create_player_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Admin.DeletePlayerResponse> delete_player_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Admin.IncrementStatResponse> increment_stat_response_parser;
 		public Roar.DataConversion.IXmlToObject<Roar.WebObjects.Admin.SetResponse> set_response_parser;
@@ -136,12 +137,18 @@ public class WebAPI : IWebAPI
 
 		public AdminActions (IRequestSender caller) : base(caller)
 		{
+			create_player_response_parser = new Roar.DataConversion.Responses.Admin.CreatePlayer();
 			delete_player_response_parser = new Roar.DataConversion.Responses.Admin.DeletePlayer();
 			increment_stat_response_parser = new Roar.DataConversion.Responses.Admin.IncrementStat();
 			set_response_parser = new Roar.DataConversion.Responses.Admin.Set();
 			set_custom_response_parser = new Roar.DataConversion.Responses.Admin.SetCustom();
 			view_player_response_parser = new Roar.DataConversion.Responses.Admin.ViewPlayer();
 
+		}
+
+		public void create_player( Roar.WebObjects.Admin.CreatePlayerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.CreatePlayerResponse> cb)
+		{
+			api.MakeCall ("admin/create_player", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Admin.CreatePlayerResponse>(cb, create_player_response_parser), false);
 		}
 
 		public void delete_player( Roar.WebObjects.Admin.DeletePlayerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.DeletePlayerResponse> cb)

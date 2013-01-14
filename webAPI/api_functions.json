@@ -8,6 +8,20 @@
         "name":"admin",
         "functions":
         [
+           { "name":"create_player", "requires_auth":false,
+             "arguments":
+             [
+               {"name":"admin_token", "type":"string"},
+               {"name":"name", "type":"string"}
+             ],
+             "response":
+             {
+               "members":[
+                 {"name":"auth_token", "type":"string"},
+                 {"name":"player_id", "type":"string"}
+               ]
+             }
+           },
            { "name":"delete_player", "requires_auth":false },
            { "name":"increment_stat", "requires_auth":false },
            { "name":"set", "requires_auth":false },

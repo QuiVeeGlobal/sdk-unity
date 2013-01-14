@@ -56,6 +56,7 @@ public abstract class IWebAPI
 
 	public interface IAdminActions
 	{
+		void create_player( Roar.WebObjects.Admin.CreatePlayerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.CreatePlayerResponse> cb);
 		void delete_player( Roar.WebObjects.Admin.DeletePlayerArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.DeletePlayerResponse> cb);
 		void increment_stat( Roar.WebObjects.Admin.IncrementStatArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.IncrementStatResponse> cb);
 		void _set( Roar.WebObjects.Admin.SetArguments args, ZWebAPI.Callback<Roar.WebObjects.Admin.SetResponse> cb);

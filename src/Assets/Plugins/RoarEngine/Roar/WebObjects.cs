@@ -10,6 +10,29 @@ namespace Roar.WebObjects
 	namespace Admin
 	{
 
+		// Arguments to admin/create_player
+		public class CreatePlayerArguments
+		{
+			public string admin_token;
+			public string name;
+
+			public Hashtable ToHashtable()
+			{
+				Hashtable retval = new Hashtable();
+				retval["admin_token"] = admin_token;
+				retval["name"] = name;
+				return retval;
+			}
+		}
+		
+		// Response from admin/create_player
+		public class CreatePlayerResponse
+		{
+			public string auth_token;
+			public string player_id;
+
+		}
+
 		// Arguments to admin/delete_player
 		public class DeletePlayerArguments
 		{

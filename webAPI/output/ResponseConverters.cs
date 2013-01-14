@@ -36,6 +36,16 @@ namespace Roar.DataConversion.Responses
 {
 	namespace Admin
 	{
+		//Response from admin/create_player
+		public class CreatePlayer : IXmlToObject< Roar.WebObjects.Admin.CreatePlayerResponse >
+		{
+			public Roar.WebObjects.Admin.CreatePlayerResponse Build(IXMLNode n)
+			{
+				Roar.WebObjects.Admin.CreatePlayerResponse retval = new Roar.WebObjects.Admin.CreatePlayerResponse();
+				//TODO: Implement me
+				return retval;
+			}
+		}
 		//Response from admin/delete_player
 		public class DeletePlayer : IXmlToObject< Roar.WebObjects.Admin.DeletePlayerResponse >
 		{

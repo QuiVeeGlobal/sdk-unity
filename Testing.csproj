@@ -69,6 +69,7 @@
     <Compile Include="tests\XmlToGoogleTests.cs" />
     <Compile Include="tests\JsonConversionTests.cs" />
     <Compile Include="tests\ServerEventsTest.cs" />
+    <Compile Include="tests\XmlToAdminTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
