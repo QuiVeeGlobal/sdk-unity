@@ -26,12 +26,19 @@ public class RoarInventoryWidget : RoarUIWidget
 	public int rowHeight = 32;
 	protected override void OnEnable ()
 	{
+		inventory = roar.Inventory;
 		if (IsLoggedIn)
 		{
-			inventory = DefaultRoar.Instance.Inventory;
+			
+			Fetch();
+			
+		}
+		else
+		{
+			enabled = false;
 		}
 		
-		Fetch();
+		
 	}
 	
 	protected override void DrawGUI(int windowId)
