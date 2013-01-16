@@ -21,16 +21,18 @@ public class WebAPITests
 	[Test()]
 	public void testNotifyOfServerChanges()
 	{
-		IXMLNode serverNode = this.mockery.NewMock<IXMLNode>();
+		System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+		System.Xml.XmlElement serverNode = doc.CreateElement("server");
+		System.Xml.XmlElement child1 = doc.CreateElement("child1");
+		System.Xml.XmlElement child2 = doc.CreateElement("child2");
 		
-		IXMLNode[] xml_node_array = { };
-		IEnumerable<IXMLNode> an_enumerable = xml_node_array;
-		
-		Expect.Once.On(serverNode).GetProperty("Children").Will( Return.Value( an_enumerable ) );
+		serverNode.AppendChild(child1);
+		serverNode.AppendChild(child2);
+		doc.AppendChild(serverNode);
 		
 		bool called=false;
 
-		Action<object> callback = o => called=true;
+		Action<object> callback = o => { called=true; Console.WriteLine( o.ToString() ); };
 
 		RoarManager.roarServerAllEvent += callback;
 		

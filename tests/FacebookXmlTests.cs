@@ -19,7 +19,7 @@ namespace Testing
 				</facebook>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Roar.WebObjects.Facebook.BindOauthResponse response = (new Roar.DataConversion.Responses.Facebook.BindOauth()).Build(nn);
 			
@@ -37,7 +37,7 @@ namespace Testing
 				</facebook>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Roar.WebObjects.Facebook.BindSignedResponse response = (new Roar.DataConversion.Responses.Facebook.BindSigned()).Build(nn);
 			
@@ -58,7 +58,7 @@ namespace Testing
 				</facebook>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Assert.IsNotNull( nn );
 
 			Roar.WebObjects.Facebook.CreateOauthResponse response = (new Roar.DataConversion.Responses.Facebook.CreateOauth()).Build(nn);
@@ -83,7 +83,7 @@ namespace Testing
 				</facebook>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Assert.IsNotNull( nn );
 
 			Roar.WebObjects.Facebook.CreateSignedResponse response = (new Roar.DataConversion.Responses.Facebook.CreateSigned()).Build(nn);
@@ -107,7 +107,7 @@ namespace Testing
 				</facebook>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Assert.IsNotNull( nn );
 
 			Roar.WebObjects.Facebook.FetchOauthTokenResponse response = (new Roar.DataConversion.Responses.Facebook.FetchOauthToken()).Build(nn);
@@ -129,7 +129,7 @@ namespace Testing
 				</facebook> 
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Assert.IsNotNull( nn );
 
 			Roar.WebObjects.Facebook.LoginOauthResponse response = (new Roar.DataConversion.Responses.Facebook.LoginOauth()).Build(nn);
@@ -152,7 +152,7 @@ namespace Testing
 				</facebook> 
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Assert.IsNotNull( nn );
 
 			Roar.WebObjects.Facebook.LoginSignedResponse response = (new Roar.DataConversion.Responses.Facebook.LoginSigned()).Build(nn);
@@ -178,7 +178,7 @@ namespace Testing
 				</facebook>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Assert.IsNotNull( nn );
 
 			Roar.WebObjects.Facebook.FriendsResponse response = (new Roar.DataConversion.Responses.Facebook.Friends()).Build(nn);
@@ -237,20 +237,20 @@ namespace Testing
 				</facebook>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Assert.IsNotNull( nn );
 			
-			Assert.AreEqual(2, nn.GetNodeList("roar>0>facebook>0>shop_list>0>fbshopitem").Count );
+			Assert.AreEqual(2, nn.SelectNodes("./facebook/shop_list/fbshopitem").Count );
 			
 			Mockery mockery = new Mockery();
 			Roar.DataConversion.IXCRMParser ixcrm_parser = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
 			List<Roar.DomainObjects.Modifier> modifier_list = new List<Roar.DomainObjects.Modifier>();
 			List<Roar.DomainObjects.Modifier> modifier_list1 = new List<Roar.DomainObjects.Modifier>();
 
-			IXMLNode modifier_node0 = nn.GetNode ("roar>0>facebook>0>shop_list>0>fbshopitem>0>modifiers>0");
+			System.Xml.XmlNode modifier_node0 = nn.SelectSingleNode ("./facebook/shop_list/fbshopitem[1]/modifiers");
 			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(modifier_node0).Will( Return.Value( modifier_list ) );
 			
-			IXMLNode modifier_node1 = nn.GetNode ("roar>0>facebook>0>shop_list>0>fbshopitem>1>modifiers>0");
+			System.Xml.XmlNode modifier_node1 = nn.SelectSingleNode ("./facebook/shop_list/fbshopitem[2]/modifiers");
 			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(modifier_node1).Will( Return.Value( modifier_list1 ) );
 			
 			Roar.DataConversion.Responses.Facebook.ShopList shoplist_response_parser = new Roar.DataConversion.Responses.Facebook.ShopList();

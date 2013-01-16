@@ -18,7 +18,7 @@ namespace Testing
 				</user>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.User.Create create_parser = new Roar.DataConversion.Responses.User.Create();
 			CreateResponse response = create_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -34,7 +34,7 @@ namespace Testing
 				</user>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.User.ChangePassword change_password_parser = new Roar.DataConversion.Responses.User.ChangePassword();
 			ChangePasswordResponse response = change_password_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -53,7 +53,7 @@ namespace Testing
 				</user>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.User.Login login_parser = new Roar.DataConversion.Responses.User.Login();
 			LoginResponse response = login_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -71,7 +71,7 @@ namespace Testing
 				</user>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.User.ChangeName change_name_parser = new Roar.DataConversion.Responses.User.ChangeName();
 			ChangeNameResponse response = change_name_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -87,7 +87,7 @@ namespace Testing
 				</user>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.User.NetdriveSave netdrive_save_parser = new Roar.DataConversion.Responses.User.NetdriveSave();
 			NetdriveSaveResponse response = netdrive_save_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -107,7 +107,7 @@ namespace Testing
 				</user>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.User.NetdriveFetch netdrive_fetch_parser = new Roar.DataConversion.Responses.User.NetdriveFetch();
 			NetdriveFetchResponse response = netdrive_fetch_parser.Build(nn);
 			Assert.AreEqual(response.ikey, "sonda");
@@ -124,7 +124,7 @@ namespace Testing
 				</user>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.User.Logout logout_parser = new Roar.DataConversion.Responses.User.Logout();
 			LogoutResponse response = logout_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -146,7 +146,7 @@ namespace Testing
 				</user>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.User.View view_parser = new Roar.DataConversion.Responses.User.View();
 			ViewResponse response = view_parser.Build(nn);
 			
@@ -175,7 +175,7 @@ namespace Testing
 				</user>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.User.Set set_parser = new Roar.DataConversion.Responses.User.Set();
 			SetResponse response = set_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -206,7 +206,7 @@ namespace Testing
 				</user>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.User.Achievements achievements_parser = new Roar.DataConversion.Responses.User.Achievements();
 			AchievementsResponse response = achievements_parser.Build(nn);
 			
@@ -236,7 +236,7 @@ namespace Testing
 				</user>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.User.PrivateSet private_set_parser = new Roar.DataConversion.Responses.User.PrivateSet();
 			PrivateSetResponse response = private_set_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -254,7 +254,7 @@ namespace Testing
 				</user>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.User.PrivateGet private_get_parser = new Roar.DataConversion.Responses.User.PrivateGet();
 			PrivateGetResponse response = private_get_parser.Build(nn);
 			Assert.AreEqual(response.ikey, "gold");

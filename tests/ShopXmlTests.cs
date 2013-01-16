@@ -53,12 +53,12 @@ namespace Testing
 				</shop>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Assert.IsNotNull( nn );
 			
-			IXMLNode c1 = nn.GetNode("roar>0>shop>0>list>0>shopitem>0>costs>0");
-			IXMLNode c2 = nn.GetNode("roar>0>shop>0>list>0>shopitem>1>costs>0");
-			IXMLNode c3 = nn.GetNode("roar>0>shop>0>list>0>shopitem>2>costs>0");
+			System.Xml.XmlNode c1 = nn.SelectSingleNode("./shop/list/shopitem[1]/costs");
+			System.Xml.XmlNode c2 = nn.SelectSingleNode("./shop/list/shopitem[2]/costs");
+			System.Xml.XmlNode c3 = nn.SelectSingleNode("./shop/list/shopitem[3]/costs");
 			Assert.IsNotNull (c1);
 			Assert.IsNotNull (c2);
 			Assert.IsNotNull (c3);
@@ -66,9 +66,11 @@ namespace Testing
 			IList<Roar.DomainObjects.Cost> cl2 = new List<Roar.DomainObjects.Cost>();
 			IList<Roar.DomainObjects.Cost> cl3 = new List<Roar.DomainObjects.Cost>();
 			
-			IXMLNode m1 = nn.GetNode("roar>0>shop>0>list>0>shopitem>0>modifiers>0");
-			IXMLNode m2 = nn.GetNode("roar>0>shop>0>list>0>shopitem>1>modifiers>0");
-			IXMLNode m3 = nn.GetNode("roar>0>shop>0>list>0>shopitem>2>modifiers>0");
+			System.Xml.XmlNode m1 = nn.SelectSingleNode("./shop/list/shopitem[1]/modifiers");
+			System.Xml.XmlNode m2 = nn.SelectSingleNode("./shop/list/shopitem[2]/modifiers");
+
+			System.Xml.XmlNode m3 = nn.SelectSingleNode("./shop/list/shopitem[3]/modifiers");
+
 			Assert.IsNotNull (m1);
 			Assert.IsNotNull (m2);
 			Assert.IsNotNull (m3);
@@ -102,8 +104,8 @@ namespace Testing
 		
 		class SystemXmlMatcher : NMock2.Matcher
 		{
-			public SystemXMLNode node;
-			public SystemXmlMatcher( SystemXMLNode n )
+			public System.Xml.XmlElement node;
+			public SystemXmlMatcher( System.Xml.XmlElement n )
 			{
 				node = n;
 			}
@@ -112,7 +114,7 @@ namespace Testing
 			// A better test would dig into the contained System.XmlNode...
 			public override bool Matches(object o)
 			{
-				SystemXMLNode nn = o as SystemXMLNode;
+				System.Xml.XmlElement nn = o as System.Xml.XmlElement;
 				if( nn == null ) return false;
 				return ( nn.DebugAsString() == node.DebugAsString() );
 			}
@@ -168,27 +170,27 @@ namespace Testing
 				</shop>
 			</roar>";
 			
-			IXMLNode nn = ( new SystemXMLNodeFactory() ).Create(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Assert.IsNotNull( nn );
 			
-			IXMLNode c1 = nn.GetNode("roar>0>shop>0>list>0>shopitem>0>costs>0");
-			IXMLNode c2 = nn.GetNode("roar>0>shop>0>list>0>shopitem>1>costs>0");
-			IXMLNode c3 = nn.GetNode("roar>0>shop>0>list>0>shopitem>2>costs>0");
+			System.Xml.XmlNode c1 = nn.SelectSingleNode("./shop/list/shopitem[1]/costs");
+			System.Xml.XmlNode c2 = nn.SelectSingleNode("./shop/list/shopitem[2]/costs");
+			System.Xml.XmlNode c3 = nn.SelectSingleNode("./shop/list/shopitem[3]/costs");
 			Assert.IsNotNull (c1);
 			Assert.IsNotNull (c2);
 			Assert.IsNotNull (c3);
-			Assert.AreEqual("gamecoins",c1.GetFirstChild("stat_cost").GetAttribute("ikey"));
-			Assert.AreEqual("premium_currency",c2.GetFirstChild("stat_cost").GetAttribute("ikey"));
-			Assert.AreEqual("gamecoins",c3.GetFirstChild("stat_cost").GetAttribute("ikey"));
+			Assert.AreEqual("gamecoins", (c1.SelectSingleNode("./stat_cost") as System.Xml.XmlElement).GetAttribute("ikey"));
+			Assert.AreEqual("premium_currency",(c2.SelectSingleNode("./stat_cost") as System.Xml.XmlElement).GetAttribute("ikey"));
+			Assert.AreEqual("gamecoins",(c3.SelectSingleNode("./stat_cost") as System.Xml.XmlElement).GetAttribute("ikey"));
 
 			
 			IList<Roar.DomainObjects.Cost> cl1 = new List<Roar.DomainObjects.Cost>();
 			IList<Roar.DomainObjects.Cost> cl2 = new List<Roar.DomainObjects.Cost>();
 			IList<Roar.DomainObjects.Cost> cl3 = new List<Roar.DomainObjects.Cost>();
 			
-			IXMLNode m1 = nn.GetNode("roar>0>shop>0>list>0>shopitem>0>modifiers>0");
-			IXMLNode m2 = nn.GetNode("roar>0>shop>0>list>0>shopitem>1>modifiers>0");
-			IXMLNode m3 = nn.GetNode("roar>0>shop>0>list>0>shopitem>2>modifiers>0");
+			System.Xml.XmlNode m1 = nn.SelectSingleNode("./shop/list/shopitem[1]/modifiers");
+			System.Xml.XmlNode m2 = nn.SelectSingleNode("./shop/list/shopitem[2]/modifiers");
+			System.Xml.XmlNode m3 = nn.SelectSingleNode("./shop/list/shopitem[3]/modifiers");
 			Assert.IsNotNull (m1);
 			Assert.IsNotNull (m2);
 			Assert.IsNotNull (m3);
@@ -200,13 +202,13 @@ namespace Testing
 			Mockery mockery = new Mockery();
 			Roar.DataConversion.IXCRMParser ixcrm_parser = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
 			
-			Expect.Once.On(ixcrm_parser).Method("ParseCostList").With( new SystemXmlMatcher(c1 as SystemXMLNode) ).Will( Return.Value( cl1 ) );
-			Expect.Once.On(ixcrm_parser).Method("ParseCostList").With( new SystemXmlMatcher(c2 as SystemXMLNode) ).Will( Return.Value( cl2 ) );
-			Expect.Once.On(ixcrm_parser).Method("ParseCostList").With( new SystemXmlMatcher(c3 as SystemXMLNode) ).Will( Return.Value( cl3 ) );
+			Expect.Once.On(ixcrm_parser).Method("ParseCostList").With( new SystemXmlMatcher(c1 as System.Xml.XmlElement) ).Will( Return.Value( cl1 ) );
+			Expect.Once.On(ixcrm_parser).Method("ParseCostList").With( new SystemXmlMatcher(c2 as System.Xml.XmlElement) ).Will( Return.Value( cl2 ) );
+			Expect.Once.On(ixcrm_parser).Method("ParseCostList").With( new SystemXmlMatcher(c3 as System.Xml.XmlElement) ).Will( Return.Value( cl3 ) );
 			
-			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With( new SystemXmlMatcher(m1 as SystemXMLNode) ).Will( Return.Value( ml1 ) );
-			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With( new SystemXmlMatcher(m2 as SystemXMLNode) ).Will( Return.Value( ml2 ) );
-			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With( new SystemXmlMatcher(m3 as SystemXMLNode) ).Will( Return.Value( ml3 ) );
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With( new SystemXmlMatcher(m1 as System.Xml.XmlElement) ).Will( Return.Value( ml1 ) );
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With( new SystemXmlMatcher(m2 as System.Xml.XmlElement) ).Will( Return.Value( ml2 ) );
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With( new SystemXmlMatcher(m3 as System.Xml.XmlElement) ).Will( Return.Value( ml3 ) );
 
 
 			

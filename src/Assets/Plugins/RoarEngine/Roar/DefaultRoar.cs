@@ -35,7 +35,6 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 	public bool appstoreSandbox = true;
 	public string gameKey = string.Empty;
 	public enum XMLType { Lightweight, System };
-	public XMLType xmlParser = XMLType.Lightweight;
 	public GUISkin defaultGUISkin;
 
 	public Roar.IConfig Config { get { return config; } }
@@ -140,16 +139,6 @@ public class DefaultRoar : MonoBehaviour, IRoar, IUnityObject
 		       //key = key.Replace("_", "");
 		Config.Game = key;
 		Config.IsDebug = debug;
-
-		switch (xmlParser)
-		{
-		case XMLType.System:
-			IXMLNodeFactory.instance = new SystemXMLNodeFactory();
-			break;
-		case XMLType.Lightweight:
-			IXMLNodeFactory.instance = new XMLNodeFactory();
-			break;
-		}
 
 		RequestSender api = new RequestSender(config,this,logger);
 		webAPI = new global::WebAPI(api);

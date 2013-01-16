@@ -8,7 +8,6 @@ public class ComponentTests
   protected MockRequestSender requestSender;
   
   public void TestInitialise() {
-    IXMLNodeFactory.instance = new SystemXMLNodeFactory();
     roar = new MockRoar();
     roarApi = roar as IRoar;
     roar.Awake();

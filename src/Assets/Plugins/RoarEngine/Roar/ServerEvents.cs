@@ -15,7 +15,7 @@ namespace Roar
 			public string ikey;
 			public string val;
 			
-			public static UpdateEvent CreateFromXml(IXMLNode n)
+			public static UpdateEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				Events.UpdateEvent e = new Events.UpdateEvent();
 				
@@ -31,7 +31,7 @@ namespace Roar
 		{
 			public string item_id;
 			
-			public static ItemUseEvent CreateFromXml(IXMLNode n)
+			public static ItemUseEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				Events.ItemUseEvent e = new Events.ItemUseEvent();
 				e.item_id = n.GetAttribute("item_id");
@@ -45,7 +45,7 @@ namespace Roar
 			public string item_id;
 			public string item_ikey;
 				
-			public static ItemLoseEvent CreateFromXml(IXMLNode n)
+			public static ItemLoseEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				Events.ItemLoseEvent e = new Events.ItemLoseEvent();
 				
@@ -59,7 +59,7 @@ namespace Roar
 		
 		public class InventoryChangedEvent
 		{
-			public static InventoryChangedEvent CreateFromXml(IXMLNode n)
+			public static InventoryChangedEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				return new InventoryChangedEvent();
 				
@@ -71,7 +71,7 @@ namespace Roar
 			public string name;
 			public string next;
 				
-			public static RegenEvent CreateFromXml(IXMLNode n)
+			public static RegenEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				Events.RegenEvent e = new Events.RegenEvent();
 				
@@ -86,7 +86,7 @@ namespace Roar
 			public string item_id;
 			public string item_ikey;
 				
-			public static ItemAddEvent CreateFromXml(IXMLNode n)
+			public static ItemAddEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				Events.ItemAddEvent e = new Events.ItemAddEvent();
 
@@ -101,7 +101,7 @@ namespace Roar
 		{
 			public DomainObjects.Task task;
 			
-			public static TaskCompleteEvent CreateFromXml(IXMLNode n)
+			public static TaskCompleteEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				Events.TaskCompleteEvent e = new Events.TaskCompleteEvent();
 				e.task = DomainObjects.Task.CreateFromXml(n, new XCRMParser());
@@ -123,7 +123,7 @@ namespace Roar
 			public string task_label;
 			
 			
-			public static AchievementCompleteEvent CreateFromXml(IXMLNode n)
+			public static AchievementCompleteEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				
 				Events.AchievementCompleteEvent e = new Events.AchievementCompleteEvent();
@@ -144,7 +144,7 @@ namespace Roar
 		public class LevelUpEvent
 		{
 			public string val;
-			public static LevelUpEvent CreateFromXml(IXMLNode n)
+			public static LevelUpEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				LevelUpEvent e = new LevelUpEvent();
 				
@@ -161,7 +161,7 @@ namespace Roar
 			public string ikey;
 			public string next;
 			
-			public static CollectChangedEvent CreateFromXml(IXMLNode n)
+			public static CollectChangedEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				CollectChangedEvent e = new CollectChangedEvent();
 				
@@ -178,7 +178,7 @@ namespace Roar
 			public string player_id;
 			public string level;
 			
-			public static InviteAcceptedEvent CreateFromXml(IXMLNode n)
+			public static InviteAcceptedEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				InviteAcceptedEvent e = new InviteAcceptedEvent();
 				
@@ -198,7 +198,7 @@ namespace Roar
 			public string level;
 			public string friend_invite_row_id;
 			
-			public static FriendRequestEvent CreateFromXml(IXMLNode n)
+			public static FriendRequestEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				FriendRequestEvent e = new FriendRequestEvent();
 
@@ -216,7 +216,7 @@ namespace Roar
 			public string ikey;
 			public string val;
 			
-			public static TransactionEvent CreateFromXml(IXMLNode n)
+			public static TransactionEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				TransactionEvent e = new TransactionEvent();
 
@@ -232,7 +232,7 @@ namespace Roar
 			public string sender_id;
 			public string sender_name;
 			
-			public static MailInEvent CreateFromXml(IXMLNode n)
+			public static MailInEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				MailInEvent e = new MailInEvent();
 				
@@ -247,7 +247,7 @@ namespace Roar
 		{
 			public string item_id;
 			
-			public static EquipEvent CreateFromXml(IXMLNode n)
+			public static EquipEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				EquipEvent e = new EquipEvent();
 				
@@ -262,7 +262,7 @@ namespace Roar
 		{
 			public string item_id;
 			
-			public static UnequipEvent CreateFromXml(IXMLNode n)
+			public static UnequipEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				UnequipEvent e = new UnequipEvent();
 				
@@ -276,7 +276,7 @@ namespace Roar
 			public string key;
 			public string val;
 			
-			public static ScriptEvent CreateFromXml(IXMLNode n)
+			public static ScriptEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				ScriptEvent e = new ScriptEvent();
 				
@@ -295,7 +295,7 @@ namespace Roar
 			public List<string> costsList;
 			public List<string> modifierList;
 			
-			public static ChromeWebStoreEvent CreateFromXml(IXMLNode n)
+			public static ChromeWebStoreEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				ChromeWebStoreEvent e = new ChromeWebStoreEvent();
 				e.costsList = new List<string>();
@@ -303,18 +303,18 @@ namespace Roar
 				e.ikey = n.GetAttribute("ikey");
 				e.transaction_id = n.GetAttribute("transaction_id");
 
-				IXMLNode costsNode = n.GetNode("costs>0");
+				System.Xml.XmlNode costsNode = n.SelectSingleNode("./costs");
 				
-				foreach (IXMLNode nn in costsNode.Children)
+				foreach (System.Xml.XmlNode nn in costsNode)
 				{
-					e.costsList.Add (nn.Text);
+					e.costsList.Add (nn.InnerText);
 				}
 				
-				IXMLNode attributesNode = n.GetNode("modifiers>0");
+				System.Xml.XmlNode attributesNode = n.SelectSingleNode("./modifiers");
 				
-				foreach (IXMLNode nn in attributesNode.Children)
+				foreach (System.Xml.XmlNode nn in attributesNode)
 				{
-					e.modifierList.Add (nn.Text);
+					e.modifierList.Add (nn.InnerText);
 				}
 				
 				return e;

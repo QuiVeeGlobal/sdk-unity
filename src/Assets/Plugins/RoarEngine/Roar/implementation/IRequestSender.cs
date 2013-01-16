@@ -4,14 +4,14 @@ namespace Roar
 {
 	public struct RequestResult
 	{
-		public IXMLNode data;
+		public System.Xml.XmlElement data;
 		public int code;
 		public string msg;
 		
-		public RequestResult(IXMLNode in_data) : this(in_data, IWebAPI.OK, "") {}
-		public RequestResult(IXMLNode in_data, int in_code) : this(in_data, in_code, "") {}
+		public RequestResult(System.Xml.XmlElement in_data) : this(in_data, IWebAPI.OK, "") {}
+		public RequestResult(System.Xml.XmlElement in_data, int in_code) : this(in_data, in_code, "") {}
 
-		public RequestResult (IXMLNode in_data, int in_code, string in_msg)
+		public RequestResult (System.Xml.XmlElement in_data, int in_code, string in_msg)
 		{
 			data = in_data;
 			code = in_code;

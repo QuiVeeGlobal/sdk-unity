@@ -39,7 +39,7 @@ namespace Roar.DataConversion.Responses
 		//Response from admin/delete_player
 		public class DeletePlayer : IXmlToObject< Roar.WebObjects.Admin.DeletePlayerResponse >
 		{
-			public Roar.WebObjects.Admin.DeletePlayerResponse Build(IXMLNode n)
+			public Roar.WebObjects.Admin.DeletePlayerResponse Build( System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Admin.DeletePlayerResponse retval = new Roar.WebObjects.Admin.DeletePlayerResponse();
 				//TODO: Implement me
@@ -49,7 +49,7 @@ namespace Roar.DataConversion.Responses
 		//Response from admin/increment_stat
 		public class IncrementStat : IXmlToObject< Roar.WebObjects.Admin.IncrementStatResponse >
 		{
-			public Roar.WebObjects.Admin.IncrementStatResponse Build(IXMLNode n)
+			public Roar.WebObjects.Admin.IncrementStatResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Admin.IncrementStatResponse retval = new Roar.WebObjects.Admin.IncrementStatResponse();
 				//TODO: Implement me
@@ -59,7 +59,7 @@ namespace Roar.DataConversion.Responses
 		//Response from admin/set
 		public class Set : IXmlToObject< Roar.WebObjects.Admin.SetResponse >
 		{
-			public Roar.WebObjects.Admin.SetResponse Build(IXMLNode n)
+			public Roar.WebObjects.Admin.SetResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Admin.SetResponse retval = new Roar.WebObjects.Admin.SetResponse();
 				//TODO: Implement me
@@ -69,7 +69,7 @@ namespace Roar.DataConversion.Responses
 		//Response from admin/set_custom
 		public class SetCustom : IXmlToObject< Roar.WebObjects.Admin.SetCustomResponse >
 		{
-			public Roar.WebObjects.Admin.SetCustomResponse Build(IXMLNode n)
+			public Roar.WebObjects.Admin.SetCustomResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Admin.SetCustomResponse retval = new Roar.WebObjects.Admin.SetCustomResponse();
 				//TODO: Implement me
@@ -79,7 +79,7 @@ namespace Roar.DataConversion.Responses
 		//Response from admin/view_player
 		public class ViewPlayer : IXmlToObject< Roar.WebObjects.Admin.ViewPlayerResponse >
 		{
-			public Roar.WebObjects.Admin.ViewPlayerResponse Build(IXMLNode n)
+			public Roar.WebObjects.Admin.ViewPlayerResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Admin.ViewPlayerResponse retval = new Roar.WebObjects.Admin.ViewPlayerResponse();
 				//TODO: Implement me
@@ -93,7 +93,7 @@ namespace Roar.DataConversion.Responses
 		//Response from appstore/buy
 		public class Buy : IXmlToObject< Roar.WebObjects.Appstore.BuyResponse >
 		{
-			public Roar.WebObjects.Appstore.BuyResponse Build(IXMLNode n)
+			public Roar.WebObjects.Appstore.BuyResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Appstore.BuyResponse retval = new Roar.WebObjects.Appstore.BuyResponse();
 				//TODO: Implement me
@@ -105,14 +105,14 @@ namespace Roar.DataConversion.Responses
 		{
 			public IXCRMParser ixcrm_parser = new XCRMParser();
 			
-			public Roar.WebObjects.Appstore.ShopListResponse Build(IXMLNode n)
+			public Roar.WebObjects.Appstore.ShopListResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Appstore.ShopListResponse retval = new Roar.WebObjects.Appstore.ShopListResponse();
 				retval.shop_list = new List<AppstoreShopEntry>();
-				IList<IXMLNode> product_nodes = n.GetNodeList("roar>0>appstore>0>shop_list>0>shopitem");
-				foreach (IXMLNode product_node in product_nodes)
+				System.Xml.XmlNodeList product_nodes = n.SelectNodes("./appstore/shop_list/shopitem");
+				foreach (System.Xml.XmlNode product_node in product_nodes)
 				{
-					retval.shop_list.Add(AppstoreShopEntry.CreateFromXml(product_node, ixcrm_parser));
+					retval.shop_list.Add(AppstoreShopEntry.CreateFromXml(product_node as System.Xml.XmlElement, ixcrm_parser));
 				}
 				return retval;
 			}
@@ -126,14 +126,14 @@ namespace Roar.DataConversion.Responses
 		{
 			public IXCRMParser ixcrm_parser = new XCRMParser();
 			
-			public Roar.WebObjects.ChromeWebStore.ListResponse Build(IXMLNode n)
+			public Roar.WebObjects.ChromeWebStore.ListResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.ChromeWebStore.ListResponse retval = new Roar.WebObjects.ChromeWebStore.ListResponse();
 				retval.shop_items = new List<ChromeWebStoreShopEntry>();
-				IList<IXMLNode> shop_item_nodes = n.GetNodeList("roar>0>chrome_web_store>0>list>0>shopitem");
-				foreach (IXMLNode shop_item_node in shop_item_nodes)
+				System.Xml.XmlNodeList shop_item_nodes = n.SelectNodes("./chrome_web_store/list/shopitem");
+				foreach (System.Xml.XmlNode shop_item_node in shop_item_nodes)
 				{
-					retval.shop_items.Add(ChromeWebStoreShopEntry.CreateFromXml(shop_item_node, ixcrm_parser));
+					retval.shop_items.Add(ChromeWebStoreShopEntry.CreateFromXml(shop_item_node as System.Xml.XmlElement, ixcrm_parser));
 				}
 				return retval;
 			}
@@ -145,7 +145,7 @@ namespace Roar.DataConversion.Responses
 		//Response from facebook/bind_oauth
 		public class BindOauth : IXmlToObject< Roar.WebObjects.Facebook.BindOauthResponse >
 		{
-			public Roar.WebObjects.Facebook.BindOauthResponse Build(IXMLNode n)
+			public Roar.WebObjects.Facebook.BindOauthResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Facebook.BindOauthResponse retval = new Roar.WebObjects.Facebook.BindOauthResponse();
 				return retval;
@@ -154,7 +154,7 @@ namespace Roar.DataConversion.Responses
 		//Response from facebook/bind_signed
 		public class BindSigned : IXmlToObject< Roar.WebObjects.Facebook.BindSignedResponse >
 		{
-			public Roar.WebObjects.Facebook.BindSignedResponse Build(IXMLNode n)
+			public Roar.WebObjects.Facebook.BindSignedResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Facebook.BindSignedResponse retval = new Roar.WebObjects.Facebook.BindSignedResponse();
 				return retval;
@@ -163,51 +163,51 @@ namespace Roar.DataConversion.Responses
 		//Response from facebook/create_oauth
 		public class CreateOauth : IXmlToObject< Roar.WebObjects.Facebook.CreateOauthResponse >
 		{
-			public Roar.WebObjects.Facebook.CreateOauthResponse Build(IXMLNode n)
+			public Roar.WebObjects.Facebook.CreateOauthResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Facebook.CreateOauthResponse retval = new Roar.WebObjects.Facebook.CreateOauthResponse();
-				retval.auth_token = n.GetNode("roar>0>facebook>0>create_oauth>0>auth_token>0").Text;
-				retval.player_id = n.GetNode("roar>0>facebook>0>create_oauth>0>player_id>0").Text;
+				retval.auth_token = n.SelectSingleNode("./facebook/create_oauth/auth_token").InnerText;
+				retval.player_id = n.SelectSingleNode("./facebook/create_oauth/player_id").InnerText;
 				return retval;
 			}
 		}
 		//Response from facebook/create_signed
 		public class CreateSigned : IXmlToObject< Roar.WebObjects.Facebook.CreateSignedResponse >
 		{
-			public Roar.WebObjects.Facebook.CreateSignedResponse Build(IXMLNode n)
+			public Roar.WebObjects.Facebook.CreateSignedResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Facebook.CreateSignedResponse retval = new Roar.WebObjects.Facebook.CreateSignedResponse();
-				retval.auth_token = n.GetNode("roar>0>facebook>0>create_signed>0>auth_token>0").Text;
-				retval.player_id = n.GetNode("roar>0>facebook>0>create_signed>0>player_id>0").Text;
+				retval.auth_token = n.SelectSingleNode("./facebook/create_signed/auth_token").InnerText;
+				retval.player_id = n.SelectSingleNode("./facebook/create_signed/player_id").InnerText;
 				return retval;
 			}
 		}
 		//Response from facebook/fetch_oauth_token
 		public class FetchOauthToken : IXmlToObject< Roar.WebObjects.Facebook.FetchOauthTokenResponse >
 		{
-			public Roar.WebObjects.Facebook.FetchOauthTokenResponse Build(IXMLNode n)
+			public Roar.WebObjects.Facebook.FetchOauthTokenResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Facebook.FetchOauthTokenResponse retval = new Roar.WebObjects.Facebook.FetchOauthTokenResponse();
-				retval.oauth_token = n.GetNode("roar>0>facebook>0>fetch_oauth_token>0>oauth_token>0").Text;
+				retval.oauth_token = n.SelectSingleNode("./facebook/fetch_oauth_token/oauth_token").InnerText;
 				return retval;
 			}
 		}
 		//Response from facebook/friends
 		public class Friends : IXmlToObject< Roar.WebObjects.Facebook.FriendsResponse >
 		{
-			public Roar.WebObjects.Facebook.FriendsResponse Build(IXMLNode n)
+			public Roar.WebObjects.Facebook.FriendsResponse Build(System.Xml.XmlElement n)
 			{
+				System.Console.WriteLine( n.DebugAsString() );
 				Roar.WebObjects.Facebook.FriendsResponse retval = new Roar.WebObjects.Facebook.FriendsResponse();
 				retval.facebook_friends = new List<DomainObjects.FacebookFriendInfo>();
-				List<IXMLNode> friend_nodes = n.GetNodeList("roar>0>facebook>0>friends>0>friend");
-				foreach( IXMLNode friend_node in friend_nodes )
+				System.Xml.XmlNodeList friend_nodes = n.SelectNodes("./facebook/friends/friend");
+				foreach( System.Xml.XmlElement friend_node in friend_nodes )
 				{
 					DomainObjects.FacebookFriendInfo f = new DomainObjects.FacebookFriendInfo();
-					Dictionary<string,string> kv = friend_node.Attributes.ToDictionary( v => v.Key, v => v.Value );
-					kv.TryGetValue("fb_name",out f.fb_name);
-					kv.TryGetValue("fb_id",out f.fb_id);
-					kv.TryGetValue("id",out f.id);
-					kv.TryGetValue("name",out f.name);
+					f.fb_name = friend_node.GetAttributeOrDefault("fb_name",null);
+					f.fb_id = friend_node.GetAttributeOrDefault("fb_id",null);
+					f.id = friend_node.GetAttributeOrDefault("id",null);
+					f.name = friend_node.GetAttributeOrDefault("name",null);
 					retval.facebook_friends.Add(f);
 				}	
 				return retval;
@@ -216,22 +216,22 @@ namespace Roar.DataConversion.Responses
 		//Response from facebook/login_oauth
 		public class LoginOauth : IXmlToObject< Roar.WebObjects.Facebook.LoginOauthResponse >
 		{
-			public Roar.WebObjects.Facebook.LoginOauthResponse Build(IXMLNode n)
+			public Roar.WebObjects.Facebook.LoginOauthResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Facebook.LoginOauthResponse retval = new Roar.WebObjects.Facebook.LoginOauthResponse();
-				retval.auth_token = n.GetNode("roar>0>facebook>0>login_oauth>0>auth_token>0").Text;
-				retval.player_id = n.GetNode("roar>0>facebook>0>login_oauth>0>player_id>0").Text;
+				retval.auth_token = n.SelectSingleNode("./facebook/login_oauth/auth_token").InnerText;
+				retval.player_id = n.SelectSingleNode("./facebook/login_oauth/player_id").InnerText;
 				return retval;
 			}
 		}
 		//Response from facebook/login_signed
 		public class LoginSigned : IXmlToObject< Roar.WebObjects.Facebook.LoginSignedResponse >
 		{
-			public Roar.WebObjects.Facebook.LoginSignedResponse Build(IXMLNode n)
+			public Roar.WebObjects.Facebook.LoginSignedResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Facebook.LoginSignedResponse retval = new Roar.WebObjects.Facebook.LoginSignedResponse();
-				retval.auth_token = n.GetNode("roar>0>facebook>0>login_signed>0>auth_token>0").Text;
-				retval.player_id = n.GetNode("roar>0>facebook>0>login_signed>0>player_id>0").Text;
+				retval.auth_token = n.SelectSingleNode("./facebook/login_signed/auth_token").InnerText;
+				retval.player_id = n.SelectSingleNode("./facebook/login_signed/player_id").InnerText;
 				return retval;
 			}
 		}
@@ -245,12 +245,12 @@ namespace Roar.DataConversion.Responses
 				this.ixcrm_parser = new XCRMParser();
 			}
 			
-			public Roar.WebObjects.Facebook.ShopListResponse Build(IXMLNode n)
+			public Roar.WebObjects.Facebook.ShopListResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Facebook.ShopListResponse retval = new Roar.WebObjects.Facebook.ShopListResponse();
 				retval.shop_list = new List<DomainObjects.FacebookShopEntry>();
-				List<IXMLNode> shop_item_nodes = n.GetNodeList("roar>0>facebook>0>shop_list>0>fbshopitem");
-				foreach( IXMLNode shop_item_node in shop_item_nodes )
+				System.Xml.XmlNodeList shop_item_nodes = n.SelectNodes("./facebook/shop_list/fbshopitem");
+				foreach( System.Xml.XmlElement shop_item_node in shop_item_nodes )
 				{
 					retval.shop_list.Add( DomainObjects.FacebookShopEntry.CreateFromXml( shop_item_node, ixcrm_parser ) );
 				}
@@ -264,7 +264,7 @@ namespace Roar.DataConversion.Responses
 		//Response from friends/accept
 		public class Accept : IXmlToObject< Roar.WebObjects.Friends.AcceptResponse >
 		{
-			public Roar.WebObjects.Friends.AcceptResponse Build(IXMLNode n)
+			public Roar.WebObjects.Friends.AcceptResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Friends.AcceptResponse retval = new Roar.WebObjects.Friends.AcceptResponse();
 				return retval;
@@ -273,7 +273,7 @@ namespace Roar.DataConversion.Responses
 		//Response from friends/decline
 		public class Decline : IXmlToObject< Roar.WebObjects.Friends.DeclineResponse >
 		{
-			public Roar.WebObjects.Friends.DeclineResponse Build(IXMLNode n)
+			public Roar.WebObjects.Friends.DeclineResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Friends.DeclineResponse retval = new Roar.WebObjects.Friends.DeclineResponse();
 				return retval;
@@ -282,7 +282,7 @@ namespace Roar.DataConversion.Responses
 		//Response from friends/invite
 		public class Invite : IXmlToObject< Roar.WebObjects.Friends.InviteResponse >
 		{
-			public Roar.WebObjects.Friends.InviteResponse Build(IXMLNode n)
+			public Roar.WebObjects.Friends.InviteResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Friends.InviteResponse retval = new Roar.WebObjects.Friends.InviteResponse();
 				return retval;
@@ -291,14 +291,14 @@ namespace Roar.DataConversion.Responses
 		//Response from friends/invite_info
 		public class InviteInfo : IXmlToObject< Roar.WebObjects.Friends.InviteInfoResponse >
 		{
-			public Roar.WebObjects.Friends.InviteInfoResponse Build(IXMLNode n)
+			public Roar.WebObjects.Friends.InviteInfoResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Friends.InviteInfoResponse retval = new Roar.WebObjects.Friends.InviteInfoResponse();
 				retval.info = new DomainObjects.FriendInviteInfo();
 				//TODO: This path suggest that we're ggtting the wrong thing back from roar
-				IXMLNode info_node = n.GetNode("roar>0>friends>0>info>0");
-				IXMLNode from_node = info_node.GetFirstChild("from");
-				IXMLNode message_node = info_node.GetFirstChild("message");
+				System.Xml.XmlElement info_node = n.SelectSingleNode("./friends/info") as System.Xml.XmlElement;
+				System.Xml.XmlElement from_node = info_node.SelectSingleNode("./from") as System.Xml.XmlElement;
+				System.Xml.XmlElement message_node = info_node.SelectSingleNode("./message") as System.Xml.XmlElement;
 				if (from_node != null)
 				{
 					retval.info.player_id = from_node.GetAttribute("player_id");
@@ -319,13 +319,13 @@ namespace Roar.DataConversion.Responses
 		//Response from friends/list
 		public class List : IXmlToObject< Roar.WebObjects.Friends.ListResponse >
 		{
-			public Roar.WebObjects.Friends.ListResponse Build(IXMLNode n)
+			public Roar.WebObjects.Friends.ListResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Friends.ListResponse retval = new Roar.WebObjects.Friends.ListResponse();
 				retval.friends = new List<DomainObjects.Friend>();
 				
-				List<IXMLNode> friend_nodes = n.GetNodeList("roar>0>friends>0>list>0>friend");
-				foreach( IXMLNode friend_node in friend_nodes )
+				System.Xml.XmlNodeList friend_nodes = n.SelectNodes("./friends/list/friend");
+				foreach( System.Xml.XmlElement friend_node in friend_nodes )
 				{
 					DomainObjects.Friend a = Roar.DomainObjects.Friend.CreateFromXml(friend_node);
 					retval.friends.Add(a);
@@ -336,7 +336,7 @@ namespace Roar.DataConversion.Responses
 		//Response from friends/remove
 		public class Remove : IXmlToObject< Roar.WebObjects.Friends.RemoveResponse >
 		{
-			public Roar.WebObjects.Friends.RemoveResponse Build(IXMLNode n)
+			public Roar.WebObjects.Friends.RemoveResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Friends.RemoveResponse retval = new Roar.WebObjects.Friends.RemoveResponse();
 				//TODO: Implement me
@@ -346,20 +346,19 @@ namespace Roar.DataConversion.Responses
 		//Response from friends/list_invites
 		public class ListInvites : IXmlToObject< Roar.WebObjects.Friends.ListInvitesResponse >
 		{
-			public Roar.WebObjects.Friends.ListInvitesResponse Build(IXMLNode n)
+			public Roar.WebObjects.Friends.ListInvitesResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Friends.ListInvitesResponse retval = new Roar.WebObjects.Friends.ListInvitesResponse();
 				retval.invites = new List<DomainObjects.FriendInvite>();
-				List<IXMLNode> invite_nodes = n.GetNodeList("roar>0>friends>0>list_invites>0>invite");
-				foreach( IXMLNode invite_node in invite_nodes )
+				System.Xml.XmlNodeList invite_nodes = n.SelectNodes("./friends/list_invites/invite");
+				foreach( System.Xml.XmlElement invite_node in invite_nodes )
 				{
 					DomainObjects.FriendInvite invite = new DomainObjects.FriendInvite();
-					Dictionary<string,string> kv = invite_node.Attributes.ToDictionary( v => v.Key, v => v.Value );
 
-					kv.TryGetValue("invite_id",out invite.invite_id);
-					kv.TryGetValue("from_player_id",out invite.player_id);
-					kv.TryGetValue("from_player",out invite.player_name);
-					kv.TryGetValue("message",out invite.message);
+					invite.invite_id = n.GetAttribute("invite_id");
+					invite.player_id = n.GetAttribute("from_player_id");
+					invite.player_name = n.GetAttribute("from_player");
+					invite.message = n.GetAttribute("message");
 					
 					retval.invites.Add(invite);
 				}
@@ -373,7 +372,7 @@ namespace Roar.DataConversion.Responses
 		//Response from google/bind_user
 		public class BindUser : IXmlToObject< Roar.WebObjects.Google.BindUserResponse >
 		{
-			public Roar.WebObjects.Google.BindUserResponse Build(IXMLNode n)
+			public Roar.WebObjects.Google.BindUserResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Google.BindUserResponse retval = new Roar.WebObjects.Google.BindUserResponse();
 				//TODO: Implement me
@@ -383,7 +382,7 @@ namespace Roar.DataConversion.Responses
 		//Response from google/bind_user_token
 		public class BindUserToken : IXmlToObject< Roar.WebObjects.Google.BindUserTokenResponse >
 		{
-			public Roar.WebObjects.Google.BindUserTokenResponse Build(IXMLNode n)
+			public Roar.WebObjects.Google.BindUserTokenResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Google.BindUserTokenResponse retval = new Roar.WebObjects.Google.BindUserTokenResponse();
 				//TODO: Implement me
@@ -393,21 +392,21 @@ namespace Roar.DataConversion.Responses
 		//Response from google/create_user
 		public class CreateUser : IXmlToObject< Roar.WebObjects.Google.CreateUserResponse >
 		{
-			public Roar.WebObjects.Google.CreateUserResponse Build(IXMLNode n)
+			public Roar.WebObjects.Google.CreateUserResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Google.CreateUserResponse retval = new Roar.WebObjects.Google.CreateUserResponse();
-				IXMLNode create_user_node = n.GetNode("roar>0>google>0>create_user>0");
+				System.Xml.XmlElement create_user_node = n.SelectSingleNode("./google/create_user") as System.Xml.XmlElement;
 				if (create_user_node != null)
 				{
-					IXMLNode node = create_user_node.GetNode("auth_token>0");
+					System.Xml.XmlNode node = create_user_node.SelectSingleNode("./auth_token");
 					if (node != null)
 					{
-						retval.auth_token = node.Text;
+						retval.auth_token = node.InnerText;
 					}
-					node = create_user_node.GetNode("player_id>0");
+					node = create_user_node.SelectSingleNode("./player_id");
 					if (node != null)
 					{
-						retval.player_id = node.Text;
+						retval.player_id = node.InnerText;
 					}
 				}
 				return retval;
@@ -416,22 +415,14 @@ namespace Roar.DataConversion.Responses
 		//Response from google/create_user_token
 		public class CreateUserToken : IXmlToObject< Roar.WebObjects.Google.CreateUserTokenResponse >
 		{
-			public Roar.WebObjects.Google.CreateUserTokenResponse Build(IXMLNode n)
+			public Roar.WebObjects.Google.CreateUserTokenResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Google.CreateUserTokenResponse retval = new Roar.WebObjects.Google.CreateUserTokenResponse();
-				IXMLNode create_user_token_node = n.GetNode("roar>0>google>0>create_user>0");
+				System.Xml.XmlNode create_user_token_node = n.SelectSingleNode("./google/create_user");
 				if (create_user_token_node != null)
 				{
-					IXMLNode node = create_user_token_node.GetNode("auth_token>0");
-					if (node != null)
-					{
-						retval.auth_token = node.Text;
-					}
-					node = create_user_token_node.GetNode("player_id>0");
-					if (node != null)
-					{
-						retval.player_id = node.Text;
-					}
+					retval.auth_token = create_user_token_node.SelectSingleNode("./auth_token").GetInnerTextOrDefault(null);
+					retval.player_id = create_user_token_node.SelectSingleNode("./player_id").GetInnerTextOrDefault(null);
 				}
 				return retval;
 			}
@@ -439,12 +430,12 @@ namespace Roar.DataConversion.Responses
 		//Response from google/friends
 		public class Friends : IXmlToObject< Roar.WebObjects.Google.FriendsResponse >
 		{
-			public Roar.WebObjects.Google.FriendsResponse Build(IXMLNode n)
+			public Roar.WebObjects.Google.FriendsResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Google.FriendsResponse retval = new Roar.WebObjects.Google.FriendsResponse();
 				retval.friends = new List<GoogleFriend>();
-				IList<IXMLNode> friend_nodes = n.GetNodeList("roar>0>google>0>friends>0>friend");
-				foreach (IXMLNode friend_node in friend_nodes)
+				System.Xml.XmlNodeList friend_nodes = n.SelectNodes("./google/friends/friend");
+				foreach (System.Xml.XmlElement friend_node in friend_nodes)
 				{
 					retval.friends.Add(GoogleFriend.CreateFromXml(friend_node));
 				}
@@ -454,26 +445,26 @@ namespace Roar.DataConversion.Responses
 		//Response from google/login_or_create_user
 		public class LoginOrCreateUser : IXmlToObject< Roar.WebObjects.Google.LoginOrCreateUserResponse >
 		{
-			public Roar.WebObjects.Google.LoginOrCreateUserResponse Build(IXMLNode n)
+			public Roar.WebObjects.Google.LoginOrCreateUserResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Google.LoginOrCreateUserResponse retval = new Roar.WebObjects.Google.LoginOrCreateUserResponse();
-				IXMLNode login_or_create_user_node = n.GetNode("roar>0>google>0>login_or_create_user>0");
+				System.Xml.XmlNode login_or_create_user_node = n.SelectSingleNode("./google/login_or_create_user");
 				if (login_or_create_user_node != null)
 				{
-					IXMLNode node = login_or_create_user_node.GetNode("auth_token>0");
+					System.Xml.XmlNode node = login_or_create_user_node.SelectSingleNode("./auth_token");
 					if (node != null)
 					{
-						retval.auth_token = node.Text;
+						retval.auth_token = node.InnerText;
 					}
-					node = login_or_create_user_node.GetNode("player_id>0");
+					node = login_or_create_user_node.SelectSingleNode("./player_id");
 					if (node != null)
 					{
-						retval.player_id = node.Text;
+						retval.player_id = node.InnerText;
 					}
-					node = login_or_create_user_node.GetNode("mode>0");
+					node = login_or_create_user_node.SelectSingleNode("./mode");
 					if (node != null)
 					{
-						retval.mode = node.Text;
+						retval.mode = node.InnerText;
 					}
 				}
 				return retval;
@@ -482,21 +473,21 @@ namespace Roar.DataConversion.Responses
 		//Response from google/login_user
 		public class LoginUser : IXmlToObject< Roar.WebObjects.Google.LoginUserResponse >
 		{
-			public Roar.WebObjects.Google.LoginUserResponse Build(IXMLNode n)
+			public Roar.WebObjects.Google.LoginUserResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Google.LoginUserResponse retval = new Roar.WebObjects.Google.LoginUserResponse();
-				IXMLNode login_user_node = n.GetNode("roar>0>google>0>login_user>0");
+				System.Xml.XmlNode login_user_node = n.SelectSingleNode("./google/login_user");
 				if (login_user_node != null)
 				{
-					IXMLNode node = login_user_node.GetNode("auth_token>0");
+					System.Xml.XmlNode node = login_user_node.SelectSingleNode("./auth_token");
 					if (node != null)
 					{
-						retval.auth_token = node.Text;
+						retval.auth_token = node.InnerText;
 					}
-					node = login_user_node.GetNode("player_id>0");
+					node = login_user_node.SelectSingleNode("./player_id");
 					if (node != null)
 					{
-						retval.player_id = node.Text;
+						retval.player_id = node.InnerText;
 					}
 				}
 				return retval;
@@ -505,21 +496,21 @@ namespace Roar.DataConversion.Responses
 		//Response from google/login_user_token
 		public class LoginUserToken : IXmlToObject< Roar.WebObjects.Google.LoginUserTokenResponse >
 		{
-			public Roar.WebObjects.Google.LoginUserTokenResponse Build(IXMLNode n)
+			public Roar.WebObjects.Google.LoginUserTokenResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Google.LoginUserTokenResponse retval = new Roar.WebObjects.Google.LoginUserTokenResponse();
-				IXMLNode login_user_token_node = n.GetNode("roar>0>google>0>login_user>0");
+				System.Xml.XmlNode login_user_token_node = n.SelectSingleNode("./google/login_user");
 				if (login_user_token_node != null)
 				{
-					IXMLNode node = login_user_token_node.GetNode("auth_token>0");
+					System.Xml.XmlNode node = login_user_token_node.SelectSingleNode("./auth_token");
 					if (node != null)
 					{
-						retval.auth_token = node.Text;
+						retval.auth_token = node.InnerText;
 					}
-					node = login_user_token_node.GetNode("player_id>0");
+					node = login_user_token_node.SelectSingleNode("./player_id");
 					if (node != null)
 					{
-						retval.player_id = node.Text;
+						retval.player_id = node.InnerText;
 					}
 				}
 				return retval;
@@ -528,10 +519,10 @@ namespace Roar.DataConversion.Responses
 		//Response from google/token
 		public class Token : IXmlToObject< Roar.WebObjects.Google.TokenResponse >
 		{
-			public Roar.WebObjects.Google.TokenResponse Build(IXMLNode n)
+			public Roar.WebObjects.Google.TokenResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Google.TokenResponse retval = new Roar.WebObjects.Google.TokenResponse();
-				IXMLNode token_node = n.GetNode("roar>0>google>0>token>0>token>0");
+				System.Xml.XmlElement token_node = n.SelectSingleNode("./google/token/token") as System.Xml.XmlElement;
 				if (token_node != null)
 				{
 					retval.token = token_node.GetAttribute("value");
@@ -546,21 +537,21 @@ namespace Roar.DataConversion.Responses
 		//Response from info/get_bulk_player_info
 		public class GetBulkPlayerInfo : IXmlToObject< Roar.WebObjects.Info.GetBulkPlayerInfoResponse >
 		{
-			public Roar.WebObjects.Info.GetBulkPlayerInfoResponse Build(IXMLNode n)
+			public Roar.WebObjects.Info.GetBulkPlayerInfoResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Info.GetBulkPlayerInfoResponse retval = new Roar.WebObjects.Info.GetBulkPlayerInfoResponse();
 				retval.players = new Dictionary<string, Roar.DomainObjects.BulkPlayerInfo>();
-				List<IXMLNode> player_nodes = n.GetNodeList("info>0>get_bulk_player_info>0>player_info");
-				foreach (IXMLNode pn in player_nodes)
+				System.Xml.XmlNodeList player_nodes = n.SelectNodes("./info/get_bulk_player_info/player_info");
+				foreach (System.Xml.XmlElement pn in player_nodes)
 				{
 					Roar.DomainObjects.BulkPlayerInfo player = new Roar.DomainObjects.BulkPlayerInfo();
-					List<IXMLNode> stat_nodes = pn.GetNodeList("stats>0>stat");
-					foreach (IXMLNode stat_node in stat_nodes)
+					System.Xml.XmlNodeList stat_nodes = pn.SelectNodes("./stats/stat");
+					foreach (System.Xml.XmlElement stat_node in stat_nodes)
 					{
 						player.stats.Add(stat_node.GetAttribute("ikey"), stat_node.GetAttribute("value"));
 					}
-					List<IXMLNode> property_nodes = pn.GetNodeList("properties>0>property");
-					foreach (IXMLNode property_node in property_nodes)
+					System.Xml.XmlNodeList property_nodes = pn.SelectNodes("./properties/property");
+					foreach (System.Xml.XmlElement property_node in property_nodes)
 					{
 						player.properties.Add(property_node.GetAttribute("ikey"), property_node.GetAttribute("value"));
 					}
@@ -572,13 +563,13 @@ namespace Roar.DataConversion.Responses
 		//Response from info/ping
 		public class Ping : IXmlToObject< Roar.WebObjects.Info.PingResponse >
 		{
-			public Roar.WebObjects.Info.PingResponse Build(IXMLNode n)
+			public Roar.WebObjects.Info.PingResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Info.PingResponse retval = new Roar.WebObjects.Info.PingResponse();
-				IXMLNode ping_node = n.GetNode("info>0>ping>0");
+				System.Xml.XmlNode ping_node = n.SelectSingleNode("./info/ping");
 				if (ping_node != null)
 				{
-					retval.text = ping_node.GetNode("text>0").Text;
+					retval.text = ping_node.SelectSingleNode("./text").InnerText;
 				}
 				return retval;
 			}
@@ -586,12 +577,12 @@ namespace Roar.DataConversion.Responses
 		//Response from info/user
 		public class User : IXmlToObject< Roar.WebObjects.Info.UserResponse >
 		{
-			public Roar.WebObjects.Info.UserResponse Build(IXMLNode n)
+			public Roar.WebObjects.Info.UserResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Info.UserResponse retval = new Roar.WebObjects.Info.UserResponse();
 				retval.player = new Roar.DomainObjects.Player();
-				List<IXMLNode> attribute_nodes = n.GetNodeList("info>0>user>0>attribute");
-				foreach( IXMLNode nn in attribute_nodes )
+				System.Xml.XmlNodeList attribute_nodes = n.SelectNodes("./info/user/attribute");
+				foreach( System.Xml.XmlElement nn in attribute_nodes )
 				{
 					switch (nn.GetAttribute("ikey"))
 					{
@@ -622,7 +613,7 @@ namespace Roar.DataConversion.Responses
 		//Response from info/poll
 		public class Poll : IXmlToObject< Roar.WebObjects.Info.PollResponse >
 		{
-			public Roar.WebObjects.Info.PollResponse Build(IXMLNode n)
+			public Roar.WebObjects.Info.PollResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Info.PollResponse retval = new Roar.WebObjects.Info.PollResponse();
 				//TODO: Implement me
@@ -636,7 +627,7 @@ namespace Roar.DataConversion.Responses
 		//Response from items/equip
 		public class Equip : IXmlToObject< Roar.WebObjects.Items.EquipResponse >
 		{
-			public Roar.WebObjects.Items.EquipResponse Build(IXMLNode n)
+			public Roar.WebObjects.Items.EquipResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Items.EquipResponse retval = new Roar.WebObjects.Items.EquipResponse();
 				//TODO: Implement me
@@ -648,12 +639,12 @@ namespace Roar.DataConversion.Responses
 		{
 			public IXCRMParser ixcrm_parser = new XCRMParser();
 			
-			public Roar.WebObjects.Items.ListResponse Build(IXMLNode n)
+			public Roar.WebObjects.Items.ListResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Items.ListResponse retval = new Roar.WebObjects.Items.ListResponse();
 				retval.items = new List<InventoryItem>();
-				IList<IXMLNode> item_nodes = n.GetNodeList("roar>0>items>0>list>0>item");
-				foreach(IXMLNode item_node in item_nodes)
+				System.Xml.XmlNodeList item_nodes = n.SelectNodes("./items/list/item");
+				foreach(System.Xml.XmlElement item_node in item_nodes)
 				{
 					retval.items.Add(DomainObjects.InventoryItem.CreateFromXml(item_node, ixcrm_parser));
 				}
@@ -665,18 +656,18 @@ namespace Roar.DataConversion.Responses
 		{
 			public IXCRMParser ixcrm_parser = new XCRMParser();
 			
-			public Roar.WebObjects.Items.SellResponse Build(IXMLNode n)
+			public Roar.WebObjects.Items.SellResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Items.SellResponse retval = new Roar.WebObjects.Items.SellResponse();
-				IXMLNode item_node = n.GetNode("roar>0>items>0>sell>0>item>0");
+				System.Xml.XmlNode item_node = n.SelectSingleNode("./items/sell/item");
 				if (item_node != null)
 				{
-					retval.item = DomainObjects.InventoryItem.CreateFromXml(item_node, ixcrm_parser);
+					retval.item = DomainObjects.InventoryItem.CreateFromXml(item_node as System.Xml.XmlElement, ixcrm_parser);
 				}
-				IXMLNode effect_node = n.GetNode("roar>0>items>0>sell>0>effect>0");
+				System.Xml.XmlNode effect_node = n.SelectSingleNode("./items/sell/effect");
 				if (effect_node != null)
 				{
-					retval.effect = DomainObjects.ModifierResult.CreateFromXml(effect_node);
+					retval.effect = DomainObjects.ModifierResult.CreateFromXml(effect_node as System.Xml.XmlElement);
 				}
 				return retval;
 			}
@@ -684,7 +675,7 @@ namespace Roar.DataConversion.Responses
 		//Response from items/set
 		public class Set : IXmlToObject< Roar.WebObjects.Items.SetResponse >
 		{
-			public Roar.WebObjects.Items.SetResponse Build(IXMLNode n)
+			public Roar.WebObjects.Items.SetResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Items.SetResponse retval = new Roar.WebObjects.Items.SetResponse();
 				//TODO: Implement me
@@ -694,7 +685,7 @@ namespace Roar.DataConversion.Responses
 		//Response from items/unequip
 		public class Unequip : IXmlToObject< Roar.WebObjects.Items.UnequipResponse >
 		{
-			public Roar.WebObjects.Items.UnequipResponse Build(IXMLNode n)
+			public Roar.WebObjects.Items.UnequipResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Items.UnequipResponse retval = new Roar.WebObjects.Items.UnequipResponse();
 				//TODO: Implement me
@@ -704,7 +695,7 @@ namespace Roar.DataConversion.Responses
 		//Response from items/use
 		public class Use : IXmlToObject< Roar.WebObjects.Items.UseResponse >
 		{
-			public Roar.WebObjects.Items.UseResponse Build(IXMLNode n)
+			public Roar.WebObjects.Items.UseResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Items.UseResponse retval = new Roar.WebObjects.Items.UseResponse();
 				//TODO: Implement me
@@ -716,12 +707,12 @@ namespace Roar.DataConversion.Responses
 		{
 			public IXCRMParser ixcrm_parser = new XCRMParser();
 			
-			public Roar.WebObjects.Items.ViewResponse Build(IXMLNode n)
+			public Roar.WebObjects.Items.ViewResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Items.ViewResponse retval = new Roar.WebObjects.Items.ViewResponse();
 				retval.items = new List<ItemArchetype>();
-				IList<IXMLNode> item_nodes = n.GetNodeList("roar>0>items>0>view>0>item");
-				foreach(IXMLNode item_node in item_nodes)
+				System.Xml.XmlNodeList item_nodes = n.SelectNodes("./items/view/item");
+				foreach(System.Xml.XmlElement item_node in item_nodes)
 				{
 					retval.items.Add(DomainObjects.ItemArchetype.CreateFromXml(item_node, ixcrm_parser));
 				}
@@ -733,12 +724,12 @@ namespace Roar.DataConversion.Responses
 		{
 			public IXCRMParser ixcrm_parser = new XCRMParser();
 			
-			public Roar.WebObjects.Items.ViewAllResponse Build(IXMLNode n)
+			public Roar.WebObjects.Items.ViewAllResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Items.ViewAllResponse retval = new Roar.WebObjects.Items.ViewAllResponse();
 				retval.items = new List<ItemArchetype>();
-				IList<IXMLNode> item_nodes = n.GetNodeList("roar>0>items>0>view_all>0>item");
-				foreach(IXMLNode item_node in item_nodes)
+				System.Xml.XmlNodeList item_nodes = n.SelectNodes("./items/view_all/item");
+				foreach(System.Xml.XmlElement item_node in item_nodes)
 				{
 					retval.items.Add(DomainObjects.ItemArchetype.CreateFromXml(item_node, ixcrm_parser));
 				}
@@ -752,13 +743,13 @@ namespace Roar.DataConversion.Responses
 		//Response from leaderboards/list
 		public class List : IXmlToObject< Roar.WebObjects.Leaderboards.ListResponse >
 		{
-			public Roar.WebObjects.Leaderboards.ListResponse Build(IXMLNode n)
+			public Roar.WebObjects.Leaderboards.ListResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Leaderboards.ListResponse retval = new Roar.WebObjects.Leaderboards.ListResponse();
 				retval.boards = new List<DomainObjects.LeaderboardInfo>();
 				
-				List<IXMLNode> board_nodes = n.GetNodeList("roar>0>leaderboards>0>list>0>board");
-				foreach( IXMLNode nn in board_nodes )
+				System.Xml.XmlNodeList board_nodes = n.SelectNodes("./leaderboards/list/board");
+				foreach( System.Xml.XmlElement nn in board_nodes )
 				{
 					retval.boards.Add( Roar.DomainObjects.LeaderboardInfo.CreateFromXml(nn) );
 				}
@@ -768,118 +759,80 @@ namespace Roar.DataConversion.Responses
 		//Response from leaderboards/view
 		public class View : IXmlToObject< Roar.WebObjects.Leaderboards.ViewResponse >
 		{
-			public Roar.WebObjects.Leaderboards.ViewResponse Build(IXMLNode n)
+			public Roar.WebObjects.Leaderboards.ViewResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Leaderboards.ViewResponse retval = new Roar.WebObjects.Leaderboards.ViewResponse();
-				IXMLNode nn = n.GetNode("roar>0>leaderboards>0>view>0>ranking>0");
+				System.Xml.XmlElement nn = n.SelectSingleNode("./leaderboards/view/ranking") as System.Xml.XmlElement;
 				retval.leaderboard_data = BuildLeaderboardData(nn);
 				//TODO: Implement me
 				return retval;
 			}
 			
 			
-			public DomainObjects.LeaderboardData BuildLeaderboardData( IXMLNode n )
+			public DomainObjects.LeaderboardData BuildLeaderboardData( System.Xml.XmlElement n )
 			{
-			DomainObjects.LeaderboardData retval = new DomainObjects.LeaderboardData();
+				DomainObjects.LeaderboardData retval = new DomainObjects.LeaderboardData();
 
-			IEnumerable<KeyValuePair<string,string>> attributes = n.Attributes;
-			foreach (KeyValuePair<string,string> kv in attributes)
-			{
-				if (kv.Key == "ikey")
-				{
-					retval.ikey = kv.Value;
-				}
-				else if (kv.Key == "board_id")
-				{
-					retval.id = kv.Value;
-				}
-				else if (kv.Key == "resource_id")
-				{
-					retval.resource_id = kv.Value;
-				}
-				else if (kv.Key == "label")
-				{
-					retval.label = kv.Value;
-				}
-				else if ((kv.Key == "offset") || (kv.Key=="offest") ) //Work around typo in the generated XML
-				{
-					retval.offset = System.Int32.Parse(kv.Value);
-				}
-				else if (kv.Key == "num_results")
-				{
-					retval.num_results = System.Int32.Parse(kv.Value);
-				}
-				else if (kv.Key == "page")
-				{
-					retval.page = System.Int32.Parse(kv.Value);
-				}
-				else if (kv.Key == "low_is_high")
-				{
-					retval.low_is_high = System.Boolean.Parse(kv.Value);
-				}
-				else
-				{
-					throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leaderboard");
-				}
-			}
+				retval.ikey = n.GetAttribute("ikey");
+				retval.id = n.GetAttribute("board_id");
+				retval.resource_id = n.GetAttribute("resource_id");
+				retval.label = n.GetAttribute("label");
+				
+				//Work around misspelling of offset.
+				retval.offset = n.HasAttribute("offset") ? int.Parse( n.GetAttribute("offset") ) : (
+					n.HasAttribute("offest") ? int.Parse( n.GetAttribute("offest") ) : 0 );
+					
+				retval.num_results = n.HasAttribute("num_results") ? int.Parse ( n.GetAttribute("num_results") ) : 0;
+				retval.page = n.HasAttribute("page") ? int.Parse( n.GetAttribute("page") ) : 0;
+				retval.low_is_high = n.HasAttribute("low_is_high") && System.Boolean.Parse(n.GetAttribute("low_is_high") );
 
 			retval.entries = new List<LeaderboardEntry>();
 
-			foreach( IXMLNode c in n.Children )
+			foreach( System.Xml.XmlNode c in n )
 			{
+				if( c.NodeType != System.Xml.XmlNodeType.Element ) continue;
 				if( c.Name=="entry")
 				{
 					LeaderboardEntry lbe = new LeaderboardEntry();
-					foreach (KeyValuePair<string,string> kv in c.Attributes)
+					foreach ( System.Xml.XmlAttribute kv in c.Attributes)
 					{
-						if( kv.Key=="player_id" )
+						if( kv.Name=="player_id" )
 						{
 							lbe.player_id = kv.Value;
 						}
-						else if( kv.Key=="rank" )
+						else if( kv.Name=="rank" )
 						{
 							lbe.rank = System.Int32.Parse( kv.Value );
 						}
-						else if( kv.Key=="value" )
+						else if( kv.Name=="value" )
 						{
 							lbe.value = System.Double.Parse( kv.Value );
 						}
-						else if( kv.Key=="ikey" )
+						else if( kv.Name=="ikey" )
 						{
 							//Ignored
 						}
 						else
 						{
-							throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leaderboard");
+							throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Name+"\", on Leaderboard");
 						}
 					}
 
 					lbe.properties = new List<LeaderboardExtraProperties>();
-					foreach( IXMLNode cc in c.Children )
+					foreach( System.Xml.XmlNode cc in c )
 					{
+						if( cc.NodeType != System.Xml.XmlNodeType.Element ) continue;
 						if(cc.Name == "custom" )
 						{
-							foreach( IXMLNode ccc in cc.Children )
+							foreach( System.Xml.XmlNode ccc in cc )
 							{
+								if( ccc.NodeType != System.Xml.XmlNodeType.Element ) continue;
 								if( ccc.Name == "property" )
 								{
 									LeaderboardExtraProperties prop = new LeaderboardExtraProperties();
-									foreach (KeyValuePair<string,string> kv in ccc.Attributes)
-									{
-										if( kv.Key=="ikey" )
-										{
-											prop.ikey = kv.Value;
-										}
-										else if( kv.Key=="value" )
-										{
-											prop.value = kv.Value;
-										}
-										else
-										{
-											throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on Leadeboard suctom property");
-										}
-									}
-
+									System.Xml.XmlElement ccc_e = ccc as System.Xml.XmlElement;
+									prop.ikey = ccc_e.GetAttribute("ikey");
+									prop.value = ccc_e.GetAttribute("value");
 									lbe.properties.Add( prop );
 								}
 								else
@@ -912,7 +865,7 @@ namespace Roar.DataConversion.Responses
 		//Response from mail/accept
 		public class Accept : IXmlToObject< Roar.WebObjects.Mail.AcceptResponse >
 		{
-			public Roar.WebObjects.Mail.AcceptResponse Build(IXMLNode n)
+			public Roar.WebObjects.Mail.AcceptResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Mail.AcceptResponse retval = new Roar.WebObjects.Mail.AcceptResponse();
 				//TODO: Implement me
@@ -922,7 +875,7 @@ namespace Roar.DataConversion.Responses
 		//Response from mail/send
 		public class Send : IXmlToObject< Roar.WebObjects.Mail.SendResponse >
 		{
-			public Roar.WebObjects.Mail.SendResponse Build(IXMLNode n)
+			public Roar.WebObjects.Mail.SendResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Mail.SendResponse retval = new Roar.WebObjects.Mail.SendResponse();
 				//TODO: Implement me
@@ -934,12 +887,12 @@ namespace Roar.DataConversion.Responses
 		{
 			public IXCRMParser ixcrm_parser = new XCRMParser();
 			
-			public Roar.WebObjects.Mail.WhatCanIAcceptResponse Build(IXMLNode n)
+			public Roar.WebObjects.Mail.WhatCanIAcceptResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Mail.WhatCanIAcceptResponse retval = new Roar.WebObjects.Mail.WhatCanIAcceptResponse();
 				retval.packages = new List<MailPackage>();
-				IList<IXMLNode> package_nodes = n.GetNodeList("roar>0>mail>0>what_can_i_accept>0>package");
-				foreach (IXMLNode package_node in package_nodes)
+				System.Xml.XmlNodeList package_nodes = n.SelectNodes("./mail/what_can_i_accept/package");
+				foreach (System.Xml.XmlElement package_node in package_nodes)
 				{
 					retval.packages.Add(MailPackage.CreateFromXml(package_node, ixcrm_parser));
 				}
@@ -951,12 +904,12 @@ namespace Roar.DataConversion.Responses
 		{
 			public IXCRMParser ixcrm_parser = new XCRMParser();
 			
-			public Roar.WebObjects.Mail.WhatCanISendResponse Build(IXMLNode n)
+			public Roar.WebObjects.Mail.WhatCanISendResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Mail.WhatCanISendResponse retval = new Roar.WebObjects.Mail.WhatCanISendResponse();
 				retval.mailables = new List<Mailable>();
-				IList<IXMLNode> mailable_nodes = n.GetNodeList("roar>0>mail>0>what_can_i_send>0>mailable");
-				foreach (IXMLNode mailable_node in mailable_nodes)
+				System.Xml.XmlNodeList mailable_nodes = n.SelectNodes("./mail/what_can_i_send/mailable");
+				foreach (System.Xml.XmlElement mailable_node in mailable_nodes)
 				{
 					retval.mailables.Add(Mailable.CreateFromXml(mailable_node, ixcrm_parser));
 				}
@@ -972,12 +925,12 @@ namespace Roar.DataConversion.Responses
 		{
 			public Roar.DataConversion.IXCRMParser ixcrm_parser = new Roar.DataConversion.XCRMParser();
 
-			public Roar.WebObjects.Shop.ListResponse Build(IXMLNode n)
+			public Roar.WebObjects.Shop.ListResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Shop.ListResponse retval = new Roar.WebObjects.Shop.ListResponse();
 				retval.shop_entries = new List<Roar.DomainObjects.ShopEntry>();
-				List<IXMLNode> shopitem_nodes = n.GetNodeList("roar>0>shop>0>list>0>shopitem");
-				foreach( IXMLNode nn in shopitem_nodes )
+				System.Xml.XmlNodeList shopitem_nodes = n.SelectNodes("./shop/list/shopitem");
+				foreach( System.Xml.XmlElement nn in shopitem_nodes )
 				{
 					retval.shop_entries.Add( Roar.DomainObjects.ShopEntry.CreateFromXml(nn,ixcrm_parser) );
 				}
@@ -987,11 +940,11 @@ namespace Roar.DataConversion.Responses
 		//Response from shop/buy
 		public class Buy : IXmlToObject< Roar.WebObjects.Shop.BuyResponse >
 		{
-			public Roar.WebObjects.Shop.BuyResponse Build(IXMLNode n)
+			public Roar.WebObjects.Shop.BuyResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Shop.BuyResponse retval = new Roar.WebObjects.Shop.BuyResponse();
-				IXMLNode buy_node = n.GetNode("roar>0>shop>0>buy>0");
-				retval.buy_response = Roar.DomainObjects.ModifierResult.CreateFromXml(buy_node);
+				System.Xml.XmlNode buy_node = n.SelectSingleNode("./shop/buy");
+				retval.buy_response = Roar.DomainObjects.ModifierResult.CreateFromXml(buy_node as System.Xml.XmlElement);
 				return retval;
 			}
 		}
@@ -1002,22 +955,22 @@ namespace Roar.DataConversion.Responses
 		//Response from scripts/run
 		public class Run : IXmlToObject< Roar.WebObjects.Scripts.RunResponse >
 		{
-			public Roar.WebObjects.Scripts.RunResponse Build(IXMLNode n)
+			public Roar.WebObjects.Scripts.RunResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Scripts.RunResponse retval = new Roar.WebObjects.Scripts.RunResponse();
-				IXMLNode result_node = n.GetNode("roar>0>scripts>0>run>0");
-				retval.result.resultNode = result_node;
+				System.Xml.XmlNode result_node = n.SelectSingleNode("./scripts/run");
+				retval.result.resultNode = result_node as System.Xml.XmlElement;
 				return retval;
 			}
 		}
 		//Response from scripts/run_admin
 		public class RunAdmin : IXmlToObject< Roar.WebObjects.Scripts.RunAdminResponse >
 		{
-			public Roar.WebObjects.Scripts.RunAdminResponse Build(IXMLNode n)
+			public Roar.WebObjects.Scripts.RunAdminResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Scripts.RunAdminResponse retval = new Roar.WebObjects.Scripts.RunAdminResponse();
-				IXMLNode result_node = n.GetNode("roar>0>scripts>0>run>0");
-				retval.result.resultNode = result_node;
+				System.Xml.XmlNode result_node = n.SelectSingleNode("./scripts/run");
+				retval.result.resultNode = result_node as System.Xml.XmlElement;
 				return retval;
 			}
 		}
@@ -1029,12 +982,12 @@ namespace Roar.DataConversion.Responses
 		{
 			public IXCRMParser ixcrm_parser = new XCRMParser();
 			
-			public Roar.WebObjects.Tasks.ListResponse Build(IXMLNode n)
+			public Roar.WebObjects.Tasks.ListResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Tasks.ListResponse retval = new Roar.WebObjects.Tasks.ListResponse();
 				retval.tasks = new List<Task>();
-				List<IXMLNode> tasks_nodes = n.GetNodeList("roar>0>tasks>0>list>0>task");
-				foreach( IXMLNode task in tasks_nodes )
+				System.Xml.XmlNodeList tasks_nodes = n.SelectNodes("./tasks/list/task");
+				foreach( System.Xml.XmlElement task in tasks_nodes )
 				{
 					retval.tasks.Add(Roar.DomainObjects.Task.CreateFromXml(task, ixcrm_parser));
 				}
@@ -1044,7 +997,7 @@ namespace Roar.DataConversion.Responses
 		//Response from tasks/start
 		public class Start : IXmlToObject< Roar.WebObjects.Tasks.StartResponse >
 		{
-			public Roar.WebObjects.Tasks.StartResponse Build(IXMLNode n)
+			public Roar.WebObjects.Tasks.StartResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Tasks.StartResponse retval = new Roar.WebObjects.Tasks.StartResponse();
 				//TODO: Implement me
@@ -1058,12 +1011,12 @@ namespace Roar.DataConversion.Responses
 		//Response from user/achievements
 		public class Achievements : IXmlToObject< Roar.WebObjects.User.AchievementsResponse >
 		{
-			public Roar.WebObjects.User.AchievementsResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.AchievementsResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.AchievementsResponse retval = new Roar.WebObjects.User.AchievementsResponse();
 				retval.achievements = new List<Achievement>();
-				IList<IXMLNode> achievement_nodes = n.GetNodeList("roar>0>user>0>achievements>0>achievement");
-				foreach (IXMLNode achievement_node in achievement_nodes)
+				System.Xml.XmlNodeList achievement_nodes = n.SelectNodes("./user/achievements/achievement");
+				foreach (System.Xml.XmlElement achievement_node in achievement_nodes)
 				{
 					retval.achievements.Add(Achievement.CreateFromXml(achievement_node));
 				}
@@ -1073,7 +1026,7 @@ namespace Roar.DataConversion.Responses
 		//Response from user/change_name
 		public class ChangeName : IXmlToObject< Roar.WebObjects.User.ChangeNameResponse >
 		{
-			public Roar.WebObjects.User.ChangeNameResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.ChangeNameResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.ChangeNameResponse retval = new Roar.WebObjects.User.ChangeNameResponse();
 				//TODO: Implement me
@@ -1083,7 +1036,7 @@ namespace Roar.DataConversion.Responses
 		//Response from user/change_password
 		public class ChangePassword : IXmlToObject< Roar.WebObjects.User.ChangePasswordResponse >
 		{
-			public Roar.WebObjects.User.ChangePasswordResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.ChangePasswordResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.ChangePasswordResponse retval = new Roar.WebObjects.User.ChangePasswordResponse();
 				//TODO: Implement me
@@ -1093,7 +1046,7 @@ namespace Roar.DataConversion.Responses
 		//Response from user/create
 		public class Create : IXmlToObject< Roar.WebObjects.User.CreateResponse >
 		{
-			public Roar.WebObjects.User.CreateResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.CreateResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.CreateResponse retval = new Roar.WebObjects.User.CreateResponse();
 				//TODO: Implement me
@@ -1103,18 +1056,18 @@ namespace Roar.DataConversion.Responses
 		//Response from user/login
 		public class Login : IXmlToObject< Roar.WebObjects.User.LoginResponse >
 		{
-			public Roar.WebObjects.User.LoginResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.LoginResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.LoginResponse retval = new Roar.WebObjects.User.LoginResponse();
-				IXMLNode node = n.GetNode("roar>0>user>0>login>0>auth_token>0");
+				System.Xml.XmlNode node = n.SelectSingleNode("./user/login/auth_token");
 				if (node != null)
 				{
-					retval.auth_token = node.Text;
+					retval.auth_token = node.InnerText;
 				}
-				node = n.GetNode("roar>0>user>0>login>0>player_id>0");
+				node = n.SelectSingleNode("./user/login/player_id");
 				if (node != null)
 				{
-					retval.player_id = node.Text;
+					retval.player_id = node.InnerText;
 				}
 				return retval;
 			}
@@ -1122,7 +1075,7 @@ namespace Roar.DataConversion.Responses
 		//Response from user/login_facebook_oauth
 		public class LoginFacebookOauth : IXmlToObject< Roar.WebObjects.User.LoginFacebookOauthResponse >
 		{
-			public Roar.WebObjects.User.LoginFacebookOauthResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.LoginFacebookOauthResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.LoginFacebookOauthResponse retval = new Roar.WebObjects.User.LoginFacebookOauthResponse();
 				//TODO: Implement me
@@ -1132,7 +1085,7 @@ namespace Roar.DataConversion.Responses
 		//Response from user/logout
 		public class Logout : IXmlToObject< Roar.WebObjects.User.LogoutResponse >
 		{
-			public Roar.WebObjects.User.LogoutResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.LogoutResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.LogoutResponse retval = new Roar.WebObjects.User.LogoutResponse();
 				//TODO: Implement me
@@ -1142,7 +1095,7 @@ namespace Roar.DataConversion.Responses
 		//Response from user/netdrive_save
 		public class NetdriveSave : IXmlToObject< Roar.WebObjects.User.NetdriveSaveResponse >
 		{
-			public Roar.WebObjects.User.NetdriveSaveResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.NetdriveSaveResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.NetdriveSaveResponse retval = new Roar.WebObjects.User.NetdriveSaveResponse();
 				//TODO: Implement me
@@ -1152,17 +1105,17 @@ namespace Roar.DataConversion.Responses
 		//Response from user/netdrive_fetch
 		public class NetdriveFetch : IXmlToObject< Roar.WebObjects.User.NetdriveFetchResponse >
 		{
-			public Roar.WebObjects.User.NetdriveFetchResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.NetdriveFetchResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.NetdriveFetchResponse retval = new Roar.WebObjects.User.NetdriveFetchResponse();
-				IXMLNode node = n.GetNode("roar>0>user>0>netdrive_get>0>netdrive_field>0");
+				System.Xml.XmlElement node = n.SelectSingleNode("./user/netdrive_get/netdrive_field") as System.Xml.XmlElement;
 				if (node != null)
 				{
 					retval.ikey = node.GetAttribute("ikey");
-					node = node.GetNode("data>0");
+					node = node.SelectSingleNode("data") as System.Xml.XmlElement;
 					if (node != null)
 					{
-						retval.data = node.Text;
+						retval.data = node.InnerText;
 					}
 				}
 				return retval;
@@ -1171,7 +1124,7 @@ namespace Roar.DataConversion.Responses
 		//Response from user/set
 		public class Set : IXmlToObject< Roar.WebObjects.User.SetResponse >
 		{
-			public Roar.WebObjects.User.SetResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.SetResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.SetResponse retval = new Roar.WebObjects.User.SetResponse();
 				//TODO: Implement me
@@ -1181,12 +1134,12 @@ namespace Roar.DataConversion.Responses
 		//Response from user/view
 		public class View : IXmlToObject< Roar.WebObjects.User.ViewResponse >
 		{
-			public Roar.WebObjects.User.ViewResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.ViewResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.ViewResponse retval = new Roar.WebObjects.User.ViewResponse();
 				retval.attributes = new List<PlayerAttribute>();
-				List<IXMLNode> attribute_nodes = n.GetNodeList("roar>0>user>0>view>0>attribute");
-				foreach( IXMLNode attribute_node in attribute_nodes )
+				System.Xml.XmlNodeList attribute_nodes = n.SelectNodes("./user/view/attribute");
+				foreach( System.Xml.XmlElement attribute_node in attribute_nodes )
 				{
 					PlayerAttribute a = new PlayerAttribute();
 					a.ParseXml(attribute_node);
@@ -1198,7 +1151,7 @@ namespace Roar.DataConversion.Responses
 		//Response from user/private_set
 		public class PrivateSet : IXmlToObject< Roar.WebObjects.User.PrivateSetResponse >
 		{
-			public Roar.WebObjects.User.PrivateSetResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.PrivateSetResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.PrivateSetResponse retval = new Roar.WebObjects.User.PrivateSetResponse();
 				//TODO: Implement me
@@ -1208,10 +1161,10 @@ namespace Roar.DataConversion.Responses
 		//Response from user/private_get
 		public class PrivateGet : IXmlToObject< Roar.WebObjects.User.PrivateGetResponse >
 		{
-			public Roar.WebObjects.User.PrivateGetResponse Build(IXMLNode n)
+			public Roar.WebObjects.User.PrivateGetResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.User.PrivateGetResponse retval = new Roar.WebObjects.User.PrivateGetResponse();
-				IXMLNode private_field_node = n.GetNode("roar>0>user>0>private_get>0>private_field>0");
+				System.Xml.XmlElement private_field_node = n.SelectSingleNode("./user/private_get/private_field") as System.Xml.XmlElement;
 				if (private_field_node != null)
 				{
 					retval.ikey = private_field_node.GetAttribute("ikey");
@@ -1227,7 +1180,7 @@ namespace Roar.DataConversion.Responses
 		//Response from urbanairship/ios_register
 		public class IosRegister : IXmlToObject< Roar.WebObjects.Urbanairship.IosRegisterResponse >
 		{
-			public Roar.WebObjects.Urbanairship.IosRegisterResponse Build(IXMLNode n)
+			public Roar.WebObjects.Urbanairship.IosRegisterResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Urbanairship.IosRegisterResponse retval = new Roar.WebObjects.Urbanairship.IosRegisterResponse();
 				//TODO: Implement me
@@ -1237,7 +1190,7 @@ namespace Roar.DataConversion.Responses
 		//Response from urbanairship/push
 		public class Push : IXmlToObject< Roar.WebObjects.Urbanairship.PushResponse >
 		{
-			public Roar.WebObjects.Urbanairship.PushResponse Build(IXMLNode n)
+			public Roar.WebObjects.Urbanairship.PushResponse Build(System.Xml.XmlElement n)
 			{
 				Roar.WebObjects.Urbanairship.PushResponse retval = new Roar.WebObjects.Urbanairship.PushResponse();
 				//TODO: Implement me

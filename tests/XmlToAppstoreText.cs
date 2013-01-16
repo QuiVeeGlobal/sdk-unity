@@ -28,7 +28,7 @@ namespace Testing
 				</appstore>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Appstore.ShopList shop_list_parser = new Roar.DataConversion.Responses.Appstore.ShopList();
 			ShopListResponse response = shop_list_parser.Build(nn);
 			
@@ -65,14 +65,14 @@ namespace Testing
 				</appstore>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Appstore.ShopList shop_list_parser = new Roar.DataConversion.Responses.Appstore.ShopList();
 			
 			Mockery mockery = new Mockery();
 			Roar.DataConversion.IXCRMParser ixcrm_parser = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
 			shop_list_parser.ixcrm_parser = ixcrm_parser;
 			IList<Roar.DomainObjects.Modifier> modifier_list = new List<Roar.DomainObjects.Modifier>();
-			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.GetNode("roar>0>appstore>0>shop_list>0>shopitem>0>modifiers>0")).Will(Return.Value(modifier_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.SelectSingleNode("./appstore/shop_list/shopitem/modifiers")).Will(Return.Value(modifier_list));
 			
 			ShopListResponse response = shop_list_parser.Build(nn);
 			
@@ -91,11 +91,11 @@ namespace Testing
 			string xml =
 			@"<roar tick=""130695522924"">
 				<appstore>
-					<buy status=""ok""\>
+					<buy status=""ok""/>
 				</appstore>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Appstore.Buy buy_parser = new Roar.DataConversion.Responses.Appstore.Buy();
 			BuyResponse response = buy_parser.Build(nn);
 			

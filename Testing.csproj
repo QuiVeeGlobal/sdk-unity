@@ -37,13 +37,11 @@
     <Reference Include="NMock2">
       <HintPath>libs\nmock2-2.0.0.44-net-2.0\bin\NMock2.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Testing\AssemblyInfo.cs" />
     <Compile Include="tests\WebAPITests.cs" />
-    <Compile Include="tests\XmlTests.cs">
-      <DeployService-Deploy>true</DeployService-Deploy>
-    </Compile>
     <Compile Include="tests\PropertiesTests.cs" />
     <Compile Include="tests\ComponentTests.cs" />
     <Compile Include="tests\ActionsTests.cs" />

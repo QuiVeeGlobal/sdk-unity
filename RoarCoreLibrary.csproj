@@ -69,12 +69,7 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\ItemCache.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\RequestSender.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\WebAPI.cs" />
-    <Compile Include="src\Assets\Plugins\RoarEngine\XMLParser\SystemXMLNode.cs" />
-    <Compile Include="src\Assets\Plugins\RoarEngine\XMLParser\SystemXMLNodeFactory.cs" />
-    <Compile Include="src\Assets\Plugins\RoarEngine\XMLParser\XMLNodeFactory.cs" />
-    <Compile Include="src\Assets\Plugins\RoarEngine\XMLParser\XMLNodeList.cs" />
     <Compile Include="tests\stubs\UnityEngine.cs" />
-    <Compile Include="src\Assets\Plugins\RoarEngine\XMLParser\XMLNode.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\ILeaderboards.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Leaderboards.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\DomainObjects.cs" />
@@ -93,9 +88,11 @@
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Tasks.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Components\IGoogle.cs" />
     <Compile Include="src\Assets\Plugins\RoarEngine\Roar\implementation\Components\Google.cs" />
+    <Compile Include="src\Assets\Plugins\RoarEngine\Roar\Extensions\RoarExtensions.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="plugins\" />
+    <Folder Include="src\Assets\Plugins\RoarEngine\Roar\Extensions\" />
   </ItemGroup>
 </Project>

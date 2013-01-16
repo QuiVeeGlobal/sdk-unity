@@ -99,8 +99,8 @@ public class RoarManager
 	public static event Action<PurchaseInfo> goodBoughtEvent;
 	public static void OnGoodBought( PurchaseInfo info ) { if(goodBoughtEvent!=null) goodBoughtEvent(info); }
 
-	public static event Action<IXMLNode> eventDoneEvent;
-	public static void OnEventDone( IXMLNode eventInfo ) { if(eventDoneEvent!=null) eventDoneEvent(eventInfo); }
+	public static event Action<System.Xml.XmlElement> eventDoneEvent;
+	public static void OnEventDone( System.Xml.XmlElement eventInfo ) { if(eventDoneEvent!=null) eventDoneEvent(eventInfo); }
 
 	public static event Action<string,string> dataLoadedEvent;
 	public static void OnDataLoaded( string key, string value ) { if(dataLoadedEvent!=null) dataLoadedEvent(key, value); }
@@ -399,7 +399,7 @@ public class RoarManager
   	 * @param key the event name.
   	 * @param info the event info.
   	 **/
-	public static void OnServerEvent( IXMLNode info )
+	public static void OnServerEvent( System.Xml.XmlElement info )
 	{
 		switch(info.Name)
 		{
@@ -541,13 +541,14 @@ public class RoarManager
 	/**
 	 * Fire off the events for all the contained server events.
 	 */
-	public static void NotifyOfServerChanges( IXMLNode node )
+	public static void NotifyOfServerChanges( System.Xml.XmlElement node )
 	{
 		if( node == null ) return;
 		OnRoarServerAll( node );
-		foreach( IXMLNode nn in node.Children )
+		foreach( System.Xml.XmlNode nn in node )
 		{
-			OnServerEvent( nn );
+			if( nn.NodeType != System.Xml.XmlNodeType.Element ) continue;
+			OnServerEvent( nn as System.Xml.XmlElement );
 		}
 	}
 

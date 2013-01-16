@@ -179,19 +179,23 @@ namespace Roar.implementation.Components
 			productsList.Clear ();
 			productsMap.Clear ();
 			logger.DebugLog (string.Format ("OnProductData() called with: {0}", productDataXml));
-			IXMLNode root = IXMLNodeFactory.instance.Create (productDataXml);
-			IXMLNode appstoreNode = root.GetFirstChild ("appstore");
-			IEnumerable<IXMLNode> children = appstoreNode.Children;
+			System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+			doc.LoadXml(productDataXml);
 
-			if (children != null) {
-				foreach (IXMLNode shopItemXml in children) {
-					Roar.DomainObjects.AppstoreShopEntry entry = Roar.DomainObjects.AppstoreShopEntry.CreateFromXml(shopItemXml,ixcrm_parser);
+			System.Xml.XmlNode appstoreNode = doc.FirstChild;
 
-					productsList.Add (entry);
-					productsMap.Add (entry.product_identifier, entry);
-				}
-			} else {
+			if ( ! appstoreNode.HasChildNodes )
+			{
 				logger.DebugLog ("No products passed to OnProductData()");
+				return;
+			}
+			
+			foreach ( System.Xml.XmlNode shopItemXml in appstoreNode )
+			{
+				if( shopItemXml.NodeType != System.Xml.XmlNodeType.Element ) continue;
+				AppstoreShopEntry product = AppstoreShopEntry.CreateFromXml( shopItemXml, ixcrm_parser );
+				productsList.Add (product);
+				productsMap.Add (product.product_identifier, product);
 			}
 		}
 
@@ -203,8 +207,11 @@ namespace Roar.implementation.Components
 		public void OnPurchaseComplete (string purchaseXml)
 		{
 			logger.DebugLog (string.Format ("OnPurchaseComplete() called with: {0}", purchaseXml));
-			IXMLNode root = IXMLNodeFactory.instance.Create (purchaseXml);
-			IXMLNode purchaseNode = root.GetFirstChild ("shop_item_purchase_success");
+			System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+			doc.LoadXml(purchaseXml);
+
+			System.Xml.XmlElement root = doc.FirstChild as System.Xml.XmlElement;
+			System.Xml.XmlElement purchaseNode = root.SelectSingleNode("./shop_item_purchase_success") as System.Xml.XmlElement;
 			string transactionIdentifier = purchaseNode.GetAttribute ("transaction_identifier");
 			ValidateReceipt (transactionIdentifier, purchaseCallbackX);
 		}

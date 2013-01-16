@@ -23,7 +23,7 @@ namespace Testing
 				</server>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Mail.Accept accept_parser = new Roar.DataConversion.Responses.Mail.Accept();
 			AcceptResponse response = accept_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -43,7 +43,7 @@ namespace Testing
 				</server>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Mail.Send send_parser = new Roar.DataConversion.Responses.Mail.Send();
 			SendResponse response = send_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -70,7 +70,7 @@ namespace Testing
 				</mail>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Mail.WhatCanIAccept what_can_i_accept_parser = new Roar.DataConversion.Responses.Mail.WhatCanIAccept();
 			WhatCanIAcceptResponse response = what_can_i_accept_parser.Build(nn);
 			
@@ -122,7 +122,7 @@ namespace Testing
 				</mail>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Mail.WhatCanIAccept what_can_i_accept_parser = new Roar.DataConversion.Responses.Mail.WhatCanIAccept();
 			
 			Mockery mockery = new Mockery();
@@ -134,12 +134,12 @@ namespace Testing
 			IList<Roar.DomainObjects.Modifier> item_price_list = new List<Roar.DomainObjects.Modifier>();
 			IList<string> item_tag_list = new List<string>();
 			
-			Expect.Once.On(ixcrm_parser).Method("ParseItemStatList").With(nn.GetNode("roar>0>mail>0>what_can_i_accept>0>package>0>item>0>stats>0")).Will(Return.Value(item_stat_list));
-			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.GetNode("roar>0>mail>0>what_can_i_accept>0>package>0>item>0>price>0")).Will(Return.Value(item_price_list));
-			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.GetNode("roar>0>mail>0>what_can_i_accept>0>package>0>item>0>tags>0")).Will(Return.Value(item_tag_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseItemStatList").With(nn.SelectSingleNode("./mail/what_can_i_accept/package/item/stats")).Will(Return.Value(item_stat_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.SelectSingleNode("./mail/what_can_i_accept/package/item/price")).Will(Return.Value(item_price_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.SelectSingleNode("./mail/what_can_i_accept/package/item/tags")).Will(Return.Value(item_tag_list));
 			
-			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.GetNode("roar>0>mail>0>what_can_i_accept>0>package>0")).Will(Return.Value(tag_list));
-			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.GetNode("roar>0>mail>0>what_can_i_accept>0>package>0>modifiers>0")).Will(Return.Value(modifier_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.SelectSingleNode("./mail/what_can_i_accept/package")).Will(Return.Value(tag_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.SelectSingleNode("./mail/what_can_i_accept/package/modifiers")).Will(Return.Value(modifier_list));
 			
 			WhatCanIAcceptResponse response = what_can_i_accept_parser.Build(nn);
 			
@@ -191,7 +191,7 @@ namespace Testing
 				</mail>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Mail.WhatCanISend what_can_i_send_parser = new Roar.DataConversion.Responses.Mail.WhatCanISend();
 			Roar.WebObjects.Mail.WhatCanISendResponse response = what_can_i_send_parser.Build(nn);
 			
@@ -256,7 +256,7 @@ namespace Testing
 				</mail>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Mail.WhatCanISend what_can_i_send_parser = new Roar.DataConversion.Responses.Mail.WhatCanISend();
 			
 			Mockery mockery = new Mockery();
@@ -269,11 +269,11 @@ namespace Testing
 			IList<Roar.DomainObjects.Modifier> give_list = new List<Roar.DomainObjects.Modifier>();
 			IList<string> tag_list = new List<string>();
 			
-			Expect.Once.On(ixcrm_parser).Method("ParseRequirementList").With(nn.GetNode("roar>0>mail>0>what_can_i_send>0>mailable>0>requirements>0")).Will(Return.Value(requirement_list));
-			Expect.Once.On(ixcrm_parser).Method("ParseCostList").With(nn.GetNode("roar>0>mail>0>what_can_i_send>0>mailable>0>costs>0")).Will(Return.Value(cost_list));
-			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.GetNode("roar>0>mail>0>what_can_i_send>0>mailable>0>on_accept>0")).Will(Return.Value(accept_list));
-			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.GetNode("roar>0>mail>0>what_can_i_send>0>mailable>0>on_give>0")).Will(Return.Value(give_list));
-			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.GetNode("roar>0>mail>0>what_can_i_send>0>mailable>0>tags>0")).Will(Return.Value(tag_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseRequirementList").With(nn.SelectSingleNode("./mail/what_can_i_send/mailable/requirements")).Will(Return.Value(requirement_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseCostList").With(nn.SelectSingleNode("./mail/what_can_i_send/mailable/costs")).Will(Return.Value(cost_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.SelectSingleNode("./mail/what_can_i_send/mailable/on_accept")).Will(Return.Value(accept_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.SelectSingleNode("./mail/what_can_i_send/mailable/on_give")).Will(Return.Value(give_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.SelectSingleNode("./mail/what_can_i_send/mailable/tags")).Will(Return.Value(tag_list));
 			
 			Roar.WebObjects.Mail.WhatCanISendResponse response = what_can_i_send_parser.Build(nn);
 			

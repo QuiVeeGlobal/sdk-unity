@@ -54,17 +54,18 @@ namespace Roar.DataConversion
 
 	public interface IXmlToObject<T>
 	{
-		T Build( IXMLNode n);
+		T Build( System.Xml.XmlElement n);
 	}
 
 
 	public interface IXCRMParser
 	{
-		List<DomainObjects.Cost> ParseCostList (IXMLNode n);
-		List<DomainObjects.Modifier> ParseModifierList (IXMLNode n);
-		List<DomainObjects.Requirement> ParseRequirementList (IXMLNode n);
-		List<DomainObjects.ItemStat> ParseItemStatList (IXMLNode n);
-		List<string> ParseTagList( IXMLNode n);
+		List<DomainObjects.Cost> ParseCostList (System.Xml.XmlElement n);
+		List<DomainObjects.Modifier> ParseModifierList (System.Xml.XmlElement n);
+		List<DomainObjects.Requirement> ParseRequirementList (System.Xml.XmlElement n);
+		List<DomainObjects.ItemStat> ParseItemStatList (System.Xml.XmlElement n);
+
+		List<string> ParseTagList( System.Xml.XmlElement n);
 	}
 
 	public class XCRMParser : IXCRMParser
@@ -75,8 +76,8 @@ namespace Roar.DataConversion
 		{
 			crm = this;
 		}
-		
-		public DomainObjects.Modifier ParseAModifier( IXMLNode n )
+
+		public DomainObjects.Modifier ParseAModifier( System.Xml.XmlElement n )
 		{
 			DomainObjects.Modifier retval;
 			switch( n.Name )
@@ -85,7 +86,7 @@ namespace Roar.DataConversion
 			{
 				DomainObjects.Modifiers.RemoveItems remove_item_mod = new DomainObjects.Modifiers.RemoveItems();
 				remove_item_mod.ikey = n.GetAttribute("ikey");
-				if (n.GetAttribute("count") != null)
+				if ( n.HasAttribute("count") )
 				{
 					if( ! System.Int32.TryParse( n.GetAttribute("count"), out remove_item_mod.count ) )
 					{
@@ -158,21 +159,24 @@ namespace Roar.DataConversion
 			{
 				DomainObjects.Modifiers.RandomChoice random_choice = new DomainObjects.Modifiers.RandomChoice();
 				random_choice.choices = new List<DomainObjects.Modifiers.RandomChoice.ChoiceEntry>();
-				foreach (IXMLNode nn in n.Children)
+				foreach ( System.Xml.XmlNode nn in n)
 				{
+					if( nn.NodeType != System.Xml.XmlNodeType.Element ) continue;
+					
 					if(nn.Name == "choice")
 					{
 						DomainObjects.Modifiers.RandomChoice.ChoiceEntry entry = new DomainObjects.Modifiers.RandomChoice.ChoiceEntry();
-						foreach(IXMLNode nnn in nn.Children)
+						if(! System.Int32.TryParse((nn as System.Xml.XmlElement).GetAttribute("weight"), out entry.weight))
 						{
+								throw new InvalidXMLElementException("Unable to parse choice weight to integer.");
+						}
+						foreach(System.Xml.XmlNode nnn_n in nn)
+						{
+							if(nnn_n.NodeType != System.Xml.XmlNodeType.Element ) continue;
+							System.Xml.XmlElement nnn = nnn_n as System.Xml.XmlElement;
+							
 							switch(nnn.Name)
 							{
-							case "weight":
-								if(! System.Int32.TryParse(nnn.GetAttribute("weight"), out entry.weight))
-								{
-									throw new InvalidXMLElementException("Unable to parse choice weight to integer.");
-								}
-								break;
 							case "modifier":
 								entry.modifiers = crm.ParseModifierList(nnn);
 								break;
@@ -215,8 +219,11 @@ namespace Roar.DataConversion
 			case "if_then_else":
 			{
 				DomainObjects.Modifiers.IfThenElse m = new DomainObjects.Modifiers.IfThenElse();
-				foreach (IXMLNode nn in n.Children)
+				foreach (System.Xml.XmlNode nn_n in n)
 				{
+					if( nn_n.NodeType != System.Xml.XmlNodeType.Element ) continue;
+					System.Xml.XmlElement nn = nn_n as System.Xml.XmlElement;
+					
 					switch( nn.Name )
 					{
 					case "if":
@@ -242,21 +249,22 @@ namespace Roar.DataConversion
 			return retval;
 		}
 
-		public List<DomainObjects.Modifier> ParseModifierList (IXMLNode n)
+		public List<DomainObjects.Modifier> ParseModifierList (System.Xml.XmlElement n)
 		{
 			List<DomainObjects.Modifier> modifier_list = new List<DomainObjects.Modifier> ();
 			if (n == null)
 			{
 				return modifier_list;
 			}
-			foreach (IXMLNode nn in n.Children)
+			foreach( System.Xml.XmlNode nn in n )
 			{
-				modifier_list.Add( ParseAModifier(nn) );
+				if( nn.NodeType != System.Xml.XmlNodeType.Element ) continue;
+				modifier_list.Add( ParseAModifier(nn as System.Xml.XmlElement) );
 			}
 			return modifier_list;
 		}
 
-		public DomainObjects.Cost ParseACost( IXMLNode n )
+		public DomainObjects.Cost ParseACost( System.Xml.XmlElement n )
 		{
 			DomainObjects.Cost retval;
 			//TODO: Implement the rest!
@@ -290,21 +298,24 @@ namespace Roar.DataConversion
 			return retval;
 		}
 
-		public List<DomainObjects.Cost> ParseCostList (IXMLNode n)
+
+		
+		public List<DomainObjects.Cost> ParseCostList ( System.Xml.XmlElement n)
 		{
 			List<DomainObjects.Cost> cost_list = new List<DomainObjects.Cost> ();
 			if (n == null)
 			{
 				return cost_list;
 			}
-			foreach (IXMLNode nn in n.Children)
+			foreach ( System.Xml.XmlNode nn in n)
 			{
-				cost_list.Add ( ParseACost(nn) );
+				if( nn.NodeType != System.Xml.XmlNodeType.Element ) continue;
+				cost_list.Add ( ParseACost(nn as System.Xml.XmlElement) );
 			}
 			return cost_list;
 		}
 
-		public DomainObjects.Requirement ParseARequirement( IXMLNode n )
+		public DomainObjects.Requirement ParseARequirement( System.Xml.XmlElement n )
 		{
 			DomainObjects.Requirement retval;
 
@@ -361,45 +372,40 @@ namespace Roar.DataConversion
 			}
 
 			retval.ok = (n.GetAttribute("ok")=="true");
-			retval.reason = n.GetAttribute("reason");
+			retval.reason = n.GetAttributeOrDefault("reason",null);
 			return retval;
 		}
 
-		public List<DomainObjects.Requirement> ParseRequirementList (IXMLNode n)
+		
+		public List<DomainObjects.Requirement> ParseRequirementList (System.Xml.XmlElement n)
 		{
 			List<DomainObjects.Requirement> req_list = new List<DomainObjects.Requirement> ();
 			if (n == null)
 			{
 				return req_list;
 			}
-			foreach (IXMLNode nn in n.Children)
+			foreach (System.Xml.XmlNode nn in n)
 			{
-				req_list.Add ( ParseARequirement(nn) );
+				if( nn.NodeType != System.Xml.XmlNodeType.Element ) continue;
+				req_list.Add ( ParseARequirement(nn as System.Xml.XmlElement) );
 			}
 			return req_list;
 		}
 		
-		public DomainObjects.ItemStat ParseAnItemStat (IXMLNode n)
+		public DomainObjects.ItemStat ParseAnItemStat (System.Xml.XmlElement n)
 		{
-			Dictionary<string, string> kv = n.Attributes.ToDictionary(v => v.Key, v => v.Value);
 			DomainObjects.ItemStat retval = null;
-			string ikey;
+			string ikey = n.GetAttribute("ikey");;
 			int value = 0;
-			kv.TryGetValue("ikey", out ikey);
-			if (kv.ContainsKey("value"))
-			{
-				if (! System.Int32.TryParse(kv["value"], out value))
-				{
-					throw new InvalidXMLElementException("Unable to parse value in item stat");
-				}
-			}
+			System.Int32.TryParse( n.GetAttribute("value"), out value );
+			
 			switch (n.Name)
 			{
 			case "regen_stat":
 				DomainObjects.ItemStats.RegenStat regen_stat = new DomainObjects.ItemStats.RegenStat(ikey, value);
-				if (kv.ContainsKey("every"))
+				if (n.HasAttribute("every"))
 				{
-					if (! System.Int32.TryParse(kv["every"], out regen_stat.every))
+					if (! System.Int32.TryParse(n.GetAttribute("every"), out regen_stat.every))
 					{
 						throw new InvalidXMLElementException("Unable to parse the \"every\" attribute for RegenStat");
 					}
@@ -408,16 +414,16 @@ namespace Roar.DataConversion
 				break;
 			case "regen_stat_limited":
 				DomainObjects.ItemStats.RegenStatLimited regen_stat_limited = new DomainObjects.ItemStats.RegenStatLimited(ikey, value);
-				if (kv.ContainsKey("repeat"))
+				if (n.HasAttribute("repeat"))
 				{
-					if (! System.Int32.TryParse(kv["repeat"], out regen_stat_limited.repeat))
+					if (! System.Int32.TryParse(n.GetAttribute("repeat"), out regen_stat_limited.repeat))
 					{
 						throw new InvalidXMLElementException("Unable to parse the repeat attribute for RegenStatLimited");
 					}
 				}
-				if (kv.ContainsKey("times_used"))
+				if (n.HasAttribute("times_used"))
 				{
-					if (! System.Int32.TryParse(kv["times_used"], out regen_stat_limited.times_used))
+					if (! System.Int32.TryParse(n.GetAttribute("times_used"), out regen_stat_limited.times_used))
 					{
 						throw new InvalidXMLElementException("Unable to parse the times_used attribute for RegenStatLimited");
 					}
@@ -432,23 +438,23 @@ namespace Roar.DataConversion
 				break;
 			case "collect_stat":
 				DomainObjects.ItemStats.CollectStat collect_stat = new DomainObjects.ItemStats.CollectStat(ikey, value);
-				if (kv.ContainsKey("every"))
+				if (n.HasAttribute("every"))
 				{
-					if (! System.Int32.TryParse(kv["every"], out collect_stat.every))
+					if (! System.Int32.TryParse(n.GetAttribute("every"), out collect_stat.every))
 					{
 						throw new InvalidXMLElementException("Unable to parse the \"every\" attribute for CollectStat");
 					}
 				}
-				if (kv.ContainsKey("window"))
+				if (n.HasAttribute("window"))
 				{
-					if (! System.Int32.TryParse(kv["window"], out collect_stat.window))
+					if (! System.Int32.TryParse(n.GetAttribute("window"), out collect_stat.window))
 					{
 						throw new InvalidXMLElementException("Unable to parse the window attribute for CollectStat");
 					}
 				}
-				if (kv.ContainsKey("collect_at"))
+				if (n.HasAttribute("collect_at"))
 				{
-					if (! System.Int32.TryParse(kv["collect_at"], out collect_stat.collect_at))
+					if (! System.Int32.TryParse(n.GetAttribute("collect_at"), out collect_stat.collect_at))
 					{
 						throw new InvalidXMLElementException("Unable to parse the collect_at attribute for CollectStat");
 					}
@@ -461,32 +467,34 @@ namespace Roar.DataConversion
 			}
 			return retval;
 		}
-		
-		public List<DomainObjects.ItemStat> ParseItemStatList (IXMLNode n)
+
+		public List<DomainObjects.ItemStat> ParseItemStatList (System.Xml.XmlElement n)
 		{
 			List<DomainObjects.ItemStat> item_stat_list = new List<DomainObjects.ItemStat>();
 			if (n == null)
 			{
 				return item_stat_list;
 			}
-			foreach(IXMLNode nn in n.Children)
+			foreach(System.Xml.XmlNode nn in n)
 			{
-				item_stat_list.Add(ParseAnItemStat(nn));
+				if( nn.NodeType != System.Xml.XmlNodeType.Element ) continue;
+				item_stat_list.Add(ParseAnItemStat(nn as System.Xml.XmlElement));
 			}
 			return item_stat_list;
 		}
 
-		public List<string> ParseTagList( IXMLNode n)
+		public List<string> ParseTagList( System.Xml.XmlElement n)
 		{
 			List<string> tags = new List<string>();
 			if (n == null)
 			{
 				return tags;
 			}
-			IList<IXMLNode> tag_nodes = n.GetNodeList("tag");
-			foreach (IXMLNode tag_node in tag_nodes)
+			System.Xml.XmlNodeList tag_nodes = n.SelectNodes("./tag");
+			foreach (System.Xml.XmlNode tag_node in tag_nodes)
 			{
-				tags.Add(tag_node.GetAttribute("value"));
+				System.Xml.XmlElement tag_element = tag_node as System.Xml.XmlElement;
+				tags.Add(tag_element.GetAttribute("value"));
 			}
 			return tags;
 		}
@@ -503,38 +511,30 @@ namespace Roar.DataConversion
 			CrmParser_ = new XCRMParser ();
 		}
 
-		public ShopEntry Build(IXMLNode n)
+		public ShopEntry Build( System.Xml.XmlElement n)
 		{
 			ShopEntry retval = new ShopEntry ();
-			IEnumerable<KeyValuePair<string,string>> attributes = n.Attributes;
-			foreach (KeyValuePair<string,string> kv in attributes)
+			
+			retval.ikey = n.GetAttributeOrDefault("ikey",null);
+			retval.label = n.GetAttribute("label");
+			retval.description = n.GetAttribute("description");
+			
+			foreach( System.Xml.XmlAttribute a in n.Attributes )
 			{
-				if (kv.Key == "ikey")
-				{
-					retval.ikey = kv.Value;
-				}
-				else if (kv.Key == "label")
-				{
-					retval.label = kv.Value;
-				}
-				else if (kv.Key == "description")
-				{
-					retval.description = kv.Value;
-				}
-				else
-				{
-					throw new UnexpectedXMLElementException("unexpected attribute, \""+kv.Key+"\", on ShopEntry");
-				}
+				if(a.Name=="ikey") continue;
+				if(a.Name=="label") continue;
+				if(a.Name=="description") continue;
+				throw new UnexpectedXMLElementException("unexpected attribute, \""+a.Name+"\", on ShopEntry");
 			}
 
 			if (retval.ikey==null) throw new MissingXMLElementException("missing attribute, \"ikey\", on ShopEntry");
-			if (retval.label==null) { retval.label=""; }
-			if (retval.description==null) { retval.description=""; }
 
 			retval.costs = new List<Cost>();
 			retval.modifiers = new List<Modifier>();
 
-			foreach (IXMLNode nn in n.Children) {
+			foreach (System.Xml.XmlNode nn_n in n) {
+				if(nn_n.NodeType!=System.Xml.XmlNodeType.Element) continue;
+				System.Xml.XmlElement nn = nn_n as System.Xml.XmlElement;
 				switch (nn.Name) {
 				case "costs":
 					retval.costs = CrmParser_.ParseCostList (nn);
@@ -565,7 +565,7 @@ namespace Roar.DataConversion
 	//TODO: Remove me!
 	public class XmlToFoo : IXmlToObject<Foo>
 	{
-		public Foo Build(IXMLNode n)
+		public Foo Build(System.Xml.XmlElement n)
 		{
 			return new Foo();
 		}

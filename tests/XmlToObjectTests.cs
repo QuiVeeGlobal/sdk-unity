@@ -13,21 +13,12 @@ namespace Testing
 	
 		private Mockery mockery = null;
 		private Roar.DataConversion.XmlToShopEntry converter;
-		private IXMLNode ixmlnode;
-		private List< KeyValuePair<string,string> > attributes;
-		private List< IXMLNode > children;
 
 		[SetUp]
 		public void TestInitialise()
 		{
 			this.mockery = new Mockery();
 			converter = new Roar.DataConversion.XmlToShopEntry();
-			ixmlnode = mockery.NewMock<IXMLNode>();
-			attributes = new List< KeyValuePair<string,string> >();
-			children = new List<IXMLNode>();
-
-			Expect.AtLeast(0).On(ixmlnode).GetProperty("Attributes").Will( Return.Value(attributes) );
-			Expect.AtLeast(0).On (ixmlnode).GetProperty("Children").Will ( Return.Value(children) );
 		}
 	
 	
@@ -53,12 +44,13 @@ namespace Testing
 		[Test()]
 		public void TestGetsShopAttributes ()
 		{
-			attributes.Add( new KeyValuePair<string, string>("ikey","shop_item_ikey_1") );
-			attributes.Add( new KeyValuePair<string, string>("label","Shop item 1") );
-			attributes.Add( new KeyValuePair<string, string>("description","Lorem Ipsum") );
+			System.Xml.XmlElement shopElement = RoarExtensions.CreateXmlElement("shop_entry","");
+			shopElement.SetAttribute("ikey", "shop_item_ikey_1");
+			shopElement.SetAttribute("label","Shop item 1");
+			shopElement.SetAttribute("description","Lorem Ipsum");
 			
 			
-			Roar.DomainObjects.ShopEntry shopEntry = converter.Build(ixmlnode);
+			Roar.DomainObjects.ShopEntry shopEntry = converter.Build(shopElement);
 			mockery.VerifyAllExpectationsHaveBeenMet();
 			
 			Assert.AreEqual("shop_item_ikey_1", shopEntry.ikey );
@@ -69,11 +61,12 @@ namespace Testing
 		[Test()]
 		public void TestThrowsOnUnexpectedAttribute ()
 		{
-			attributes.Add( new KeyValuePair<string, string>("unexpected","foo") );
+			System.Xml.XmlElement shopElement = RoarExtensions.CreateXmlElement("shop_entry","");
+			shopElement.SetAttribute("unexpected", "foo");
 			
 			try
 			{
-				converter.Build(ixmlnode);
+				converter.Build(shopElement);
 				Assert.Fail("Should have thrown");
 			}
 			catch( Roar.DataConversion.UnexpectedXMLElementException ue )
@@ -87,12 +80,13 @@ namespace Testing
 		[Test()]
 		public void TestErrorsOnMissingIkey()
 		{
-			attributes.Add( new KeyValuePair<string, string>("label","Shop item 1") );
-			attributes.Add( new KeyValuePair<string, string>("description","Lorem Ipsum") );
-			
+			System.Xml.XmlElement shopElement = RoarExtensions.CreateXmlElement("shop_entry","");
+			shopElement.SetAttribute("label","Shop item 1");
+			shopElement.SetAttribute("description","Lorem Ipsum");
+
 			try
 			{
-				converter.Build(ixmlnode);
+				converter.Build(shopElement);
 				Assert.Fail("Should have thrown");
 			}
 			catch( Roar.DataConversion.MissingXMLElementException ue )
@@ -106,11 +100,11 @@ namespace Testing
 		[Test()]
 		public void TestErrorsOnMissingLabel()
 		{
-			attributes.Add( new KeyValuePair<string, string>("ikey","an_ikey") );
-			attributes.Add( new KeyValuePair<string, string>("description","Lorem Ipsum") );
+			System.Xml.XmlElement shopElement = RoarExtensions.CreateXmlElement("shop_entry","");
+			shopElement.SetAttribute("ikey", "shop_item_ikey_1");
+			shopElement.SetAttribute("description","Lorem Ipsum");
 			
-			
-			Roar.DomainObjects.ShopEntry shopentry = converter.Build(ixmlnode);
+			Roar.DomainObjects.ShopEntry shopentry = converter.Build(shopElement);
 			
 			Assert.AreEqual("", shopentry.label );
 			
@@ -120,10 +114,11 @@ namespace Testing
 		[Test()]
 		public void TestDeafultOnMissingDescription()
 		{
-			attributes.Add( new KeyValuePair<string, string>("ikey","an_ikey") );
-			attributes.Add( new KeyValuePair<string, string>("label","Shop item 1") );
-			
-			Roar.DomainObjects.ShopEntry shopentry = converter.Build(ixmlnode);
+			System.Xml.XmlElement shopElement = RoarExtensions.CreateXmlElement("shop_entry","");
+			shopElement.SetAttribute("ikey", "shop_item_ikey_1");
+			shopElement.SetAttribute("label","Shop item 1");
+	
+			Roar.DomainObjects.ShopEntry shopentry = converter.Build(shopElement);
 			
 			Assert.AreEqual("", shopentry.description );
 			
@@ -133,16 +128,17 @@ namespace Testing
 		[Test()]
 		public void TestGetsCosts()
 		{
-			attributes.Add( new KeyValuePair<string, string>("ikey","shop_item_ikey_1") );
-			attributes.Add( new KeyValuePair<string, string>("label","Shop item 1") );
-			attributes.Add( new KeyValuePair<string, string>("description","Lorem Ipsum") );
+			System.Xml.XmlElement shopElement = RoarExtensions.CreateXmlElement("shop_entry","");
+			shopElement.SetAttribute("ikey", "shop_item_ikey_1");
+			shopElement.SetAttribute("label","Shop item 1");
+			shopElement.SetAttribute("description","Lorem Ipsum");
+			System.Xml.XmlElement costsElement = shopElement.OwnerDocument.CreateElement("costs");
+			shopElement.AppendChild( costsElement );
 			
 			converter.CrmParser_ = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
-			children.Add( mockery.NewMock<IXMLNode>("costs") );
-			Expect.AtLeast(1).On( children[0] ).GetProperty("Name").Will( Return.Value("costs") );
 			List<Roar.DomainObjects.Cost> costs = new List<Roar.DomainObjects.Cost>();
-			Expect.Exactly(1).On ( converter.CrmParser_ ).Method("ParseCostList").With( children[0] ).Will( Return.Value( costs ) );
-			Roar.DomainObjects.ShopEntry shopEntry = converter.Build(ixmlnode);
+			Expect.Exactly(1).On ( converter.CrmParser_ ).Method("ParseCostList").With( costsElement ).Will( Return.Value( costs ) );
+			Roar.DomainObjects.ShopEntry shopEntry = converter.Build(shopElement);
 			mockery.VerifyAllExpectationsHaveBeenMet();
 			
 			Assert.AreSame(costs,shopEntry.costs);
@@ -151,16 +147,17 @@ namespace Testing
 		[Test()]
 		public void TestGetsModifiers()
 		{
-			attributes.Add( new KeyValuePair<string, string>("ikey","shop_item_ikey_1") );
-			attributes.Add( new KeyValuePair<string, string>("label","Shop item 1") );
-			attributes.Add( new KeyValuePair<string, string>("description","Lorem Ipsum") );
+			System.Xml.XmlElement shopElement = RoarExtensions.CreateXmlElement("shop_entry","");
+			shopElement.SetAttribute("ikey", "shop_item_ikey_1");
+			shopElement.SetAttribute("label","Shop item 1");
+			shopElement.SetAttribute("description","Lorem Ipsum");
 			
 			converter.CrmParser_ = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
-			children.Add( mockery.NewMock<IXMLNode>("modifiers") );
-			Expect.AtLeast(1).On( children[0] ).GetProperty("Name").Will( Return.Value("modifiers") );
+			System.Xml.XmlElement modifiersElement = shopElement.OwnerDocument.CreateElement("modifiers");
+			shopElement.AppendChild( modifiersElement );
 			List<Roar.DomainObjects.Modifier> mods = new List<Roar.DomainObjects.Modifier>();
-			Expect.Exactly(1).On ( converter.CrmParser_ ).Method("ParseModifierList").With( children[0] ).Will( Return.Value( mods ) );
-			Roar.DomainObjects.ShopEntry shopEntry = converter.Build(ixmlnode);
+			Expect.Exactly(1).On ( converter.CrmParser_ ).Method("ParseModifierList").With( modifiersElement ).Will( Return.Value( mods ) );
+			Roar.DomainObjects.ShopEntry shopEntry = converter.Build(shopElement);
 			mockery.VerifyAllExpectationsHaveBeenMet();
 			
 			Assert.AreSame(mods,shopEntry.modifiers);
@@ -169,16 +166,17 @@ namespace Testing
 		[Test()]
 		public void TestGetsRequirements()
 		{
-			attributes.Add( new KeyValuePair<string, string>("ikey","shop_item_ikey_1") );
-			attributes.Add( new KeyValuePair<string, string>("label","Shop item 1") );
-			attributes.Add( new KeyValuePair<string, string>("description","Lorem Ipsum") );
+			System.Xml.XmlElement shopElement = RoarExtensions.CreateXmlElement("shop_entry","");
+			shopElement.SetAttribute("ikey", "shop_item_ikey_1");
+			shopElement.SetAttribute("label","Shop item 1");
+			shopElement.SetAttribute("description","Lorem Ipsum");
 			
 			converter.CrmParser_ = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
-			children.Add( mockery.NewMock<IXMLNode>("requirements") );
-			Expect.AtLeast(1).On( children[0] ).GetProperty("Name").Will( Return.Value("requirements") );
+			System.Xml.XmlElement requirementsElement = shopElement.OwnerDocument.CreateElement("requirements");
+			shopElement.AppendChild( requirementsElement );
 			List<Roar.DomainObjects.Requirement> reqs = new List<Roar.DomainObjects.Requirement>();
-			Expect.Exactly(1).On ( converter.CrmParser_ ).Method("ParseRequirementList").With( children[0] ).Will( Return.Value( reqs ) );
-			Roar.DomainObjects.ShopEntry shopEntry = converter.Build(ixmlnode);
+			Expect.Exactly(1).On ( converter.CrmParser_ ).Method("ParseRequirementList").With( requirementsElement ).Will( Return.Value( reqs ) );
+			Roar.DomainObjects.ShopEntry shopEntry = converter.Build(shopElement);
 			mockery.VerifyAllExpectationsHaveBeenMet();
 			
 			Assert.AreSame(reqs,shopEntry.requirements);
@@ -187,17 +185,18 @@ namespace Testing
 		[Test()]
 		public void TestGetsTags()
 		{
-			attributes.Add( new KeyValuePair<string, string>("ikey","shop_item_ikey_1") );
-			attributes.Add( new KeyValuePair<string, string>("label","Shop item 1") );
-			attributes.Add( new KeyValuePair<string, string>("description","Lorem Ipsum") );
+			System.Xml.XmlElement shopElement = RoarExtensions.CreateXmlElement("shop_entry","");
+			shopElement.SetAttribute("ikey", "shop_item_ikey_1");
+			shopElement.SetAttribute("label","Shop item 1");
+			shopElement.SetAttribute("description","Lorem Ipsum");
 			
 			converter.CrmParser_ = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
-			children.Add( mockery.NewMock<IXMLNode>("tags") );
-			Expect.AtLeast(1).On( children[0] ).GetProperty("Name").Will( Return.Value("tags") );
+			System.Xml.XmlElement tagsElement = shopElement.OwnerDocument.CreateElement("tags");
+			shopElement.AppendChild( tagsElement );
 			List<string> tags = new List<string>();
-			Expect.Exactly(1).On ( converter.CrmParser_ ).Method("ParseTagList").With( children[0] ).Will( Return.Value( tags ) );
+			Expect.Exactly(1).On ( converter.CrmParser_ ).Method("ParseTagList").With( tagsElement ).Will( Return.Value( tags ) );
 
-			Roar.DomainObjects.ShopEntry shopEntry = converter.Build(ixmlnode);
+			Roar.DomainObjects.ShopEntry shopEntry = converter.Build(shopElement);
 			
 			mockery.VerifyAllExpectationsHaveBeenMet();
 			Assert.AreSame(tags,shopEntry.tags);
@@ -226,7 +225,7 @@ namespace Testing
 				"  <level>7</level>" +
 				"</friend>";
 
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse( xml ).GetFirstChild("friend");
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 
 			Roar.DomainObjects.Friend friend = Roar.DomainObjects.Friend.CreateFromXml(nn);
 
@@ -244,7 +243,7 @@ namespace Testing
 				"  <level>7</level>" +
 				"</friend>";
 
-			IXMLNode nn = ( new SystemXMLNodeFactory() ).Create( xml ).GetFirstChild("friend");
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Roar.DomainObjects.Friend friend = Roar.DomainObjects.Friend.CreateFromXml(nn);
 

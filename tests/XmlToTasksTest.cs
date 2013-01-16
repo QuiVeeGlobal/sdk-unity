@@ -49,7 +49,7 @@ namespace Testing
 				</tasks>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Roar.DataConversion.Responses.Tasks.List list_parser = new Roar.DataConversion.Responses.Tasks.List();
 			ListResponse response = list_parser.Build(nn);
@@ -114,17 +114,17 @@ namespace Testing
 				</tasks>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Mockery mockery = new Mockery();
 			Roar.DataConversion.IXCRMParser ixcrm_parser = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
 			Roar.DataConversion.Responses.Tasks.List list_parser = new Roar.DataConversion.Responses.Tasks.List();
 			list_parser.ixcrm_parser = ixcrm_parser;
 			Roar.DomainObjects.Task task_data = new Roar.DomainObjects.Task();
 			
-			Expect.Once.On(ixcrm_parser).Method("ParseCostList").With(nn.GetNode("roar>0>tasks>0>list>0>task>0>costs>0")).Will(Return.Value(task_data.costs));
-			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.GetNode("roar>0>tasks>0>list>0>task>0>rewards>0")).Will(Return.Value(task_data.rewards));
-			Expect.Once.On(ixcrm_parser).Method("ParseRequirementList").With(nn.GetNode("roar>0>tasks>0>list>0>task>0>requires>0")).Will(Return.Value(task_data.requirements));
-			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.GetNode("roar>0>tasks>0>list>0>task>0>tags>0")).Will(Return.Value(task_data.tags));
+			Expect.Once.On(ixcrm_parser).Method("ParseCostList").With(nn.SelectSingleNode("./tasks/list/task/costs")).Will(Return.Value(task_data.costs));
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.SelectSingleNode("./tasks/list/task/rewards")).Will(Return.Value(task_data.rewards));
+			Expect.Once.On(ixcrm_parser).Method("ParseRequirementList").With(nn.SelectSingleNode("./tasks/list/task/requires")).Will(Return.Value(task_data.requirements));
+			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.SelectSingleNode("./tasks/list/task/tags")).Will(Return.Value(task_data.tags));
 			
 			ListResponse response = list_parser.Build(nn);
 			
@@ -169,7 +169,7 @@ namespace Testing
 				</server>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Tasks.Start start_parser = new Roar.DataConversion.Responses.Tasks.Start();
 			StartResponse response = start_parser.Build(nn);
 			Assert.IsNotNull(response);

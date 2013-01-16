@@ -21,7 +21,7 @@ public class ServerEventsTest
 			@"<update type=""core"" ikey=""health"" value=""120"" />";
 	
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("update");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.UpdateEvent> callback = (Roar.Events.UpdateEvent eve) =>
 		{
 			eventTriggered = true;
@@ -52,7 +52,7 @@ public class ServerEventsTest
 			@"<item_use item_id=""1234""/>";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("item_use");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.ItemUseEvent> callback = (Roar.Events.ItemUseEvent eve) =>
 		{
 			eventTriggered = true;
@@ -81,7 +81,7 @@ public class ServerEventsTest
 			@"<item_lose item_id=""1234"" item_ikey=""somthing""/>";
 	
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("item_lose");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.ItemLoseEvent> callback = (Roar.Events.ItemLoseEvent eve) =>
 		{
 			eventTriggered = true;
@@ -111,7 +111,7 @@ public class ServerEventsTest
 			@"<inventory_changed />";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("inventory_changed");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.InventoryChangedEvent> callback = (Roar.Events.InventoryChangedEvent eve) =>
 		{
 			eventTriggered = true;
@@ -139,7 +139,7 @@ public class ServerEventsTest
 			@"<regen name=""health"" next=""12313231"" />";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("regen");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.RegenEvent> callback = (Roar.Events.RegenEvent eve) =>
 		{
 			eventTriggered = true;
@@ -168,7 +168,7 @@ public class ServerEventsTest
 			@"<item_add item_id=""1234"" item_ikey=""somthing""/>";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("item_add");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.ItemAddEvent> callback = (Roar.Events.ItemAddEvent eve) =>
 		{
 			eventTriggered = true;
@@ -214,7 +214,7 @@ public class ServerEventsTest
 	  </task_complete>";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("task_complete");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.TaskCompleteEvent> callback = (Roar.Events.TaskCompleteEvent eve) =>
 		{
 			eventTriggered = true;
@@ -250,7 +250,7 @@ public class ServerEventsTest
 
 		bool eventTriggered = false;
 
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("achievement_complete");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 
 		Action<Roar.Events.AchievementCompleteEvent> callback = (Roar.Events.AchievementCompleteEvent eve) =>
 		{
@@ -288,7 +288,7 @@ public class ServerEventsTest
 			@"<level_up value=""5"" />";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("level_up");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.LevelUpEvent> callback = (Roar.Events.LevelUpEvent eve) =>
 		{
 			eventTriggered = true;
@@ -315,7 +315,7 @@ public class ServerEventsTest
 			@"<collect_changed ikey=""health"" next=""12313231"" />";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("collect_changed");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.CollectChangedEvent> callback = (Roar.Events.CollectChangedEvent eve) =>
 		{
 			eventTriggered = true;
@@ -344,7 +344,7 @@ public class ServerEventsTest
 			@"<invite_accepted name=""Lex Luthor"" player_id=""12313231"" level=""123"" />";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("invite_accepted");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.InviteAcceptedEvent> callback = (Roar.Events.InviteAcceptedEvent eve) =>
 		{
 			eventTriggered = true;
@@ -374,7 +374,7 @@ public class ServerEventsTest
 			@"<friend_request name=""Lex Luthor"" from_player_id=""12313231"" level=""123"" friend_invite_row_id=""12341345"" />";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("friend_request");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.FriendRequestEvent> callback = (Roar.Events.FriendRequestEvent eve) =>
 		{
 			eventTriggered = true;
@@ -404,7 +404,7 @@ public class ServerEventsTest
 			@"<transaction ikey=""diamonds"" value=""120"" />";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("transaction");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.TransactionEvent> callback = (Roar.Events.TransactionEvent eve) =>
 		{
 			eventTriggered = true;
@@ -433,7 +433,7 @@ public class ServerEventsTest
 			@"<mail_in/>";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("mail_in");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 
 		Action<Roar.Events.MailInEvent> callback = (Roar.Events.MailInEvent eve) =>
 		{
@@ -462,7 +462,7 @@ public class ServerEventsTest
 
 		bool eventTriggered = false;
 
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("equip");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.EquipEvent> callback = (Roar.Events.EquipEvent eve) =>
 		{
 			eventTriggered = true;
@@ -490,7 +490,7 @@ public class ServerEventsTest
 			@"<unequip item_id=""1234""/>";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("unequip");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.UnequipEvent> callback = (Roar.Events.UnequipEvent eve) =>
 		{
 			eventTriggered = true;
@@ -518,7 +518,7 @@ public class ServerEventsTest
 			@"<script key=""abc"" value=""blah""/>";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("script");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.ScriptEvent> callback = (Roar.Events.ScriptEvent eve) =>
 		{
 			eventTriggered = true;
@@ -552,7 +552,7 @@ public class ServerEventsTest
 	  </chrome_web_store>";
 
 		bool eventTriggered = false;
-		IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("chrome_web_store");
+		System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 		Action<Roar.Events.ChromeWebStoreEvent> callback = (Roar.Events.ChromeWebStoreEvent eve) =>
 		{
 			eventTriggered = true;

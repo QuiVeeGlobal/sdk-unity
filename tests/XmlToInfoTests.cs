@@ -43,7 +43,7 @@ namespace Testing
 				</info>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("roar");
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			GetBulkPlayerInfoResponse response = (new Roar.DataConversion.Responses.Info.GetBulkPlayerInfo()).Build(nn);
 			
@@ -69,7 +69,7 @@ namespace Testing
 				</info>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("roar");
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			PingResponse ping_response = (new Roar.DataConversion.Responses.Info.Ping()).Build(nn);
 			Assert.AreEqual(ping_response.text, "hello");			
@@ -93,7 +93,7 @@ namespace Testing
 				</info>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("roar");
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			UserResponse user_response = (new Roar.DataConversion.Responses.Info.User()).Build(nn);
 			
@@ -132,7 +132,7 @@ namespace Testing
 				</info>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml).GetFirstChild("roar");
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			PollResponse poll_response = (new Roar.DataConversion.Responses.Info.Poll()).Build(nn);
 			

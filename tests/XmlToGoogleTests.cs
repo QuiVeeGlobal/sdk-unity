@@ -17,7 +17,7 @@ namespace Testing
 				</google>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Google.BindUser bind_user_parser = new Roar.DataConversion.Responses.Google.BindUser();
 			BindUserResponse response = bind_user_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -33,7 +33,7 @@ namespace Testing
 				</google>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Google.BindUserToken bind_user_token_parser = new Roar.DataConversion.Responses.Google.BindUserToken();
 			BindUserTokenResponse response = bind_user_token_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -52,7 +52,7 @@ namespace Testing
 				</google>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Google.CreateUser create_user_parser = new Roar.DataConversion.Responses.Google.CreateUser();
 			CreateUserResponse response = create_user_parser.Build(nn);
 			
@@ -73,7 +73,7 @@ namespace Testing
 				</google>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Google.CreateUserToken create_user_token_parser = new Roar.DataConversion.Responses.Google.CreateUserToken();
 			CreateUserTokenResponse response = create_user_token_parser.Build(nn);
 			
@@ -97,7 +97,7 @@ namespace Testing
 				</google>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Google.Friends friends_parser = new Roar.DataConversion.Responses.Google.Friends();
 			FriendsResponse response = friends_parser.Build(nn);
 			
@@ -130,7 +130,7 @@ namespace Testing
 				</google>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Google.LoginOrCreateUser login_or_create_user_parser = new Roar.DataConversion.Responses.Google.LoginOrCreateUser();
 			LoginOrCreateUserResponse response = login_or_create_user_parser.Build(nn);
 			
@@ -152,7 +152,7 @@ namespace Testing
 				</google>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Google.LoginUser login_user_parser = new Roar.DataConversion.Responses.Google.LoginUser();
 			LoginUserResponse response = login_user_parser.Build(nn);
 			
@@ -173,7 +173,7 @@ namespace Testing
 				</google>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Google.LoginUserToken login_user_token_parser = new Roar.DataConversion.Responses.Google.LoginUserToken();
 			LoginUserTokenResponse response = login_user_token_parser.Build(nn);
 			
@@ -193,7 +193,7 @@ namespace Testing
 				</google>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Google.Token token_parser = new Roar.DataConversion.Responses.Google.Token();
 			TokenResponse response = token_parser.Build(nn);
 			

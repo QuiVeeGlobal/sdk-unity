@@ -22,7 +22,7 @@ namespace Testing
 				</leaderboards>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Roar.WebObjects.Leaderboards.ListResponse response = (new Roar.DataConversion.Responses.Leaderboards.List()).Build(nn);
 			
@@ -66,7 +66,7 @@ namespace Testing
 							</leaderboards>
 						</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Roar.WebObjects.Leaderboards.ViewResponse response = (new Roar.DataConversion.Responses.Leaderboards.View()).Build(nn);
 			

@@ -29,7 +29,7 @@ namespace Testing
 				</chrome_web_store>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.ChromeWebStore.List list_parser = new Roar.DataConversion.Responses.ChromeWebStore.List();
 			ListResponse response = list_parser.Build(nn);
 			
@@ -67,7 +67,7 @@ namespace Testing
 				</chrome_web_store>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.ChromeWebStore.List list_parser = new Roar.DataConversion.Responses.ChromeWebStore.List();
 			
 			Mockery mockery = new Mockery();
@@ -76,8 +76,8 @@ namespace Testing
 			IList<Roar.DomainObjects.Modifier> modifier_list = new List<Roar.DomainObjects.Modifier>();
 			IList<string> tag_list = new List<string>();
 			
-			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.GetNode("roar>0>chrome_web_store>0>list>0>shopitem>0>modifiers>0")).Will(Return.Value(modifier_list));
-			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.GetNode("roar>0>chrome_web_store>0>list>0>shopitem>0>tags>0")).Will(Return.Value(tag_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.SelectSingleNode("./chrome_web_store/list/shopitem/modifiers")).Will(Return.Value(modifier_list));
+			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.SelectSingleNode("./chrome_web_store/list/shopitem/tags")).Will(Return.Value(tag_list));
 			
 			ListResponse response = list_parser.Build(nn);
 			

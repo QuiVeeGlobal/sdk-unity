@@ -17,7 +17,7 @@ namespace Testing
 				</urbanairship>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Urbanairship.IosRegister ios_register_parser = new Roar.DataConversion.Responses.Urbanairship.IosRegister();
 			IosRegisterResponse response = ios_register_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -33,7 +33,7 @@ namespace Testing
 				</urbanairship>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Urbanairship.Push push_parser = new Roar.DataConversion.Responses.Urbanairship.Push();
 			PushResponse response = push_parser.Build(nn);
 			Assert.IsNotNull(response);

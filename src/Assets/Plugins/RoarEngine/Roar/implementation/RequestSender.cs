@@ -106,30 +106,40 @@ public class RequestSender : IRequestSender
 		if ( raw==null || raw.Length==0 || raw[0] != '<')
 		{
 			// Error: fire the error callback
-			IXMLNode errorXml = IXMLNodeFactory.instance.Create("error", raw);
-			if (cb!=null) cb.OnRequest( new Roar.RequestResult(errorXml, IWebAPI.FATAL_ERROR, "Invalid server response" ) );
+			System.Xml.XmlDocument doc = new System.Xml.XmlDocument();
+			System.Xml.XmlElement error = doc.CreateElement("error");
+			doc.AppendChild(error);
+			error.AppendChild(doc.CreateTextNode(raw));
+			if (cb!=null)
+			{
+				cb.OnRequest(
+					new Roar.RequestResult(
+						RoarExtensions.CreateXmlElement("error",raw),
+						IWebAPI.FATAL_ERROR,
+						"Invalid server response"
+					) );
+			}
 			return;
 		}
 	
-		IXMLNode rootNode = IXMLNodeFactory.instance.Create( raw );
+		System.Xml.XmlElement root = RoarExtensions.CreateXmlElement(raw);
 		
 		int callback_code;
 		string callback_msg="";
 		
-		IXMLNode actionNode = rootNode.GetNode( "roar>0>"+controller+">0>"+action+">0" );
-		// Hash XML keeping _name and _text values by default
+		System.Xml.XmlElement actionElement = root.SelectSingleNode( "/roar/"+controller+"/"+action ) as System.Xml.XmlElement;
 		
 		// Pre-process <server> block if any and attach any processed data
-		IXMLNode serverNode = rootNode.GetNode( "roar>0>server>0" );
-		RoarManager.NotifyOfServerChanges( serverNode );
+		System.Xml.XmlElement serverElement = root.SelectSingleNode( "/roar/server" ) as System.Xml.XmlElement;
+		RoarManager.NotifyOfServerChanges( serverElement );
 		
 		// Status on Server returned an error. Action did not succeed.
-		string status = actionNode.GetAttribute( "status" );
+		string status = actionElement.GetAttribute( "status" );
 		if (status == "error")
 		{
 			callback_code = IWebAPI.UNKNOWN_ERR;
-			callback_msg = actionNode.GetFirstChild("error").Text;
-			string server_error = actionNode.GetFirstChild("error").GetAttribute("type");
+			callback_msg = actionElement.SelectSingleNode("error").InnerText;
+			string server_error = (actionElement.SelectSingleNode("error") as System.Xml.XmlElement).GetAttribute("type");
 			if ( server_error == "0" )
 			{
 				if (callback_msg=="Must be logged in") { callback_code = IWebAPI.UNAUTHORIZED; }
@@ -144,19 +154,19 @@ public class RequestSender : IRequestSender
 			
 			// Error: fire the callback
 			// NOTE: The Unity version ASSUMES callback = errorCallback
-			if (cb!=null) cb.OnRequest( new Roar.RequestResult(rootNode, callback_code, callback_msg) );
+			if (cb!=null) cb.OnRequest( new Roar.RequestResult(root, callback_code, callback_msg) );
 		}
 		
 		// No error - pre-process the result
 		else
 		{
-			IXMLNode auth_token = actionNode.GetFirstChild("auth_token");
-			if (auth_token!=null && !string.IsNullOrEmpty(auth_token.Text)) RoarAuthToken = auth_token.Text;
+			System.Xml.XmlElement auth_token = actionElement.SelectSingleNode(".//auth_token") as System.Xml.XmlElement;
+			if (auth_token!=null && !string.IsNullOrEmpty(auth_token.InnerText)) RoarAuthToken = auth_token.InnerText;
 			
 			callback_code = IWebAPI.OK;
-			if (cb!=null) cb.OnRequest( new Roar.RequestResult( rootNode, callback_code, callback_msg) );
+			if (cb!=null) cb.OnRequest( new Roar.RequestResult( root, callback_code, callback_msg) );
 		}
 		
-		RoarManager.OnCallComplete( new RoarManager.CallInfo( rootNode, callback_code, callback_msg, "no id" ) );
+		RoarManager.OnCallComplete( new RoarManager.CallInfo( root, callback_code, callback_msg, "no id" ) );
 	}
 }

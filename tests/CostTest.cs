@@ -33,29 +33,18 @@ public class CostTest
   public void TestStat()
   {
     XCRMParser parser = new XCRMParser();
-    IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
-    Stat stat = new Stat();
-    stat.ok = false;
-    stat.reason = "whatever";
-    stat.ikey = "gamecoin";
-    stat.type = "currency";
-    stat.value = 15;
+    System.Xml.XmlElement xmlelement = RoarExtensions.CreateXmlElement(
+      "<stat_cost ok=\"false\" reason=\"whatever\" ikey=\"gamecoin\" type=\"currency\" value=\"15\"/>"
+      );
     
-    Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("stat_cost"));
-    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ok").Will(Return.Value(stat.ok ? "true" : "false"));
-    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("reason").Will(Return.Value(stat.reason));
-    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ikey").Will(Return.Value(stat.ikey));
-    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("type").Will(Return.Value(stat.type));
-    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("value").Will(Return.Value("" + stat.value));
-    
-    Cost c = parser.ParseACost(ixmlnode);
+    Stat c = parser.ParseACost(xmlelement) as Stat;
     mockery.VerifyAllExpectationsHaveBeenMet();
-    Assert.IsNotNull(c as Stat);
-    Assert.AreEqual((c as Stat).ok, stat.ok);
-    Assert.AreEqual((c as Stat).reason, stat.reason);
-    Assert.AreEqual((c as Stat).ikey, stat.ikey);
-    Assert.AreEqual((c as Stat).type, stat.type);
-    Assert.AreEqual((c as Stat).value, stat.value);
+    Assert.IsNotNull(c);
+    Assert.AreEqual(c.ok, false);
+    Assert.AreEqual(c.reason, "whatever");
+    Assert.AreEqual(c.ikey, "gamecoin");
+    Assert.AreEqual(c.type, "currency");
+    Assert.AreEqual(c.value, 15);
   }
   
   /*
@@ -69,26 +58,17 @@ public class CostTest
   public void TestItem()
   {
     XCRMParser parser = new XCRMParser();
-    IXMLNode ixmlnode = mockery.NewMock<IXMLNode>();
-    Roar.DomainObjects.Costs.Item item = new Roar.DomainObjects.Costs.Item();
-    item.ok = false;
-    item.reason = "whatever";
-    item.ikey = "Christmas tree";
-    item.number_required = 4;
+    System.Xml.XmlElement xmlelement = RoarExtensions.CreateXmlElement(
+      "<item_cost ok=\"false\" reason=\"whatever\" ikey=\"Christmas tree\" number_required=\"4\"/>"
+      );
     
-    Expect.AtLeastOnce.On(ixmlnode).GetProperty("Name").Will(Return.Value("item_cost"));
-    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ok").Will(Return.Value(item.ok ? "true" : "false"));
-    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("reason").Will(Return.Value("" + item.reason));
-    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("ikey").Will(Return.Value(item.ikey));
-    Expect.AtLeastOnce.On(ixmlnode).Method("GetAttribute").With("number_required").Will(Return.Value("" + item.number_required));
-    
-    Cost c = parser.ParseACost(ixmlnode);
+    Roar.DomainObjects.Costs.Item c = parser.ParseACost(xmlelement) as Roar.DomainObjects.Costs.Item;
     mockery.VerifyAllExpectationsHaveBeenMet();
-    Assert.IsNotNull(c as Roar.DomainObjects.Costs.Item);
-    Assert.AreEqual((c as Roar.DomainObjects.Costs.Item).ok, item.ok);
-    Assert.AreEqual((c as Roar.DomainObjects.Costs.Item).reason, item.reason);
-    Assert.AreEqual((c as Roar.DomainObjects.Costs.Item).ikey, item.ikey);
-    Assert.AreEqual((c as Roar.DomainObjects.Costs.Item).number_required, item.number_required);
+    Assert.IsNotNull(c);
+    Assert.AreEqual(c.ok, false);
+    Assert.AreEqual(c.reason, "whatever");
+    Assert.AreEqual(c.ikey, "Christmas tree");
+    Assert.AreEqual(c.number_required, 4);
   }
   
 }

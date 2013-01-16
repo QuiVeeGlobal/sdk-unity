@@ -50,7 +50,7 @@ namespace Testing
 				</shop>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Roar.DataConversion.Responses.Shop.List converter = new Roar.DataConversion.Responses.Shop.List();
 			ListResponse response = converter.Build(nn);
@@ -120,7 +120,7 @@ namespace Testing
 				</server>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Roar.DataConversion.Responses.Shop.Buy converter = new Roar.DataConversion.Responses.Shop.Buy();
 			BuyResponse response = converter.Build(nn);

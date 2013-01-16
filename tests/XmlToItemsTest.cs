@@ -44,11 +44,11 @@ namespace Testing
 								<grant_item ikey=""talisman""/>
 							</price>
 						</item>
-					</view_all>
+					</view>
 				</items>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Roar.DataConversion.Responses.Items.View converter = new Roar.DataConversion.Responses.Items.View();
 			ViewResponse response = converter.Build(nn);
@@ -115,11 +115,11 @@ namespace Testing
 								<grant_item ikey=""talisman""/>
 							</price>
 						</item>
-					</view_all>
+					</view>
 				</items>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Mockery mockery = new Mockery();
 			Roar.DataConversion.IXCRMParser ixcrm_parser = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
@@ -130,11 +130,11 @@ namespace Testing
 			Roar.DataConversion.Responses.Items.View items_view_response_parser = new Roar.DataConversion.Responses.Items.View();
 			items_view_response_parser.ixcrm_parser = ixcrm_parser;
 			
-			IXMLNode stat_node = nn.GetNode("roar>0>items>0>view>0>item>0>stats>0");
+			System.Xml.XmlNode stat_node = nn.SelectSingleNode("./items/view/item/stats");
 			Expect.Once.On(ixcrm_parser).Method("ParseItemStatList").With(stat_node).Will(Return.Value(item_stat_list));
-			IXMLNode modifiers_node = nn.GetNode("roar>0>items>0>view>0>item>0>price>0");
+			System.Xml.XmlNode modifiers_node = nn.SelectSingleNode("./items/view/item/price");
 			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(modifiers_node).Will(Return.Value(modifier_list));
-			IXMLNode tag_node = nn.GetNode("roar>0>items>0>view>0>item>0>tags>0");
+			System.Xml.XmlNode tag_node = nn.SelectSingleNode("./items/view/item/tags");
 			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(tag_node).Will(Return.Value(tag_list));
 			
 			ViewResponse response = items_view_response_parser.Build(nn);
@@ -187,7 +187,7 @@ namespace Testing
 				</items>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Roar.DataConversion.Responses.Items.ViewAll converter = new Roar.DataConversion.Responses.Items.ViewAll();
 			ViewAllResponse response = converter.Build(nn);
@@ -279,7 +279,7 @@ namespace Testing
 				</items>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Mockery mockery = new Mockery();
 			Roar.DataConversion.IXCRMParser ixcrm_parser = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
@@ -290,11 +290,11 @@ namespace Testing
 			Roar.DataConversion.Responses.Items.ViewAll items_view_all_response_parser = new Roar.DataConversion.Responses.Items.ViewAll();
 			items_view_all_response_parser.ixcrm_parser = ixcrm_parser;
 			
-			IXMLNode stat_node = nn.GetNode("roar>0>items>0>view_all>0>item>0>stats>0");
+			System.Xml.XmlNode stat_node = nn.SelectSingleNode("./items/view_all/item/stats");
 			Expect.Once.On(ixcrm_parser).Method("ParseItemStatList").With(stat_node).Will(Return.Value(item_stat_list));
-			IXMLNode modifiers_node = nn.GetNode("roar>0>items>0>view_all>0>item>0>price>0");
+			System.Xml.XmlNode modifiers_node = nn.SelectSingleNode("./items/view_all/item/price");
 			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(modifiers_node).Will(Return.Value(modifier_list));
-			IXMLNode tag_node = nn.GetNode("roar>0>items>0>view_all>0>item>0>tags>0");
+			System.Xml.XmlNode tag_node = nn.SelectSingleNode("./items/view_all/item/tags");
 			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(tag_node).Will(Return.Value(tag_list));
 			
 			ViewAllResponse response = items_view_all_response_parser.Build(nn);
@@ -323,7 +323,7 @@ namespace Testing
 				</items>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			
 			Mockery mockery = new Mockery();
 			Roar.DataConversion.IXCRMParser ixcrm_parser = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
@@ -334,11 +334,11 @@ namespace Testing
 			Roar.DataConversion.Responses.Items.List list_parser = new Roar.DataConversion.Responses.Items.List();
 			list_parser.ixcrm_parser = ixcrm_parser;
 			
-			IXMLNode stat_node = nn.GetNode("roar>0>items>0>list>0>item>0>stats>0");
+			System.Xml.XmlNode stat_node = nn.SelectSingleNode("./items/list/item/stats");
 			Expect.Once.On(ixcrm_parser).Method("ParseItemStatList").With(stat_node).Will(Return.Value(item_stat_list));
-			IXMLNode modifiers_node = nn.GetNode("roar>0>items>0>list>0>item>0>price>0");
+			System.Xml.XmlNode modifiers_node = nn.SelectSingleNode("./items/list/item/price");
 			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(modifiers_node).Will(Return.Value(modifier_list));
-			IXMLNode tag_node = nn.GetNode("roar>0>items>0>list>0>item>0>tags>0");
+			System.Xml.XmlNode tag_node = nn.SelectSingleNode("./items/list/item/tags");
 			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(tag_node).Will(Return.Value(tag_list));
 			
 			ListResponse response = list_parser.Build(nn);
@@ -437,13 +437,13 @@ namespace Testing
 			Roar.DataConversion.IXCRMParser ixcrm_parser = mockery.NewMock<Roar.DataConversion.IXCRMParser>();
 			Roar.DomainObjects.InventoryItem item_data = new Roar.DomainObjects.InventoryItem();
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Items.Sell sell_parser = new Roar.DataConversion.Responses.Items.Sell();
 			sell_parser.ixcrm_parser = ixcrm_parser;
 			
-			Expect.Once.On(ixcrm_parser).Method("ParseItemStatList").With(nn.GetNode("roar>0>items>0>sell>0>item>0>stats>0")).Will(Return.Value(item_data.stats));
-			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.GetNode("roar>0>items>0>sell>0>item>0>price>0")).Will(Return.Value(item_data.price));
-			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.GetNode("roar>0>items>0>sell>0>item>0>tags>0")).Will(Return.Value(item_data.tags));
+			Expect.Once.On(ixcrm_parser).Method("ParseItemStatList").With(nn.SelectSingleNode("./items/sell/item/stats")).Will(Return.Value(item_data.stats));
+			Expect.Once.On(ixcrm_parser).Method("ParseModifierList").With(nn.SelectSingleNode("./items/sell/item/price")).Will(Return.Value(item_data.price));
+			Expect.Once.On(ixcrm_parser).Method("ParseTagList").With(nn.SelectSingleNode("./items/sell/item/tags")).Will(Return.Value(item_data.tags));
 			
 			SellResponse response = sell_parser.Build(nn);
 			mockery.VerifyAllExpectationsHaveBeenMet();
@@ -543,7 +543,7 @@ namespace Testing
 				</server>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Items.Sell sell_parser = new Roar.DataConversion.Responses.Items.Sell();
 			
 			SellResponse response = sell_parser.Build(nn);
@@ -587,7 +587,7 @@ namespace Testing
 				</server>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Items.Equip equip_parser = new Roar.DataConversion.Responses.Items.Equip();
 			EquipResponse response = equip_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -607,7 +607,7 @@ namespace Testing
 				</server>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Items.Unequip unequip_parser = new Roar.DataConversion.Responses.Items.Unequip();
 			UnequipResponse response = unequip_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -626,7 +626,7 @@ namespace Testing
 				</server>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Items.Use use_parser = new Roar.DataConversion.Responses.Items.Use();
 			UseResponse response = use_parser.Build(nn);
 			Assert.IsNotNull(response);
@@ -642,7 +642,7 @@ namespace Testing
 				</items>
 			</roar>";
 			
-			IXMLNode nn = ( new XMLNode.XMLParser() ).Parse(xml);
+			System.Xml.XmlElement nn = RoarExtensions.CreateXmlElement(xml);
 			Roar.DataConversion.Responses.Items.Set set_parser = new Roar.DataConversion.Responses.Items.Set();
 			SetResponse response = set_parser.Build(nn);
 			Assert.IsNotNull(response);

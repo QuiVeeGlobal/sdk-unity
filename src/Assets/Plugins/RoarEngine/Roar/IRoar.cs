@@ -140,7 +140,7 @@ using System.Collections;
  *
  * To get the list of player's friends:
  * <code>
- * roar.WebAPI.IFriendsActions.list(Hashtable obj, IRequestCallback<IXMLNode> cb)
+ * roar.WebAPI.IFriendsActions.list(Roar.WebObjects.Friends.ListArguments args, IRequestCallback<Roar.WebObject.Friends.ListResposne> cb)
  * </code>
  *
  * where the first argument is the options to send to the roar server and the second argument is the callback function to be passed the xml response from the server.
