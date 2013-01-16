@@ -36,7 +36,7 @@
         "args":[{"type":"PurchaseInfo","name":"info"}]
       },
       { "name":"eventDone", 
-        "args":[{"type":"IXMLNode","name":"eventInfo"}]
+        "args":[{"type":"System.Xml.XmlElement","name":"eventInfo"}]
       },
       { "name":"dataLoaded",
         "args":[{"type":"string","name":"key"},{"type":"string","name":"value"}]
