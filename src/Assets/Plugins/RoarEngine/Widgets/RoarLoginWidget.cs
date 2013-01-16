@@ -9,7 +9,7 @@ public class RoarLoginWidget : RoarUIWidget
 {
 	public delegate void RoarLoginWidgetHandler();
 	public static event RoarLoginWidgetHandler OnFullyLoggedIn; // logged in & stats fetched
-	protected Roar.Components.IActions actions;
+	protected Roar.Components.ITasks tasks;
 	protected bool isFetching=false;
 	
 	public bool enableOnAwake = true;
@@ -136,10 +136,10 @@ public class RoarLoginWidget : RoarUIWidget
 	public void Fetch()
 	{
 		isFetching = true;
-		actions.Fetch(OnRoarFetchActionsComplete);
+		tasks.Fetch(OnRoarFetchTasksComplete);
 	}
 	
-	void OnRoarFetchActionsComplete( Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.Task> > data )
+	void OnRoarFetchTasksComplete( Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.Task> > data )
 	{
 		isFetching = false;
 	}
