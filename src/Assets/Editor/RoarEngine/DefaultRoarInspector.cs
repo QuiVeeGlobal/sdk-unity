@@ -39,10 +39,6 @@ public class DefaultRoarInspector : RoarInspector
 		Comment("Define if the in-app purchases are executed in a sandbox.");
 		EditorGUILayout.PropertyField(appstoreSandbox);
 		
-		// xmlType
-		Comment("The XML parser type. The lightweight parser is recommended.");
-		EditorGUILayout.PropertyField(xmlParser);
-
 		// defaultGUISkin
 		Comment("The default GUI skin to use for Roar components.");
 		EditorGUILayout.PropertyField(defaultGUISkin);
