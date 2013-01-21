@@ -856,13 +856,17 @@ namespace Roar
 				retval.description = n.SelectSingleNode("./description").GetInnerTextOrDefault(null);
 				retval.location = n.SelectSingleNode("./location").GetInnerTextOrDefault(null);
 
-				if (! System.Int32.TryParse( n.SelectSingleNode("./mastery/@level").GetValueOrDefault("0"), out retval.mastery_level))
+				string masteryLevelString = n.SelectSingleNode("./mastery/@level").GetValueOrDefault(null);
+
+				if (masteryLevelString == null || masteryLevelString == "" || !System.Int32.TryParse(masteryLevelString , out retval.mastery_level))
 				{
-					throw new InvalidXMLElementException("Unable to parse mastery level to integer");
+					retval.mastery_level = 0;
 				}
-				if (! System.Int32.TryParse( n.SelectSingleNode("./mastery/@progress").GetValueOrDefault("0"), out retval.mastery_progress))
+
+				string masteryProgressString = n.SelectSingleNode("./mastery/@progress").GetValueOrDefault(null);
+				if (masteryProgressString == null && masteryProgressString == "" && !System.Int32.TryParse( masteryProgressString, out retval.mastery_progress))
 				{
-					throw new InvalidXMLElementException("Untable to parse mastery progress to integer");
+					retval.mastery_progress = 0;
 				}
 				
 				retval.costs = ixcrm_parser.ParseCostList(n.SelectSingleNode("./costs") as System.Xml.XmlElement);
