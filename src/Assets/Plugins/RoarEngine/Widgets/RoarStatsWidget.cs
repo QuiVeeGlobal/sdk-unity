@@ -4,7 +4,7 @@ using Roar;
 
 public class RoarStatsWidget : RoarUIWidget
 {
-	public bool autoCalculateContentBounds = false;
+	public bool autoCalculateContentBounds = true;
 	public string defaultValueFormat = "N0";
 	public Stat[] statsToDisplay;
 	
@@ -50,6 +50,7 @@ public class RoarStatsWidget : RoarUIWidget
 		depth = -1;
 		useScrollView = false;	
 		autoEnableOnLogIn = true;
+		contentBounds = new Rect(0, 0, 256, 76);
 	}
 	
 	protected override void Awake()
