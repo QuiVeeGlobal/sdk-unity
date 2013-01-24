@@ -122,11 +122,11 @@ namespace Roar
 			
 			public class RandomChoice : Modifier
 			{
-				public struct ChoiceEntry
+				public class ChoiceEntry
 				{
 					public int weight;
-					public IList<Modifier> modifiers;
-					public IList<Requirement> requirements;
+					public IList<Modifier> modifiers = new List<Modifier>();
+					public IList<Requirement> requirements = new List<Requirement>();
 				}
 				
 				public List<ChoiceEntry> choices;
