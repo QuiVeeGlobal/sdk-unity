@@ -226,7 +226,6 @@ namespace Roar.DataConversion.Responses
 		{
 			public Roar.WebObjects.Facebook.FriendsResponse Build(System.Xml.XmlElement n)
 			{
-				System.Console.WriteLine( n.DebugAsString() );
 				Roar.WebObjects.Facebook.FriendsResponse retval = new Roar.WebObjects.Facebook.FriendsResponse();
 				retval.facebook_friends = new List<DomainObjects.FacebookFriendInfo>();
 				System.Xml.XmlNodeList friend_nodes = n.SelectNodes("./facebook/friends/friend");

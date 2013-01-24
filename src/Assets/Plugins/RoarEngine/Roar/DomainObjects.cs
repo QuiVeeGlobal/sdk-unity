@@ -326,7 +326,6 @@ namespace Roar
 						}
 						break;
 					default:
-						System.Console.WriteLine ("TYPE [" + cost_or_modifier_node.GetAttribute("type") + "]");
 						break;
 					}
 				}
