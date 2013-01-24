@@ -27,10 +27,10 @@ public class DefaultRoarInspector : RoarInspector
 		// gameKey
 		Comment("The game key, as specified in the Roar dashboard");
 		gameKey.stringValue = gameKey.stringValue.Trim();
+		
+		EditorGUILayout.PropertyField(gameKey);
 		if (gameKey.stringValue.Length == 0)
 			EditorGUILayout.HelpBox("Please specify your game key. It is required!", MessageType.Error);
-		EditorGUILayout.PropertyField(gameKey);
-		
 		// debug
 		Comment("Enable debug output.");
 		EditorGUILayout.PropertyField(debug);
