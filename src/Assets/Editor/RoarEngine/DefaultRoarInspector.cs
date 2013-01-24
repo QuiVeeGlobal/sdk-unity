@@ -8,7 +8,6 @@ public class DefaultRoarInspector : RoarInspector
 	private SerializedProperty debug;
 	private SerializedProperty appstoreSandbox;
 	private SerializedProperty gameKey;
-	private SerializedProperty xmlParser;
 	private SerializedProperty defaultGUISkin;
 	
 	protected override void OnEnable()
@@ -18,7 +17,6 @@ public class DefaultRoarInspector : RoarInspector
 		debug = serializedObject.FindProperty("debug");
 		appstoreSandbox = serializedObject.FindProperty("appstoreSandbox");
 		gameKey = serializedObject.FindProperty("gameKey");
-		xmlParser = serializedObject.FindProperty("xmlParser");
 		defaultGUISkin = serializedObject.FindProperty("defaultGUISkin");
 	}
 	
