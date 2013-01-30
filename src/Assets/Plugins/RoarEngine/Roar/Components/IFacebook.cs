@@ -82,5 +82,114 @@ namespace Roar.Components
 		 * @param cb the callback function to be passed the result of the ShopList.
 		 */
 		void ShopList(Roar.Callback<WebObjects.Facebook.ShopListResponse> cb);
+		
+		/**
+		 * Starts the login chain for logging in using a webplayer (oauth or signed request method).
+		 *
+		 * On success:
+		 * - fires a RoarManager#onCreatedUser event
+		 * - fires a RoarManager#onLoggedInUser event
+		 *
+		 * On failuire:
+		 * - fires a RoarManager#login
+		 *
+		 * @param cb the callback function to be passed the result of the ShopList.
+		 */
+		void DoWebplayerLogin(Roar.Callback<WebObjects.Facebook.LoginOauthResponse> callback);
+		
+		/**
+		 *  Starts the login chain for creating a new user using a webplayer
+		 *
+		 * On success:
+		 * - fires a RoarManager#onCreatedUser
+		 * - fires a RoarManager#onLoggedInUser event
+		 *
+		 * On failuire:
+		 * - fires a RoarManager#facebookShopListEvent
+		 *
+		 * @param cb the callback function to be passed the result of the create.
+		 */
+		void DoWebplayerCreate(string name, Roar.Callback<WebObjects.Facebook.CreateOauthResponse> callback);
+		
+		/**
+		 * Binds the logged in facebook account to the logged in roar account
+		 *
+		 * On success:
+		 * - fires a RoarManager#facebookBindUseroAuthEvent
+		 *
+		 * On failuire:
+		 * - fires a RoarManager#facebookBindUserOAuthFailedEvent
+		 *
+		 * @param cb the callback function to be passed the result of the bind.
+		 */
+		void DoWebplayerBind(Roar.Callback<WebObjects.Facebook.BindOauthResponse> callback);
+		
+		/**
+		 * Causes the hosting frame to redirect the facebook graph url passing the 
+		 *
+		 * On success:
+		 * - fires a RoarManager#facebookBindUseroAuthEvent
+		 *
+		 * On failuire:
+		 * - fires a RoarManager#facebookBindUserOAuthFailedEvent
+		 *
+		 * @param facebookApplicationID  The Id obtained from facebook for the targetted application.
+		 * @param redirectURL	The URL that the page needs to go back to after authenticating with facebook.
+		 */
+		void FacebookGraphRedirect(string facebookApplicationID, string state, string redirectURL);
+		
+		/**
+		 * Fetches the oauth token from the roar server passing along the code obtained from the graph url redirect.
+		 *
+		 * On success:
+		 * - callback is called with the appropriate response
+		 *
+		 * On failuire:
+		 * - callback is called with the appropriate response
+		 *
+		 * @param codeParameter	the code parameter obtained from facebook.
+		 * @param cb the callback function to be passed the result of the ShopList.
+		 */
+		void FetchOAuthToken(string codeParameter, Roar.Callback<WebObjects.Facebook.FetchOauthTokenResponse> callback);
+		
+		/**
+		 * Sets the oauth string directly if obtained from an external source.
+		 * 
+		 * @param oauth token.
+		 */	
+		void SetOAuthToken(string oauth_token);
+		
+		/**
+		 * Continues the facebook chain after facebook login happens
+		 * 
+		 */
+		void DoPostLoginAction();
+		
+		/**
+		 * Intimates that the signed request method has failed and to switch to the oauth login method.
+		 * @param This string is used to pass the state between redirects. Use it to protect from cross site request forgery.
+		 */
+		void SignedRequestFailed();
+		
+		/**
+		 * Returns true or false if facebook is logged in or not.
+		 * 
+		 */
+		bool IsLoggedIn(); 
+		
+		/**
+		 * Returns true or false if the user is logged in to roar via facebook.
+		 * 
+		 */
+		bool IsLoggedInViaFacebook(); 
+		
+		
+		
+		/**
+		 * Request facebook state parameter to retireve application state in case of a redirect.
+		 * 
+		 */
+		void RequestFacebookStatePara();
+		
 	}
 }

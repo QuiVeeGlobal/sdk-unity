@@ -24,6 +24,10 @@ public class RoarLoginWidgetInspector : RoarUIWidgetInspector
 	private SerializedProperty loginLabelStyle;
 	private SerializedProperty statusStyle;
 	
+	private SerializedProperty allowFacebook;
+	private SerializedProperty facebookApplicationID;
+	
+	
 	protected override void OnEnable ()
 	{
 		base.OnEnable ();
@@ -45,6 +49,9 @@ public class RoarLoginWidgetInspector : RoarUIWidgetInspector
 		boxStyle = serializedObject.FindProperty("boxStyle");
 		loginLabelStyle = serializedObject.FindProperty("loginLabelStyle");
 		statusStyle = serializedObject.FindProperty("statusStyle");
+		
+		allowFacebook = serializedObject.FindProperty("allowFacebookLogin");
+		facebookApplicationID = serializedObject.FindProperty("facebookApplicationID");
 	}
 	
 	protected override void DrawGUI()
@@ -70,5 +77,12 @@ public class RoarLoginWidgetInspector : RoarUIWidgetInspector
 		EditorGUILayout.PropertyField(loginLabelStyle);
 		EditorGUILayout.PropertyField(boxStyle);
 		EditorGUILayout.PropertyField(buttonStyle);
+		
+		EditorGUILayout.PropertyField(allowFacebook, new GUIContent("Allow Facebook Login"), null );
+		if(allowFacebook.boolValue)
+		{
+			Comment("Needed for oAuthToken login");
+			EditorGUILayout.PropertyField(facebookApplicationID);
+		}
 	}
 }

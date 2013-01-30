@@ -176,6 +176,7 @@
           },
           {
             "name":"fetch_oauth_token",
+			"requires_auth":false,
             "arguments":
             [
               { "name":"code", "type":"string" }
