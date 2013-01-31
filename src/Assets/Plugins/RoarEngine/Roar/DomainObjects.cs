@@ -765,6 +765,7 @@ namespace Roar
 			public string max = null;
 			public string regen_amount = null;
 			public string regen_every = null;
+			public string next_regen = null;
 			public string level_start = null;
 			public string next_level = null;
 			
@@ -781,6 +782,7 @@ namespace Roar
 				max = nn.GetAttribute("max");
 				regen_amount = nn.GetAttribute("regen_amount");
 				regen_every = nn.GetAttribute("regen_every");
+				next_regen = nn.GetAttribute("next_regen");
 				level_start = nn.GetAttribute("level_start");
 				next_level = nn.GetAttribute("next_level");
 			}
