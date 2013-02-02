@@ -259,16 +259,16 @@ public class RoarObjectFactory : Editor
 			realName = name + counter++;
 		}
 		
-        GameObject go = new GameObject(realName);
+		GameObject go = new GameObject(realName);
 		if (Selection.activeGameObject != null)
 		{
 			string assetPath = AssetDatabase.GetAssetPath(Selection.activeGameObject);
 			if (assetPath.Length == 0) go.transform.parent = Selection.activeGameObject.transform;
 		}
-        go.transform.localPosition = Vector3.zero;
-        go.transform.localRotation = Quaternion.identity;
-        go.transform.localScale = Vector3.one;	
-        return go;
+		go.transform.localPosition = Vector3.zero;
+		go.transform.localRotation = Quaternion.identity;
+		go.transform.localScale = Vector3.one;
+		return go;
 	}
 	
 }
