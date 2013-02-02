@@ -383,10 +383,10 @@ namespace Roar.DataConversion.Responses
 				{
 					DomainObjects.FriendInvite invite = new DomainObjects.FriendInvite();
 
-					invite.invite_id = n.GetAttribute("invite_id");
-					invite.player_id = n.GetAttribute("from_player_id");
-					invite.player_name = n.GetAttribute("from_player");
-					invite.message = n.GetAttribute("message");
+					invite.invite_id = invite_node.GetAttribute("invite_id");
+					invite.player_id = invite_node.GetAttribute("from_player_id");
+					invite.player_name = invite_node.GetAttribute("from_player");
+					invite.message = invite_node.GetAttribute("message");
 					
 					retval.invites.Add(invite);
 				}
