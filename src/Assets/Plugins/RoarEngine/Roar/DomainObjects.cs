@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Roar.DataConversion;
+using Roar.DomainObjects;
 
 namespace Roar
 {
@@ -35,6 +36,84 @@ namespace Roar
 		};
 		
 		
+		public abstract class CRMVisitor<T>
+		{
+			//This function dispatches to the correct member based on the type of the argument.
+			public T visit_cost( Roar.DomainObjects.Cost cost)
+			{
+				if(cost == null) return OnCostNull();
+				if(cost is Roar.DomainObjects.Costs.Stat) return OnCostStat( cost as Roar.DomainObjects.Costs.Stat );
+				if(cost is Roar.DomainObjects.Costs.Item) return OnCostItem( cost as Roar.DomainObjects.Costs.Item );
+				if(cost is Roar.DomainObjects.Costs.Stat) return OnCostMultiple( cost as Roar.DomainObjects.Costs.Multiple );
+
+				throw new System.Exception("Should never happen");
+			}
+
+			public T visit_modifier( Roar.DomainObjects.Modifier modifier)
+			{
+				if(modifier == null) return OnModifierNull();
+				if(modifier is Roar.DomainObjects.Modifiers.GrantItem) return OnModifierGrantItem(modifier as Roar.DomainObjects.Modifiers.GrantItem);
+				if(modifier is Roar.DomainObjects.Modifiers.GrantStat) return OnModifierGrantStat(modifier as Roar.DomainObjects.Modifiers.GrantStat);
+				if(modifier is Roar.DomainObjects.Modifiers.GrantStatRange) return OnModifierGrantStatRange(modifier as Roar.DomainObjects.Modifiers.GrantStatRange);
+				if(modifier is Roar.DomainObjects.Modifiers.GrantXp) return OnModifierGrantXp(modifier as Roar.DomainObjects.Modifiers.GrantXp);
+				if(modifier is Roar.DomainObjects.Modifiers.GrantXpRange) return OnModifierGrantXpRange(modifier as Roar.DomainObjects.Modifiers.GrantXpRange);
+				if(modifier is Roar.DomainObjects.Modifiers.IfThenElse) return OnModifierIfThenElse(modifier as Roar.DomainObjects.Modifiers.IfThenElse);
+				if(modifier is Roar.DomainObjects.Modifiers.Multiple) return OnModifierMultiple(modifier as Roar.DomainObjects.Modifiers.Multiple);
+				if(modifier is Roar.DomainObjects.Modifiers.NamedReference) return OnModifierNamedReference(modifier as Roar.DomainObjects.Modifiers.NamedReference);
+				if(modifier is Roar.DomainObjects.Modifiers.Nothing) return OnModifierNothing(modifier as Roar.DomainObjects.Modifiers.Nothing);
+				if(modifier is Roar.DomainObjects.Modifiers.RandomChoice) return OnModifierRandomChoice(modifier as Roar.DomainObjects.Modifiers.RandomChoice);
+				if(modifier is Roar.DomainObjects.Modifiers.RemoveItems) return OnModifierRemoveItems(modifier as Roar.DomainObjects.Modifiers.RemoveItems);
+				if(modifier is Roar.DomainObjects.Modifiers.Script) return OnModifierScript(modifier as Roar.DomainObjects.Modifiers.Script);
+
+				throw new System.Exception("Unknown modifier");
+			}
+
+			public T visit_requirement( Roar.DomainObjects.Requirement requirement)
+			{
+				if(requirement == null) return OnRequirementNull();
+				if(requirement is Roar.DomainObjects.Requirements.False) return OnRequirementFalse(requirement as Roar.DomainObjects.Requirements.False);
+				if(requirement is Roar.DomainObjects.Requirements.Friends) return OnRequirementFriends(requirement as Roar.DomainObjects.Requirements.Friends);
+				if(requirement is Roar.DomainObjects.Requirements.Item) return OnRequirementItem(requirement as Roar.DomainObjects.Requirements.Item);
+				if(requirement is Roar.DomainObjects.Requirements.Level) return OnRequirementLevel(requirement as Roar.DomainObjects.Requirements.Level);
+				if(requirement is Roar.DomainObjects.Requirements.Multiple) return OnRequirementMultiple(requirement as Roar.DomainObjects.Requirements.Multiple);
+				if(requirement is Roar.DomainObjects.Requirements.Stat) return OnRequirementStat(requirement as Roar.DomainObjects.Requirements.Stat);
+				if(requirement is Roar.DomainObjects.Requirements.True) return OnRequirementTrue(requirement as Roar.DomainObjects.Requirements.True);
+
+				throw new System.Exception("Unknown requirement");
+			}
+
+			public abstract T OnCostNull();
+			public abstract T OnCostStat( Roar.DomainObjects.Costs.Stat stat);
+			public abstract T OnCostItem( Roar.DomainObjects.Costs.Item item);
+			public abstract T OnCostMultiple( Roar.DomainObjects.Costs.Multiple multiple);
+
+			public abstract T OnModifierNull();
+			public abstract T OnModifierGrantItem( Roar.DomainObjects.Modifiers.GrantItem mod);
+			public abstract T OnModifierGrantStat( Roar.DomainObjects.Modifiers.GrantStat mod);
+			public abstract T OnModifierGrantStatRange( Roar.DomainObjects.Modifiers.GrantStatRange mod);
+			public abstract T OnModifierGrantXp( Roar.DomainObjects.Modifiers.GrantXp mod);
+			public abstract T OnModifierGrantXpRange( Roar.DomainObjects.Modifiers.GrantXpRange mod);
+			public abstract T OnModifierIfThenElse( Roar.DomainObjects.Modifiers.IfThenElse mod);
+			public abstract T OnModifierMultiple( Roar.DomainObjects.Modifiers.Multiple mod);
+			public abstract T OnModifierNamedReference( Roar.DomainObjects.Modifiers.NamedReference mod);
+			public abstract T OnModifierNothing( Roar.DomainObjects.Modifiers.Nothing mod);
+			public abstract T OnModifierRandomChoice( Roar.DomainObjects.Modifiers.RandomChoice mod);
+			public abstract T OnModifierRemoveItems( Roar.DomainObjects.Modifiers.RemoveItems mod);
+			public abstract T OnModifierScript( Roar.DomainObjects.Modifiers.Script mod);
+
+			public abstract T OnRequirementNull();
+			public abstract T OnRequirementFalse(Roar.DomainObjects.Requirements.False req);
+			public abstract T OnRequirementFriends(Roar.DomainObjects.Requirements.Friends req);
+			public abstract T OnRequirementItem(Roar.DomainObjects.Requirements.Item req);
+			public abstract T OnRequirementLevel(Roar.DomainObjects.Requirements.Level req);
+			public abstract T OnRequirementMultiple(Roar.DomainObjects.Requirements.Multiple req);
+			public abstract T OnRequirementStat(Roar.DomainObjects.Requirements.Stat req);
+			public abstract T OnRequirementTrue(Roar.DomainObjects.Requirements.True req);
+
+		}
+
+
+
 		namespace Costs
 		{
 			public class Multiple : Cost
