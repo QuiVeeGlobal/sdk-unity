@@ -104,10 +104,6 @@ public class DataModel<CT,DT> : IDataModel<CT,DT> where DT:class
 		if (this.isServerCalling)
 			return false;
 
-		// Reset the internal register
-		if (!persist)
-			attributes = new Dictionary<string,CT> ();
-
 		getter.get( new OnFetch( cb, this ) );
 
 		this.isServerCalling = true;
@@ -181,18 +177,29 @@ public class DataModel<CT,DT> : IDataModel<CT,DT> where DT:class
 	
 	public DataModel<CT,DT> Set ( Dictionary<string,CT> data, bool silent)
 	{
+		string changedProp;
 		// Setup temporary copy of attributes to be assigned
 		// to the previousAttributes register if a change occurs
-		var prev = Clone (this.attributes);
+		Dictionary<string,CT> prev = Clone (this.attributes);
 
-		foreach (KeyValuePair<string,CT> prop in data) {
-			this.attributes [prop.Key] = prop.Value;
+		// Reset the internal register
+		attributes = new Dictionary<string,CT> ();
 
-			// Set internal changed flag
-			this.hasChanged = true;
+		foreach (string propKey in data.Keys)
+		{
+			this.attributes [propKey] = data[propKey];
 
-			// Broadcasts an attribute specific change event of the form:
-			// **change:attribute_name**
+			if( ! prev.ContainsKey(propKey) ||  (!Comparer<CT>.Equals(prev[propKey], data[propKey])))
+			{
+				this.hasChanged = true;
+				changedProp = propKey;
+				RoarManager.OnComponentAttributeChange(this.name, changedProp);
+			}
+
+		}
+
+		if(hasChanged)
+		{
 			if (!silent) {
 				RoarManager.OnComponentChange (this.name);
 			}

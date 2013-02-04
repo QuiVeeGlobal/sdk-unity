@@ -161,6 +161,12 @@ public class RoarManager
 	public static void OnPropertiesChange() { if(propertiesChangeEvent!=null) propertiesChangeEvent(); }
 
 	/**
+	 * Fired when a specific attribute of a component  changes.
+	 */
+	public static event Action propertiesAttributeChangeEvent;
+	public static void OnPropertiesAttributeChange() { if(propertiesAttributeChangeEvent!=null) propertiesAttributeChangeEvent(); }
+
+	/**
 	 * Fired when the data have been retrieved from the server.
 	 */
 	public static event Action leaderboardsReadyEvent;
@@ -497,6 +503,25 @@ public class RoarManager
 
 		default:
 			Debug.Log ("Component change event for "+name+" not yet implemented");
+			break;
+		}
+	}
+
+	/**
+	 * Fire the correct event for a component change.
+	 *
+	 * @param name The name of the event.
+	 */
+	public static void OnComponentAttributeChange( string componentName, string attributeName)
+	{
+		switch(componentName)
+		{
+		case "properties":
+			OnPropertiesAttributeChange();
+			break;
+
+		default:
+			Debug.Log ("Component attribute change event for "+componentName+" not yet implemented");
 			break;
 		}
 	}
