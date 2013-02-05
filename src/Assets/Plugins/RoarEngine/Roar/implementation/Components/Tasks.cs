@@ -44,12 +44,18 @@ namespace Roar.implementation.Components
 
 			public void OnError( Roar.RequestResult nn )
 			{
-				cb_( new CallbackInfo<WebObjects.Tasks.StartResponse>(null, nn.code, nn.msg) );
+				if (cb_ != null)
+				{
+					cb_( new CallbackInfo<WebObjects.Tasks.StartResponse>(null, nn.code, nn.msg) );
+				}
 			}
 
 			public void OnSuccess ( CallbackInfo<WebObjects.Tasks.StartResponse> info)
 			{
-				cb_(info);
+				if (cb_ != null)
+				{
+					cb_(info);
+				}
 			}
 		}
 	}
