@@ -13,7 +13,7 @@ public class RoarLoginWidget : RoarUIWidget
 	protected bool isFetching=false;
 	
 	public bool enableOnAwake = true;
-	public bool fetchPropertiesOnLogin = true;
+	public bool fetchPropertiesOnLogin = false;
 	public bool saveUsername = true;
 	public bool savePassword = false;
 	
@@ -324,6 +324,7 @@ public class RoarLoginWidget : RoarUIWidget
 	
 	void OnRoarPropertiesFetched(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.PlayerAttribute> > info)
 	{
+		Debug.Log ("OnRoarPropertiesFetched "+info.data.Count);
 		networkActionInProgress = false;
 		if (OnFullyLoggedIn != null) OnFullyLoggedIn();
 	}

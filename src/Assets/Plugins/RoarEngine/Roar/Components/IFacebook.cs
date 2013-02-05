@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Roar.Components
 {
@@ -182,14 +183,50 @@ namespace Roar.Components
 		 * 
 		 */
 		bool IsLoggedInViaFacebook(); 
-		
-		
-		
+			
 		/**
 		 * Request facebook state parameter to retireve application state in case of a redirect.
 		 * 
 		 */
 		void RequestFacebookStatePara();
+		
+		
+		/**
+		* Fetch shop information from the server.
+		*
+		* On success:
+		* - invokes callback with parameter *Array<ShopEntry> data* containing the data for the shop.
+		* - fires the RoarManager#shopReadyEvent
+		* - sets #hasDataFromServer to true
+		*
+		* On failure:
+		* - invokes callback with error code and error message
+		*
+		* @param callback the callback function to be passed this function's result.
+		*
+		* @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
+		*/
+		void FetchShopData (Roar.Callback<IDictionary<string,DomainObjects.FacebookShopEntry>> callback);
+		
+		/**
+		* Get a list of all the available items in the shop.
+		*
+		* @returns A list of Hashtables for each shop item.
+		*
+		* @note This does _not_ make a server call. It requires the shop data to
+		*have already been fetched via a call to #fetch. If this function
+		*is called prior to the successful completion of a #fetch call,
+		*it will return an empty array.
+		*/
+		IList<DomainObjects.FacebookShopEntry> List ();
+		
+		/**
+		* Check whether shop information has been obtained from the server.
+		*
+		* @returns true if #fetch has completed execution.
+		*/
+		bool HasDataFromServer { get; }
+
 		
 	}
 }

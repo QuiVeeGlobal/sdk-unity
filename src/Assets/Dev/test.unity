@@ -74,6 +74,93 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
+--- !u!1 &151431542
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 151431543}
+  - 114: {fileID: 151431544}
+  m_Layer: 0
+  m_Name: FacebookShopWidget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &151431543
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 151431542}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.46819806, y: .313522816, z: 3.03957415}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &151431544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 151431542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 892308da5e25ba446942a0fa4d008dcb, type: 3}
+  m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 512
+    height: 386
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+  windowInfo:
+    isWindowed: 1
+    supportsDragging: 1
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
+  whenToFetch: 0
+  howOftenToFetch: 60
+  shopItemLabelStyle: ShopItemLabel
+  shopItemDescriptionStyle: ShopItemDescription
+  shopItemCostStyle: ShopItemCost
+  shopItemBuyButtonStyle: ShopItemBuyButton
+  shopItemBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 450
+    height: 90
+  buyButtonBounds:
+    serializedVersion: 2
+    x: 200
+    y: 25
+    width: 100
+    height: 40
+  shopItemSpacing: 12
 --- !u!1 &163019612
 GameObject:
   m_ObjectHideFlags: 0
@@ -1214,10 +1301,12 @@ Transform:
   - {fileID: 581616721}
   - {fileID: 834810406}
   - {fileID: 1949122399}
+  - {fileID: 2080060140}
   - {fileID: 486520128}
   - {fileID: 872105092}
   - {fileID: 1745052716}
   - {fileID: 327688142}
+  - {fileID: 1092590774}
   m_Father: {fileID: 0}
 --- !u!102 &1076514029
 TextMesh:
@@ -1237,6 +1326,70 @@ TextMesh:
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 0}
+--- !u!1 &1092590773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1092590774}
+  - 102: {fileID: 1092590776}
+  - 23: {fileID: 1092590775}
+  m_Layer: 0
+  m_Name: ToggleFBShopSelecter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1092590774
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1092590773}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -15.6383667, y: -5.67000675, z: 27.7859097}
+  m_LocalScale: {x: .5, y: .5, z: .5}
+  m_Children: []
+  m_Father: {fileID: 1076514028}
+--- !u!23 &1092590775
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1092590773}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+--- !u!102 &1092590776
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1092590773}
+  m_Text: Facebook Shop
+  m_OffsetZ: 0
+  m_CharacterSize: 1
+  m_LineSpacing: 1
+  m_Anchor: 0
+  m_Alignment: 0
+  m_TabSize: 4
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1371897980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1877,7 +2030,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1949122398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.3923111, y: -4.53567505, z: 26.3173485}
+  m_LocalPosition: {x: -16.3887787, y: -4.53567505, z: 26.3173485}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1076514028}
@@ -2013,27 +2166,14 @@ MonoBehaviour:
   defaultValueFormat: N0
   statsToDisplay:
   - enabled: 1
-    key: gamecoins
-    bounds:
-      serializedVersion: 2
-      x: 0
-      y: 0
-      width: 232
-      height: 32
-    title: Coins
-    titleStyle: StatsTitleStyle
-    valueFormat: 
-    valueStyle: StatsValueStyle
-    valueType: 1
-  - enabled: 1
-    key: premium_currency
+    key: health
     bounds:
       serializedVersion: 2
       x: 0
       y: 32
       width: 232
       height: 32
-    title: Fairies
+    title: HP
     titleStyle: StatsTitleStyle
     valueFormat: 
     valueStyle: StatsValueStyle
@@ -2115,7 +2255,7 @@ MonoBehaviour:
   loginLabelStyle: LoginLabel
   statusStyle: LoginStatus
   allowFacebookLogin: 1
-  facebookApplicationID: 152296965024
+  facebookApplicationID: 114471668583095
 --- !u!4 &2063613870
 Transform:
   m_ObjectHideFlags: 0
@@ -2127,3 +2267,94 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
+--- !u!1 &2080060139
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2080060140}
+  - 33: {fileID: 2080060145}
+  - 65: {fileID: 2080060144}
+  - 23: {fileID: 2080060143}
+  - 114: {fileID: 2080060142}
+  - 114: {fileID: 2080060141}
+  m_Layer: 0
+  m_Name: FB shop widget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2080060140
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2080060139}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.3887787, y: -5.89064217, z: 26.3173485}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1076514028}
+--- !u!114 &2080060141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2080060139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63cc2ebe7f799ce4e930050b346a37cb, type: 3}
+  m_Name: 
+  target: {fileID: 151431542}
+--- !u!114 &2080060142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2080060139}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ce2a78ec9f24d9fb20e280f5bbf2e3, type: 3}
+  m_Name: 
+  upRotateSpeed: 1
+  leftRotateSpeed: .5
+--- !u!23 &2080060143
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2080060139}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+--- !u!65 &2080060144
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2080060139}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &2080060145
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2080060139}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}

@@ -1,4 +1,6 @@
 using System.Collections;
+using System.Collections.Generic;
+
 using UnityEngine;
 
 using Roar.Components;
@@ -84,6 +86,7 @@ namespace Roar.implementation.Components
 			public override void HandleSuccess (CallbackInfo<WebObjects.Facebook.BindOauthResponse> info)
 			{
 				Debug.Log("binding succeeded");
+				
 				
 			}
 		}
@@ -527,15 +530,26 @@ namespace Roar.implementation.Components
 			return isLoggedinViaFacebook;
 		}
 		
+		//Facebook Shop stuff
+		public void FetchShopData(Roar.Callback<IDictionary<string,DomainObjects.FacebookShopEntry>> callback)
+		{
+			dataStore.facebookShop.Fetch(callback);
+		}
 		
+		public bool HasDataFromServer { get { return dataStore.facebookShop.HasDataFromServer; } }
+		
+		public IList<DomainObjects.FacebookShopEntry> List ()
+		{
+			return dataStore.facebookShop.List();
+		}
 
-
-		 /**
-		 * Function that is called to tell the hosting iframe to passback the signed request string if available.
-		 * Must be called before using the signed request string.
-		 *
-		 *
-		 **/
+		/**
+		* Function that is called to tell the hosting iframe to passback the signed request string if available.
+		* Must be called before using the signed request string.
+		*
+		*
+		**/
+		 
 		public void RequestFacebookSignedRequest()
 		{
 			Debug.Log("Requesting signed request");
