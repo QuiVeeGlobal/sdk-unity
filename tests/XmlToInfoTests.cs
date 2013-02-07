@@ -87,7 +87,7 @@ namespace Testing
 						<attribute type=""special"" ikey=""level"" value=""7""/>
 						<attribute type=""special"" ikey=""name"" value=""Brenda Lear""/>
 						<attribute ikey=""aud"" label=""AUD"" value=""100"" type=""currency"" min=""0""/>
-						<attribute ikey=""energy"" label=""Energy"" value=""10"" type=""resource"" min=""2"" max=""10"" regen_amount=""1"" regen_every=""18000""/>
+						<attribute ikey=""energy"" label=""Energy"" value=""10"" type=""resource"" min=""2"" max=""10"" regen_amount=""1"" regen_every=""18000"" next_regen=""135595635357""/>
 						<attribute name=""status"" value=""No current status update available"" type=""custom""/>
 					</user>
 				</info>
@@ -117,6 +117,7 @@ namespace Testing
 			Assert.AreEqual(user_response.player.attributes["energy"].max, "10");
 			Assert.AreEqual(user_response.player.attributes["energy"].regen_amount, "1");
 			Assert.AreEqual(user_response.player.attributes["energy"].regen_every, "18000");
+			Assert.AreEqual(user_response.player.attributes["energy"].next_regen, "135595635357");
 			Assert.AreEqual(user_response.player.attributes["status"].name, "status");
 			Assert.AreEqual(user_response.player.attributes["status"].type, "custom");
 			Assert.AreEqual(user_response.player.attributes["status"].value, "No current status update available");

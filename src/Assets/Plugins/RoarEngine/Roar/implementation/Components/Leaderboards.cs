@@ -52,7 +52,10 @@ namespace Roar.implementation.Components
 			{
 				leaderboards.boardList = info.data.boards;
 				leaderboards.hasBoardList = true;
-				cb( new Roar.CallbackInfo<ILeaderboards>(leaderboards,WebAPI.OK,null) );
+				if (cb != null)
+				{
+					cb( new Roar.CallbackInfo<ILeaderboards>(leaderboards,WebAPI.OK,null) );
+				}
 			}
 		}
 
@@ -95,7 +98,10 @@ namespace Roar.implementation.Components
 				}
 				
 				board[info.data.leaderboard_data.page] = info.data.leaderboard_data.entries;
-				cb( new Roar.CallbackInfo<ILeaderboards>(leaderboards,WebAPI.OK,null) );
+				if (cb != null)
+				{
+					cb( new Roar.CallbackInfo<ILeaderboards>(leaderboards,WebAPI.OK,null) );
+				}
 			}
 	}
 

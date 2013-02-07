@@ -139,7 +139,7 @@ namespace Testing
 					<view status=""ok"">
 						<attribute type=""special"" ikey=""id"" value=""635902077904630318""/>
 						<attribute type=""special"" ikey=""xp"" value=""16807"" level_start=""5"" next_level=""7""/>
-						<attribute ikey=""energy"" label=""Energy"" value=""10"" type=""resource"" min=""2"" max=""10"" regen_amount=""1"" regen_every=""18000""/>
+						<attribute ikey=""energy"" label=""Energy"" value=""10"" type=""resource"" min=""2"" max=""10"" regen_amount=""1"" regen_every=""18000"" next_regen=""135595635357""/>
 						<attribute name=""status"" value=""No current status update available"" type=""custom""/>
 					<regen_scripts/>
 					</view>
@@ -162,6 +162,7 @@ namespace Testing
 			Assert.AreEqual(response.attributes[2].max, "10");
 			Assert.AreEqual(response.attributes[2].regen_amount, "1");
 			Assert.AreEqual(response.attributes[2].regen_every, "18000");
+			Assert.AreEqual(response.attributes[2].next_regen, "135595635357");
 			Assert.AreEqual(response.attributes[3].name, "status");
 		}
 		

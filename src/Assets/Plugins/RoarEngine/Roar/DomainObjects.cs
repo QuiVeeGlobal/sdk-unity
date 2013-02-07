@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Roar.DataConversion;
+using Roar.DomainObjects;
 
 namespace Roar
 {
@@ -35,6 +36,84 @@ namespace Roar
 		};
 		
 		
+		public abstract class CRMVisitor<T>
+		{
+			//This function dispatches to the correct member based on the type of the argument.
+			public T visit_cost( Roar.DomainObjects.Cost cost)
+			{
+				if(cost == null) return OnCostNull();
+				if(cost is Roar.DomainObjects.Costs.Stat) return OnCostStat( cost as Roar.DomainObjects.Costs.Stat );
+				if(cost is Roar.DomainObjects.Costs.Item) return OnCostItem( cost as Roar.DomainObjects.Costs.Item );
+				if(cost is Roar.DomainObjects.Costs.Stat) return OnCostMultiple( cost as Roar.DomainObjects.Costs.Multiple );
+
+				throw new System.Exception("Should never happen");
+			}
+
+			public T visit_modifier( Roar.DomainObjects.Modifier modifier)
+			{
+				if(modifier == null) return OnModifierNull();
+				if(modifier is Roar.DomainObjects.Modifiers.GrantItem) return OnModifierGrantItem(modifier as Roar.DomainObjects.Modifiers.GrantItem);
+				if(modifier is Roar.DomainObjects.Modifiers.GrantStat) return OnModifierGrantStat(modifier as Roar.DomainObjects.Modifiers.GrantStat);
+				if(modifier is Roar.DomainObjects.Modifiers.GrantStatRange) return OnModifierGrantStatRange(modifier as Roar.DomainObjects.Modifiers.GrantStatRange);
+				if(modifier is Roar.DomainObjects.Modifiers.GrantXp) return OnModifierGrantXp(modifier as Roar.DomainObjects.Modifiers.GrantXp);
+				if(modifier is Roar.DomainObjects.Modifiers.GrantXpRange) return OnModifierGrantXpRange(modifier as Roar.DomainObjects.Modifiers.GrantXpRange);
+				if(modifier is Roar.DomainObjects.Modifiers.IfThenElse) return OnModifierIfThenElse(modifier as Roar.DomainObjects.Modifiers.IfThenElse);
+				if(modifier is Roar.DomainObjects.Modifiers.Multiple) return OnModifierMultiple(modifier as Roar.DomainObjects.Modifiers.Multiple);
+				if(modifier is Roar.DomainObjects.Modifiers.NamedReference) return OnModifierNamedReference(modifier as Roar.DomainObjects.Modifiers.NamedReference);
+				if(modifier is Roar.DomainObjects.Modifiers.Nothing) return OnModifierNothing(modifier as Roar.DomainObjects.Modifiers.Nothing);
+				if(modifier is Roar.DomainObjects.Modifiers.RandomChoice) return OnModifierRandomChoice(modifier as Roar.DomainObjects.Modifiers.RandomChoice);
+				if(modifier is Roar.DomainObjects.Modifiers.RemoveItems) return OnModifierRemoveItems(modifier as Roar.DomainObjects.Modifiers.RemoveItems);
+				if(modifier is Roar.DomainObjects.Modifiers.Script) return OnModifierScript(modifier as Roar.DomainObjects.Modifiers.Script);
+
+				throw new System.Exception("Unknown modifier");
+			}
+
+			public T visit_requirement( Roar.DomainObjects.Requirement requirement)
+			{
+				if(requirement == null) return OnRequirementNull();
+				if(requirement is Roar.DomainObjects.Requirements.False) return OnRequirementFalse(requirement as Roar.DomainObjects.Requirements.False);
+				if(requirement is Roar.DomainObjects.Requirements.Friends) return OnRequirementFriends(requirement as Roar.DomainObjects.Requirements.Friends);
+				if(requirement is Roar.DomainObjects.Requirements.Item) return OnRequirementItem(requirement as Roar.DomainObjects.Requirements.Item);
+				if(requirement is Roar.DomainObjects.Requirements.Level) return OnRequirementLevel(requirement as Roar.DomainObjects.Requirements.Level);
+				if(requirement is Roar.DomainObjects.Requirements.Multiple) return OnRequirementMultiple(requirement as Roar.DomainObjects.Requirements.Multiple);
+				if(requirement is Roar.DomainObjects.Requirements.Stat) return OnRequirementStat(requirement as Roar.DomainObjects.Requirements.Stat);
+				if(requirement is Roar.DomainObjects.Requirements.True) return OnRequirementTrue(requirement as Roar.DomainObjects.Requirements.True);
+
+				throw new System.Exception("Unknown requirement");
+			}
+
+			public abstract T OnCostNull();
+			public abstract T OnCostStat( Roar.DomainObjects.Costs.Stat stat);
+			public abstract T OnCostItem( Roar.DomainObjects.Costs.Item item);
+			public abstract T OnCostMultiple( Roar.DomainObjects.Costs.Multiple multiple);
+
+			public abstract T OnModifierNull();
+			public abstract T OnModifierGrantItem( Roar.DomainObjects.Modifiers.GrantItem mod);
+			public abstract T OnModifierGrantStat( Roar.DomainObjects.Modifiers.GrantStat mod);
+			public abstract T OnModifierGrantStatRange( Roar.DomainObjects.Modifiers.GrantStatRange mod);
+			public abstract T OnModifierGrantXp( Roar.DomainObjects.Modifiers.GrantXp mod);
+			public abstract T OnModifierGrantXpRange( Roar.DomainObjects.Modifiers.GrantXpRange mod);
+			public abstract T OnModifierIfThenElse( Roar.DomainObjects.Modifiers.IfThenElse mod);
+			public abstract T OnModifierMultiple( Roar.DomainObjects.Modifiers.Multiple mod);
+			public abstract T OnModifierNamedReference( Roar.DomainObjects.Modifiers.NamedReference mod);
+			public abstract T OnModifierNothing( Roar.DomainObjects.Modifiers.Nothing mod);
+			public abstract T OnModifierRandomChoice( Roar.DomainObjects.Modifiers.RandomChoice mod);
+			public abstract T OnModifierRemoveItems( Roar.DomainObjects.Modifiers.RemoveItems mod);
+			public abstract T OnModifierScript( Roar.DomainObjects.Modifiers.Script mod);
+
+			public abstract T OnRequirementNull();
+			public abstract T OnRequirementFalse(Roar.DomainObjects.Requirements.False req);
+			public abstract T OnRequirementFriends(Roar.DomainObjects.Requirements.Friends req);
+			public abstract T OnRequirementItem(Roar.DomainObjects.Requirements.Item req);
+			public abstract T OnRequirementLevel(Roar.DomainObjects.Requirements.Level req);
+			public abstract T OnRequirementMultiple(Roar.DomainObjects.Requirements.Multiple req);
+			public abstract T OnRequirementStat(Roar.DomainObjects.Requirements.Stat req);
+			public abstract T OnRequirementTrue(Roar.DomainObjects.Requirements.True req);
+
+		}
+
+
+
 		namespace Costs
 		{
 			public class Multiple : Cost
@@ -122,11 +201,11 @@ namespace Roar
 			
 			public class RandomChoice : Modifier
 			{
-				public struct ChoiceEntry
+				public class ChoiceEntry
 				{
 					public int weight;
-					public IList<Modifier> modifiers;
-					public IList<Requirement> requirements;
+					public IList<Modifier> modifiers = new List<Modifier>();
+					public IList<Requirement> requirements = new List<Requirement>();
 				}
 				
 				public List<ChoiceEntry> choices;
@@ -326,7 +405,6 @@ namespace Roar
 						}
 						break;
 					default:
-						System.Console.WriteLine ("TYPE [" + cost_or_modifier_node.GetAttribute("type") + "]");
 						break;
 					}
 				}
@@ -487,33 +565,6 @@ namespace Roar
 			public double value;
 			public IList<LeaderboardExtraProperties> properties;
 		}
-
-		//TODO: Problem with this is that we only keep one page for each leadeerboard request... we really should merge them somehow.
-		/**
-		 * Expected XML is like this:
-		 *
-		 * <leaderboards>
-		 *   <view status="ok">
-		 *      <ranking ikey="mojo" offset="0" num_results="100" page="1" low_is_high="false">
-		 *         <entry rank="1" player_id="612421456098" value="560">
-		 *           <custom>
-		 *             <property ikey="player_name" value="Monkey"/>
-		 *           </custom>
-		 *         </entry>
-		 *         <entry rank="2" player_id="195104156933" value="514">
-		 *           <custom>
-		 *             <property ikey="player_name" value="Dragon"/>
-		 *           </custom>
-		 *        </entry>
-		 *        <entry rank="3" player_id="440312985759" value="490"/>
-		 *          <custom>
-		 *            <property ikey="player_name" value="Fun and Awesome DUUUUUDE"/>
-		 *           </custom>
-		 *        </entry>
-		 *     </ranking>
-		 *   </view>
-		 * </leaderboards>
-		 */
 
 		public class LeaderboardData
 		{
@@ -714,6 +765,7 @@ namespace Roar
 			public string max = null;
 			public string regen_amount = null;
 			public string regen_every = null;
+			public string next_regen = null;
 			public string level_start = null;
 			public string next_level = null;
 			
@@ -730,6 +782,7 @@ namespace Roar
 				max = nn.GetAttribute("max");
 				regen_amount = nn.GetAttribute("regen_amount");
 				regen_every = nn.GetAttribute("regen_every");
+				next_regen = nn.GetAttribute("next_regen");
 				level_start = nn.GetAttribute("level_start");
 				next_level = nn.GetAttribute("next_level");
 			}
@@ -856,15 +909,27 @@ namespace Roar
 				retval.description = n.SelectSingleNode("./description").GetInnerTextOrDefault(null);
 				retval.location = n.SelectSingleNode("./location").GetInnerTextOrDefault(null);
 
-				if (! System.Int32.TryParse( n.SelectSingleNode("./mastery/@level").GetValueOrDefault("0"), out retval.mastery_level))
+				string masteryLevelString = n.SelectSingleNode("./mastery/@level").GetValueOrDefault(null);
+
+				if (masteryLevelString == null || masteryLevelString == "")
+				{
+					retval.mastery_level = 0;
+				}
+				else if( !System.Int32.TryParse(masteryLevelString , out retval.mastery_level) )
 				{
 					throw new InvalidXMLElementException("Unable to parse mastery level to integer");
 				}
-				if (! System.Int32.TryParse( n.SelectSingleNode("./mastery/@progress").GetValueOrDefault("0"), out retval.mastery_progress))
+
+				string masteryProgressString = n.SelectSingleNode("./mastery/@progress").GetValueOrDefault(null);
+				if (masteryProgressString == null || masteryProgressString == "" )
+				{
+					retval.mastery_progress = 0;
+				}
+				else if ( !System.Int32.TryParse( masteryProgressString, out retval.mastery_progress) )
 				{
 					throw new InvalidXMLElementException("Untable to parse mastery progress to integer");
 				}
-				
+
 				retval.costs = ixcrm_parser.ParseCostList(n.SelectSingleNode("./costs") as System.Xml.XmlElement);
 				retval.rewards = ixcrm_parser.ParseModifierList(n.SelectSingleNode("./rewards") as System.Xml.XmlElement);
 				retval.requirements = ixcrm_parser.ParseRequirementList(n.SelectSingleNode("./requires") as System.Xml.XmlElement);
@@ -893,7 +958,5 @@ namespace Roar
 			}
 		}
 		
-
-
 	}
 }

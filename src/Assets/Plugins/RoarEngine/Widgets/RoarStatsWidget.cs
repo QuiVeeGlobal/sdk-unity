@@ -4,7 +4,7 @@ using Roar;
 
 public class RoarStatsWidget : RoarUIWidget
 {
-	public bool autoCalculateContentBounds = false;
+	public bool autoCalculateContentBounds = true;
 	public string defaultValueFormat = "N0";
 	public Stat[] statsToDisplay;
 	
@@ -50,6 +50,7 @@ public class RoarStatsWidget : RoarUIWidget
 		depth = -1;
 		useScrollView = false;	
 		autoEnableOnLogIn = true;
+		contentBounds = new Rect(0, 0, 256, 76);
 	}
 	
 	protected override void Awake()
@@ -91,15 +92,15 @@ public class RoarStatsWidget : RoarUIWidget
 					stat.UserStat = userStat;
 					
 					if (stat.valueFormat.Length > 0)
-						stat.Value = string.Format("{0:"+stat.valueFormat+"}", userStat.value);
+						stat.Value = string.Format("{0:"+stat.valueFormat+"}", userStat != null ? userStat.value : "null");
 						//stat.Value = string.Format("{0:"+stat.valueFormat+"}", properties.GetValue(stat.key));
 					else
-						stat.Value = userStat.value;
+						stat.Value = userStat != null ? userStat.value : null;
 						//stat.Value = properties.GetValue(stat.key);
 					
 					if (stat.title == null || stat.title.Length == 0)
 					{
-						stat.title = userStat.label;
+						stat.title = userStat != null ? userStat.label : "UNKNOWN";
 						/*
 						object statProperty = properties.GetProperty(stat.key);
 						if (statProperty is Hashtable)

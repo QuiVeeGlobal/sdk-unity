@@ -323,7 +323,6 @@ MonoBehaviour:
   debug: 1
   appstoreSandbox: 1
   gameKey: spark
-  xmlParser: 1
   defaultGUISkin: {fileID: 11400000, guid: f7421dd79547040c5b55e2af570b020c, type: 2}
 --- !u!1 &486520127
 GameObject:
@@ -979,6 +978,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb7fe52fa38a548cdbf2146380700605, type: 3}
   m_Name: 
   target: {fileID: 906782019}
+--- !u!1 &883606679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 883606682}
+  - 102: {fileID: 883606681}
+  - 23: {fileID: 883606680}
+  m_Layer: 0
+  m_Name: ToggleLBSelecter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &883606680
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 883606679}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+--- !u!102 &883606681
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 883606679}
+  m_Text: Tasks
+  m_OffsetZ: 0
+  m_CharacterSize: 1
+  m_LineSpacing: 1
+  m_Anchor: 0
+  m_Alignment: 0
+  m_TabSize: 4
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &883606682
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 883606679}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.40385771, y: -5.59792423, z: .497967243}
+  m_LocalScale: {x: .5, y: .5, z: .5}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &906782019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1057,6 +1120,97 @@ MonoBehaviour:
     height: 64
   leaderboardItemSpacing: 4
   leaderboardEntryStyle: LeaderboardEntryButton
+--- !u!1 &945897332
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 945897333}
+  - 33: {fileID: 945897338}
+  - 65: {fileID: 945897337}
+  - 23: {fileID: 945897336}
+  - 114: {fileID: 945897335}
+  - 114: {fileID: 945897334}
+  m_Layer: 0
+  m_Name: TasksCube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &945897333
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 945897332}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -16.3923111, y: -6.2752037, z: 26.3173485}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1076514028}
+--- !u!114 &945897334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 945897332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c47667b54cd8a14f80b0c023bf75e96, type: 3}
+  m_Name: 
+  target: {fileID: 1654474000}
+--- !u!114 &945897335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 945897332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ce2a78ec9f24d9fb20e280f5bbf2e3, type: 3}
+  m_Name: 
+  upRotateSpeed: 1
+  leftRotateSpeed: .5
+--- !u!23 &945897336
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 945897332}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+--- !u!65 &945897337
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 945897332}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &945897338
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 945897332}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &947854439
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,6 +1373,7 @@ Transform:
   - {fileID: 872105092}
   - {fileID: 1745052716}
   - {fileID: 327688142}
+  - {fileID: 945897333}
   m_Father: {fileID: 0}
 --- !u!102 &1076514029
 TextMesh:
@@ -1474,7 +1629,7 @@ GameObject:
   - 4: {fileID: 1654474001}
   - 114: {fileID: 1654474002}
   m_Layer: 0
-  m_Name: RoarActionsWidget
+  m_Name: RoarTasksWidget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1505,8 +1660,8 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 0
-    height: 0
+    width: 1000
+    height: 500
   contentBounds:
     serializedVersion: 2
     x: 0
@@ -1532,6 +1687,17 @@ MonoBehaviour:
   alwaysShowVerticalScrollBar: 0
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
+  labelFormat: TaskLabel
+  descriptionFormat: TaskDescription
+  locationFormat: TaskLocation
+  detailFormat: TaskDetail
+  showDescription: 1
+  showType: 1
+  allowSorting: 1
+  maxLabelWidth: 250
+  maxDescriptionFormatWidth: 350
+  maxLocationWidth: 100
+  rowHeight: 32
 --- !u!1 &1685386026
 GameObject:
   m_ObjectHideFlags: 0

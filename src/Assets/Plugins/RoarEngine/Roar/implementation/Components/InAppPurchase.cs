@@ -76,13 +76,19 @@ namespace Roar.implementation.Components
 #else
 				appstore.logger.DebugLog (string.Format ("Can't call _StoreKitRequestProductData({0}) from Unity Editor", combinedProductIdentifiers));
 #endif
-				cb_(info);
+				if (cb_ != null)
+				{
+					cb_(info);
+				}
 			}
 			
 			public void OnError( RequestResult info )
 			{
 				appstore.isServerCalling = false;
-				cb_( new CallbackInfo<WebObjects.Appstore.ShopListResponse>( null, info.code, info.msg) );
+				if (cb_ != null)
+				{
+					cb_( new CallbackInfo<WebObjects.Appstore.ShopListResponse>( null, info.code, info.msg) );
+				}
 
 			}
 		}

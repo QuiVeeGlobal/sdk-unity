@@ -21,7 +21,6 @@ public class RoarLoginWidget : RoarUIWidget
 	private static string KEY_PASSWORD = "roar-password";
 	
 	private string status = "Supply a username and password to log in or to register a new account.";
-	private bool isError;
 	private string username = string.Empty;
 	private string password = string.Empty;
 	public int loginBoxSpacing = 10;
@@ -162,7 +161,6 @@ public class RoarLoginWidget : RoarUIWidget
 		switch (info.code)
 		{
 		case IWebAPI.OK: // (success)
-			isError = false;
 			this.enabled = false;
 			// fetch the player's properties after successful login
 			if (fetchPropertiesOnLogin)
@@ -178,7 +176,6 @@ public class RoarLoginWidget : RoarUIWidget
 			break;
 		case 3: // Invalid name or password
 		default:
-			isError = true;
 			status = info.msg;
 			networkActionInProgress = false;
 			break;
@@ -196,7 +193,6 @@ public class RoarLoginWidget : RoarUIWidget
 			break;
 		case 3:
 		default:
-			isError = true;
 			status = info.msg;
 			break;
 		}

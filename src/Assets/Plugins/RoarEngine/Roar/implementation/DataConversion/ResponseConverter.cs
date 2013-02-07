@@ -226,7 +226,6 @@ namespace Roar.DataConversion.Responses
 		{
 			public Roar.WebObjects.Facebook.FriendsResponse Build(System.Xml.XmlElement n)
 			{
-				System.Console.WriteLine( n.DebugAsString() );
 				Roar.WebObjects.Facebook.FriendsResponse retval = new Roar.WebObjects.Facebook.FriendsResponse();
 				retval.facebook_friends = new List<DomainObjects.FacebookFriendInfo>();
 				System.Xml.XmlNodeList friend_nodes = n.SelectNodes("./facebook/friends/friend");
@@ -384,10 +383,10 @@ namespace Roar.DataConversion.Responses
 				{
 					DomainObjects.FriendInvite invite = new DomainObjects.FriendInvite();
 
-					invite.invite_id = n.GetAttribute("invite_id");
-					invite.player_id = n.GetAttribute("from_player_id");
-					invite.player_name = n.GetAttribute("from_player");
-					invite.message = n.GetAttribute("message");
+					invite.invite_id = invite_node.GetAttribute("invite_id");
+					invite.player_id = invite_node.GetAttribute("from_player_id");
+					invite.player_name = invite_node.GetAttribute("from_player");
+					invite.message = invite_node.GetAttribute("message");
 					
 					retval.invites.Add(invite);
 				}

@@ -32,6 +32,18 @@ namespace Testing
 							<rewards>
 								<grant_stat type=""currency"" ikey=""premium_currency"" value=""453""/>
 								<grant_xp value=""234""/>
+								<random_choice>
+									<choice weight=""1"">
+										<modifier>
+											<grant_stat type=""currency"" ikey=""dragon_points"" value=""25""/>
+										</modifier>
+									</choice>
+									<choice weight=""99"">
+										<modifier>
+											<grant_stat_range type=""currency"" ikey=""dragon_points"" min=""3"" max=""6""/>
+										</modifier>
+									</choice>
+								</random_choice>
 							</rewards>
 							<mastery level=""2"" progress=""5""/>
 							<requires>
@@ -65,13 +77,22 @@ namespace Testing
 			Assert.AreEqual(response.tasks[0].location, "Australia");
 			Assert.AreEqual(response.tasks[0].costs.Count, 2);
 			Assert.AreEqual((response.tasks[0].costs[0] as Roar.DomainObjects.Costs.Item).reason, "requires mariner(3)");
-			Assert.AreEqual(response.tasks[0].rewards.Count, 2);
+			Assert.AreEqual(response.tasks[0].rewards.Count, 3);
 			Assert.AreEqual((response.tasks[0].rewards[1] as Roar.DomainObjects.Modifiers.GrantXp).value, 234);
 			Assert.AreEqual(response.tasks[0].requirements.Count, 1);
 			Assert.AreEqual((response.tasks[0].requirements[0] as Roar.DomainObjects.Requirements.Item).reason, "requires talisman(2)");
 			Assert.AreEqual(response.tasks[0].tags.Count, 2);
 			Assert.AreEqual(response.tasks[0].tags[0], "protect");
 			Assert.AreEqual(response.tasks[0].tags[1], "monsters");
+			Assert.AreEqual((response.tasks[0].rewards[2] as Roar.DomainObjects.Modifiers.RandomChoice).choices.Count, 2);
+			Assert.AreEqual((response.tasks[0].rewards[2] as Roar.DomainObjects.Modifiers.RandomChoice).choices[0].weight, 1);
+			Assert.AreEqual((response.tasks[0].rewards[2] as Roar.DomainObjects.Modifiers.RandomChoice).choices[0].modifiers.Count, 1);
+			Assert.AreEqual(((response.tasks[0].rewards[2] as Roar.DomainObjects.Modifiers.RandomChoice).choices[0].modifiers[0] as Roar.DomainObjects.Modifiers.GrantStat).ikey, "dragon_points");
+			Assert.AreEqual(((response.tasks[0].rewards[2] as Roar.DomainObjects.Modifiers.RandomChoice).choices[0].modifiers[0] as Roar.DomainObjects.Modifiers.GrantStat).value, 25);
+			Assert.AreEqual((response.tasks[0].rewards[2] as Roar.DomainObjects.Modifiers.RandomChoice).choices[0].requirements.Count, 0);
+			Assert.AreEqual((response.tasks[0].rewards[2] as Roar.DomainObjects.Modifiers.RandomChoice).choices[1].weight, 99);
+			Assert.AreEqual((response.tasks[0].rewards[2] as Roar.DomainObjects.Modifiers.RandomChoice).choices[1].modifiers.Count, 1);
+			Assert.AreEqual((response.tasks[0].rewards[2] as Roar.DomainObjects.Modifiers.RandomChoice).choices[1].requirements.Count, 0);
 			Assert.AreEqual(response.tasks[0].mastery_level, 2);
 			Assert.AreEqual(response.tasks[0].mastery_progress, 5);
 			
