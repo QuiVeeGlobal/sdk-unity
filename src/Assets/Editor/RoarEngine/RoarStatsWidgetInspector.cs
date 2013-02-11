@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
-[CustomEditor(typeof(RoarStatsWidget))]
+//[CustomEditor(typeof(RoarStatsWidget))]
 public class RoarStatsWidgetInspector : RoarUIWidgetInspector
 {
 	private SerializedProperty autoCalculateContentBounds;

@@ -13,13 +13,19 @@ public class RoarShopWidget : RoarUIWidget
 	public WhenToFetch whenToFetch = WhenToFetch.Occassionally;
 	public float howOftenToFetch = 60;
 	
-	public string shopItemLabelStyle = "ShopItemLabel";
-	public string shopItemDescriptionStyle = "ShopItemDescription";
-	public string shopItemCostStyle = "ShopItemCost";
-	public string shopItemBuyButtonStyle = "ShopItemBuyButton";
-	public Rect shopItemBounds = new Rect(0, 0, 450, 90);
-	public Rect buyButtonBounds= new Rect(200, 25, 100, 40);
-	public float shopItemSpacing = 12;
+	public string shopItemLabelStyle = "DefaultHeavyContentText";
+	public string shopItemDescriptionStyle = "DefaultLightContentText";
+	public string shopItemCostStyle = "DefaultHeavyContentText";
+	public string shopItemBuyButtonStyle = "DefaultButton";
+	//public Rect shopItemBounds = new Rect(0, 0, 450, 90);
+	//public Rect buyButtonBounds= new Rect(200, 25, 100, 40);
+	public float buyButtonWidth =100;
+	public float buyButtonHeight = 40;
+	public float interColumnSeparators =5;
+	public float divideHeight = 20;
+	public float priceColumnWidth = 40;//Buy button always sticks to the right. description takes up the rest.
+	
+	public float topSeparation = 15;
 	
 	private bool isFetching;
 	private bool isBuying = false;
@@ -28,6 +34,9 @@ public class RoarShopWidget : RoarUIWidget
 	private IList<ShopEntry> shopEntries;
 	
 	private IList<string> errorMessages = new List<string>();
+	
+	
+	
 	
 	protected override void OnEnable ()
 	{
@@ -58,26 +67,28 @@ public class RoarShopWidget : RoarUIWidget
 
 	public void Fetch()
 	{
+		networkActionInProgress = true;
 		isFetching = true;
 		shop.Fetch(OnRoarFetchShopComplete);
 	}
 	
 	void CalculateScrollBounds()
 	{
-		ScrollViewContentWidth = shopItemBounds.width;
-		ScrollViewContentHeight = Mathf.Max(contentBounds.height, (shopEntries.Count + errorMessages.Count) * (shopItemBounds.height + shopItemSpacing));
+		//ScrollViewContentWidth = shopItemBounds.width;
+		//ScrollViewContentHeight = Mathf.Max(contentBounds.height, (shopEntries.Count + errorMessages.Count) * (shopItemBounds.height + shopItemSpacing));
 	}
 	
 	void OnRoarFetchShopComplete(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.ShopEntry> > info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
+		networkActionInProgress = false;
 		isFetching = false;
 		shopEntries = shop.List();
 		errorMessages = new List<string>();
 		
 		if( info.code!=IWebAPI.OK)
 		{
-			Debug.Log ( string.Format("Error loading shop:{0}:{1}", info.code, info.msg) );
+			Debug.Log ( string.Format("Error loading shop:{0}:{1}r", info.code, info.msg) );
 			FlashError( info.msg ); //This updates the scroll bounds.
 			return;
 		}
@@ -92,23 +103,46 @@ public class RoarShopWidget : RoarUIWidget
 		{
 			GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Fetching shop data...", "StatusNormal");
 		}
-		else
+		//else
 		{
 			//TODO: Dont use same rect for errors and items
-			Rect itemRect = shopItemBounds;
-
-			foreach( string e in errorMessages )
-			{
-				GUI.Label ( itemRect, e );
-				itemRect.y += itemRect.height + shopItemSpacing;
-			}
+			//Calculate width of everything first.
 			
+			float descriptionWidth = contentBounds.width - 4*interColumnSeparators - buyButtonWidth - priceColumnWidth;
+			
+			GUI.Box(new Rect(0, 0, contentBounds.width, divideHeight), new GUIContent(""), "DefaultSeparationBar");
+			
+			GUI.Label(new Rect(interColumnSeparators, 0, priceColumnWidth, divideHeight), "Item", "DefaultSeparationBarText");
+			
+			GUI.Label(new Rect(interColumnSeparators, 0, priceColumnWidth, divideHeight), "Item", "DefaultSeparationBarText");
+			
+//			
+//			foreach( string e in errorMessages )
+//			{
+//				GUI.Label ( itemRect, e );
+//				itemRect.y += itemRect.height + shopItemSpacing;
+//			}
+			
+			float heightSoFar = divideHeight;
+			if(shopEntries != null)
 			foreach (ShopEntry item in shopEntries)
 			{
-				GUI.Label(itemRect, item.label, shopItemLabelStyle);
-				GUI.Label(itemRect, item.description, shopItemDescriptionStyle);
+				//GUI.Label(itemRect, item.label, shopItemLabelStyle);
+				//GUI.Label(itemRect, item.description, shopItemDescriptionStyle);
 				//GUI.Label(itemRect, string.Format("{0} {1}", item.costs[0].amount.ToString(), RoarTypesCache.UserStatByKey(item.costs[0].key).Title), shopItemCostStyle);
+				Vector2 descSize = GUI.skin.FindStyle(shopItemDescriptionStyle).CalcSize(new GUIContent(item.description));
+				Vector2 labSize = GUI.skin.FindStyle(shopItemLabelStyle).CalcSize(new GUIContent(item.label));
+				float height =  descSize.y+ labSize.y + topSeparation;
 				
+				
+				GUI.Box(new Rect(0, heightSoFar, contentBounds.width, height), new GUIContent(""), "DefaultHorizontalSection");
+				float ySoFar = heightSoFar + topSeparation;
+				
+				GUI.Box(new Rect(interColumnSeparators, ySoFar, labSize.x, labSize.y), item.label, shopItemLabelStyle);
+				ySoFar+= labSize.y;
+				
+				GUI.Box(new Rect(interColumnSeparators, ySoFar, descSize.x, descSize.y), item.description, shopItemDescriptionStyle);
+				 
 				//Only render if theres exactly one cost and its a stat cost.
 				if (item.costs.Count == 1)
 				{
@@ -116,12 +150,12 @@ public class RoarShopWidget : RoarUIWidget
 					if( stat_cost != null )
 					{
 						//TODO: This is not rendering in the right place.
-						GUI.Label (itemRect, string.Format ("Costs {0} {1}", stat_cost.value, stat_cost.ikey), shopItemCostStyle ) ;
+						GUI.Label (new Rect(contentBounds.width - buyButtonWidth - priceColumnWidth - 2*interColumnSeparators, heightSoFar, priceColumnWidth, labSize.y),  stat_cost.value.ToString(), shopItemCostStyle) ;
+						
+						GUI.Label (new Rect(contentBounds.width - buyButtonWidth - priceColumnWidth - 2*interColumnSeparators, heightSoFar + labSize.y, priceColumnWidth, labSize.y),  stat_cost.ikey, shopItemDescriptionStyle) ;
+						
 					}
 				}
-				
-				GUI.BeginGroup(itemRect);
-				
 				//For now only check the costs
 				bool can_buy = true;
 				foreach( Roar.DomainObjects.Cost cost in item.costs)
@@ -141,11 +175,12 @@ public class RoarShopWidget : RoarUIWidget
 						}
 					}
 					if( ! cost.ok ) { can_buy = false; break; }
+					
 				}
 
 				GUI.enabled = can_buy && !isBuying;
 				
-				if (GUI.Button(buyButtonBounds, "Buy", shopItemBuyButtonStyle))
+				if (GUI.Button(new Rect(contentBounds.width - interColumnSeparators - buyButtonWidth, heightSoFar + (labSize.y+descSize.y + topSeparation)/2 - buyButtonHeight/2, buyButtonWidth, buyButtonHeight), "Buy", shopItemBuyButtonStyle))
 				{
 					if (Debug.isDebugBuild)
 					{
@@ -159,9 +194,8 @@ public class RoarShopWidget : RoarUIWidget
 					shop.Buy( item.ikey, OnBuyComplete );
 				}
 				GUI.enabled = true;
-				GUI.EndGroup();
 				
-				itemRect.y += itemRect.height + shopItemSpacing;
+				heightSoFar += labSize.y+descSize.y + topSeparation;
 			}
 		}
 	}

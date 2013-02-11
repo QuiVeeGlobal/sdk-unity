@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
-[CustomEditor(typeof(RoarLoginWidget))]
+//[CustomEditor(typeof(RoarLoginWidget))]
 public class RoarLoginWidgetInspector : RoarUIWidgetInspector
 {
 	private SerializedProperty enableOnAwake;

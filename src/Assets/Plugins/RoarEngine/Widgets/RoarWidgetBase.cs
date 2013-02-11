@@ -43,14 +43,24 @@ public class Apearance
 {
 	public Color color = Color.white;
 	public string boundingStyle = "WidgetBoundingStyle";
+	public string windowBoundingStyle = "WindowedWidgetBoundingStyle";
 	public string boundingTitle = string.Empty;
 	public Texture boundingImage = null;
+	public string headerStyle = "DefaultHeaderStyle";
+	public string footerStyle = "DefaultFooterStyle";
+	public string closeButtonStyle = "DefaultCloseButtonStyle";
+	public string headerTextStyle = "DefaultHeaderTextStyle";
+	public float minimumHeaderHeight = 50;
+	public float closeButtonOffset = 30;
+	public float closeButtonSize = 5;
+	public float windowBorderWidth = 8;
 }
 
 public abstract class RoarWidgetBase : MonoBehaviour
 {
 	public Rect bounds;
 	public Rect contentBounds;
+	Rect originalContentBounds ;
 	
 	public GUISkin skin;
 	
@@ -58,6 +68,11 @@ public abstract class RoarWidgetBase : MonoBehaviour
 
 	public Apearance apearance = new Apearance();
 	public WindowInfo windowInfo = new WindowInfo();
+	
+	public string displayName = "Widget";
+	
+	public bool drawSubheading = false;
+	public string subheaderName = "Widget";
 
 	
 	public AlignmentHorizontal horizontalAlignment = AlignmentHorizontal.None;
@@ -82,6 +97,11 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	// scrolling
 	private Vector2 scrollPosition = Vector2.zero;
 	private Rect scrollViewRect;
+	
+	Rect headerRect;
+	
+	protected bool networkActionInProgress;
+	public MovieTexture spinnerMovieTex;
 	
 	protected virtual void SnapBoundsRectIntoPosition()
 	{
@@ -124,7 +144,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	}
 
 	protected virtual void Awake()
-	{		
+	{
 		boundingGUIContent = new GUIContent(apearance.boundingTitle, apearance.boundingImage);
 		
 		scrollViewRect = new Rect();
@@ -134,16 +154,22 @@ public abstract class RoarWidgetBase : MonoBehaviour
 		if (contentBounds.height == 0)
 			contentBounds.height = bounds.height;
 		
+		
+		
 		scrollViewRect.width = contentBounds.width;
 		scrollViewRect.height = contentBounds.height;
 		
 		SnapBoundsRectIntoPosition();
+		
+		originalContentBounds = new Rect(contentBounds.x, contentBounds.y, contentBounds.width, contentBounds.height);
 		
 	}
 	
 	protected virtual void OnEnable()
 	{
 		scrollPosition = Vector2.zero;
+		
+		
 	}
 	
 	protected virtual void OnDisable()
@@ -156,6 +182,22 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	
 	void OnGUI()
 	{
+		contentBounds.y = apearance.minimumHeaderHeight;
+		
+		if(RequiresWindow)
+		{
+			contentBounds.x = apearance.windowBorderWidth;
+			contentBounds.width = originalContentBounds.width - 2*apearance.windowBorderWidth;
+			contentBounds.height = bounds.height - contentBounds.y - apearance.windowBorderWidth;
+			headerRect = new Rect(apearance.windowBorderWidth, apearance.windowBorderWidth, contentBounds.width, contentBounds.y);
+		}
+		else
+		{
+			contentBounds.height = bounds.height - contentBounds.y- apearance.windowBorderWidth;
+			contentBounds.x = apearance.windowBorderWidth;
+			contentBounds.width = originalContentBounds.width- 2*apearance.windowBorderWidth;
+			headerRect = new Rect(apearance.windowBorderWidth, apearance.windowBorderWidth, contentBounds.width, contentBounds.y);
+		}
 		// rendering attributes
 		//TODO: Move more of these into the apearance?
 		GUI.skin = skin;
@@ -164,23 +206,50 @@ public abstract class RoarWidgetBase : MonoBehaviour
 		
 		if ( RequiresSnap )
 		{
-			SnapBoundsRectIntoPosition();	
+			SnapBoundsRectIntoPosition();
 		}
 		
 		if( RequiresWindow )
 		{
-			bounds = GUI.Window(windowInfo.WindowId, bounds, DrawWindow, boundingGUIContent, apearance.boundingStyle);
+			bounds = GUI.Window(windowInfo.WindowId, bounds, DrawWindow, boundingGUIContent, apearance.windowBoundingStyle);
 		}
 		else
 		{
 			GUI.BeginGroup(bounds);
+			
 			Rect box = bounds;
 			box.x = 0;
 			box.y = 0;
-			GUI.Box(box, boundingGUIContent, apearance.boundingStyle);
+			GUI.Box(box, boundingGUIContent, apearance.windowBoundingStyle);
+			
+			GUI.Box(headerRect, displayName, apearance.headerStyle);
+			
+			if(drawSubheading)
+			{
+				
+				
+			}
+			if(GUI.Button(new Rect(contentBounds.width - apearance.closeButtonOffset, contentBounds.y/2- apearance.closeButtonSize/2, apearance.closeButtonSize, apearance.closeButtonSize),new GUIContent(""), apearance.closeButtonStyle))
+			{
+				enabled = false;
+			}
 			StartContentRegion();
 			DrawGUI(0);
-			EndContentRegion();	
+			EndContentRegion();
+			if(networkActionInProgress)
+			{
+				GUI.enabled = true;
+				GUI.Box(new Rect(0, 0, bounds.width, bounds.height), new GUIContent(""), "DarkOverlay");
+				
+				GUI.Box(new Rect(bounds.width/2 - 50, bounds.height/2 - 50, 100, 100), spinnerMovieTex, "DefaultSpinner");
+				if(!spinnerMovieTex.isPlaying)
+					spinnerMovieTex.Play();
+					spinnerMovieTex.loop= true;
+				
+				//funky loading stuff here.
+				//GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Logging In", "StatusNormal");
+				//ScrollViewContentHeight = contentBounds.height;
+			}
 			GUI.EndGroup();
 		}
 	}
@@ -212,13 +281,37 @@ public abstract class RoarWidgetBase : MonoBehaviour
 
 	protected virtual void DrawWindow(int windowId)
 	{
+		
+		GUI.Box(new Rect(0, 0, bounds.width, bounds.height), boundingGUIContent, apearance.windowBoundingStyle);
+		
+		GUI.Box(headerRect, displayName, apearance.headerStyle);
+		if(GUI.Button(new Rect(contentBounds.width - apearance.closeButtonOffset, contentBounds.y/2- apearance.closeButtonSize/2, apearance.closeButtonSize, apearance.closeButtonSize),new GUIContent(""), apearance.closeButtonStyle))
+		{
+			
+			enabled = false;
+		}
 		StartContentRegion();
 		DrawGUI(windowId);
 		EndContentRegion();
-		if( windowInfo.supportsDragging)
+		if(networkActionInProgress)
 		{
-			GUI.DragWindow();
+			GUI.enabled = true;
+			GUI.Box(new Rect(0, 0, bounds.width, bounds.height), new GUIContent(""), "DarkOverlay");
+			
+			GUI.Box(new Rect(bounds.width/2 - 50, bounds.height/2 - 50, 100, 100), spinnerMovieTex, "DefaultSpinner");
+			if(!spinnerMovieTex.isPlaying)
+				spinnerMovieTex.Play();
+				spinnerMovieTex.loop= true;
+			
+			//funky loading stuff here.
+			//GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Logging In", "StatusNormal");
+			//ScrollViewContentHeight = contentBounds.height;
 		}
+		else
+			if( windowInfo.supportsDragging)
+			{
+				GUI.DragWindow();
+			}
 	}
 	
 	protected abstract void DrawGUI(int windowId);

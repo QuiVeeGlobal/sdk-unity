@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
-[CustomEditor(typeof(RoarShopWidget))]
+//[CustomEditor(typeof(RoarShopWidget))]
 public class RoarShopWidgetInspector : RoarUIWidgetInspector
 {
 	private SerializedProperty whenToFetch;
