@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEditor;
 using System.Collections;
 
-[CustomEditor(typeof(RoarFriendsListWidget))]
+//[CustomEditor(typeof(RoarFriendsListWidget))]
 public class RoarFriendsListWidgetInspector : RoarUIWidgetInspector
 {
 	

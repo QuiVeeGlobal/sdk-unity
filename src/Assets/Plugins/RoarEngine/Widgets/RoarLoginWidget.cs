@@ -88,15 +88,25 @@ public class RoarLoginWidget : RoarUIWidget
 			currentRect.y += loginBoxSpacing;
 			
 			currentRect.width = fieldWidth;
-			currentRect.height = fieldHeight;
+			currentRect.height = labelHeight;
 			
 			GUI.Label(currentRect, "Password", loginLabelStyle);
 			currentRect.y += labelHeight;
 			
 			currentRect.width = fieldWidth;
+			currentRect.height = fieldHeight;
 			
 			
 			password = GUI.PasswordField(currentRect, password, '*', boxStyle);
+			
+			currentRect.y += fieldHeight;
+			currentRect.y += labelHeight;
+			
+			currentRect.x = 0;
+			currentRect.width = contentBounds.width;
+			
+			GUI.Label(currentRect, status, statusStyle);
+			
 			
 			currentRect.y = contentBounds.height - footerSpacing;
 			
@@ -127,7 +137,7 @@ public class RoarLoginWidget : RoarUIWidget
 				roar.User.Login(username, password, OnRoarLoginComplete);
 			}
 				currentRect.x -= buttonWidth + 50;
-			if (GUI.Button(currentRect, "Create Account", buttonStyle) && !networkActionInProgress)
+			if (GUI.Button(currentRect, "Create", buttonStyle) && !networkActionInProgress)
 			{
 	
 				status = "Creating new player account...";

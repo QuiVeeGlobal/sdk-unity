@@ -18,9 +18,9 @@ public class RoarRankingsWidget : RoarUIWidget
 	public string rankingEntryPlayerScoreStyle = "LeaderboardRankingPlayerScore";
 	
 	public string previousButtonLabel = "Previous page";
-	public string previousButtonStyle = "LeaderboardRankingPrev";
+	public string previousButtonStyle = "DefaultPillboxStyle";
 	public string nextButtonLabel = "Next page";
-	public string nextButtonStyle = "LeaderboardRankingNext";
+	public string nextButtonStyle = "DefaultPillboxStyle";
 	
 	public string customDataFormat = "{0}:{1}";
 	public string rankFormat = "{0}";
@@ -28,7 +28,12 @@ public class RoarRankingsWidget : RoarUIWidget
 	public string valueFormat = "{0}";
 	public string valueStyle = "LeaderboardRankingValue";
 	
-	
+	public float valueWidth =100;
+	public float rankColumnWidth = 40;
+	public float interColumnSeparators =5;
+	public float divideHeight = 20;
+	public float sectionHeight = 50;
+	public float topSeparation = 5;
 	
 
 	//public string rankingNavigatePageValueStyle = "LabelPageValue";
@@ -36,6 +41,7 @@ public class RoarRankingsWidget : RoarUIWidget
 	//public string rankingNavigateRightButtonStyle = "ButtonNavigatePageRight";
 	
 	public string leaderboardId = string.Empty;
+	public string leaderboardName = "";
 	public int page = 1;
 	
 	private Roar.Components.ILeaderboards boards;	
@@ -75,8 +81,9 @@ public class RoarRankingsWidget : RoarUIWidget
 		FetchIfRequired();
 	}
 	
-	void OnLeaderboardSelected(string leaderboardId)
+	void OnLeaderboardSelected(string leaderboardId, string name)
 	{
+		this.leaderboardName = name;
 		this.leaderboardId = leaderboardId;
 		this.page = 1;
 		FetchIfRequired();
@@ -84,6 +91,8 @@ public class RoarRankingsWidget : RoarUIWidget
 	
 	void FetchIfRequired()
 	{
+		subheaderName =leaderboardName;
+		
 		if (!string.IsNullOrEmpty(leaderboardId))
 		{
 			leaderboard = boards.GetLeaderboard(leaderboardId,page);
@@ -103,6 +112,7 @@ public class RoarRankingsWidget : RoarUIWidget
 			return;
 		}
 		isFetching = true;
+		networkActionInProgress = true;
 		boards.FetchBoard( leaderboardId, page, OnRoarFetchLeaderboardComplete );
 	}
 	
@@ -111,6 +121,7 @@ public class RoarRankingsWidget : RoarUIWidget
 		//TODO: Handle errors!
 		leaderboard = info.data.GetLeaderboard(leaderboardId, page);
 		isFetching = false;
+		networkActionInProgress = false;
 	}
 	
 	
@@ -124,6 +135,104 @@ public class RoarRankingsWidget : RoarUIWidget
 		}
 		else
 		{
+			
+			//float descriptionWidth = contentBounds.width - 4*interColumnSeparators - buyButtonWidth - priceColumnWidth;
+			
+			GUI.Box(new Rect(0, 0, contentBounds.width, divideHeight), new GUIContent(""), "DefaultSeparationBar");
+			Vector2 rankW = GUI.skin.FindStyle("DefaultSeparationBarText").CalcSize(new GUIContent("Rank"));
+			GUI.Label(new Rect(interColumnSeparators - rankW.x/2, 0, valueWidth, divideHeight), "Rank", "DefaultSeparationBarText");
+			
+			GUI.Label(new Rect(interColumnSeparators*2 +rankW.x, 0, valueWidth, divideHeight), "Name", "DefaultSeparationBarText");
+			
+			
+			
+			//GUI.Label(new Rect(interColumnSeparators, 0, priceColumnWidth, divideHeight), "Item", "DefaultSeparationBarText");
+			
+//			
+//			foreach( string e in errorMessages )
+//			{
+//				GUI.Label ( itemRect, e );
+//				itemRect.y += itemRect.height + shopItemSpacing;
+//			}
+			
+			float heightSoFar = divideHeight;
+			
+				
+				//We do this last so we dont break immediate mode GUI rendering.
+			
+			bool requires_refetch = false;
+			
+			if(leaderboard != null)
+			{
+				GUILayout.BeginArea(new Rect(0, heightSoFar, contentBounds.width, sectionHeight));
+				GUILayout.BeginVertical();
+				GUILayout.FlexibleSpace();
+				
+				GUILayout.BeginHorizontal();
+				GUILayout.FlexibleSpace();
+				
+				if( page==1 ) { GUI.enabled = false; }
+				if( GUILayout.Button(previousButtonLabel, previousButtonStyle) )
+				{
+					page = page - 1;
+					requires_refetch = true;
+				}
+				GUI.enabled = true;
+				
+				GUILayout.FlexibleSpace();
+				if( leaderboard.Count == 0 ) { GUI.enabled = false; }
+				if( GUILayout.Button( nextButtonLabel, nextButtonStyle) )
+				{
+					page = page +1;
+					requires_refetch = true;
+				}
+				GUI.enabled = true;
+				GUILayout.FlexibleSpace();
+				GUILayout.EndHorizontal();
+				GUILayout.FlexibleSpace();
+				GUILayout.EndVertical();
+				GUILayout.EndArea();
+				heightSoFar += sectionHeight;
+			}
+			if(leaderboard != null)
+			foreach (LeaderboardEntry item in leaderboard)
+			{
+				
+				//GUI.Label(itemRect, item.label, shopItemLabelStyle);
+				//GUI.Label(itemRect, item.description, shopItemDescriptionStyle);
+				//GUI.Label(itemRect, string.Format("{0} {1}", item.costs[0].amount.ToString(), RoarTypesCache.UserStatByKey(item.costs[0].key).Title), shopItemCostStyle);
+				Vector2 rank = GUI.skin.FindStyle("DefaultLightContentText").CalcSize(new GUIContent(item.rank.ToString()));
+				Vector2 labSize = GUI.skin.FindStyle("DefaultLightContentText").CalcSize(new GUIContent(item.player_id));
+				//float height =  descSize.y+ labSize.y + topSeparation;
+				
+				Debug.Log(item.properties[0].ikey+ "  "+item.properties[1].ikey + " "+item.properties.Count);
+				
+				
+				string prop_string = string.Join(
+						"\n",
+						item.properties.Select( p => ( string.Format( customDataFormat, p.ikey, p.value ) ) ).ToArray()
+						);
+				
+				GUI.Box(new Rect(0, heightSoFar, contentBounds.width, sectionHeight), new GUIContent(""), "DefaultHorizontalSection");
+				float ySoFar = heightSoFar + topSeparation;
+				
+				GUI.Box(new Rect(interColumnSeparators, ySoFar, rank.x, sectionHeight), item.rank.ToString(), "DefaultHeavyContentText");
+				
+				GUI.Box(new Rect(2*interColumnSeparators + rank.x, ySoFar, labSize.x, sectionHeight), prop_string, "DefaultHeavyContentText");
+				 
+				//Only render if theres exactly one cost and its a stat cost.
+				
+				//Roar.DomainObjects.Costs.Stat stat_cost = item.costs[0] as Roar.DomainObjects.Costs.Stat;
+					//TODO: This is not rendering in the right place.
+				GUI.Label (new Rect(contentBounds.width - valueWidth - interColumnSeparators, heightSoFar, valueWidth, labSize.y),  item.value.ToString(), "DefaultHeavyContentText") ;
+				
+				//GUI.Label (new Rect(contentBounds.width - buyButtonWidth - priceColumnWidth - 2*interColumnSeparators, heightSoFar + labSize.y, priceColumnWidth, labSize.y),  stat_cost.ikey, "DefaultLightContentText") ;
+		
+				
+			heightSoFar += sectionHeight + topSeparation;
+			}
+			
+			/*
 			if (leaderboard == null || (leaderboard.Count == 0 && page == 1) )
 			{
 				GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "No ranking data.", "StatusNormal");
@@ -173,8 +282,11 @@ public class RoarRankingsWidget : RoarUIWidget
 				
 				if(requires_refetch) FetchIfRequired();
 
-			}
+			}*/
+			
+			if(requires_refetch) FetchIfRequired();
 		}
+		
 	}
 	
 	/*

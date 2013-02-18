@@ -47,6 +47,8 @@ public class Apearance
 	public string boundingTitle = string.Empty;
 	public Texture boundingImage = null;
 	public string headerStyle = "DefaultHeaderStyle";
+	public string subheaderStyleLeft = "DefaultSubheaderStyleLeft";
+	public string subheaderStyleRight = "DefaultSubheaderStyleRight";//arrow is 13 px
 	public string footerStyle = "DefaultFooterStyle";
 	public string closeButtonStyle = "DefaultCloseButtonStyle";
 	public string headerTextStyle = "DefaultHeaderTextStyle";
@@ -73,6 +75,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	
 	public bool drawSubheading = false;
 	public string subheaderName = "Widget";
+	public float subheaderDarkWidth = 100;
 
 	
 	public AlignmentHorizontal horizontalAlignment = AlignmentHorizontal.None;
@@ -99,6 +102,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	private Rect scrollViewRect;
 	
 	Rect headerRect;
+	Rect headerRightRect;
 	
 	protected bool networkActionInProgress;
 	public MovieTexture spinnerMovieTex;
@@ -190,6 +194,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 			contentBounds.width = originalContentBounds.width - 2*apearance.windowBorderWidth;
 			contentBounds.height = bounds.height - contentBounds.y - apearance.windowBorderWidth;
 			headerRect = new Rect(apearance.windowBorderWidth, apearance.windowBorderWidth, contentBounds.width, contentBounds.y);
+			
 		}
 		else
 		{
@@ -197,6 +202,13 @@ public abstract class RoarWidgetBase : MonoBehaviour
 			contentBounds.x = apearance.windowBorderWidth;
 			contentBounds.width = originalContentBounds.width- 2*apearance.windowBorderWidth;
 			headerRect = new Rect(apearance.windowBorderWidth, apearance.windowBorderWidth, contentBounds.width, contentBounds.y);
+		}
+		
+		if(drawSubheading)
+		{
+			headerRect = new Rect(apearance.windowBorderWidth,apearance.windowBorderWidth, subheaderDarkWidth,contentBounds.y);
+			headerRightRect = new Rect(apearance.windowBorderWidth + subheaderDarkWidth - 14,apearance.windowBorderWidth, contentBounds.width - apearance.windowBorderWidth - subheaderDarkWidth+17,contentBounds.y);
+			
 		}
 		// rendering attributes
 		//TODO: Move more of these into the apearance?
@@ -222,14 +234,20 @@ public abstract class RoarWidgetBase : MonoBehaviour
 			box.y = 0;
 			GUI.Box(box, boundingGUIContent, apearance.windowBoundingStyle);
 			
-			GUI.Box(headerRect, displayName, apearance.headerStyle);
+			
 			
 			if(drawSubheading)
 			{
 				
+				GUI.Box(headerRect, displayName, apearance.subheaderStyleLeft);
+				GUI.Box(headerRightRect, subheaderName, apearance.subheaderStyleRight);
 				
 			}
-			if(GUI.Button(new Rect(contentBounds.width - apearance.closeButtonOffset, contentBounds.y/2- apearance.closeButtonSize/2, apearance.closeButtonSize, apearance.closeButtonSize),new GUIContent(""), apearance.closeButtonStyle))
+			else
+			{
+				GUI.Box(headerRect, displayName, apearance.headerStyle);
+			}
+			if(GUI.Button(new Rect(contentBounds.width - apearance.closeButtonOffset, (contentBounds.y+apearance.windowBorderWidth)/2- apearance.closeButtonSize/2, apearance.closeButtonSize, apearance.closeButtonSize),new GUIContent(""), apearance.closeButtonStyle))
 			{
 				enabled = false;
 			}
@@ -284,7 +302,18 @@ public abstract class RoarWidgetBase : MonoBehaviour
 		
 		GUI.Box(new Rect(0, 0, bounds.width, bounds.height), boundingGUIContent, apearance.windowBoundingStyle);
 		
-		GUI.Box(headerRect, displayName, apearance.headerStyle);
+		if(drawSubheading)
+		{
+			
+			//GUI.Box(headerRect, displayName, apearance.subheaderStyleLeft);
+			GUI.Box(headerRect, displayName, apearance.subheaderStyleLeft);
+			GUI.Box(headerRightRect, displayName, apearance.subheaderStyleRight);
+		}
+		else
+		{
+			GUI.Box(headerRect, displayName, apearance.headerStyle);
+		}
+		
 		if(GUI.Button(new Rect(contentBounds.width - apearance.closeButtonOffset, contentBounds.y/2- apearance.closeButtonSize/2, apearance.closeButtonSize, apearance.closeButtonSize),new GUIContent(""), apearance.closeButtonStyle))
 		{
 			

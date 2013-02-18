@@ -10,7 +10,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 	public static event RoarLeaderboardsWidgetHandler OnLeaderboardsFetchedStarted;
 	public static event RoarLeaderboardsWidgetHandler OnLeaderboardsFetchedComplete;
 	
-	public delegate void RoarLeaderboardsWidgetSelectedHandler(string leaderboardKey);
+	public delegate void RoarLeaderboardsWidgetSelectedHandler(string leaderboardKey, string leaderboardName);
 	public static event RoarLeaderboardsWidgetSelectedHandler OnLeaderboardSelected;
 	
 	public enum WhenToFetch { OnEnable, Once, Occassionally, Manual };
@@ -19,7 +19,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 
 	public Rect leaderboardItemBounds = new Rect(0, 0, 450, 30);
 	public float leaderboardItemSpacing = 1;
-	public string leaderboardEntryStyle = "LeaderboardEntryButton";
+	public string leaderboardEntryStyle = "DefaultButtonStyle";
 	
 	private bool isFetching;
 	private float whenLastFetched;
@@ -51,6 +51,8 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 	
 	public void FetchBoardList()
 	{
+		networkActionInProgress = true;
+		
 		isFetching = true;
 		if (OnLeaderboardsFetchedStarted != null)
 			OnLeaderboardsFetchedStarted();
@@ -59,6 +61,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 	
 	void OnRoarFetchLeaderboardsComplete(Roar.CallbackInfo<Roar.Components.ILeaderboards> cache)
 	{
+		networkActionInProgress = false;
 		whenLastFetched = Time.realtimeSinceStartup;
 		isFetching = false;
 		leaderboards = boards.BoardList();
@@ -100,7 +103,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 					if (GUI.Button(entry, leaderboard.label, leaderboardEntryStyle))
 					{
 						if (OnLeaderboardSelected != null)
-							OnLeaderboardSelected(leaderboard.board_id);
+							OnLeaderboardSelected(leaderboard.board_id, leaderboard.ikey);
 					}
 					entry.y += entry.height + leaderboardItemSpacing;
 				}
