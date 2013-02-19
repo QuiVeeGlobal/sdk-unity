@@ -903,7 +903,46 @@ namespace Roar
 			public static Task CreateFromXml (System.Xml.XmlElement n, Roar.DataConversion.IXCRMParser ixcrm_parser)
 			{
 				DomainObjects.Task retval = new DomainObjects.Task();
+				
 				retval.ikey = n.GetAttribute("ikey");
+				retval.label = n.SelectSingleNode("./label").GetInnerTextOrDefault(null);
+
+				retval.description = n.SelectSingleNode("./description").GetInnerTextOrDefault(null);
+				retval.location = n.SelectSingleNode("./location").GetInnerTextOrDefault(null);
+
+				string masteryLevelString = n.SelectSingleNode("./mastery/@level").GetValueOrDefault(null);
+
+				if (masteryLevelString == null || masteryLevelString == "")
+				{
+					retval.mastery_level = 0;
+				}
+				else if( !System.Int32.TryParse(masteryLevelString , out retval.mastery_level) )
+				{
+					throw new InvalidXMLElementException("Unable to parse mastery level to integer");
+				}
+
+				string masteryProgressString = n.SelectSingleNode("./mastery/@progress").GetValueOrDefault(null);
+				if (masteryProgressString == null || masteryProgressString == "" )
+				{
+					retval.mastery_progress = 0;
+				}
+				else if ( !System.Int32.TryParse( masteryProgressString, out retval.mastery_progress) )
+				{
+					throw new InvalidXMLElementException("Untable to parse mastery progress to integer");
+				}
+
+				retval.costs = ixcrm_parser.ParseCostList(n.SelectSingleNode("./costs") as System.Xml.XmlElement);
+				retval.rewards = ixcrm_parser.ParseModifierList(n.SelectSingleNode("./rewards") as System.Xml.XmlElement);
+				retval.requirements = ixcrm_parser.ParseRequirementList(n.SelectSingleNode("./requires") as System.Xml.XmlElement);
+				retval.tags = ixcrm_parser.ParseTagList(n.SelectSingleNode("./tags") as System.Xml.XmlElement);
+				return retval;
+			}
+			
+			public static Task CreateFromXmlCompleteTask (System.Xml.XmlElement n, Roar.DataConversion.IXCRMParser ixcrm_parser)
+			{
+				DomainObjects.Task retval = new DomainObjects.Task();
+				
+				retval.ikey = n.SelectSingleNode("./ikey").GetInnerTextOrDefault(null);
 				retval.label = n.SelectSingleNode("./label").GetInnerTextOrDefault(null);
 
 				retval.description = n.SelectSingleNode("./description").GetInnerTextOrDefault(null);

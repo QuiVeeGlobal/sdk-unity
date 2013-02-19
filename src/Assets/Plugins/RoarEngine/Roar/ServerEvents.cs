@@ -104,7 +104,7 @@ namespace Roar
 			public static TaskCompleteEvent CreateFromXml( System.Xml.XmlElement n)
 			{
 				Events.TaskCompleteEvent e = new Events.TaskCompleteEvent();
-				e.task = DomainObjects.Task.CreateFromXml(n, new XCRMParser());
+				e.task = DomainObjects.Task.CreateFromXmlCompleteTask(n, new XCRMParser());
 
 				return e;
 				
