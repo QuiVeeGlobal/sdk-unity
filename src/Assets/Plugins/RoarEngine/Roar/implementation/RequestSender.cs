@@ -115,19 +115,68 @@ public class RequestSender : IRequestSender
 				cb.OnRequest(
 					new Roar.RequestResult(
 						RoarExtensions.CreateXmlElement("error",raw),
-						IWebAPI.FATAL_ERROR,
+						IWebAPI.INVALID_XML_ERROR,
 						"Invalid server response"
 					) );
 			}
 			return;
 		}
 	
-		System.Xml.XmlElement root = RoarExtensions.CreateXmlElement(raw);
+		System.Xml.XmlElement root = null;
+		try
+		{
+			root = RoarExtensions.CreateXmlElement(raw);
+			if (root == null)
+			{
+				throw new System.Xml.XmlException("CreateXmlElement returned null");
+			}
+		}
+		catch (System.Xml.XmlException e)
+		{
+			if (cb != null)
+			{
+				cb.OnRequest(
+					new Roar.RequestResult(
+						RoarExtensions.CreateXmlElement("error", raw),
+						IWebAPI.INVALID_XML_ERROR,
+						e.ToString()
+				) );
+			}
+			return;
+		}
+		
+		System.Xml.XmlElement io = root.SelectSingleNode("/roar/io") as System.Xml.XmlElement;
+		if (io != null) {
+			if (cb != null)
+			{
+				cb.OnRequest(
+					new Roar.RequestResult(
+						root,
+						IWebAPI.IO_ERROR,
+						io.InnerText
+				) );
+			}
+			return;
+		}
 		
 		int callback_code;
 		string callback_msg="";
 		
 		System.Xml.XmlElement actionElement = root.SelectSingleNode( "/roar/"+controller+"/"+action ) as System.Xml.XmlElement;
+		
+		if (actionElement == null)
+		{
+			if (cb != null)
+			{
+				cb.OnRequest(
+					new Roar.RequestResult(
+						RoarExtensions.CreateXmlElement("error", raw),
+						IWebAPI.INVALID_XML_ERROR,
+						"Incorrect XML response"
+				) );
+			}
+			return;
+		}
 		
 		// Pre-process <server> block if any and attach any processed data
 		System.Xml.XmlElement serverElement = root.SelectSingleNode( "/roar/server" ) as System.Xml.XmlElement;
