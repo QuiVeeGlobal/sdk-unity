@@ -271,15 +271,34 @@ namespace Roar.DataConversion
 			switch( n.Name )
 			{
 			case "stat_cost":
-				DomainObjects.Costs.Stat stat = new DomainObjects.Costs.Stat();
-				stat.ikey = n.GetAttribute("ikey");
-				stat.type = n.GetAttribute("type");
-				if(! System.Int32.TryParse(n.GetAttribute("value"), out stat.value))
 				{
-					throw new InvalidXMLElementException("Unable to parse value to integer.");
+					DomainObjects.Costs.Stat stat = new DomainObjects.Costs.Stat();
+					stat.ikey = n.GetAttribute("ikey");
+					stat.type = n.GetAttribute("type");
+					if(! System.Int32.TryParse(n.GetAttribute("value"), out stat.value))
+					{
+						throw new InvalidXMLElementException("Unable to parse value to integer.");
+					}
+					retval = stat;
 				}
-				retval = stat;
 				break;
+				
+			case "stat_change":
+				{
+					DomainObjects.Costs.Stat stat = new DomainObjects.Costs.Stat();
+					stat.ikey = n.GetAttribute("ikey");
+					stat.type = n.GetAttribute("type");
+					if(! System.Int32.TryParse(n.GetAttribute("value"), out stat.value))
+					{
+						throw new InvalidXMLElementException("Unable to parse value to integer.");
+					}
+					if(stat.value <0)
+						stat.value = stat.value *-1;
+					
+					retval = stat;
+				}
+				break;
+				
 			case "item_cost":
 				DomainObjects.Costs.Item item = new DomainObjects.Costs.Item();
 				item.ikey = n.GetAttribute("ikey");
