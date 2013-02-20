@@ -1,5 +1,12 @@
 # RoarEngine UnitySDK Changelog
 
+## Changes in v0.10.1
+
+### Bug Fixes
+
+* Tasks API now returns the ikey correctly **[UNITYSDK-217]**
+
+
 ## Changes in v0.10.0
 
 ### New Features
