@@ -45,13 +45,15 @@ public abstract class IWebAPI
 	public abstract IUrbanairshipActions urbanairship { get; }
 
 
-	public const int UNKNOWN_ERR  = 0;    // Default unspecified error (parse manually)
-	public const int UNAUTHORIZED = 1;    // Auth token is no longer valid. Relogin.
-	public const int BAD_INPUTS   = 2;    // Incorrect parameters passed to Roar
-	public const int DISALLOWED   = 3;    // Action was not allowed (but otherwise successful)
-	public const int FATAL_ERROR  = 4;    // Server died somehow (sad/bad/etc)
-	public const int AWESOME      = 11;   // Turn it up.
-	public const int OK           = 200;  // Everything ok - proceed
+	public const int UNKNOWN_ERR       = 0;    // Default unspecified error (parse manually)
+	public const int UNAUTHORIZED      = 1;    // Auth token is no longer valid. Relogin.
+	public const int BAD_INPUTS        = 2;    // Incorrect parameters passed to Roar
+	public const int DISALLOWED        = 3;    // Action was not allowed (but otherwise successful)
+	public const int FATAL_ERROR       = 4;    // Server died somehow (sad/bad/etc)
+	public const int IO_ERROR          = 5;    // Server busy, perhaps try later
+	public const int INVALID_XML_ERROR = 6;    // Incorrect XML response
+	public const int AWESOME           = 11;   // Turn it up.
+	public const int OK                = 200;  // Everything ok - proceed
 
 
 	public interface IAdminActions
