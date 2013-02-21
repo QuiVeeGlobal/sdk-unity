@@ -140,9 +140,9 @@ public class RoarRankingsWidget : RoarUIWidget
 			
 			GUI.Box(new Rect(0, 0, contentBounds.width, divideHeight), new GUIContent(""), "DefaultSeparationBar");
 			Vector2 rankW = GUI.skin.FindStyle("DefaultSeparationBarText").CalcSize(new GUIContent("Rank"));
-			GUI.Label(new Rect(interColumnSeparators - rankW.x/2, 0, valueWidth, divideHeight), "Rank", "DefaultSeparationBarText");
+			GUI.Label(new Rect(interColumnSeparators - rankW.x/2, 0, valueWidth, divideHeight), "RANK", "DefaultSeparationBarText");
 			
-			GUI.Label(new Rect(interColumnSeparators*2 +rankW.x, 0, valueWidth, divideHeight), "Name", "DefaultSeparationBarText");
+			GUI.Label(new Rect(interColumnSeparators*2 +rankW.x, 0, valueWidth, divideHeight), "NAME", "DefaultSeparationBarText");
 			
 			
 			

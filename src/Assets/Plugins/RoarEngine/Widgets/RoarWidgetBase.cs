@@ -49,20 +49,19 @@ public class Apearance
 	public string headerStyle = "DefaultHeaderStyle";
 	public string subheaderStyleLeft = "DefaultSubheaderStyleLeft";
 	public string subheaderStyleRight = "DefaultSubheaderStyleRight";//arrow is 13 px
-	public string footerStyle = "DefaultFooterStyle";
 	public string closeButtonStyle = "DefaultCloseButtonStyle";
-	public string headerTextStyle = "DefaultHeaderTextStyle";
-	public float minimumHeaderHeight = 50;
+	public float headerHeight = 50;
 	public float closeButtonOffset = 30;
 	public float closeButtonSize = 5;
-	public float windowBorderWidth = 8;
+	public int windowBorderWidth = 8;
+	
 }
 
 public abstract class RoarWidgetBase : MonoBehaviour
 {
 	public Rect bounds;
 	public Rect contentBounds;
-	Rect originalContentBounds ;
+	Rect originalContentBounds;
 	
 	public GUISkin skin;
 	
@@ -86,6 +85,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	public bool useScrollView = false;
 	public bool alwaysShowHorizontalScrollBar = false;
 	public bool alwaysShowVerticalScrollBar = false;
+	public string scrollBarStyle = "DefaultScrollbarStyle";
 	
 	
 	// Whether the window should be fixed in place each render frame.
@@ -186,7 +186,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	
 	void OnGUI()
 	{
-		contentBounds.y = apearance.minimumHeaderHeight;
+		contentBounds.y = apearance.headerHeight + apearance.windowBorderWidth;
 		
 		if(RequiresWindow)
 		{
@@ -206,8 +206,8 @@ public abstract class RoarWidgetBase : MonoBehaviour
 		
 		if(drawSubheading)
 		{
-			headerRect = new Rect(apearance.windowBorderWidth,apearance.windowBorderWidth, subheaderDarkWidth,contentBounds.y);
-			headerRightRect = new Rect(apearance.windowBorderWidth + subheaderDarkWidth - 14,apearance.windowBorderWidth, contentBounds.width - apearance.windowBorderWidth - subheaderDarkWidth+17,contentBounds.y);
+			headerRect = new Rect(apearance.windowBorderWidth,apearance.windowBorderWidth, subheaderDarkWidth,contentBounds.y-apearance.windowBorderWidth);
+			headerRightRect = new Rect(apearance.windowBorderWidth + subheaderDarkWidth - 14,apearance.windowBorderWidth, contentBounds.width - apearance.windowBorderWidth - subheaderDarkWidth+17,contentBounds.y-apearance.windowBorderWidth);
 			
 		}
 		// rendering attributes
@@ -264,9 +264,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 					spinnerMovieTex.Play();
 					spinnerMovieTex.loop= true;
 				
-				//funky loading stuff here.
-				//GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Logging In", "StatusNormal");
-				//ScrollViewContentHeight = contentBounds.height;
+				
 			}
 			GUI.EndGroup();
 		}
@@ -305,7 +303,6 @@ public abstract class RoarWidgetBase : MonoBehaviour
 		if(drawSubheading)
 		{
 			
-			//GUI.Box(headerRect, displayName, apearance.subheaderStyleLeft);
 			GUI.Box(headerRect, displayName, apearance.subheaderStyleLeft);
 			GUI.Box(headerRightRect, displayName, apearance.subheaderStyleRight);
 		}
@@ -332,9 +329,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 				spinnerMovieTex.Play();
 				spinnerMovieTex.loop= true;
 			
-			//funky loading stuff here.
-			//GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Logging In", "StatusNormal");
-			//ScrollViewContentHeight = contentBounds.height;
+			
 		}
 		else
 			if( windowInfo.supportsDragging)

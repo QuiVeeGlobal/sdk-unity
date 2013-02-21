@@ -242,8 +242,6 @@ public class RoarTasksWidget : RoarUIWidget
 			IList<Roar.DomainObjects.Task> items = tasks.List();
 			
 			Rect rect = new Rect(0,0,ContentWidth, divideHeight);
-			//GUI.Label ( rect, string.Format("Contains {0} items", items.Count) );
-			//
 			
 			GUI.Box(new Rect(0, 0, contentBounds.width, divideHeight), new GUIContent(""), "DefaultSeparationBar");
 			
@@ -256,7 +254,7 @@ public class RoarTasksWidget : RoarUIWidget
 				rect.width = lastLabelSize.x;
 			else
 				rect.width = maxLabelWidth;
-			GUI.Label ( rect, "Label", "DefaultSeparationBarText");
+			GUI.Label ( rect, "LABEL", "DefaultSeparationBarText");
 			
 			rect.x += rect.width + 5;
 			
@@ -266,16 +264,9 @@ public class RoarTasksWidget : RoarUIWidget
 			else
 				rect.width = maxDescriptionFormatWidth;
 			
-			GUI.Label ( rect, "Description", "DefaultSeparationBarText");
+			GUI.Label ( rect, "DESCRIPTION", "DefaultSeparationBarText");
 			rect.x += rect.width+ 5;
 			
-			lastLabelSize =GUI.skin.FindStyle(locationFormat).CalcSize(new GUIContent("Location"));
-			if(maxLocationWidth == 0)
-				rect.width = lastLabelSize.x;
-			else
-				rect.width = maxLocationWidth;
-				
-			GUI.Label ( rect, "Location", "DefaultSeparationBarText");
 			
 			rect.height = rowHeight;
 			rect.y += divideHeight;
@@ -447,9 +438,21 @@ public class RoarTasksWidget : RoarUIWidget
 			GUI.Label (rect, requirementsString, descriptionFormat);
 			rect.x = 0;
 			rect.y += lastLabelSize.y;
-		
+			
+			rect.width = buttonWidth;
+			
 			if(GUI.Button(rect, "Back"))
 			{
+				selectedTask = null;
+				hasSelectedTask = false;
+			}
+			
+			rect.x += rect.width+rect.width/2;
+			
+			if(GUI.Button(rect, "Execute"))
+			{
+				tasks.Execute(selectedTask.ikey, null);
+				
 				selectedTask = null;
 				hasSelectedTask = false;
 				

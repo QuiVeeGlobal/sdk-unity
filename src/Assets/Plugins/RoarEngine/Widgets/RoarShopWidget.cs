@@ -103,33 +103,19 @@ public class RoarShopWidget : RoarUIWidget
 		{
 			GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Fetching shop data...", "StatusNormal");
 		}
-		//else
 		{
-			//TODO: Dont use same rect for errors and items
-			//Calculate width of everything first.
 			
 			float descriptionWidth = contentBounds.width - 4*interColumnSeparators - buyButtonWidth - priceColumnWidth;
 			
 			GUI.Box(new Rect(0, 0, contentBounds.width, divideHeight), new GUIContent(""), "DefaultSeparationBar");
 			
-			GUI.Label(new Rect(interColumnSeparators, 0, priceColumnWidth, divideHeight), "Item", "DefaultSeparationBarText");
+			GUI.Label(new Rect(interColumnSeparators, 0, priceColumnWidth, divideHeight), "ITEM", "DefaultSeparationBarText");
 			
-			GUI.Label(new Rect(interColumnSeparators, 0, priceColumnWidth, divideHeight), "Item", "DefaultSeparationBarText");
-			
-//			
-//			foreach( string e in errorMessages )
-//			{
-//				GUI.Label ( itemRect, e );
-//				itemRect.y += itemRect.height + shopItemSpacing;
-//			}
 			
 			float heightSoFar = divideHeight;
 			if(shopEntries != null)
 			foreach (ShopEntry item in shopEntries)
 			{
-				//GUI.Label(itemRect, item.label, shopItemLabelStyle);
-				//GUI.Label(itemRect, item.description, shopItemDescriptionStyle);
-				//GUI.Label(itemRect, string.Format("{0} {1}", item.costs[0].amount.ToString(), RoarTypesCache.UserStatByKey(item.costs[0].key).Title), shopItemCostStyle);
 				Vector2 descSize = GUI.skin.FindStyle(shopItemDescriptionStyle).CalcSize(new GUIContent(item.description));
 				Vector2 labSize = GUI.skin.FindStyle(shopItemLabelStyle).CalcSize(new GUIContent(item.label));
 				float height =  descSize.y+ labSize.y + topSeparation;
@@ -143,7 +129,6 @@ public class RoarShopWidget : RoarUIWidget
 				
 				GUI.Box(new Rect(interColumnSeparators, ySoFar, descSize.x, descSize.y), item.description, shopItemDescriptionStyle);
 				 
-				//Only render if theres exactly one cost and its a stat cost.
 				if (item.costs.Count == 1)
 				{
 					Roar.DomainObjects.Costs.Stat stat_cost = item.costs[0] as Roar.DomainObjects.Costs.Stat;

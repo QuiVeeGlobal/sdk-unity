@@ -193,10 +193,10 @@ MonoBehaviour:
     minimumHeaderHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
-    windowBorderWidth: 8
+    windowBorderWidth: 7
   windowInfo:
-    isWindowed: 0
-    supportsDragging: 0
+    isWindowed: 1
+    supportsDragging: 1
   displayName: Widget
   drawSubheading: 0
   subheaderName: 
@@ -208,6 +208,7 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -698,6 +699,7 @@ MonoBehaviour:
   useScrollView: 1
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 0}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -835,7 +837,7 @@ MonoBehaviour:
     minimumHeaderHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
-    windowBorderWidth: 8
+    windowBorderWidth: 7
   windowInfo:
     isWindowed: 0
     supportsDragging: 0
@@ -850,6 +852,7 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -1174,7 +1177,7 @@ MonoBehaviour:
     minimumHeaderHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
-    windowBorderWidth: 8
+    windowBorderWidth: 7
   windowInfo:
     isWindowed: 1
     supportsDragging: 0
@@ -1189,6 +1192,7 @@ MonoBehaviour:
   useScrollView: 1
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -1690,7 +1694,7 @@ MonoBehaviour:
     minimumHeaderHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
-    windowBorderWidth: 8
+    windowBorderWidth: 7
   windowInfo:
     isWindowed: 0
     supportsDragging: 0
@@ -1705,6 +1709,7 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -1789,7 +1794,7 @@ MonoBehaviour:
     minimumHeaderHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
-    windowBorderWidth: 8
+    windowBorderWidth: 7
   windowInfo:
     isWindowed: 0
     supportsDragging: 0
@@ -1804,6 +1809,7 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -1817,7 +1823,7 @@ MonoBehaviour:
   maxLabelWidth: 250
   maxDescriptionFormatWidth: 350
   maxLocationWidth: 100
-  rowHeight: 32
+  rowHeight: 45
   buttonWidth: 130
   buttonHeight: 30
   divideHeight: 30
@@ -2047,7 +2053,7 @@ MonoBehaviour:
     minimumHeaderHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
-    windowBorderWidth: 8
+    windowBorderWidth: 7
   windowInfo:
     isWindowed: 0
     supportsDragging: 0
@@ -2062,6 +2068,7 @@ MonoBehaviour:
   useScrollView: 1
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -2241,7 +2248,7 @@ MonoBehaviour:
     width: 256
     height: 100
   skin: {fileID: 0}
-  depth: -1
+  depth: 2
   apearance:
     color: {r: 1, g: 1, b: 1, a: 1}
     boundingStyle: WidgetBoundingStyle
@@ -2272,6 +2279,7 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 0}
   autoEnableOnLogIn: 1
   autoDisableOnLogout: 1
@@ -2359,7 +2367,7 @@ MonoBehaviour:
     minimumHeaderHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
-    windowBorderWidth: 8
+    windowBorderWidth: 7
   windowInfo:
     isWindowed: 1
     supportsDragging: 1
@@ -2374,6 +2382,7 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
