@@ -9,8 +9,8 @@ public class RoarShopWidget : RoarUIWidget
 	public delegate void RoarShopWidgetBuyHandler(Roar.DomainObjects.ShopEntry shop_entry);
 	public static event RoarShopWidgetBuyHandler OnItemBuyRequest;
 	
-	public enum WhenToFetch { OnEnable, Once, Occassionally, Manual };
-	public WhenToFetch whenToFetch = WhenToFetch.Occassionally;
+	public enum WhenToFetch { OnEnable, Once, Occasionally, Manual };
+	public WhenToFetch whenToFetch = WhenToFetch.Occasionally;
 	public float howOftenToFetch = 60;
 	
 	public string shopItemLabelStyle = "ShopItemLabel";
@@ -39,7 +39,7 @@ public class RoarShopWidget : RoarUIWidget
 			{
 				if (whenToFetch == WhenToFetch.OnEnable 
 				|| (whenToFetch == WhenToFetch.Once && !shop.HasDataFromServer)
-				|| (whenToFetch == WhenToFetch.Occassionally && (whenLastFetched == 0 || Time.realtimeSinceStartup - whenLastFetched >= howOftenToFetch))
+				|| (whenToFetch == WhenToFetch.Occasionally && (whenLastFetched == 0 || Time.realtimeSinceStartup - whenLastFetched >= howOftenToFetch))
 				)
 				{
 					Fetch();

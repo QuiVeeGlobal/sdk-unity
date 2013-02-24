@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class RoarInventoryWidget : RoarUIWidget
 {
-	public enum WhenToFetch { OnEnable, Once, Occassionally, Manual };
-	public WhenToFetch whenToFetch = WhenToFetch.Occassionally;
+	public enum WhenToFetch { OnEnable, Once, Occasionally, Manual };
+	public WhenToFetch whenToFetch = WhenToFetch.Occasionally;
 	public float howOftenToFetch = 60;
 	
 	protected Roar.Components.IInventory inventory;

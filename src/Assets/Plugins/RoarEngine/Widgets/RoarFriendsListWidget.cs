@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 public class RoarFriendsListWidget : RoarUIWidget
 {
-	public enum WhenToFetch { OnEnable, Once, Occassionally, Manual };
-	public WhenToFetch whenToFetch = WhenToFetch.Occassionally;
+	public enum WhenToFetch { OnEnable, Once, Occasionally, Manual };
+	public WhenToFetch whenToFetch = WhenToFetch.Occasionally;
 	public float howOftenToFetch = 60;
 	
 	private bool isFetching;
@@ -32,7 +32,7 @@ public class RoarFriendsListWidget : RoarUIWidget
 		{
 			if (whenToFetch == WhenToFetch.OnEnable 
 			|| (whenToFetch == WhenToFetch.Once && !friends.HasDataFromServer)
-			|| (whenToFetch == WhenToFetch.Occassionally && (whenLastFetched == 0 || Time.realtimeSinceStartup - whenLastFetched >= howOftenToFetch))
+			|| (whenToFetch == WhenToFetch.Occasionally && (whenLastFetched == 0 || Time.realtimeSinceStartup - whenLastFetched >= howOftenToFetch))
 			)
 			{
 				Fetch();

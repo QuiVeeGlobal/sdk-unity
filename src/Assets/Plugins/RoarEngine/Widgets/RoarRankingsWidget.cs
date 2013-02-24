@@ -7,7 +7,7 @@ using Roar.DomainObjects;
 
 public class RoarRankingsWidget : RoarUIWidget
 {
-	public enum WhenToFetch { OnEnable, Once, Occassionally, Manual };
+	public enum WhenToFetch { OnEnable, Once, Occasionally, Manual };
 	public WhenToFetch whenToFetch = WhenToFetch.OnEnable;
 	public float howOftenToFetch = 60;
 	
