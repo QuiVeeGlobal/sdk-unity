@@ -187,10 +187,8 @@ MonoBehaviour:
     headerStyle: DefaultHeaderStyle
     subheaderStyleLeft: DefaultSubheaderStyleLeft
     subheaderStyleRight: DefaultSubheaderStyleRight
-    footerStyle: DefaultFooterStyle
     closeButtonStyle: DefaultCloseButtonStyle
-    headerTextStyle: 
-    minimumHeaderHeight: 50
+    headerHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
     windowBorderWidth: 7
@@ -300,6 +298,101 @@ Light:
   m_ShadowAngle: 0
   m_IndirectIntensity: 1
   m_AreaSize: {x: 1, y: 1}
+--- !u!1 &383661791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100012, guid: 2f9a8a792f233654c9f5ef8d46581195, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 383661797}
+  - 33: {fileID: 383661796}
+  - 65: {fileID: 383661795}
+  - 23: {fileID: 383661794}
+  - 114: {fileID: 383661793}
+  - 114: {fileID: 383661798}
+  m_Layer: 0
+  m_Name: FacebookShopCube
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &383661793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11400018, guid: 2f9a8a792f233654c9f5ef8d46581195,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 383661791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66ce2a78ec9f24d9fb20e280f5bbf2e3, type: 3}
+  m_Name: 
+  upRotateSpeed: 1
+  leftRotateSpeed: .5
+--- !u!23 &383661794
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 2300010, guid: 2f9a8a792f233654c9f5ef8d46581195,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 383661791}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+--- !u!65 &383661795
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 6500010, guid: 2f9a8a792f233654c9f5ef8d46581195,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 383661791}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &383661796
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 3300010, guid: 2f9a8a792f233654c9f5ef8d46581195,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 383661791}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &383661797
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400012, guid: 2f9a8a792f233654c9f5ef8d46581195, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 383661791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.13889909, y: -7.49399805, z: -.965699971}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &383661798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 383661791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0305ba12e7313bc4095220a0631ba3c7, type: 3}
+  m_Name: 
+  target: {fileID: 1340799529}
 --- !u!1 &453953421
 GameObject:
   m_ObjectHideFlags: 0
@@ -341,7 +434,7 @@ MonoBehaviour:
   m_Name: 
   debug: 1
   appstoreSandbox: 1
-  gameKey: spark
+  gameKey: shooty
   defaultGUISkin: {fileID: 11400000, guid: e9a7b12d3982d1b4b9c3f31ff7587cc9, type: 2}
 --- !u!1 &486520127
 GameObject:
@@ -678,10 +771,8 @@ MonoBehaviour:
     headerStyle: 
     subheaderStyleLeft: DefaultSubheaderStyleLeft
     subheaderStyleRight: DefaultSubheaderStyleRight
-    footerStyle: 
     closeButtonStyle: 
-    headerTextStyle: 
-    minimumHeaderHeight: 50
+    headerHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 5
     windowBorderWidth: 8
@@ -831,10 +922,8 @@ MonoBehaviour:
     headerStyle: DefaultHeaderStyle
     subheaderStyleLeft: DefaultSubheaderStyleLeft
     subheaderStyleRight: DefaultSubheaderStyleRight
-    footerStyle: DefaultFooterStyle
     closeButtonStyle: DefaultCloseButtonStyle
-    headerTextStyle: 
-    minimumHeaderHeight: 50
+    headerHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
     windowBorderWidth: 7
@@ -1171,10 +1260,8 @@ MonoBehaviour:
     headerStyle: DefaultHeaderStyle
     subheaderStyleLeft: DefaultSubheaderStyleLeft
     subheaderStyleRight: DefaultSubheaderStyleRight
-    footerStyle: DefaultFooterStyle
     closeButtonStyle: DefaultCloseButtonStyle
-    headerTextStyle: 
-    minimumHeaderHeight: 50
+    headerHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
     windowBorderWidth: 7
@@ -1485,6 +1572,165 @@ TextMesh:
   m_FontStyle: 0
   m_RichText: 1
   m_Font: {fileID: 0}
+--- !u!1 &1340799529
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1340799530}
+  - 114: {fileID: 1340799531}
+  m_Layer: 0
+  m_Name: RoarFacebookShopWidget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1340799530
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1340799529}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.67973709, y: -4.83867073, z: 1.56423426}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &1340799531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1340799529}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 206af042f5cd2d9409a0b150d295853b, type: 3}
+  m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 512
+    height: 386
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 5
+    windowBorderWidth: 8
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
+  displayName: Facebook Shop
+  drawSubheading: 0
+  subheaderName: Widget
+  subheaderDarkWidth: 100
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: DefaultScrollbarStyle
+  spinnerMovieTex: {fileID: 0}
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
+  whenToFetch: 2
+  howOftenToFetch: 60
+  shopItemLabelStyle: DefaultHeavyContentText
+  shopItemDescriptionStyle: DefaultLightContentText
+  shopItemCostStyle: DefaultHeavyContentText
+  shopItemBuyButtonStyle: DefaultButton
+  buyButtonWidth: 100
+  buyButtonHeight: 40
+  interColumnSeparators: 5
+  divideHeight: 20
+  priceColumnWidth: 40
+  topSeparation: 15
+--- !u!1 &1353167373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1353167376}
+  - 102: {fileID: 1353167375}
+  - 23: {fileID: 1353167374}
+  m_Layer: 0
+  m_Name: ToggleLBSelecter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &1353167374
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1353167373}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+--- !u!102 &1353167375
+TextMesh:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1353167373}
+  m_Text: Facebook Shop
+  m_OffsetZ: 0
+  m_CharacterSize: 1
+  m_LineSpacing: 1
+  m_Anchor: 0
+  m_Alignment: 0
+  m_TabSize: 4
+  m_FontSize: 0
+  m_FontStyle: 0
+  m_RichText: 1
+  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1353167376
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1353167373}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -2.40385771, y: -7.27336216, z: .497967243}
+  m_LocalScale: {x: .5, y: .5, z: .5}
+  m_Children: []
+  m_Father: {fileID: 0}
 --- !u!1 &1371897980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1511,7 +1757,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1371897980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.52353406, y: .102510452, z: -11.7944164}
+  m_LocalPosition: {x: -.52353406, y: -2.61879539, z: -11.7944164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1688,10 +1934,8 @@ MonoBehaviour:
     headerStyle: DefaultHeaderStyle
     subheaderStyleLeft: DefaultSubheaderStyleLeft
     subheaderStyleRight: DefaultSubheaderStyleRight
-    footerStyle: 
     closeButtonStyle: DefaultCloseButtonStyle
-    headerTextStyle: 
-    minimumHeaderHeight: 50
+    headerHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
     windowBorderWidth: 7
@@ -1788,10 +2032,8 @@ MonoBehaviour:
     headerStyle: DefaultHeaderStyle
     subheaderStyleLeft: DefaultSubheaderStyleLeft
     subheaderStyleRight: DefaultSubheaderStyleRight
-    footerStyle: 
     closeButtonStyle: DefaultClosebuttonStyle
-    headerTextStyle: 
-    minimumHeaderHeight: 50
+    headerHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
     windowBorderWidth: 7
@@ -2047,10 +2289,8 @@ MonoBehaviour:
     headerStyle: DefaultHeaderStyle
     subheaderStyleLeft: DefaultSubheaderStyleLeft
     subheaderStyleRight: DefaultSubheaderStyleRight
-    footerStyle: DefaultFooterStyle
     closeButtonStyle: DefaultCloseButtonStyle
-    headerTextStyle: 
-    minimumHeaderHeight: 50
+    headerHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
     windowBorderWidth: 7
@@ -2258,10 +2498,8 @@ MonoBehaviour:
     headerStyle: DefaultHeaderStyle
     subheaderStyleLeft: DefaultSubheaderStyleLeft
     subheaderStyleRight: DefaultSubheaderStyleRight
-    footerStyle: DefaultFooterStyle
     closeButtonStyle: DefaultCloseButtonStyle
-    headerTextStyle: 
-    minimumHeaderHeight: 30
+    headerHeight: 23
     closeButtonOffset: 20
     closeButtonSize: 25
     windowBorderWidth: 8
@@ -2361,10 +2599,8 @@ MonoBehaviour:
     headerStyle: DefaultHeaderStyle
     subheaderStyleLeft: DefaultSubheaderStyleLeft
     subheaderStyleRight: DefaultSubheaderStyleRight
-    footerStyle: DefaultFooterStyle
     closeButtonStyle: DefaultCloseButtonStyle
-    headerTextStyle: 
-    minimumHeaderHeight: 50
+    headerHeight: 50
     closeButtonOffset: 30
     closeButtonSize: 30
     windowBorderWidth: 7
@@ -2398,10 +2634,13 @@ MonoBehaviour:
   buttonWidth: 150
   buttonHeight: 40
   footerSpacing: 60
+  buttonSpacing: 10
   buttonStyle: DefaultButton
   boxStyle: DefaultTextArea
   loginLabelStyle: DefaultHeavyContentLeftText
   statusStyle: DefaultSmallStatusText
+  allowFacebookLogin: 1
+  facebookApplicationID: 
 --- !u!4 &2063613870
 Transform:
   m_ObjectHideFlags: 0
