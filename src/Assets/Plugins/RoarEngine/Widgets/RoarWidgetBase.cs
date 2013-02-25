@@ -304,7 +304,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 		{
 			
 			GUI.Box(headerRect, displayName, apearance.subheaderStyleLeft);
-			GUI.Box(headerRightRect, displayName, apearance.subheaderStyleRight);
+			GUI.Box(headerRightRect, subheaderName, apearance.subheaderStyleRight);
 		}
 		else
 		{
