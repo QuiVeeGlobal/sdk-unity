@@ -136,29 +136,13 @@ public class RoarRankingsWidget : RoarUIWidget
 		else
 		{
 			
-			//float descriptionWidth = contentBounds.width - 4*interColumnSeparators - buyButtonWidth - priceColumnWidth;
-			
 			GUI.Box(new Rect(0, 0, contentBounds.width, divideHeight), new GUIContent(""), "DefaultSeparationBar");
 			Vector2 rankW = GUI.skin.FindStyle("DefaultSeparationBarText").CalcSize(new GUIContent("Rank"));
 			GUI.Label(new Rect(interColumnSeparators - rankW.x/2, 0, valueWidth, divideHeight), "RANK", "DefaultSeparationBarText");
 			
 			GUI.Label(new Rect(interColumnSeparators*2 +rankW.x, 0, valueWidth, divideHeight), "NAME", "DefaultSeparationBarText");
-			
-			
-			
-			//GUI.Label(new Rect(interColumnSeparators, 0, priceColumnWidth, divideHeight), "Item", "DefaultSeparationBarText");
-			
-//			
-//			foreach( string e in errorMessages )
-//			{
-//				GUI.Label ( itemRect, e );
-//				itemRect.y += itemRect.height + shopItemSpacing;
-//			}
-			
+
 			float heightSoFar = divideHeight;
-			
-				
-				//We do this last so we dont break immediate mode GUI rendering.
 			
 			bool requires_refetch = false;
 			
@@ -198,12 +182,8 @@ public class RoarRankingsWidget : RoarUIWidget
 			foreach (LeaderboardEntry item in leaderboard)
 			{
 				
-				//GUI.Label(itemRect, item.label, shopItemLabelStyle);
-				//GUI.Label(itemRect, item.description, shopItemDescriptionStyle);
-				//GUI.Label(itemRect, string.Format("{0} {1}", item.costs[0].amount.ToString(), RoarTypesCache.UserStatByKey(item.costs[0].key).Title), shopItemCostStyle);
 				Vector2 rank = GUI.skin.FindStyle("DefaultLightContentText").CalcSize(new GUIContent(item.rank.ToString()));
 				Vector2 labSize = GUI.skin.FindStyle("DefaultLightContentText").CalcSize(new GUIContent(item.player_id));
-				//float height =  descSize.y+ labSize.y + topSeparation;
 				
 				Debug.Log(item.properties[0].ikey+ "  "+item.properties[1].ikey + " "+item.properties.Count);
 				
@@ -220,114 +200,13 @@ public class RoarRankingsWidget : RoarUIWidget
 				
 				GUI.Box(new Rect(2*interColumnSeparators + rank.x, ySoFar, labSize.x, sectionHeight), prop_string, "DefaultHeavyContentText");
 				 
-				//Only render if theres exactly one cost and its a stat cost.
-				
-				//Roar.DomainObjects.Costs.Stat stat_cost = item.costs[0] as Roar.DomainObjects.Costs.Stat;
-					//TODO: This is not rendering in the right place.
 				GUI.Label (new Rect(contentBounds.width - valueWidth - interColumnSeparators, heightSoFar, valueWidth, labSize.y),  item.value.ToString(), "DefaultHeavyContentText") ;
-				
-				//GUI.Label (new Rect(contentBounds.width - buyButtonWidth - priceColumnWidth - 2*interColumnSeparators, heightSoFar + labSize.y, priceColumnWidth, labSize.y),  stat_cost.ikey, "DefaultLightContentText") ;
-		
-				
-			heightSoFar += sectionHeight + topSeparation;
+				heightSoFar += sectionHeight + topSeparation;
 			}
-			
-			/*
-			if (leaderboard == null || (leaderboard.Count == 0 && page == 1) )
-			{
-				GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "No ranking data.", "StatusNormal");
-				ScrollViewContentHeight = contentBounds.height;
-			}
-			else
-			{
-				ScrollViewContentHeight = Mathf.Max(contentBounds.height, (leaderboard.Count+1) * (rankingItemBounds.height + rankingItemSpacing));
-				//Render some navigation widgets:
-				Rect entryRect = rankingItemBounds;
-				GUI.BeginGroup(entryRect);
-				
-				//We do this last so we dont break immediate mode GUI rendering.
-				bool requires_refetch = false;
-				
-				if( page==1 ) { GUI.enabled = false; }
-				if( GUI.Button(new Rect(0,0,entryRect.width/2,entryRect.height), previousButtonLabel, previousButtonStyle) )
-				{
-					page = page - 1;
-					requires_refetch = true;
-				}
-				GUI.enabled = true;
-				
-				if( leaderboard.Count == 0 ) { GUI.enabled = false; }
-				if( GUI.Button(new Rect(entryRect.width/2,0,entryRect.width/2,entryRect.height), nextButtonLabel, nextButtonStyle) )
-				{
-					page = page +1;
-					requires_refetch = true;
-				}
-				GUI.enabled = true;
-				GUI.EndGroup();
-				entryRect.y += entryRect.height + rankingItemSpacing;
-
-				
-				foreach (LeaderboardEntry leaderboardEntry in leaderboard)
-				{
-					string prop_string = string.Join(
-						"\n",
-						leaderboardEntry.properties.Select( p => ( string.Format( customDataFormat, p.ikey, p.value ) ) ).ToArray()
-						);
-					GUI.Label(entryRect, prop_string, rankingEntryPlayerRankStyle);
-					GUI.Label(entryRect, string.Format( rankFormat, leaderboardEntry.rank), rankStyle );
-					GUI.Label(entryRect, string.Format( valueFormat, leaderboardEntry.value), valueStyle );
-					entryRect.y += entryRect.height + rankingItemSpacing;
-				}
-				//useScrollView = utilizeScrollView && ((entry.y + entry.height) > contentBounds.height);
-				
-				if(requires_refetch) FetchIfRequired();
-
-			}*/
 			
 			if(requires_refetch) FetchIfRequired();
 		}
 		
 	}
 	
-	/*
-	void GUIPageNavigator(Rect rect)
-	{
-		GUIStyle navigateButtonStyle;
-		float w = rect.width;
-		//float h = rect.height;
-
-		GUI.BeginGroup(rect);
-		rect.x = 0;
-		rect.y = 0;
-		
-		navigateButtonStyle = skin.FindStyle(rankingNavigateLeftButtonStyle);
-		rect.width = navigateButtonStyle.fixedWidth;
-		rect.height = navigateButtonStyle.fixedHeight;
-		if (activeLeaderboard.HasPrevious)
-		{
-			if (GUI.Button(rect, string.Empty, rankingNavigateLeftButtonStyle))
-			{
-				FetchRankings(activeLeaderboard, activeLeaderboard.page + 1);
-			}
-		}
-		
-		rect.width = w;
-		if (activeLeaderboard.HasPrevious || activeLeaderboard.HasNext)
-			GUI.Label(rect, activeLeaderboard.page.ToString(), rankingNavigatePageValueStyle);
-
-		navigateButtonStyle = skin.FindStyle(rankingNavigateRightButtonStyle);
-		rect.width = navigateButtonStyle.fixedWidth;
-		rect.height = navigateButtonStyle.fixedHeight;
-		rect.x = w - rect.width;
-		if (activeLeaderboard.HasNext)
-		{
-			if (GUI.Button(rect, string.Empty, rankingNavigateRightButtonStyle))
-			{
-				FetchRankings(activeLeaderboard, activeLeaderboard.page - 1);
-			}
-		}
-		
-		GUI.EndGroup();
-	}
-	*/
 }

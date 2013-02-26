@@ -67,11 +67,8 @@ public class RoarLoginWidget : RoarUIWidget
 		{
 			password = PlayerPrefs.GetString(KEY_PASSWORD, string.Empty);
 		}
-		
-		
 	}
 	
-		
 	protected override void DrawGUI(int windowId)
 	{
 		{
@@ -81,8 +78,6 @@ public class RoarLoginWidget : RoarUIWidget
 			
 			
 			Rect currentRect = new Rect(contentBounds.width/2 - fieldWidth/2, totalSpaceAvailableY/2, fieldWidth, labelHeight);
-//			GUI.Label(currentRect, status, statusStyle);
-//			currentRect.y += 100;
 			
 			if(networkActionInProgress)
 				GUI.enabled = false;
@@ -90,7 +85,6 @@ public class RoarLoginWidget : RoarUIWidget
 			currentRect.y += labelHeight;
 			currentRect.width = fieldWidth;
 			currentRect.height = fieldHeight;
-			//currentRect.x = contentBounds.width/2 - fieldWidth/2;
 			
 			username = GUI.TextField(currentRect, username, boxStyle);
 			currentRect.y+=fieldHeight;
@@ -107,8 +101,6 @@ public class RoarLoginWidget : RoarUIWidget
 				
 				currentRect.width = fieldWidth;
 				currentRect.height = fieldHeight;
-				
-				
 				password = GUI.PasswordField(currentRect, password, '*', boxStyle);
 				
 				currentRect.y += fieldHeight;
@@ -119,24 +111,19 @@ public class RoarLoginWidget : RoarUIWidget
 			
 			GUI.Label(currentRect, status, statusStyle);
 			
-			
 			currentRect.y = contentBounds.height - footerSpacing;
 			
 			GUI.Box(new Rect(0, contentBounds.height - footerSpacing, contentBounds.width, contentBounds.height), new GUIContent(""), "DefaultFooterStyle");
 			
 			currentRect.width = buttonWidth;
 			currentRect.height = buttonHeight;
-			currentRect.x = contentBounds.width - buttonWidth - buttonSpacing; //change when design comes.
+			currentRect.x = contentBounds.width - buttonWidth - buttonSpacing; 
 			currentRect.y = contentBounds.height - buttonHeight/2 - footerSpacing/2;
-			
 			
 			if(secondaryLogin == SecondaryLogin.None)
 			{
-				GUI.enabled = username.Length > 0 && password.Length > 0 && !networkActionInProgress;
-				
 				if ((GUI.Button(currentRect, "Log In", buttonStyle) || ( Event.current.keyCode == KeyCode.Return)) && !networkActionInProgress)
 				{
-		
 					status = "Logging in...";
 					networkActionInProgress = true;
 					if (saveUsername)
@@ -149,9 +136,12 @@ public class RoarLoginWidget : RoarUIWidget
 					}
 					if (Debug.isDebugBuild)
 						Debug.Log(string.Format("[Debug] Logging in as [{0}] with password [{1}].", username, password));
+					
 					roar.User.Login(username, password, OnRoarLoginComplete);
 				}
 				currentRect.x -= buttonWidth + buttonSpacing;
+				GUI.enabled = username.Length > 0 && password.Length > 0 && !networkActionInProgress;
+				
 				if (GUI.Button(currentRect, "Create", buttonStyle) && !networkActionInProgress)
 				{
 		
@@ -160,28 +150,22 @@ public class RoarLoginWidget : RoarUIWidget
 					roar.User.Create(username, password, OnRoarAccountCreateComplete);
 				}
 				
-				
 				GUI.enabled = true;
-				
 				currentRect.x -= buttonWidth + buttonSpacing;
-				
 				
 				if (GUI.Button(currentRect, "Facebook", buttonStyle))
 				{
 					drawSubheading = true;
 					subheaderName = "Facebook";
+					status = "Click 'Login' to log in through facebook or supply a username and click 'Create' to create account through facebook";
 					
 					secondaryLogin = SecondaryLogin.Facebook;
 				}
 				currentRect.y+= buttonSpacing + buttonHeight;
-				
-				
 			}
 			
 			if(secondaryLogin == SecondaryLogin.Facebook)
 			{
-				
-				
 				if ((GUI.Button(currentRect, "Log In", buttonStyle) || ( Event.current.keyCode == KeyCode.Return)) && !networkActionInProgress)
 				{
 					
@@ -200,50 +184,23 @@ public class RoarLoginWidget : RoarUIWidget
 					lastRequestLogin = false;
 					status = "Logging in to Facebook...";
 					networkActionInProgress = true;
-					roar.Facebook.DoWebplayerCreate(username, OnRoarFacebooCreateComplete);
+					roar.Facebook.DoWebplayerCreate(username, OnRoarFacebookCreateComplete);
 				}
 				
 				currentRect.x -= buttonWidth + buttonSpacing;
 				
-				
 				if (GUI.Button(currentRect, "Back", buttonStyle))
 				{
+					status = "Supply a username and password to log in or to register a new account";
 					drawSubheading = false;
 					secondaryLogin = SecondaryLogin.None;
 				}
 				
 				currentRect.y+= buttonSpacing + buttonHeight;
 				GUI.enabled = true;
-				
-//				if (GUI.Button(currentRect, "Login Facebook", buttonStyle))
-//				{
-//					lastRequestLogin = true;
-//					status = "Logging in through facebook...";
-//					networkActionInProgress = true;
-//					roar.Facebook.DoWebplayerLogin(OnRoarFacebookLoginComplete);
-//				}
-//				
-//				currentRect.y+= buttonSpacing + buttonHeight;
-//				
-//				if(username.Length == 0)
-//					GUI.enabled = false;
-//				if (GUI.Button(currentRect, "Create Facebook", buttonStyle))
-//				{
-//					lastRequestLogin = false;
-//					status = "Logging in to Facebook...";
-//					networkActionInProgress = true;
-//					roar.Facebook.DoWebplayerCreate(username, OnRoarFacebooCreateComplete);
-//				}
 			}
-			
-		
 		}
 		GUI.enabled = true;
-		
-		
-		
-		
-		
 	}
 	
 	public void Fetch()
@@ -268,9 +225,7 @@ public class RoarLoginWidget : RoarUIWidget
 		{
 			networkActionInProgress = false;
 			status = "Error, "+info.msg;
-			
 		}
-		
 	}
 	
 	void OnRoarFacebookLoginComplete(Roar.CallbackInfo<Roar.WebObjects.Facebook.LoginOauthResponse> info)
@@ -298,7 +253,6 @@ public class RoarLoginWidget : RoarUIWidget
 			}
 			else
 			{
-				
 				networkActionInProgress = false;
 			}
 			
@@ -312,9 +266,8 @@ public class RoarLoginWidget : RoarUIWidget
 		
 	}
 	
-	void OnRoarFacebooCreateComplete(Roar.CallbackInfo<Roar.WebObjects.Facebook.CreateOauthResponse> info)
+	void OnRoarFacebookCreateComplete(Roar.CallbackInfo<Roar.WebObjects.Facebook.CreateOauthResponse> info)
 	{
-		
 		switch (info.code)
 		{
 		case IWebAPI.OK: // (success)
@@ -326,10 +279,8 @@ public class RoarLoginWidget : RoarUIWidget
 			}
 			else
 			{
-				
 				networkActionInProgress = false;
 			}
-			
 			break;
 		case 3: // Invalid name or password
 		default:
@@ -337,7 +288,6 @@ public class RoarLoginWidget : RoarUIWidget
 			networkActionInProgress = false;
 			break;
 		}
-		
 	}
 		
 	void OnRoarLoginComplete(Roar.CallbackInfo<Roar.WebObjects.User.LoginResponse> info)
@@ -371,6 +321,7 @@ public class RoarLoginWidget : RoarUIWidget
 			}
 			
 			break;
+			
 		case 3: // Invalid name or password
 		default:
 			status = info.msg;
@@ -429,7 +380,6 @@ public class RoarLoginWidget : RoarUIWidget
 		string codeParameter = paras.Split(' ')[0];
 
 		roar.Facebook.FetchOAuthToken(codeParameter, OnRoarFacebookFetchOauthTokenComplete);
-
 	}
 
 	/**
@@ -460,14 +410,12 @@ public class RoarLoginWidget : RoarUIWidget
 				{
 					status = "Logging in to Facebook...";
 					networkActionInProgress = true;
-					roar.Facebook.DoWebplayerCreate(username, OnRoarFacebooCreateComplete);
+					roar.Facebook.DoWebplayerCreate(username, OnRoarFacebookCreateComplete);
 				}
 				else
 					status = "Please specify a valid username when creating an account";
 			}
-			
 		}
-
 	}
 
 	/**
@@ -480,10 +428,9 @@ public class RoarLoginWidget : RoarUIWidget
 	{
 		if (oAuth == "")
 		{
-			
-			roar.Facebook.SignedRequestFailed();
 			//fire signed request event failed. go for the graph api method.
-
+			roar.Facebook.SignedRequestFailed();
+			
 		}
 		else
 		{
@@ -492,7 +439,5 @@ public class RoarLoginWidget : RoarUIWidget
 			roar.Facebook.DoPostLoginAction();
 		}
 	}
-
 	#endregion	
-
 }

@@ -72,7 +72,6 @@ public class RoarFacebookShopWidget : RoarUIWidget
 	void CalculateScrollBounds()
 	{
 		ScrollViewContentWidth = contentBounds.width;
-		//ScrollViewContentHeight = Mathf.Max(contentBounds.height, (shopEntries.Count + errorMessages.Count) * (shopItemBounds.height + shopItemSpacing));
 	}
 	
 	void OnRoarFetchShopComplete(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.FacebookShopEntry> > info)
@@ -155,35 +154,6 @@ public class RoarFacebookShopWidget : RoarUIWidget
 				heightSoFar += labSize.y+descSize.y + topSeparation;
 			}
 		{
-			//TODO: Dont use same rect for errors and items
-//			Rect itemRect = shopItemBounds;
-//
-//			foreach( string e in errorMessages )
-//			{
-//				GUI.Label ( itemRect, e );
-//				itemRect.y += itemRect.height + shopItemSpacing;
-//			}
-//			
-//			foreach (FacebookShopEntry item in shopEntries)
-//			{
-//				Debug.Log("shopppps");
-//				GUI.Label(itemRect, item.label, shopItemLabelStyle);
-//				GUI.Label(itemRect, item.description, shopItemDescriptionStyle);
-//				GUI.Label (itemRect, string.Format ("Costs {0} ", item.price), shopItemCostStyle ) ;
-//		
-//				GUI.BeginGroup(itemRect);
-//				
-//				//For now only check the costs
-//				
-//				if (GUI.Button(buyButtonBounds, "Buy", shopItemBuyButtonStyle))
-//				{
-//					Application.ExternalCall("buySomething", item.ikey);
-//				}
-//				GUI.enabled = true;
-//				GUI.EndGroup();
-//				
-//				itemRect.y += itemRect.height + shopItemSpacing;
-//			}
 			
 			ScrollViewContentHeight = heightSoFar;
 			

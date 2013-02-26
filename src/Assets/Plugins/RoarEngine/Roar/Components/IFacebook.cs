@@ -4,9 +4,19 @@ using System.Collections.Generic;
 namespace Roar.Components
 {
 	/**
-	 * \brief Methods for creating, authenticating and logging out a User.
+	 * Methods for creating, authenticating and logging out a User.
 	 *
-	 * @todo The naming of the members of this class seem a little odd.
+	 * - Webplayer Login chain:
+	 * Call DoWebplayerLogin to attempt to login.
+	 * This will send a sendSignedRequest message to the hosting frame and that frame will return the oauth token
+	 * CatchFacebookRequest in RoarLoginWidget will catch the oauth token. If oauth is empty, SignedRequestFailed is called.
+	 * SignedRequestFailed will send a javascript message to the hosting frame 'returnCodeIfAvailable'. 
+	 * This will either return a code via CatchCodeGetPara in RoarLoginWidget or return an empty string.
+	 * If it returns an empty string you force a redirect via FacebookGraphRedirect and the next time around the code will be available.
+	 * You may pass a state parameter that stores your current state and must pass a redirect URL.
+	 * Once you have the code parameter call FetchOAuthToken to retrieve your oauth token from roars API.
+	 * Remember to set your facebook application ID and application secret through the roar editor.
+	 * 
 	 **/
 	public interface IFacebook
 	{
@@ -157,7 +167,7 @@ namespace Roar.Components
 		 * Sets the oauth string directly if obtained from an external source.
 		 * 
 		 * @param oauth token.
-		 */	
+		 */
 		void SetOAuthToken(string oauth_token);
 		
 		/**
@@ -187,6 +197,8 @@ namespace Roar.Components
 		/**
 		 * Request facebook state parameter to retireve application state in case of a redirect.
 		 * 
+		 * - Sends a message to the hosting javascript frame trying to call the function 'returnSateIfAvailable'
+		 * 
 		 */
 		void RequestFacebookStatePara();
 		
@@ -196,7 +208,6 @@ namespace Roar.Components
 		*
 		* On success:
 		* - invokes callback with parameter *Array<ShopEntry> data* containing the data for the shop.
-		* - fires the RoarManager#shopReadyEvent
 		* - sets #hasDataFromServer to true
 		*
 		* On failure:
@@ -221,7 +232,7 @@ namespace Roar.Components
 		IList<DomainObjects.FacebookShopEntry> List ();
 		
 		/**
-		* Check whether shop information has been obtained from the server.
+		* Check whether facebook shop information has been obtained from the server.
 		*
 		* @returns true if #fetch has completed execution.
 		*/

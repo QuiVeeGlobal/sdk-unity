@@ -69,7 +69,6 @@ public abstract class RoarUIWidgetInspector : RoarInspector
 		
 		// boundary properties
 		Comment("Draw boundary properties.");
-		//EditorGUILayout.PropertyField(boundType, new GUIContent("Type"));
 		EditorGUILayout.PropertyField(bounds, new GUIContent("Render Bounds"));
 		if (bounds.rectValue.width <= 0 || bounds.rectValue.height <= 0)
 		{
@@ -87,8 +86,7 @@ public abstract class RoarUIWidgetInspector : RoarInspector
 		EditorGUILayout.PropertyField(useScrollView, new GUIContent("Enable Scrolling"));	
 		if (useScrollView.boolValue)
 		{
-//			EditorGUILayout.PropertyField(initialContentWidth);
-//			EditorGUILayout.PropertyField(initialContentHeight);
+
 			EditorGUILayout.PropertyField(alwaysShowHorizontalScrollBar, new GUIContent("Always Show Horiz. Bar"));
 			EditorGUILayout.PropertyField(alwaysShowVerticalScrollBar, new GUIContent("Always Show Vert. Bar"));
 		}

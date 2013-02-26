@@ -9,16 +9,10 @@ public class RoarFacebookBindWidget : RoarUIWidget
 {
 	public string status = "";
 	public string facebookApplicationID = "";
-	bool networkActionInProgress = false;
-	public string buttonStyle="LoginButton";
+	public string buttonStyle="DefaultButton";
 	
 	public float buttonWidth = 300;
 	public float buttonHeight = 90;
-	
-	protected override void Awake ()
-	{
-		base.Awake ();
-	}
 	
 	protected override void OnEnable ()
 	{
@@ -103,14 +97,10 @@ public class RoarFacebookBindWidget : RoarUIWidget
 		switch (info.code)
 		{
 		case IWebAPI.OK: // (success)
-			//this.enabled = false;
-			// fetch the player's properties after successful login
 			networkActionInProgress = false;
 			
 			break;
 		case 3: // Invalid name or password
-			
-			break;
 		default:
 			status = info.msg;
 			networkActionInProgress = false;

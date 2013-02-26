@@ -234,7 +234,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
 --- !u!1 &327688141
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,10 +378,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 383661791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.13889909, y: -7.49399805, z: -.965699971}
+  m_LocalPosition: {x: -16.3923111, y: -7.95064211, z: 26.3173485}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1076514028}
 --- !u!114 &383661798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -419,8 +419,17 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1510717982}
+  - {fileID: 1340799530}
+  - {fileID: 1464614849}
+  - {fileID: 199454296}
+  - {fileID: 906782020}
+  - {fileID: 2063613870}
+  - {fileID: 1765055055}
+  - {fileID: 671462277}
   - {fileID: 1998890868}
   - {fileID: 588654797}
+  - {fileID: 1654474001}
   m_Father: {fileID: 0}
 --- !u!114 &453953423
 MonoBehaviour:
@@ -888,7 +897,7 @@ Transform:
   m_LocalPosition: {x: 1.46819806, y: .313522816, z: 3.03957415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
 --- !u!114 &671462278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1226,7 +1235,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
 --- !u!114 &906782021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1543,6 +1552,7 @@ Transform:
   m_LocalPosition: {x: 13.2534122, y: .456644028, z: -27.2830486}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 383661797}
   - {fileID: 578134445}
   - {fileID: 581616721}
   - {fileID: 834810406}
@@ -1598,7 +1608,7 @@ Transform:
   m_LocalPosition: {x: -3.67973709, y: -4.83867073, z: 1.56423426}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
 --- !u!114 &1340799531
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1900,7 +1910,7 @@ Transform:
   m_LocalPosition: {x: 1.46819806, y: .313522816, z: 3.03957415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
 --- !u!114 &1464614851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1972,6 +1982,94 @@ MonoBehaviour:
   nameFormat: DefaultHeavyContentText
   levelFormatString: '{0}'
   levelFormat: DefaultHeavyContentText
+--- !u!1 &1510717981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1510717982}
+  - 114: {fileID: 1510717983}
+  m_Layer: 0
+  m_Name: RoarFacebookBindWidget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1510717982
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1510717981}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453953422}
+--- !u!114 &1510717983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1510717981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb2fb2a413fd69408b93d6146b08191, type: 3}
+  m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 512
+    height: 386
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 5
+    windowBorderWidth: 8
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
+  displayName: Bind Widget
+  drawSubheading: 0
+  subheaderName: Widget
+  subheaderDarkWidth: 100
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: DefaultScrollbarStyle
+  spinnerMovieTex: {fileID: 0}
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
+  status: 
+  facebookApplicationID: 
+  buttonStyle: DefaultButton
+  buttonWidth: 300
+  buttonHeight: 90
 --- !u!1 &1654474000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1998,7 +2096,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: -11.7944164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
 --- !u!114 &1654474002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2255,7 +2353,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
 --- !u!114 &1765055056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2651,4 +2749,4 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: -11.7944164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
