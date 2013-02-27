@@ -272,6 +272,41 @@ public class RoarObjectFactory : Editor
 		Selection.activeGameObject = go;
 	}
 	
+	[MenuItem("GameObject/Create Other/Roar/Widget Bar", false, 2010)]
+	public static void CreateRoarWidgetBar()
+	{
+		if (ExistingComponentTypeExists(typeof(RoarWidgetBar)))
+		{
+			EditorUtility.DisplayDialog("Sorry!", "Only one widget bar allowed", "Cancel");
+			return;
+		}
+		if (!ExistingComponentTypeExists(typeof(DefaultRoar)))
+		{
+			if (EditorUtility.DisplayDialog("Sorry!", "A DefaultRoar system component cannot be found in this scene. Add one now?", "OK", "Later"))
+			{
+				CreateRoarSceneObject();
+				_CreateRoarWidgetBar();
+			}
+		}
+		else
+		{
+			_CreateRoarWidgetBar();
+		}
+	}
+	
+	private static void _CreateRoarWidgetBar()
+	{
+		DefaultRoar defaultRoar = GameObject.FindObjectOfType(typeof(DefaultRoar)) as DefaultRoar;
+		if (defaultRoar == null)
+		{
+			return;
+		}
+		GameObject widget_bar = RoarObjectFactory.CreateGameObjectInScene("RoarWidgetBar");
+		widget_bar.AddComponent<RoarWidgetBar>();
+		widget_bar.transform.parent = defaultRoar.transform;
+		Selection.activeGameObject = widget_bar;
+	}
+	
 	public static bool ExistingComponentTypeExists(System.Type type)
 	{
 		Component c = FindObjectOfType(type) as Component;

@@ -122,6 +122,7 @@ public class RoarLoginWidget : RoarUIWidget
 			
 			if(secondaryLogin == SecondaryLogin.None)
 			{
+				GUI.enabled = username.Length > 0 && password.Length > 0 && !networkActionInProgress;
 				if ((GUI.Button(currentRect, "Log In", buttonStyle) || ( Event.current.keyCode == KeyCode.Return)) && !networkActionInProgress)
 				{
 					status = "Logging in...";
@@ -140,7 +141,7 @@ public class RoarLoginWidget : RoarUIWidget
 					roar.User.Login(username, password, OnRoarLoginComplete);
 				}
 				currentRect.x -= buttonWidth + buttonSpacing;
-				GUI.enabled = username.Length > 0 && password.Length > 0 && !networkActionInProgress;
+				
 				
 				if (GUI.Button(currentRect, "Create", buttonStyle) && !networkActionInProgress)
 				{
@@ -149,18 +150,25 @@ public class RoarLoginWidget : RoarUIWidget
 					networkActionInProgress = true;
 					roar.User.Create(username, password, OnRoarAccountCreateComplete);
 				}
-				
 				GUI.enabled = true;
-				currentRect.x -= buttonWidth + buttonSpacing;
 				
-				if (GUI.Button(currentRect, "Facebook", buttonStyle))
+				if(allowFacebookLogin)
 				{
-					drawSubheading = true;
-					subheaderName = "Facebook";
-					status = "Click 'Login' to log in through facebook or supply a username and click 'Create' to create account through facebook";
+				
+					currentRect.x -= buttonWidth + buttonSpacing;
 					
-					secondaryLogin = SecondaryLogin.Facebook;
+					if (GUI.Button(currentRect, "Facebook", buttonStyle))
+					{
+						drawSubheading = true;
+						subheaderName = "Facebook";
+						status = "Click 'Login' to log in through facebook or supply a username and click 'Create' to create account through facebook";
+						
+						secondaryLogin = SecondaryLogin.Facebook;
+					}
 				}
+			
+				
+					
 				currentRect.y+= buttonSpacing + buttonHeight;
 			}
 			
@@ -176,7 +184,7 @@ public class RoarLoginWidget : RoarUIWidget
 				}
 				currentRect.x -= buttonWidth + buttonSpacing;
 				
-				GUI.enabled = username.Length > 0 && password.Length > 0 && !networkActionInProgress;
+				GUI.enabled = username.Length > 0 && !networkActionInProgress;
 				
 				if (GUI.Button(currentRect, "Create", buttonStyle) && !networkActionInProgress)
 				{

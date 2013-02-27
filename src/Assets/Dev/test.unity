@@ -134,10 +134,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 163019612}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.42057848, y: 1.45823383, z: .502860546}
+  m_LocalPosition: {x: -15.6739902, y: 1.00158978, z: 27.7859097}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1076514028}
 --- !u!1 &199454294
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +148,7 @@ GameObject:
   - 4: {fileID: 199454296}
   - 114: {fileID: 199454295}
   m_Layer: 0
-  m_Name: RoarInventoryWidget
+  m_Name: Inventory Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -430,6 +430,7 @@ Transform:
   - {fileID: 1998890868}
   - {fileID: 588654797}
   - {fileID: 1654474001}
+  - {fileID: 609839862}
   m_Father: {fileID: 0}
 --- !u!114 &453953423
 MonoBehaviour:
@@ -443,7 +444,7 @@ MonoBehaviour:
   m_Name: 
   debug: 1
   appstoreSandbox: 1
-  gameKey: shooty
+  gameKey: spark
   defaultGUISkin: {fileID: 11400000, guid: e9a7b12d3982d1b4b9c3f31ff7587cc9, type: 2}
 --- !u!1 &486520127
 GameObject:
@@ -730,7 +731,7 @@ GameObject:
   - 4: {fileID: 588654797}
   - 114: {fileID: 588654798}
   m_Layer: 0
-  m_Name: RoarStatsWidget-DraggableWindow
+  m_Name: Stats Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -871,6 +872,91 @@ MonoBehaviour:
     valueFormat: 
     valueStyle: StatsValueStyle
     valueType: 1
+--- !u!1 &609839861
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 609839862}
+  - 114: {fileID: 609839863}
+  m_Layer: 0
+  m_Name: Widget Bar
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &609839862
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 609839861}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453953422}
+--- !u!114 &609839863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 609839861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96d2824dbb61e594088df94f759733e5, type: 3}
+  m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1400
+    height: 100
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 30
+    closeButtonOffset: 30
+    closeButtonSize: 5
+    windowBorderWidth: 8
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
+  displayName: Widget Control Bar
+  drawSubheading: 0
+  subheaderName: Widget
+  subheaderDarkWidth: 100
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: DefaultScrollbarStyle
+  spinnerMovieTex: {fileID: 0}
+  autoEnableOnLogIn: 1
+  autoDisableOnLogout: 1
+  interButtonSpacing: 0
+  numRows: 2
 --- !u!1 &671462276
 GameObject:
   m_ObjectHideFlags: 0
@@ -881,7 +967,7 @@ GameObject:
   - 4: {fileID: 671462277}
   - 114: {fileID: 671462278}
   m_Layer: 0
-  m_Name: RoarShopWidget
+  m_Name: Shop Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1205,10 +1291,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 883606679}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.40385771, y: -5.59792423, z: .497967243}
+  m_LocalPosition: {x: -15.6572704, y: -6.05456829, z: 27.7810154}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1076514028}
 --- !u!1 &906782019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1219,7 +1305,7 @@ GameObject:
   - 4: {fileID: 906782020}
   - 114: {fileID: 906782021}
   m_Layer: 0
-  m_Name: RoarLeaderboardsWidget
+  m_Name: Leaderboards Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1458,10 +1544,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 947854439}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.42057848, y: -.266777992, z: .502860546}
+  m_LocalPosition: {x: -15.6739902, y: -.72342205, z: 27.7859097}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1076514028}
 --- !u!1 &1059046595
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,10 +1608,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1059046595}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.38495493, y: -3.85839558, z: .502860546}
+  m_LocalPosition: {x: -15.6383667, y: -4.31503963, z: 27.7859097}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1076514028}
 --- !u!1 &1076514027
 GameObject:
   m_ObjectHideFlags: 0
@@ -1549,7 +1635,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1076514027}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.2534122, y: .456644028, z: -27.2830486}
+  m_LocalPosition: {x: 13.2534122, y: -288.340027, z: -27.2830486}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 383661797}
@@ -1562,6 +1648,13 @@ Transform:
   - {fileID: 1745052716}
   - {fileID: 486520128}
   - {fileID: 945897333}
+  - {fileID: 163019615}
+  - {fileID: 1059046598}
+  - {fileID: 947854442}
+  - {fileID: 1353167376}
+  - {fileID: 883606682}
+  - {fileID: 1399347090}
+  - {fileID: 1685386029}
   m_Father: {fileID: 0}
 --- !u!102 &1076514029
 TextMesh:
@@ -1592,7 +1685,7 @@ GameObject:
   - 4: {fileID: 1340799530}
   - 114: {fileID: 1340799531}
   m_Layer: 0
-  m_Name: RoarFacebookShopWidget
+  m_Name: Facebook Shop Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1622,7 +1715,7 @@ MonoBehaviour:
   bounds:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 100
     width: 512
     height: 386
   contentBounds:
@@ -1737,10 +1830,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1353167373}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.40385771, y: -7.27336216, z: .497967243}
+  m_LocalPosition: {x: -15.6572704, y: -7.73000622, z: 27.7810154}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1076514028}
 --- !u!1 &1371897980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1880,10 +1973,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1399347087}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.42057848, y: -2.06119633, z: .502860546}
+  m_LocalPosition: {x: -15.6739902, y: -2.51784039, z: 27.7859097}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1076514028}
 --- !u!1 &1464614848
 GameObject:
   m_ObjectHideFlags: 0
@@ -1894,7 +1987,7 @@ GameObject:
   - 4: {fileID: 1464614849}
   - 114: {fileID: 1464614851}
   m_Layer: 0
-  m_Name: RoarFriendsListWidget
+  m_Name: Friends Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1924,7 +2017,7 @@ MonoBehaviour:
   bounds:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 100
     width: 512
     height: 386
   contentBounds:
@@ -1992,7 +2085,7 @@ GameObject:
   - 4: {fileID: 1510717982}
   - 114: {fileID: 1510717983}
   m_Layer: 0
-  m_Name: RoarFacebookBindWidget
+  m_Name: Bind Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2080,7 +2173,7 @@ GameObject:
   - 4: {fileID: 1654474001}
   - 114: {fileID: 1654474002}
   m_Layer: 0
-  m_Name: RoarTasksWidget
+  m_Name: Tasks Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2110,7 +2203,7 @@ MonoBehaviour:
   bounds:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 100
     width: 880
     height: 500
   contentBounds:
@@ -2227,10 +2320,10 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1685386026}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.42057848, y: 3.31491184, z: .502860546}
+  m_LocalPosition: {x: -15.6739902, y: 2.85826778, z: 27.7859097}
   m_LocalScale: {x: .5, y: .5, z: .5}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1076514028}
 --- !u!1 &1745052715
 GameObject:
   m_ObjectHideFlags: 0
@@ -2337,7 +2430,7 @@ GameObject:
   - 4: {fileID: 1765055055}
   - 114: {fileID: 1765055056}
   m_Layer: 0
-  m_Name: RoarRankingsWidget
+  m_Name: Rankings Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2367,7 +2460,7 @@ MonoBehaviour:
   bounds:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 100
     width: 512
     height: 386
   contentBounds:
@@ -2546,7 +2639,7 @@ GameObject:
   - 4: {fileID: 1998890868}
   - 114: {fileID: 1998890869}
   m_Layer: 0
-  m_Name: RoarStatsWidget-Boxed
+  m_Name: Stats Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2658,7 +2751,7 @@ GameObject:
   - 4: {fileID: 2063613870}
   - 114: {fileID: 2063613869}
   m_Layer: 0
-  m_Name: RoarLoginWidget
+  m_Name: Login Widget
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2677,7 +2770,7 @@ MonoBehaviour:
   bounds:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 100
     width: 512
     height: 450
   contentBounds:
