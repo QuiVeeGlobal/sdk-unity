@@ -258,12 +258,14 @@ public abstract class RoarWidgetBase : MonoBehaviour
 			{
 				GUI.enabled = true;
 				GUI.Box(new Rect(0, 0, bounds.width, bounds.height), new GUIContent(""), "DarkOverlay");
+				if(spinnerMovieTex != null)
+				{
 				
-				GUI.Box(new Rect(bounds.width/2 - 50, bounds.height/2 - 50, 100, 100), spinnerMovieTex, "DefaultSpinner");
-				if(!spinnerMovieTex.isPlaying)
-					spinnerMovieTex.Play();
-					spinnerMovieTex.loop= true;
-				
+					GUI.Box(new Rect(bounds.width/2 - 50, bounds.height/2 - 50, 100, 100), spinnerMovieTex, "DefaultSpinner");
+					if(!spinnerMovieTex.isPlaying)
+						spinnerMovieTex.Play();
+						spinnerMovieTex.loop= true;
+				}
 				
 			}
 			GUI.EndGroup();
@@ -304,7 +306,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 		{
 			
 			GUI.Box(headerRect, displayName, apearance.subheaderStyleLeft);
-			GUI.Box(headerRightRect, displayName, apearance.subheaderStyleRight);
+			GUI.Box(headerRightRect, subheaderName, apearance.subheaderStyleRight);
 		}
 		else
 		{
@@ -357,7 +359,7 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	
 	public void ResetScrollPosition()
 	{
-		Debug.Log("resetting scroll");
+		
 		scrollPosition = Vector3.zero;
 	}
 	

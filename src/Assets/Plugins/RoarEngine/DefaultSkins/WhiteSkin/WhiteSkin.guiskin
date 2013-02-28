@@ -427,7 +427,7 @@ MonoBehaviour:
   m_horizontalSlider:
     m_Name: horizontalslider
     m_Normal:
-      m_Background: {fileID: 11009, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 0}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -486,7 +486,7 @@ MonoBehaviour:
   m_horizontalSliderThumb:
     m_Name: horizontalsliderthumb
     m_Normal:
-      m_Background: {fileID: 11011, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 2800000, guid: 9867ddeb3c1c72a4caee16c856d574ba, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 11012, guid: 0000000000000000e000000000000000, type: 0}
@@ -663,7 +663,7 @@ MonoBehaviour:
   m_horizontalScrollbar:
     m_Name: horizontalscrollbar
     m_Normal:
-      m_Background: {fileID: 11008, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 2800000, guid: 0858be481033ed6428255cd256d4fd64, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 0}
@@ -722,13 +722,13 @@ MonoBehaviour:
   m_horizontalScrollbarThumb:
     m_Name: horizontalscrollbarthumb
     m_Normal:
-      m_Background: {fileID: 11007, guid: 0000000000000000e000000000000000, type: 0}
+      m_Background: {fileID: 2800000, guid: 1836938cfeecf8040b1f4c6494709cab, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
-      m_Background: {fileID: 0}
+      m_Background: {fileID: 2800000, guid: 9a560e5c4d953874fa8a8b0a9f9bd874, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Active:
-      m_Background: {fileID: 0}
+      m_Background: {fileID: 2800000, guid: 1836938cfeecf8040b1f4c6494709cab, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Focused:
       m_Background: {fileID: 0}
@@ -899,7 +899,7 @@ MonoBehaviour:
   m_verticalScrollbar:
     m_Name: verticalscrollbar
     m_Normal:
-      m_Background: {fileID: 2800000, guid: 1836938cfeecf8040b1f4c6494709cab, type: 3}
+      m_Background: {fileID: 2800000, guid: 0858be481033ed6428255cd256d4fd64, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
       m_Background: {fileID: 2800000, guid: 9a560e5c4d953874fa8a8b0a9f9bd874, type: 3}
@@ -958,13 +958,13 @@ MonoBehaviour:
   m_verticalScrollbarThumb:
     m_Name: verticalscrollbarthumb
     m_Normal:
-      m_Background: {fileID: 2800000, guid: ed0da08ff1354134eb5f578a94e52e56, type: 3}
+      m_Background: {fileID: 2800000, guid: 9867ddeb3c1c72a4caee16c856d574ba, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
-      m_Background: {fileID: 0}
+      m_Background: {fileID: 2800000, guid: 9a560e5c4d953874fa8a8b0a9f9bd874, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Active:
-      m_Background: {fileID: 0}
+      m_Background: {fileID: 2800000, guid: 1836938cfeecf8040b1f4c6494709cab, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Focused:
       m_Background: {fileID: 0}
@@ -2064,16 +2064,16 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: WidgetBoundingStyle
     m_Normal:
-      m_Background: {fileID: 2800000, guid: ed0da08ff1354134eb5f578a94e52e56, type: 3}
+      m_Background: {fileID: 2800000, guid: 0ed2253edd29ecc46a7f3983595e55eb, type: 3}
       m_TextColor: {r: .76119405, g: .335152596, b: .335152596, a: 1}
     m_Hover:
-      m_Background: {fileID: 0}
+      m_Background: {fileID: 2800000, guid: 0ed2253edd29ecc46a7f3983595e55eb, type: 3}
       m_TextColor: {r: .222040594, g: .222040594, b: .222040594, a: 1}
     m_Active:
-      m_Background: {fileID: 2800000, guid: 8dd39d633534541d4933255f4509c3d7, type: 3}
+      m_Background: {fileID: 2800000, guid: 0ed2253edd29ecc46a7f3983595e55eb, type: 3}
       m_TextColor: {r: .222040594, g: .222040594, b: .222040594, a: 1}
     m_Focused:
-      m_Background: {fileID: 2800000, guid: 8dd39d633534541d4933255f4509c3d7, type: 3}
+      m_Background: {fileID: 2800000, guid: ed0da08ff1354134eb5f578a94e52e56, type: 3}
       m_TextColor: {r: .222040594, g: .222040594, b: .222040594, a: 1}
     m_OnNormal:
       m_Background: {fileID: 0}
@@ -3465,7 +3465,7 @@ MonoBehaviour:
       m_Background: {fileID: 2800000, guid: 15cfb8167047eda498772f0598fd2140, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Focused:
-      m_Background: {fileID: 2800000, guid: 15cfb8167047eda498772f0598fd2140, type: 3}
+      m_Background: {fileID: 2800000, guid: 0858be481033ed6428255cd256d4fd64, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_OnNormal:
       m_Background: {fileID: 0}
@@ -3674,7 +3674,7 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 0}
-    m_FontSize: 20
+    m_FontSize: 19
     m_FontStyle: 1
     m_Alignment: 4
     m_WordWrap: 0
@@ -4790,13 +4790,13 @@ MonoBehaviour:
     m_StretchHeight: 0
   - m_Name: DefaultScrollbarStyle
     m_Normal:
-      m_Background: {fileID: 2800000, guid: a7a2368405f3a3d4f850c34094eec282, type: 3}
+      m_Background: {fileID: 2800000, guid: 057cd9b705f99d5429a7de2f02f8ce5c, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Hover:
-      m_Background: {fileID: 2800000, guid: 6d91a08fbf2569048b2ad679d9baf5c1, type: 3}
+      m_Background: {fileID: 2800000, guid: dbdd7048ac896ed4196cc2c8e1d89ce2, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Active:
-      m_Background: {fileID: 2800000, guid: a7a2368405f3a3d4f850c34094eec282, type: 3}
+      m_Background: {fileID: 2800000, guid: 44d19df88694a974e986812b07b0662a, type: 3}
       m_TextColor: {r: 0, g: 0, b: 0, a: 1}
     m_Focused:
       m_Background: {fileID: 0}

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Roar;
 using Roar.DomainObjects;
 
-public class RoarShopWidget : RoarUIWidget
+public class RoarFacebookShopWidget : RoarUIWidget
 {
 	public delegate void RoarShopWidgetBuyHandler(Roar.DomainObjects.ShopEntry shop_entry);
 	public static event RoarShopWidgetBuyHandler OnItemBuyRequest;
@@ -29,24 +29,21 @@ public class RoarShopWidget : RoarUIWidget
 	private bool isFetching;
 	private bool isBuying = false;
 	private float whenLastFetched;
-	private Roar.Components.IShop shop;
-	private IList<ShopEntry> shopEntries;
+	private Roar.Components.IFacebook facebook;
+	private IList<FacebookShopEntry> shopEntries;
 	
 	private IList<string> errorMessages = new List<string>();
-	
-	
-	
 	
 	protected override void OnEnable ()
 	{
 		if (IsLoggedIn)
 		{
 			base.OnEnable();
-			shop = DefaultRoar.Instance.Shop;
-			if (shop != null)
+			facebook = DefaultRoar.Instance.Facebook;
+			if (facebook != null)
 			{
 				if (whenToFetch == WhenToFetch.OnEnable 
-				|| (whenToFetch == WhenToFetch.Once && !shop.HasDataFromServer)
+				|| (whenToFetch == WhenToFetch.Once && !facebook.IsLoggedInViaFacebook())
 				|| (whenToFetch == WhenToFetch.Occassionally && (whenLastFetched == 0 || Time.realtimeSinceStartup - whenLastFetched >= howOftenToFetch))
 				)
 				{
@@ -55,7 +52,7 @@ public class RoarShopWidget : RoarUIWidget
 			}
 			else if (Debug.isDebugBuild)
 			{
-				Debug.LogWarning("Shop data is null; unable to render shop widget");
+				Debug.LogWarning("Cant load shop data");
 			}
 		}
 		else
@@ -66,28 +63,26 @@ public class RoarShopWidget : RoarUIWidget
 
 	public void Fetch()
 	{
-		networkActionInProgress = true;
 		isFetching = true;
-		shop.Fetch(OnRoarFetchShopComplete);
+		
+		facebook.FetchShopData(OnRoarFetchShopComplete);
 	}
 	
 	void CalculateScrollBounds()
 	{
-		//ScrollViewContentWidth = shopItemBounds.width;
-		//ScrollViewContentHeight = Mathf.Max(contentBounds.height, (shopEntries.Count + errorMessages.Count) * (shopItemBounds.height + shopItemSpacing));
+		ScrollViewContentWidth = contentBounds.width;
 	}
 	
-	void OnRoarFetchShopComplete(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.ShopEntry> > info)
+	void OnRoarFetchShopComplete(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.FacebookShopEntry> > info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
-		networkActionInProgress = false;
 		isFetching = false;
-		shopEntries = shop.List();
+		shopEntries = facebook.List();
 		errorMessages = new List<string>();
 		
 		if( info.code!=IWebAPI.OK)
 		{
-			Debug.Log ( string.Format("Error loading shop:{0}:{1}r", info.code, info.msg) );
+			Debug.Log ( string.Format("Error loading shop:{0}:{1}", info.code, info.msg));
 			FlashError( info.msg ); //This updates the scroll bounds.
 			return;
 		}
@@ -97,14 +92,16 @@ public class RoarShopWidget : RoarUIWidget
 	
 	protected override void DrawGUI(int windowId)
 	{
-		if (shop == null || !IsLoggedIn) return;
+		float scrollCalculationHeight = 0;
+		
+		
+		if (facebook == null || !IsLoggedIn) return;
 		if (isFetching)
 		{
 			GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Fetching shop data...", "StatusNormal");
 		}
-		{
-			
-			float descriptionWidth = contentBounds.width - 4*interColumnSeparators - buyButtonWidth - priceColumnWidth;
+		//else
+		float descriptionWidth = contentBounds.width - 4*interColumnSeparators - buyButtonWidth - priceColumnWidth;
 			
 			GUI.Box(new Rect(0, 0, contentBounds.width, divideHeight), new GUIContent(""), "DefaultSeparationBar");
 			
@@ -112,10 +109,9 @@ public class RoarShopWidget : RoarUIWidget
 			
 			GUI.Label(new Rect(contentBounds.width - interColumnSeparators*2 - buyButtonWidth - priceColumnWidth, 0, priceColumnWidth, divideHeight), "COST", "DefaultSeparationBarText");
 			
-			
 			float heightSoFar = divideHeight;
 			if(shopEntries != null)
-			foreach (ShopEntry item in shopEntries)
+			foreach (FacebookShopEntry item in shopEntries)
 			{
 				Vector2 descSize = GUI.skin.FindStyle(shopItemDescriptionStyle).CalcSize(new GUIContent(item.description));
 				Vector2 labSize = GUI.skin.FindStyle(shopItemLabelStyle).CalcSize(new GUIContent(item.label));
@@ -129,40 +125,14 @@ public class RoarShopWidget : RoarUIWidget
 				ySoFar+= labSize.y;
 				
 				GUI.Box(new Rect(interColumnSeparators, ySoFar, descSize.x, descSize.y), item.description, shopItemDescriptionStyle);
-				 
-				if (item.costs.Count == 1)
-				{
-					Roar.DomainObjects.Costs.Stat stat_cost = item.costs[0] as Roar.DomainObjects.Costs.Stat;
-					if( stat_cost != null )
-					{
-						//TODO: This is not rendering in the right place.
-						GUI.Label (new Rect(contentBounds.width - buyButtonWidth - priceColumnWidth - 2*interColumnSeparators, heightSoFar, priceColumnWidth, labSize.y),  stat_cost.value.ToString(), shopItemCostStyle) ;
-						
-						GUI.Label (new Rect(contentBounds.width - buyButtonWidth - priceColumnWidth - 2*interColumnSeparators, heightSoFar + labSize.y, priceColumnWidth, labSize.y),  stat_cost.ikey, shopItemDescriptionStyle) ;
-						
-					}
-				}
+				
+				//TODO: This is not rendering in the right place.
+				GUI.Label (new Rect(contentBounds.width - buyButtonWidth - priceColumnWidth - 2*interColumnSeparators, heightSoFar, priceColumnWidth, height),  item.price, shopItemCostStyle) ;
+				
+				//GUI.Label (new Rect(contentBounds.width - buyButtonWidth - priceColumnWidth - 2*interColumnSeparators, heightSoFar + labSize.y, priceColumnWidth, labSize.y),  stat_cost.ikey, shopItemDescriptionStyle) ;
 				//For now only check the costs
 				bool can_buy = true;
-				foreach( Roar.DomainObjects.Cost cost in item.costs)
-				{
-					// If its a stat cost we should check against the current value of the players stat rather than trusting the 
-					// cached value from the shop.
-					Roar.DomainObjects.Costs.Stat stat_cost = cost as Roar.DomainObjects.Costs.Stat;
-					if( stat_cost != null )
-					{
-						string v = roar.Properties.GetValue( stat_cost.ikey );
-						int vv;
-						//If we can't get the info we need, we'll need to rely on the value from the shop.
-						if( v!=null && System.Int32.TryParse(v, out vv ) )
-						{
-							if( vv < stat_cost.value ) { can_buy = false; break; }
-							continue;
-						}
-					}
-					if( ! cost.ok ) { can_buy = false; break; }
-					
-				}
+				
 
 				GUI.enabled = can_buy && !isBuying;
 				
@@ -172,17 +142,19 @@ public class RoarShopWidget : RoarUIWidget
 					{
 						Debug.Log(string.Format("buy request: {0}", item.ikey));
 					}
-					if (OnItemBuyRequest != null)
-					{
-						OnItemBuyRequest(item);
-					}
+					Application.ExternalCall("buySomething", item.ikey);
+					//networkActionInProgress = true;
 					isBuying = true;
-					shop.Buy( item.ikey, OnBuyComplete );
+					
 				}
 				GUI.enabled = true;
 				
 				heightSoFar += labSize.y+descSize.y + topSeparation;
 			}
+		{
+			
+			ScrollViewContentHeight = heightSoFar;
+			
 		}
 	}
 	

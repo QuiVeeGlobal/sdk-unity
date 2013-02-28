@@ -19,7 +19,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 
 	public Rect leaderboardItemBounds = new Rect(0, 0, 450, 30);
 	public float leaderboardItemSpacing = 1;
-	public string leaderboardEntryStyle = "DefaultButtonStyle";
+	public string leaderboardEntryStyle = "DefaultButton";
 	
 	private bool isFetching;
 	private float whenLastFetched;

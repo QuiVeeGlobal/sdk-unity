@@ -59,7 +59,6 @@ public class RequestSender : IRequestSender
 		{
 			foreach (DictionaryEntry param in args)
 			{
-				//Debug.Log(string.Format("{0} => {1}", param.Key, param.Value));
 				post.AddField( param.Key as string, param.Value as string );
 			}
 		}
@@ -72,7 +71,6 @@ public class RequestSender : IRequestSender
 		// Fire call sending event
 		RoarManager.OnRoarNetworkStart();
 		
-		//Debug.Log ( "roar_api_url = " + RoarAPIUrl );
 		if (Debug.isDebugBuild)
 			Debug.Log ( "Requesting : " + RoarAPIUrl+GameKey+"/"+apicall+"/" );
 		
