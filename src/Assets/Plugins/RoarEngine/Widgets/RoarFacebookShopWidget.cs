@@ -63,7 +63,6 @@ public class RoarFacebookShopWidget : RoarUIWidget
 
 	public void Fetch()
 	{
-		Debug.Log("fetching facebook shop data");
 		isFetching = true;
 		
 		facebook.FetchShopData(OnRoarFetchShopComplete);
@@ -80,7 +79,6 @@ public class RoarFacebookShopWidget : RoarUIWidget
 		isFetching = false;
 		shopEntries = facebook.List();
 		errorMessages = new List<string>();
-		Debug.Log("faceboook count is "+facebook.List().Count);
 		
 		if( info.code!=IWebAPI.OK)
 		{

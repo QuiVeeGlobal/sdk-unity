@@ -80,12 +80,14 @@ namespace Roar.implementation.Components
 			
 			public override void HandleError (Roar.RequestResult nn)
 			{
-				Debug.Log("Facebook binding failed "+nn.msg);
+				if (Debug.isDebugBuild)
+					Debug.Log("Facebook binding failed "+nn.msg);
 			}
 
 			public override void HandleSuccess (CallbackInfo<WebObjects.Facebook.BindOauthResponse> info)
 			{
-				Debug.Log("binding succeeded");
+				if (Debug.isDebugBuild)
+					Debug.Log("binding succeeded");
 				
 				
 			}
@@ -96,7 +98,8 @@ namespace Roar.implementation.Components
 	
 		public void FacebookGraphRedirect(string facebookApplicationID, string state, string redirectURL)
 		{
-			Debug.Log("redirecting because of a blank code");
+			if (Debug.isDebugBuild)
+				Debug.Log("redirecting because of a blank code");
 			Application.OpenURL("https://graph.facebook.com/oauth/authorize?client_id="+facebookApplicationID+"&redirect_uri="+redirectURL+"&state="+state);
 		
 		}
@@ -150,14 +153,15 @@ namespace Roar.implementation.Components
 		
 		public void SignedRequestFailed()
 		{
-			Debug.Log("Signed request failed");
+			
 			if(facebookLoginOptions != FacebookLoginOptions.SignedRequestOnly)
 			{
 				RequestFacebookGetCode();
 			}
 			else
 			{
-				Debug.Log ("Signed request login failed and I have no other login options to fall back on.");
+				if (Debug.isDebugBuild)
+					Debug.Log ("Signed request login failed and I have no other login options to fall back on.");
 			}
 			
 		}
@@ -510,7 +514,7 @@ namespace Roar.implementation.Components
 		 */
 		public void SetOAuthToken(string oauth_token)
 		{
-		Debug.Log("Set oauth token "+oauth_token);
+		
 		if(oauth_token != "")
 			oAuthToken = oauth_token;
 		
@@ -552,7 +556,8 @@ namespace Roar.implementation.Components
 		 
 		public void RequestFacebookSignedRequest()
 		{
-			Debug.Log("Requesting signed request");
+			if (Debug.isDebugBuild)
+				Debug.Log("Requesting signed request");
 			Application.ExternalCall("sendSignedRequest");
 		}
 		
@@ -564,7 +569,8 @@ namespace Roar.implementation.Components
 		**/
 		public void RequestFacebookGetCode()
 		{
-			Debug.Log("requesting get code");
+			if (Debug.isDebugBuild)
+				Debug.Log("R	equesting get code");
 			Application.ExternalCall("returnCodeIfAvailable");
 		}
 		

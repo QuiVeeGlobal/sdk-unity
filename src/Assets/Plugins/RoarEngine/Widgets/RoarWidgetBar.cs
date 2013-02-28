@@ -16,14 +16,12 @@ public class RoarWidgetBar : RoarUIWidget
 		
 		buttonRect.width = contentBounds.width/Mathf.Ceil(buttons.Count / (float)numRows) - interButtonSpacing * (buttons.Count - 1)/numRows;
 		
-		Debug.Log(buttonRect.ToString() + buttons.Count+Mathf.Ceil(buttons.Count /(float) numRows));
 		foreach (Transform button in buttons)
 		{
 			
 			if (GUI.Button (buttonRect, button.name, "DefaultButton"))
 			{
 				((MonoBehaviour) button.GetComponent(typeof(MonoBehaviour))).enabled = !((MonoBehaviour) button.GetComponent(typeof(MonoBehaviour))).enabled;
-				//button.active = !button.active;
 			}
 			buttonRect.x += buttonRect.width + interButtonSpacing;
 			if(buttonRect.x >= contentBounds.width)
