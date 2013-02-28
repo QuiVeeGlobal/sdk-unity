@@ -61,7 +61,6 @@ namespace Roar.implementation.Components
 
 			public override void HandleSuccess (CallbackInfo<WebObjects.User.LoginResponse> info)
 			{
-				//Debug.Log("Login -> OnSuccess :"+info.data.DebugAsString());
 				RoarManager.OnLoggedIn ();
 				// @todo Perform auto loading of game and player data
 			}

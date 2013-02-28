@@ -108,7 +108,8 @@ public class RoarRankingsWidget : RoarUIWidget
 	{
 		if (string.IsNullOrEmpty(leaderboardId))
 		{
-			Debug.Log("leaderboardId not set!");
+			if (Debug.isDebugBuild)
+				Debug.Log("leaderboardId not set!");
 			return;
 		}
 		isFetching = true;
@@ -184,8 +185,6 @@ public class RoarRankingsWidget : RoarUIWidget
 				
 				Vector2 rank = GUI.skin.FindStyle("DefaultLightContentText").CalcSize(new GUIContent(item.rank.ToString()));
 				Vector2 labSize = GUI.skin.FindStyle("DefaultLightContentText").CalcSize(new GUIContent(item.player_id));
-				
-				Debug.Log(item.properties[0].ikey+ "  "+item.properties[1].ikey + " "+item.properties.Count);
 				
 				
 				string prop_string = string.Join(

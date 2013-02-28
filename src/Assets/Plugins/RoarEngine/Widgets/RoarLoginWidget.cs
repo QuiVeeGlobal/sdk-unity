@@ -226,7 +226,8 @@ public class RoarLoginWidget : RoarUIWidget
 	{
 		if(info.code == IWebAPI.OK)
 		{
-			Debug.Log("oauth fetched successfully");
+			if (Debug.isDebugBuild)
+				Debug.Log("oauth fetched successfully");
 			networkActionInProgress = false;
 		}
 		else
@@ -370,7 +371,6 @@ public class RoarLoginWidget : RoarUIWidget
 	**/
 	void CatchCodeGetPara(string paras)
 	{
-		Debug.Log("got code get para"+paras);
 		if(paras.Split(' ')[0] == "")
 		{
 			//Invoke redirect with authorization.
@@ -383,8 +383,6 @@ public class RoarLoginWidget : RoarUIWidget
 			return;
 		}
 
-		Debug.Log("got string para");
-		Debug.Log("string is "+paras);
 		string codeParameter = paras.Split(' ')[0];
 
 		roar.Facebook.FetchOAuthToken(codeParameter, OnRoarFacebookFetchOauthTokenComplete);
@@ -398,7 +396,9 @@ public class RoarLoginWidget : RoarUIWidget
 	**/
 	void CatchStatePara(string paras)
 	{
-		Debug.Log("caught state para"+paras);
+		if (Debug.isDebugBuild)
+			Debug.Log("caught state para"+paras);
+		
 		if(paras == "")
 		{
 			return;
