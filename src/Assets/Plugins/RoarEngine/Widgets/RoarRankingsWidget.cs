@@ -18,9 +18,9 @@ public class RoarRankingsWidget : RoarUIWidget
 	public string rankingEntryPlayerScoreStyle = "LeaderboardRankingPlayerScore";
 	
 	public string previousButtonLabel = "Previous page";
-	public string previousButtonStyle = "LeaderboardRankingPrev";
+	public string previousButtonStyle = "DefaultPillboxStyle";
 	public string nextButtonLabel = "Next page";
-	public string nextButtonStyle = "LeaderboardRankingNext";
+	public string nextButtonStyle = "DefaultPillboxStyle";
 	
 	public string customDataFormat = "{0}:{1}";
 	public string rankFormat = "{0}";
@@ -28,7 +28,12 @@ public class RoarRankingsWidget : RoarUIWidget
 	public string valueFormat = "{0}";
 	public string valueStyle = "LeaderboardRankingValue";
 	
-	
+	public float valueWidth =100;
+	public float rankColumnWidth = 40;
+	public float interColumnSeparators =5;
+	public float divideHeight = 20;
+	public float sectionHeight = 50;
+	public float topSeparation = 5;
 	
 
 	//public string rankingNavigatePageValueStyle = "LabelPageValue";
@@ -36,6 +41,7 @@ public class RoarRankingsWidget : RoarUIWidget
 	//public string rankingNavigateRightButtonStyle = "ButtonNavigatePageRight";
 	
 	public string leaderboardId = string.Empty;
+	public string leaderboardName = "";
 	public int page = 1;
 	
 	private Roar.Components.ILeaderboards boards;	
@@ -75,8 +81,9 @@ public class RoarRankingsWidget : RoarUIWidget
 		FetchIfRequired();
 	}
 	
-	void OnLeaderboardSelected(string leaderboardId)
+	void OnLeaderboardSelected(string leaderboardId, string name)
 	{
+		this.leaderboardName = name;
 		this.leaderboardId = leaderboardId;
 		this.page = 1;
 		FetchIfRequired();
@@ -84,6 +91,8 @@ public class RoarRankingsWidget : RoarUIWidget
 	
 	void FetchIfRequired()
 	{
+		subheaderName =leaderboardName;
+		
 		if (!string.IsNullOrEmpty(leaderboardId))
 		{
 			leaderboard = boards.GetLeaderboard(leaderboardId,page);
@@ -99,10 +108,12 @@ public class RoarRankingsWidget : RoarUIWidget
 	{
 		if (string.IsNullOrEmpty(leaderboardId))
 		{
-			Debug.Log("leaderboardId not set!");
+			if (Debug.isDebugBuild)
+				Debug.Log("leaderboardId not set!");
 			return;
 		}
 		isFetching = true;
+		networkActionInProgress = true;
 		boards.FetchBoard( leaderboardId, page, OnRoarFetchLeaderboardComplete );
 	}
 	
@@ -111,6 +122,7 @@ public class RoarRankingsWidget : RoarUIWidget
 		//TODO: Handle errors!
 		leaderboard = info.data.GetLeaderboard(leaderboardId, page);
 		isFetching = false;
+		networkActionInProgress = false;
 	}
 	
 	
@@ -124,98 +136,76 @@ public class RoarRankingsWidget : RoarUIWidget
 		}
 		else
 		{
-			if (leaderboard == null || (leaderboard.Count == 0 && page == 1) )
+			
+			GUI.Box(new Rect(0, 0, contentBounds.width, divideHeight), new GUIContent(""), "DefaultSeparationBar");
+			Vector2 rankW = GUI.skin.FindStyle("DefaultSeparationBarText").CalcSize(new GUIContent("Rank"));
+			GUI.Label(new Rect(interColumnSeparators - rankW.x/2, 0, valueWidth, divideHeight), "RANK", "DefaultSeparationBarText");
+			
+			GUI.Label(new Rect(interColumnSeparators*2 +rankW.x, 0, valueWidth, divideHeight), "NAME", "DefaultSeparationBarText");
+
+			float heightSoFar = divideHeight;
+			
+			bool requires_refetch = false;
+			
+			if(leaderboard != null)
 			{
-				GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "No ranking data.", "StatusNormal");
-				ScrollViewContentHeight = contentBounds.height;
-			}
-			else
-			{
-				ScrollViewContentHeight = Mathf.Max(contentBounds.height, (leaderboard.Count+1) * (rankingItemBounds.height + rankingItemSpacing));
-				//Render some navigation widgets:
-				Rect entryRect = rankingItemBounds;
-				GUI.BeginGroup(entryRect);
+				GUILayout.BeginArea(new Rect(0, heightSoFar, contentBounds.width, sectionHeight));
+				GUILayout.BeginVertical();
+				GUILayout.FlexibleSpace();
 				
-				//We do this last so we dont break immediate mode GUI rendering.
-				bool requires_refetch = false;
+				GUILayout.BeginHorizontal();
+				GUILayout.FlexibleSpace();
 				
 				if( page==1 ) { GUI.enabled = false; }
-				if( GUI.Button(new Rect(0,0,entryRect.width/2,entryRect.height), previousButtonLabel, previousButtonStyle) )
+				if( GUILayout.Button(previousButtonLabel, previousButtonStyle) )
 				{
 					page = page - 1;
 					requires_refetch = true;
 				}
 				GUI.enabled = true;
 				
+				GUILayout.FlexibleSpace();
 				if( leaderboard.Count == 0 ) { GUI.enabled = false; }
-				if( GUI.Button(new Rect(entryRect.width/2,0,entryRect.width/2,entryRect.height), nextButtonLabel, nextButtonStyle) )
+				if( GUILayout.Button( nextButtonLabel, nextButtonStyle) )
 				{
 					page = page +1;
 					requires_refetch = true;
 				}
 				GUI.enabled = true;
-				GUI.EndGroup();
-				entryRect.y += entryRect.height + rankingItemSpacing;
-
-				
-				foreach (LeaderboardEntry leaderboardEntry in leaderboard)
-				{
-					string prop_string = string.Join(
-						"\n",
-						leaderboardEntry.properties.Select( p => ( string.Format( customDataFormat, p.ikey, p.value ) ) ).ToArray()
-						);
-					GUI.Label(entryRect, prop_string, rankingEntryPlayerRankStyle);
-					GUI.Label(entryRect, string.Format( rankFormat, leaderboardEntry.rank), rankStyle );
-					GUI.Label(entryRect, string.Format( valueFormat, leaderboardEntry.value), valueStyle );
-					entryRect.y += entryRect.height + rankingItemSpacing;
-				}
-				//useScrollView = utilizeScrollView && ((entry.y + entry.height) > contentBounds.height);
-				
-				if(requires_refetch) FetchIfRequired();
-
+				GUILayout.FlexibleSpace();
+				GUILayout.EndHorizontal();
+				GUILayout.FlexibleSpace();
+				GUILayout.EndVertical();
+				GUILayout.EndArea();
+				heightSoFar += sectionHeight;
 			}
+			if(leaderboard != null)
+			foreach (LeaderboardEntry item in leaderboard)
+			{
+				
+				Vector2 rank = GUI.skin.FindStyle("DefaultLightContentText").CalcSize(new GUIContent(item.rank.ToString()));
+				Vector2 labSize = GUI.skin.FindStyle("DefaultLightContentText").CalcSize(new GUIContent(item.player_id));
+				
+				
+				string prop_string = string.Join(
+						"\n",
+						item.properties.Select( p => ( string.Format( customDataFormat, p.ikey, p.value ) ) ).ToArray()
+						);
+				
+				GUI.Box(new Rect(0, heightSoFar, contentBounds.width, sectionHeight), new GUIContent(""), "DefaultHorizontalSection");
+				float ySoFar = heightSoFar + topSeparation;
+				
+				GUI.Box(new Rect(interColumnSeparators, ySoFar, rank.x, sectionHeight), item.rank.ToString(), "DefaultHeavyContentText");
+				
+				GUI.Box(new Rect(2*interColumnSeparators + rank.x, ySoFar, labSize.x, sectionHeight), prop_string, "DefaultHeavyContentText");
+				 
+				GUI.Label (new Rect(contentBounds.width - valueWidth - interColumnSeparators, heightSoFar, valueWidth, labSize.y),  item.value.ToString(), "DefaultHeavyContentText") ;
+				heightSoFar += sectionHeight + topSeparation;
+			}
+			
+			if(requires_refetch) FetchIfRequired();
 		}
+		
 	}
 	
-	/*
-	void GUIPageNavigator(Rect rect)
-	{
-		GUIStyle navigateButtonStyle;
-		float w = rect.width;
-		//float h = rect.height;
-
-		GUI.BeginGroup(rect);
-		rect.x = 0;
-		rect.y = 0;
-		
-		navigateButtonStyle = skin.FindStyle(rankingNavigateLeftButtonStyle);
-		rect.width = navigateButtonStyle.fixedWidth;
-		rect.height = navigateButtonStyle.fixedHeight;
-		if (activeLeaderboard.HasPrevious)
-		{
-			if (GUI.Button(rect, string.Empty, rankingNavigateLeftButtonStyle))
-			{
-				FetchRankings(activeLeaderboard, activeLeaderboard.page + 1);
-			}
-		}
-		
-		rect.width = w;
-		if (activeLeaderboard.HasPrevious || activeLeaderboard.HasNext)
-			GUI.Label(rect, activeLeaderboard.page.ToString(), rankingNavigatePageValueStyle);
-
-		navigateButtonStyle = skin.FindStyle(rankingNavigateRightButtonStyle);
-		rect.width = navigateButtonStyle.fixedWidth;
-		rect.height = navigateButtonStyle.fixedHeight;
-		rect.x = w - rect.width;
-		if (activeLeaderboard.HasNext)
-		{
-			if (GUI.Button(rect, string.Empty, rankingNavigateRightButtonStyle))
-			{
-				FetchRankings(activeLeaderboard, activeLeaderboard.page - 1);
-			}
-		}
-		
-		GUI.EndGroup();
-	}
-	*/
 }
