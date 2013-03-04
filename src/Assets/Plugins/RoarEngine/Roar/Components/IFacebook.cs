@@ -82,6 +82,18 @@ namespace Roar.Components
 		void CreateOAuth(string name, string oAuthToken, Roar.Callback<WebObjects.Facebook.CreateOauthResponse> cb);
 		
 		/**
+		 * List shop
+		 *
+		 * On success:
+		 * - fires a RoarManager#facebookShopListEvent
+		 *
+		 * On failuire:
+		 * - fires a RoarManager#facebookShopListFailedEvent
+		 *
+		 * @param cb the callback function to be passed the result of the ShopList.
+		 */
+		void ShopList(Roar.Callback<WebObjects.Facebook.ShopListResponse> cb);
+		/**
 		 * Starts the login chain for logging in using a webplayer (oauth or signed request method).
 		 *
 		 * On success:
@@ -188,6 +200,42 @@ namespace Roar.Components
 		 *
 		 */
 		void RequestFacebookStatePara();
+
+
+		/**
+		* Fetch shop information from the server.
+		*
+		* On success:
+		* - invokes callback with parameter *Array<ShopEntry> data* containing the data for the shop.
+		* - sets #hasDataFromServer to true
+		*
+		* On failure:
+		* - invokes callback with error code and error message
+		*
+		* @param callback the callback function to be passed this function's result.
+		*
+		* @returns nothing - use a callback and/or subscribe to RoarManager events for results of non-blocking calls.
+		*/
+		void FetchShopData (Roar.Callback<IDictionary<string,DomainObjects.FacebookShopEntry>> callback);
+
+		/**
+		* Get a list of all the available items in the shop.
+		*
+		* @returns A list of Hashtables for each shop item.
+		*
+		* @note This does _not_ make a server call. It requires the shop data to
+		*have already been fetched via a call to #fetch. If this function
+		*is called prior to the successful completion of a #fetch call,
+		*it will return an empty array.
+		*/
+		IList<DomainObjects.FacebookShopEntry> List ();
+
+		/**
+		* Check whether facebook shop information has been obtained from the server.
+		*
+		* @returns true if #fetch has completed execution.
+		*/
+		bool HasDataFromServer { get; }
 
 	}
 }
