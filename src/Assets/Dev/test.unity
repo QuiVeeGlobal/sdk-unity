@@ -74,70 +74,6 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
---- !u!1 &163019612
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 163019615}
-  - 102: {fileID: 163019614}
-  - 23: {fileID: 163019613}
-  m_Layer: 0
-  m_Name: ToggleFriends
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &163019613
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 163019612}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!102 &163019614
-TextMesh:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 163019612}
-  m_Text: Friends
-  m_OffsetZ: 0
-  m_CharacterSize: 1
-  m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
-  m_TabSize: 4
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &163019615
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 163019612}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.42057848, y: 1.45823383, z: .502860546}
-  m_LocalScale: {x: .5, y: .5, z: .5}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &199454294
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +84,7 @@ GameObject:
   - 4: {fileID: 199454296}
   - 114: {fileID: 199454295}
   m_Layer: 0
-  m_Name: RoarInventoryWidget
+  m_Name: Inventory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -181,11 +117,24 @@ MonoBehaviour:
   apearance:
     color: {r: 1, g: 1, b: 1, a: 1}
     boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
     boundingTitle: 
     boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 30
+    windowBorderWidth: 7
   windowInfo:
-    isWindowed: 0
-    supportsDragging: 0
+    isWindowed: 1
+    supportsDragging: 1
+  displayName: Widget
+  drawSubheading: 0
+  subheaderName:
+  subheaderDarkWidth: 100
   horizontalAlignment: 3
   verticalAlignment: 3
   horizontalOffset: 0
@@ -193,21 +142,24 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
+  scrollBarStyle:
+  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   whenToFetch: 2
   howOftenToFetch: 60
-  labelFormat: InventoryLabel
-  descriptionFormat: InventoryDescription
-  typeFormat: InventoryType
-  consumeButtonFormat: InventoryConsumeButton
-  showDescription: 1
+  labelFormat: DefaultHeavyContentLeftText
+  descriptionFormat: DefaultLightContentText
+  typeFormat: DefaultHeavyContentLeftText
+  consumeButtonFormat: DefaultButton
+  showDescription: 0
   showType: 1
   allowSorting: 1
-  maxLabelWidth: 150
-  maxDescriptionFormatWidth: 350
-  maxTypeWidth: 100
+  maxLabelWidth: 58
+  maxDescriptionFormatWidth: 310
+  maxTypeWidth: 40
   rowHeight: 32
+  divideHeight: 30
 --- !u!4 &199454296
 Transform:
   m_ObjectHideFlags: 0
@@ -218,69 +170,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
---- !u!1 &327688141
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 327688142}
-  - 108: {fileID: 327688143}
-  m_Layer: 0
-  m_Name: Directional light
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &327688142
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 327688141}
-  m_LocalRotation: {x: .408217967, y: -.234569743, z: .109381683, w: .875426114}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1076514028}
---- !u!108 &327688143
-Light:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 327688141}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Type: 1
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: .5
-  m_Range: 10
-  m_SpotAngle: 30
-  m_CookieSize: 10
-  m_Shadows:
-    m_Type: 0
-    m_Resolution: -1
-    m_Strength: 1
-    m_Bias: .0500000007
-    m_Softness: 4
-    m_SoftnessFade: 1
-  m_Cookie: {fileID: 0}
-  m_DrawHalo: 0
-  m_ActuallyLightmapped: 0
-  m_Flare: {fileID: 0}
-  m_RenderMode: 0
-  m_CullingMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_Lightmapping: 1
-  m_ShadowSamples: 1
-  m_ShadowRadius: 0
-  m_ShadowAngle: 0
-  m_IndirectIntensity: 1
-  m_AreaSize: {x: 1, y: 1}
+  m_Father: {fileID: 453953422}
 --- !u!1 &453953421
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,8 +197,17 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1510717982}
+  - {fileID: 1340799530}
+  - {fileID: 1464614849}
+  - {fileID: 199454296}
+  - {fileID: 906782020}
+  - {fileID: 2063613870}
+  - {fileID: 1765055055}
+  - {fileID: 671462277}
   - {fileID: 1998890868}
-  - {fileID: 588654797}
+  - {fileID: 1654474001}
+  - {fileID: 609839862}
   m_Father: {fileID: 0}
 --- !u!114 &453953423
 MonoBehaviour:
@@ -323,404 +222,92 @@ MonoBehaviour:
   debug: 1
   appstoreSandbox: 1
   gameKey: spark
-  defaultGUISkin: {fileID: 11400000, guid: f7421dd79547040c5b55e2af570b020c, type: 2}
---- !u!1 &486520127
+  defaultGUISkin: {fileID: 11400000, guid: e9a7b12d3982d1b4b9c3f31ff7587cc9, type: 2}
+--- !u!1 &609839861
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 486520128}
-  - 33: {fileID: 486520130}
-  - 65: {fileID: 486520131}
-  - 23: {fileID: 486520129}
-  - 114: {fileID: 486520132}
-  - 114: {fileID: 486520133}
+  - 4: {fileID: 609839862}
+  - 114: {fileID: 609839863}
   m_Layer: 0
-  m_Name: Shop Cube
+  m_Name: Widget Bar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &486520128
+--- !u!4 &609839862
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 486520127}
+  m_GameObject: {fileID: 609839861}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.4984417, y: 2.52533197, z: 26.3804054}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1076514028}
---- !u!23 &486520129
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 486520127}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!33 &486520130
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 486520127}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &486520131
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 486520127}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &486520132
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 486520127}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ce2a78ec9f24d9fb20e280f5bbf2e3, type: 3}
-  m_Name: 
-  upRotateSpeed: 1
-  leftRotateSpeed: .5
---- !u!114 &486520133
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 486520127}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1112f15e7a28c4ab3bc143c7fcdb2708, type: 3}
-  m_Name: 
-  target: {fileID: 671462276}
---- !u!1 &578134444
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 578134445}
-  - 33: {fileID: 578134447}
-  - 65: {fileID: 578134448}
-  - 23: {fileID: 578134446}
-  - 114: {fileID: 578134449}
-  - 114: {fileID: 578134450}
-  m_Layer: 0
-  m_Name: Friends Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &578134445
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 578134444}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.413084, y: .883428574, z: 26.3610134}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1076514028}
---- !u!23 &578134446
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 578134444}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!33 &578134447
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 578134444}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &578134448
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 578134444}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &578134449
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 578134444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ce2a78ec9f24d9fb20e280f5bbf2e3, type: 3}
-  m_Name: 
-  upRotateSpeed: 1
-  leftRotateSpeed: .5
---- !u!114 &578134450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 578134444}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c4ef494ac08d49e7a04a5a0fe5ea964, type: 3}
-  m_Name: 
-  target: {fileID: 1464614848}
---- !u!1 &581616720
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 581616721}
-  - 33: {fileID: 581616723}
-  - 65: {fileID: 581616724}
-  - 23: {fileID: 581616722}
-  - 114: {fileID: 581616725}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &581616721
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 581616720}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -12.8438053, y: 1.35124397, z: 35.3372803}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1076514028}
---- !u!23 &581616722
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 581616720}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!33 &581616723
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 581616720}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &581616724
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 581616720}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &581616725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 581616720}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ce2a78ec9f24d9fb20e280f5bbf2e3, type: 3}
-  m_Name: 
-  upRotateSpeed: 1
-  leftRotateSpeed: .5
---- !u!1 &588654796
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 588654797}
-  - 114: {fileID: 588654798}
-  m_Layer: 0
-  m_Name: RoarStatsWidget-DraggableWindow
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &588654797
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 588654796}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 31.1871567, y: 11.8802147, z: -73.9139938}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 453953422}
---- !u!114 &588654798
+--- !u!114 &609839863
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 588654796}
+  m_GameObject: {fileID: 609839861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a55eaf128067445d79aca84095dd8391, type: 3}
+  m_Script: {fileID: 11500000, guid: 96d2824dbb61e594088df94f759733e5, type: 3}
   m_Name: 
   bounds:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 512
-    height: 128
+    width: 1000
+    height: 100
   contentBounds:
     serializedVersion: 2
-    x: 8
-    y: 32
-    width: 496
-    height: 88
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   skin: {fileID: 0}
-  depth: -1
+  depth: 0
   apearance:
     color: {r: 1, g: 1, b: 1, a: 1}
     boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
     boundingTitle: 
     boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 30
+    closeButtonOffset: 30
+    closeButtonSize: 5
+    windowBorderWidth: 8
   windowInfo:
     isWindowed: 0
     supportsDragging: 0
-  horizontalAlignment: 0
-  verticalAlignment: 0
-  horizontalOffset: 32
-  verticalOffset: 32
-  useScrollView: 1
+  displayName: Widget Control Bar
+  drawSubheading: 0
+  subheaderName: Widget
+  subheaderDarkWidth: 100
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
-  alwaysShowVerticalScrollBar: 1
-  autoEnableOnLogIn: 0
+  alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: DefaultScrollbarStyle
+  spinnerMovieTex: {fileID: 0}
+  autoEnableOnLogIn: 1
   autoDisableOnLogout: 1
-  autoCalculateContentBounds: 1
-  defaultValueFormat: N0
-  statsToDisplay:
-  - enabled: 1
-    key: rocket_fuel
-    bounds:
-      serializedVersion: 2
-      x: 16
-      y: 0
-      width: 445
-      height: 32
-    title: 
-    titleStyle: StatsTitleStyle
-    valueFormat: 
-    valueStyle: StatsValueStyle
-    valueType: 1
-  - enabled: 1
-    key: strength
-    bounds:
-      serializedVersion: 2
-      x: 16
-      y: 32
-      width: 445
-      height: 32
-    title: 
-    titleStyle: StatsTitleStyle
-    valueFormat: 
-    valueStyle: StatsValueStyle
-    valueType: 1
-  - enabled: 1
-    key: health
-    bounds:
-      serializedVersion: 2
-      x: 16
-      y: 64
-      width: 445
-      height: 32
-    title: 
-    titleStyle: StatsTitleStyle
-    valueFormat: 
-    valueStyle: StatsValueStyle
-    valueType: 1
-  - enabled: 1
-    key: energy
-    bounds:
-      serializedVersion: 2
-      x: 16
-      y: 96
-      width: 445
-      height: 32
-    title: 
-    titleStyle: StatsTitleStyle
-    valueFormat: 
-    valueStyle: StatsValueStyle
-    valueType: 1
-  - enabled: 1
-    key: hunger
-    bounds:
-      serializedVersion: 2
-      x: 16
-      y: 128
-      width: 445
-      height: 32
-    title: 
-    titleStyle: StatsTitleStyle
-    valueFormat: 
-    valueStyle: StatsValueStyle
-    valueType: 1
+  interButtonSpacing: 0
+  numRows: 2
 --- !u!1 &671462276
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,7 +318,7 @@ GameObject:
   - 4: {fileID: 671462277}
   - 114: {fileID: 671462278}
   m_Layer: 0
-  m_Name: RoarShopWidget
+  m_Name: Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -747,7 +334,7 @@ Transform:
   m_LocalPosition: {x: 1.46819806, y: .313522816, z: 3.03957415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
 --- !u!114 &671462278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -766,20 +353,33 @@ MonoBehaviour:
     height: 386
   contentBounds:
     serializedVersion: 2
-    x: 16
-    y: 16
-    width: 486
-    height: 354
+    x: 0
+    y: 0
+    width: 512
+    height: 386
   skin: {fileID: 0}
   depth: 0
   apearance:
     color: {r: 1, g: 1, b: 1, a: 1}
     boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
     boundingTitle: 
     boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 30
+    windowBorderWidth: 7
   windowInfo:
     isWindowed: 0
     supportsDragging: 0
+  displayName: Shop
+  drawSubheading: 0
+  subheaderName:
+  subheaderDarkWidth: 100
   horizontalAlignment: 1
   verticalAlignment: 1
   horizontalOffset: 0
@@ -787,261 +387,22 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
+  scrollBarStyle:
+  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   whenToFetch: 0
   howOftenToFetch: 60
-  shopItemLabelStyle: ShopItemLabel
-  shopItemDescriptionStyle: ShopItemDescription
-  shopItemCostStyle: ShopItemCost
-  shopItemBuyButtonStyle: ShopItemBuyButton
-  shopItemBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 468
-    height: 64
-  buyButtonBounds:
-    serializedVersion: 2
-    x: 372
-    y: 0
-    width: 96
-    height: 32
-  shopItemSpacing: 8
---- !u!1 &834810405
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 834810406}
-  - 33: {fileID: 834810408}
-  - 65: {fileID: 834810409}
-  - 23: {fileID: 834810407}
-  - 114: {fileID: 834810410}
-  m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &834810406
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 834810405}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -10.7851915, y: 4.24269676, z: 29.8330307}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1076514028}
---- !u!23 &834810407
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 834810405}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!33 &834810408
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 834810405}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &834810409
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 834810405}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &834810410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 834810405}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ce2a78ec9f24d9fb20e280f5bbf2e3, type: 3}
-  m_Name: 
-  upRotateSpeed: 1
-  leftRotateSpeed: .5
---- !u!1 &872105091
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 872105092}
-  - 33: {fileID: 872105094}
-  - 65: {fileID: 872105095}
-  - 23: {fileID: 872105093}
-  - 114: {fileID: 872105096}
-  - 114: {fileID: 872105097}
-  m_Layer: 0
-  m_Name: LB List Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &872105092
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 872105091}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.4279346, y: -2.7384758, z: 26.3173485}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1076514028}
---- !u!23 &872105093
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 872105091}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!33 &872105094
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 872105091}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &872105095
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 872105091}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &872105096
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 872105091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ce2a78ec9f24d9fb20e280f5bbf2e3, type: 3}
-  m_Name: 
-  upRotateSpeed: 1
-  leftRotateSpeed: .5
---- !u!114 &872105097
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 872105091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb7fe52fa38a548cdbf2146380700605, type: 3}
-  m_Name: 
-  target: {fileID: 906782019}
---- !u!1 &883606679
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 883606682}
-  - 102: {fileID: 883606681}
-  - 23: {fileID: 883606680}
-  m_Layer: 0
-  m_Name: ToggleLBSelecter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &883606680
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 883606679}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!102 &883606681
-TextMesh:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 883606679}
-  m_Text: Tasks
-  m_OffsetZ: 0
-  m_CharacterSize: 1
-  m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
-  m_TabSize: 4
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &883606682
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 883606679}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.40385771, y: -5.59792423, z: .497967243}
-  m_LocalScale: {x: .5, y: .5, z: .5}
-  m_Children: []
-  m_Father: {fileID: 0}
+  shopItemLabelStyle: DefaultHeavyContentLeftText
+  shopItemDescriptionStyle: LightTextRightAligned
+  shopItemCostStyle: DefaultHeavyContentLeftText
+  shopItemBuyButtonStyle: DefaultButton
+  buyButtonWidth: 100
+  buyButtonHeight: 40
+  interColumnSeparators: 20
+  divideHeight: 35
+  priceColumnWidth: 40
+  topSeparation: 15
 --- !u!1 &906782019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1052,7 +413,7 @@ GameObject:
   - 4: {fileID: 906782020}
   - 114: {fileID: 906782021}
   m_Layer: 0
-  m_Name: RoarLeaderboardsWidget
+  m_Name: Leaderboards
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1068,7 +429,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
 --- !u!114 &906782021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1081,26 +442,39 @@ MonoBehaviour:
   m_Name: 
   bounds:
     serializedVersion: 2
-    x: 100
-    y: 0
+    x: 0
+    y: 100
     width: 512
     height: 386
   contentBounds:
     serializedVersion: 2
-    x: 8
-    y: 32
-    width: 496
-    height: 338
+    x: 0
+    y: 0
+    width: 512
+    height: 386
   skin: {fileID: 0}
   depth: 0
   apearance:
     color: {r: 1, g: 1, b: 1, a: 1}
     boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
     boundingTitle: 
     boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 30
+    windowBorderWidth: 7
   windowInfo:
-    isWindowed: 0
+    isWindowed: 1
     supportsDragging: 0
+  displayName: Leaderboard
+  drawSubheading: 0
+  subheaderName:
+  subheaderDarkWidth: 100
   horizontalAlignment: 0
   verticalAlignment: 1
   horizontalOffset: 0
@@ -1108,6 +482,8 @@ MonoBehaviour:
   useScrollView: 1
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
+  scrollBarStyle:
+  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   whenToFetch: 0
@@ -1119,280 +495,102 @@ MonoBehaviour:
     width: 476
     height: 64
   leaderboardItemSpacing: 4
-  leaderboardEntryStyle: LeaderboardEntryButton
---- !u!1 &945897332
+  leaderboardEntryStyle: DefaultButton
+--- !u!1 &1340799529
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 945897333}
-  - 33: {fileID: 945897338}
-  - 65: {fileID: 945897337}
-  - 23: {fileID: 945897336}
-  - 114: {fileID: 945897335}
-  - 114: {fileID: 945897334}
+  - 4: {fileID: 1340799530}
+  - 114: {fileID: 1340799531}
   m_Layer: 0
-  m_Name: TasksCube
+  m_Name: Facebook Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &945897333
+--- !u!4 &1340799530
 Transform:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 945897332}
+  m_GameObject: {fileID: 1340799529}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.3923111, y: -6.2752037, z: 26.3173485}
+  m_LocalPosition: {x: -3.67973709, y: -4.83867073, z: 1.56423426}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1076514028}
---- !u!114 &945897334
+  m_Father: {fileID: 453953422}
+--- !u!114 &1340799531
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 945897332}
+  m_GameObject: {fileID: 1340799529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c47667b54cd8a14f80b0c023bf75e96, type: 3}
-  m_Name: 
-  target: {fileID: 1654474000}
---- !u!114 &945897335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 945897332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ce2a78ec9f24d9fb20e280f5bbf2e3, type: 3}
-  m_Name: 
-  upRotateSpeed: 1
-  leftRotateSpeed: .5
---- !u!23 &945897336
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 945897332}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!65 &945897337
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 945897332}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &945897338
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 945897332}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &947854439
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 947854442}
-  - 102: {fileID: 947854441}
-  - 23: {fileID: 947854440}
-  m_Layer: 0
-  m_Name: ToggleLBSelecter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &947854440
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 947854439}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!102 &947854441
-TextMesh:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 947854439}
-  m_Text: Leaderboard View
-  m_OffsetZ: 0
-  m_CharacterSize: 1
-  m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
-  m_TabSize: 4
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &947854442
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 947854439}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.42057848, y: -.266777992, z: .502860546}
-  m_LocalScale: {x: .5, y: .5, z: .5}
-  m_Children: []
-  m_Father: {fileID: 0}
---- !u!1 &1059046595
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1059046598}
-  - 102: {fileID: 1059046597}
-  - 23: {fileID: 1059046596}
-  m_Layer: 0
-  m_Name: ToggleLBSelecter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &1059046596
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1059046595}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!102 &1059046597
-TextMesh:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1059046595}
-  m_Text: Inventory
-  m_OffsetZ: 0
-  m_CharacterSize: 1
-  m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
-  m_TabSize: 4
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1059046598
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1059046595}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.38495493, y: -3.85839558, z: .502860546}
-  m_LocalScale: {x: .5, y: .5, z: .5}
-  m_Children: []
-  m_Father: {fileID: 0}
---- !u!1 &1076514027
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1076514028}
-  - 102: {fileID: 1076514029}
-  m_Layer: 0
-  m_Name: stuff
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1076514028
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1076514027}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 13.2534122, y: .456644028, z: -27.2830486}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 578134445}
-  - {fileID: 581616721}
-  - {fileID: 834810406}
-  - {fileID: 1949122399}
-  - {fileID: 486520128}
-  - {fileID: 872105092}
-  - {fileID: 1745052716}
-  - {fileID: 327688142}
-  - {fileID: 945897333}
-  m_Father: {fileID: 0}
---- !u!102 &1076514029
-TextMesh:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1076514027}
-  m_Text: 
-  m_OffsetZ: 0
-  m_CharacterSize: 1
-  m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
-  m_TabSize: 4
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: d43ce148cba310c4e8a38952786873dd, type: 3}
+  m_Name:
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
+    boundingTitle:
+    boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 5
+    windowBorderWidth: 8
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
+  displayName: Widget
+  drawSubheading: 0
+  subheaderName: Widget
+  subheaderDarkWidth: 100
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: DefaultScrollbarStyle
+  spinnerMovieTex: {fileID: 0}
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
+  whenToFetch: 2
+  howOftenToFetch: 60
+  shopItemLabelStyle: DefaultHeavyContentText
+  shopItemDescriptionStyle: DefaultLightContentText
+  shopItemCostStyle: DefaultHeavyContentText
+  shopItemBuyButtonStyle: DefaultButton
+  buyButtonWidth: 100
+  buyButtonHeight: 40
+  interColumnSeparators: 5
+  divideHeight: 20
+  priceColumnWidth: 40
+  topSeparation: 15
 --- !u!1 &1371897980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1419,7 +617,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1371897980}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -.52353406, y: .102510452, z: -11.7944164}
+  m_LocalPosition: {x: -.52353406, y: -2.61879539, z: -11.7944164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1472,70 +670,6 @@ Behaviour:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1371897980}
   m_Enabled: 1
---- !u!1 &1399347087
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1399347090}
-  - 102: {fileID: 1399347089}
-  - 23: {fileID: 1399347088}
-  m_Layer: 0
-  m_Name: ToggleLBSelecter
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &1399347088
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1399347087}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!102 &1399347089
-TextMesh:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1399347087}
-  m_Text: Leaderboard List
-  m_OffsetZ: 0
-  m_CharacterSize: 1
-  m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
-  m_TabSize: 4
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1399347090
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1399347087}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.42057848, y: -2.06119633, z: .502860546}
-  m_LocalScale: {x: .5, y: .5, z: .5}
-  m_Children: []
-  m_Father: {fileID: 0}
 --- !u!1 &1464614848
 GameObject:
   m_ObjectHideFlags: 0
@@ -1546,7 +680,7 @@ GameObject:
   - 4: {fileID: 1464614849}
   - 114: {fileID: 1464614851}
   m_Layer: 0
-  m_Name: RoarFriendsListWidget
+  m_Name: Friends
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1562,7 +696,7 @@ Transform:
   m_LocalPosition: {x: 1.46819806, y: .313522816, z: 3.03957415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
 --- !u!114 &1464614851
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1576,7 +710,7 @@ MonoBehaviour:
   bounds:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 100
     width: 512
     height: 386
   contentBounds:
@@ -1590,11 +724,24 @@ MonoBehaviour:
   apearance:
     color: {r: 1, g: 1, b: 1, a: 1}
     boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
     boundingTitle: 
     boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 30
+    windowBorderWidth: 7
   windowInfo:
     isWindowed: 0
     supportsDragging: 0
+  displayName: Widget
+  drawSubheading: 0
+  subheaderName:
+  subheaderDarkWidth: 100
   horizontalAlignment: 2
   verticalAlignment: 1
   horizontalOffset: 0
@@ -1602,6 +749,8 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
+  scrollBarStyle:
+  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   whenToFetch: 2
@@ -1614,11 +763,99 @@ MonoBehaviour:
     width: 476
     height: 32
   playerIdFormatString: '{0}'
-  playerIdFormat: FriendsId
+  playerIdFormat: DefaultHeavyContentText
   nameFormatString: '{0}'
-  nameFormat: FriendsName
+  nameFormat: DefaultHeavyContentText
   levelFormatString: '{0}'
-  levelFormat: FriendsLevel
+  levelFormat: DefaultHeavyContentText
+--- !u!1 &1510717981
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1510717982}
+  - 114: {fileID: 1510717983}
+  m_Layer: 0
+  m_Name: Facebook Bind
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1510717982
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1510717981}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453953422}
+--- !u!114 &1510717983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1510717981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cb2fb2a413fd69408b93d6146b08191, type: 3}
+  m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 100
+    width: 512
+    height: 386
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 5
+    windowBorderWidth: 8
+  windowInfo:
+    isWindowed: 0
+    supportsDragging: 0
+  displayName: Bind Widget
+  drawSubheading: 0
+  subheaderName: Widget
+  subheaderDarkWidth: 100
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: DefaultScrollbarStyle
+  spinnerMovieTex: {fileID: 0}
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
+  status:
+  facebookApplicationID:
+  buttonStyle: DefaultButton
+  buttonWidth: 300
+  buttonHeight: 90
 --- !u!1 &1654474000
 GameObject:
   m_ObjectHideFlags: 0
@@ -1629,7 +866,7 @@ GameObject:
   - 4: {fileID: 1654474001}
   - 114: {fileID: 1654474002}
   m_Layer: 0
-  m_Name: RoarTasksWidget
+  m_Name: Tasks
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1645,7 +882,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: -11.7944164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
 --- !u!114 &1654474002
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1659,8 +896,8 @@ MonoBehaviour:
   bounds:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 1000
+    y: 100
+    width: 880
     height: 500
   contentBounds:
     serializedVersion: 2
@@ -1673,11 +910,24 @@ MonoBehaviour:
   apearance:
     color: {r: 1, g: 1, b: 1, a: 1}
     boundingStyle: WidgetBoundingStyle
-    boundingTitle: 
+    windowBoundingStyle: WindowedWidgetBoundingStyle
+    boundingTitle:
     boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultClosebuttonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 30
+    windowBorderWidth: 7
   windowInfo:
     isWindowed: 0
     supportsDragging: 0
+  displayName: Tasks
+  drawSubheading: 0
+  subheaderName:
+  subheaderDarkWidth: 100
   horizontalAlignment: 3
   verticalAlignment: 3
   horizontalOffset: 0
@@ -1685,174 +935,24 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
+  scrollBarStyle:
+  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
-  labelFormat: TaskLabel
-  descriptionFormat: TaskDescription
-  locationFormat: TaskLocation
-  detailFormat: TaskDetail
+  labelFormat: DefaultHeavyContentLeftText
+  descriptionFormat: DefaultLightContentText
+  locationFormat: DefaultHeavyContentText
+  detailFormat: DefaultLightContentText
   showDescription: 1
   showType: 1
   allowSorting: 1
   maxLabelWidth: 250
   maxDescriptionFormatWidth: 350
   maxLocationWidth: 100
-  rowHeight: 32
---- !u!1 &1685386026
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1685386029}
-  - 102: {fileID: 1685386028}
-  - 23: {fileID: 1685386027}
-  m_Layer: 0
-  m_Name: ToggleShop
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!23 &1685386027
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1685386026}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10100, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!102 &1685386028
-TextMesh:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1685386026}
-  m_Text: Shop
-  m_OffsetZ: 0
-  m_CharacterSize: 1
-  m_LineSpacing: 1
-  m_Anchor: 0
-  m_Alignment: 0
-  m_TabSize: 4
-  m_FontSize: 0
-  m_FontStyle: 0
-  m_RichText: 1
-  m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1685386029
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1685386026}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.42057848, y: 3.31491184, z: .502860546}
-  m_LocalScale: {x: .5, y: .5, z: .5}
-  m_Children: []
-  m_Father: {fileID: 0}
---- !u!1 &1745052715
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1745052716}
-  - 33: {fileID: 1745052718}
-  - 65: {fileID: 1745052719}
-  - 23: {fileID: 1745052717}
-  - 114: {fileID: 1745052720}
-  - 114: {fileID: 1745052721}
-  m_Layer: 0
-  m_Name: LB View Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1745052716
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1745052715}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.3145809, y: -.895786285, z: 26.3938446}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1076514028}
---- !u!23 &1745052717
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1745052715}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!33 &1745052718
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1745052715}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!65 &1745052719
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1745052715}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1745052720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1745052715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ce2a78ec9f24d9fb20e280f5bbf2e3, type: 3}
-  m_Name: 
-  upRotateSpeed: 1
-  leftRotateSpeed: .5
---- !u!114 &1745052721
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1745052715}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eede79d8f39504568aef3436dd1d5ef1, type: 3}
-  m_Name: 
-  target: {fileID: 1765055054}
+  rowHeight: 45
+  buttonWidth: 130
+  buttonHeight: 30
+  divideHeight: 30
 --- !u!1 &1765055054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,7 +963,7 @@ GameObject:
   - 4: {fileID: 1765055055}
   - 114: {fileID: 1765055056}
   m_Layer: 0
-  m_Name: RoarRankingsWidget
+  m_Name: Rankings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1879,7 +979,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
 --- !u!114 &1765055056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1893,25 +993,38 @@ MonoBehaviour:
   bounds:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 100
     width: 512
     height: 386
   contentBounds:
     serializedVersion: 2
-    x: 8
-    y: 32
-    width: 496
-    height: 338
+    x: 0
+    y: 0
+    width: 512
+    height: 386
   skin: {fileID: 0}
   depth: 0
   apearance:
     color: {r: 1, g: 1, b: 1, a: 1}
     boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
     boundingTitle: 
     boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 30
+    windowBorderWidth: 7
   windowInfo:
     isWindowed: 0
     supportsDragging: 0
+  displayName: Leaderboard
+  drawSubheading: 1
+  subheaderName: None
+  subheaderDarkWidth: 150
   horizontalAlignment: 2
   verticalAlignment: 1
   horizontalOffset: 0
@@ -1919,6 +1032,8 @@ MonoBehaviour:
   useScrollView: 1
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
+  scrollBarStyle:
+  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   whenToFetch: 0
@@ -1934,107 +1049,23 @@ MonoBehaviour:
   rankingEntryPlayerNameStyle: LeaderboardRankingPlayerName
   rankingEntryPlayerScoreStyle: LeaderboardRankingPlayerScore
   previousButtonLabel: Previous page
-  previousButtonStyle: LeaderboardRankingPrev
+  previousButtonStyle: DefaultPillboxStyle
   nextButtonLabel: Next page
-  nextButtonStyle: LeaderboardRankingNext
+  nextButtonStyle: DefaultPillboxStyle
   customDataFormat: '{0}:{1}'
   rankFormat: '{0}'
   rankStyle: LeaderboardRankingRank
   valueFormat: '{0}'
   valueStyle: LeaderboardRankingValue
+  valueWidth: 100
+  rankColumnWidth: 40
+  interColumnSeparators: 40
+  divideHeight: 20
+  sectionHeight: 50
+  topSeparation: 5
   leaderboardId: 
+  leaderboardName:
   page: 1
---- !u!1 &1949122398
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1949122399}
-  - 33: {fileID: 1949122404}
-  - 65: {fileID: 1949122403}
-  - 23: {fileID: 1949122402}
-  - 114: {fileID: 1949122401}
-  - 114: {fileID: 1949122400}
-  m_Layer: 0
-  m_Name: Inventory Cube
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1949122399
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1949122398}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -16.3923111, y: -4.53567505, z: 26.3173485}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1076514028}
---- !u!114 &1949122400
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1949122398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6f098ab93323d747bcdff318923f36a, type: 3}
-  m_Name: 
-  target: {fileID: 199454294}
---- !u!114 &1949122401
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1949122398}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66ce2a78ec9f24d9fb20e280f5bbf2e3, type: 3}
-  m_Name: 
-  upRotateSpeed: 1
-  leftRotateSpeed: .5
---- !u!23 &1949122402
-Renderer:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1949122398}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_LightmapIndex: 255
-  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
-  m_Materials:
-  - {fileID: 10302, guid: 0000000000000000e000000000000000, type: 0}
-  m_SubsetIndices: 
-  m_StaticBatchRoot: {fileID: 0}
-  m_UseLightProbes: 0
-  m_LightProbeAnchor: {fileID: 0}
-  m_ScaleInLightmap: 1
---- !u!65 &1949122403
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1949122398}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!33 &1949122404
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1949122398}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &1998890867
 GameObject:
   m_ObjectHideFlags: 0
@@ -2045,7 +1076,7 @@ GameObject:
   - 4: {fileID: 1998890868}
   - 114: {fileID: 1998890869}
   m_Layer: 0
-  m_Name: RoarStatsWidget-Boxed
+  m_Name: Stats
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2075,25 +1106,38 @@ MonoBehaviour:
   bounds:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 100
     width: 256
-    height: 76
+    height: 100
   contentBounds:
     serializedVersion: 2
     x: 8
     y: 8
-    width: 240
-    height: 64
+    width: 256
+    height: 100
   skin: {fileID: 0}
-  depth: -1
+  depth: 2
   apearance:
     color: {r: 1, g: 1, b: 1, a: 1}
     boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
     boundingTitle: 
     boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 23
+    closeButtonOffset: 20
+    closeButtonSize: 25
+    windowBorderWidth: 8
   windowInfo:
     isWindowed: 0
     supportsDragging: 0
+  displayName: Stats
+  drawSubheading: 0
+  subheaderName:
+  subheaderDarkWidth: 100
   horizontalAlignment: 2
   verticalAlignment: 0
   horizontalOffset: -32
@@ -2101,6 +1145,8 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
+  scrollBarStyle:
+  spinnerMovieTex: {fileID: 0}
   autoEnableOnLogIn: 1
   autoDisableOnLogout: 1
   autoCalculateContentBounds: 1
@@ -2142,7 +1188,7 @@ GameObject:
   - 4: {fileID: 2063613870}
   - 114: {fileID: 2063613869}
   m_Layer: 0
-  m_Name: RoarLoginWidget
+  m_Name: Login
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2161,9 +1207,9 @@ MonoBehaviour:
   bounds:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 100
     width: 512
-    height: 386
+    height: 450
   contentBounds:
     serializedVersion: 2
     x: 0
@@ -2175,11 +1221,24 @@ MonoBehaviour:
   apearance:
     color: {r: 1, g: 1, b: 1, a: 1}
     boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
     boundingTitle: 
     boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 30
+    windowBorderWidth: 7
   windowInfo:
-    isWindowed: 0
-    supportsDragging: 0
+    isWindowed: 1
+    supportsDragging: 1
+  displayName: Login
+  drawSubheading: 0
+  subheaderName:
+  subheaderDarkWidth: 100
   horizontalAlignment: 3
   verticalAlignment: 3
   horizontalOffset: 0
@@ -2187,27 +1246,29 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
+  scrollBarStyle:
+  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   enableOnAwake: 1
   fetchPropertiesOnLogin: 1
   saveUsername: 1
   savePassword: 0
-  loginBoxSpacing: 10
-  leftOffset: 50
-  topOffset: 50
-  passwordBoxSpacing: 10
-  labelWidth: 90
+  loginBoxSpacing: 20
+  labelHeight: 25
   statusWidth: 400
-  fieldHeight: 30
-  fieldWidth: 140
-  buttonWidth: 200
+  fieldHeight: 50
+  fieldWidth: 280
+  buttonWidth: 150
   buttonHeight: 40
+  footerSpacing: 60
   buttonSpacing: 10
-  buttonStyle: LoginButton
-  boxStyle: LoginField
-  loginLabelStyle: LoginLabel
-  statusStyle: LoginStatus
+  buttonStyle: DefaultButton
+  boxStyle: DefaultTextArea
+  loginLabelStyle: DefaultHeavyContentLeftText
+  statusStyle: DefaultSmallStatusText
+  allowFacebookLogin: 1
+  facebookApplicationID:
 --- !u!4 &2063613870
 Transform:
   m_ObjectHideFlags: 0
@@ -2218,4 +1279,4 @@ Transform:
   m_LocalPosition: {x: 0, y: 1, z: -11.7944164}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 453953422}
