@@ -13,13 +13,17 @@ public class RoarShopWidget : RoarUIWidget
 	public WhenToFetch whenToFetch = WhenToFetch.Occassionally;
 	public float howOftenToFetch = 60;
 	
-	public string shopItemLabelStyle = "ShopItemLabel";
-	public string shopItemDescriptionStyle = "ShopItemDescription";
-	public string shopItemCostStyle = "ShopItemCost";
-	public string shopItemBuyButtonStyle = "ShopItemBuyButton";
-	public Rect shopItemBounds = new Rect(0, 0, 450, 90);
-	public Rect buyButtonBounds= new Rect(200, 25, 100, 40);
-	public float shopItemSpacing = 12;
+	public string shopItemLabelStyle = "DefaultHeavyContentText";
+	public string shopItemDescriptionStyle = "DefaultLightContentText";
+	public string shopItemCostStyle = "DefaultHeavyContentText";
+	public string shopItemBuyButtonStyle = "DefaultButton";
+	public float buyButtonWidth =100;
+	public float buyButtonHeight = 40;
+	public float interColumnSeparators =5;
+	public float divideHeight = 20;
+	public float priceColumnWidth = 40;//Buy button always sticks to the right. description takes up the rest.
+	
+	public float topSeparation = 15;
 	
 	private bool isFetching;
 	private bool isBuying = false;
@@ -58,19 +62,19 @@ public class RoarShopWidget : RoarUIWidget
 
 	public void Fetch()
 	{
+		networkActionInProgress = true;
 		isFetching = true;
 		shop.Fetch(OnRoarFetchShopComplete);
 	}
 	
 	void CalculateScrollBounds()
 	{
-		ScrollViewContentWidth = shopItemBounds.width;
-		ScrollViewContentHeight = Mathf.Max(contentBounds.height, (shopEntries.Count + errorMessages.Count) * (shopItemBounds.height + shopItemSpacing));
 	}
 	
 	void OnRoarFetchShopComplete(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.ShopEntry> > info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
+		networkActionInProgress = false;
 		isFetching = false;
 		shopEntries = shop.List();
 		errorMessages = new List<string>();
@@ -92,77 +96,74 @@ public class RoarShopWidget : RoarUIWidget
 		{
 			GUI.Label(new Rect(0,0,ContentWidth,ContentHeight), "Fetching shop data...", "StatusNormal");
 		}
-		else
+		GUI.Box(new Rect(0, 0, contentBounds.width, divideHeight), new GUIContent(""), "DefaultSeparationBar");
+		GUI.Label(new Rect(interColumnSeparators, 0, priceColumnWidth, divideHeight), "ITEM", "DefaultSeparationBarText");
+		
+		GUI.Label(new Rect(contentBounds.width - interColumnSeparators*2 - buyButtonWidth - priceColumnWidth, 0, priceColumnWidth, divideHeight), "COST", "DefaultSeparationBarText");
+		float heightSoFar = divideHeight;
+		if(shopEntries != null)
+		foreach (ShopEntry item in shopEntries)
 		{
-			//TODO: Dont use same rect for errors and items
-			Rect itemRect = shopItemBounds;
-
-			foreach( string e in errorMessages )
-			{
-				GUI.Label ( itemRect, e );
-				itemRect.y += itemRect.height + shopItemSpacing;
-			}
+			Vector2 descSize = GUI.skin.FindStyle(shopItemDescriptionStyle).CalcSize(new GUIContent(item.description));
+			Vector2 labSize = GUI.skin.FindStyle(shopItemLabelStyle).CalcSize(new GUIContent(item.label));
+			float height =  descSize.y+ labSize.y + topSeparation;
 			
-			foreach (ShopEntry item in shopEntries)
+			GUI.Box(new Rect(0, heightSoFar, contentBounds.width, height), new GUIContent(""), "DefaultHorizontalSection");
+			float ySoFar = heightSoFar + topSeparation;
+			
+			GUI.Box(new Rect(interColumnSeparators, ySoFar, labSize.x, labSize.y), item.label, shopItemLabelStyle);
+			ySoFar+= labSize.y;
+			
+			GUI.Box(new Rect(interColumnSeparators, ySoFar, descSize.x, descSize.y), item.description, shopItemDescriptionStyle);
+			 
+			if (item.costs.Count == 1)
 			{
-				GUI.Label(itemRect, item.label, shopItemLabelStyle);
-				GUI.Label(itemRect, item.description, shopItemDescriptionStyle);
-				//GUI.Label(itemRect, string.Format("{0} {1}", item.costs[0].amount.ToString(), RoarTypesCache.UserStatByKey(item.costs[0].key).Title), shopItemCostStyle);
-				
-				//Only render if theres exactly one cost and its a stat cost.
-				if (item.costs.Count == 1)
+				Roar.DomainObjects.Costs.Stat stat_cost = item.costs[0] as Roar.DomainObjects.Costs.Stat;
+				if( stat_cost != null )
 				{
-					Roar.DomainObjects.Costs.Stat stat_cost = item.costs[0] as Roar.DomainObjects.Costs.Stat;
-					if( stat_cost != null )
-					{
-						//TODO: This is not rendering in the right place.
-						GUI.Label (itemRect, string.Format ("Costs {0} {1}", stat_cost.value, stat_cost.ikey), shopItemCostStyle ) ;
-					}
+					//TODO: This is not rendering in the right place.
+					GUI.Label (new Rect(contentBounds.width - buyButtonWidth - priceColumnWidth - 2*interColumnSeparators, heightSoFar, priceColumnWidth, labSize.y),  stat_cost.value.ToString(), shopItemCostStyle) ;
+					GUI.Label (new Rect(contentBounds.width - buyButtonWidth - priceColumnWidth - 2*interColumnSeparators, heightSoFar + labSize.y, priceColumnWidth, labSize.y),  stat_cost.ikey, shopItemDescriptionStyle) ;
 				}
-				
-				GUI.BeginGroup(itemRect);
-				
-				//For now only check the costs
-				bool can_buy = true;
-				foreach( Roar.DomainObjects.Cost cost in item.costs)
-				{
-					// If its a stat cost we should check against the current value of the players stat rather than trusting the 
-					// cached value from the shop.
-					Roar.DomainObjects.Costs.Stat stat_cost = cost as Roar.DomainObjects.Costs.Stat;
-					if( stat_cost != null )
-					{
-						string v = roar.Properties.GetValue( stat_cost.ikey );
-						int vv;
-						//If we can't get the info we need, we'll need to rely on the value from the shop.
-						if( v!=null && System.Int32.TryParse(v, out vv ) )
-						{
-							if( vv < stat_cost.value ) { can_buy = false; break; }
-							continue;
-						}
-					}
-					if( ! cost.ok ) { can_buy = false; break; }
-				}
-
-				GUI.enabled = can_buy && !isBuying;
-				
-				if (GUI.Button(buyButtonBounds, "Buy", shopItemBuyButtonStyle))
-				{
-					if (Debug.isDebugBuild)
-					{
-						Debug.Log(string.Format("buy request: {0}", item.ikey));
-					}
-					if (OnItemBuyRequest != null)
-					{
-						OnItemBuyRequest(item);
-					}
-					isBuying = true;
-					shop.Buy( item.ikey, OnBuyComplete );
-				}
-				GUI.enabled = true;
-				GUI.EndGroup();
-				
-				itemRect.y += itemRect.height + shopItemSpacing;
 			}
+			//For now only check the costs
+			bool can_buy = true;
+			foreach( Roar.DomainObjects.Cost cost in item.costs)
+			{
+				// If its a stat cost we should check against the current value of the players stat rather than trusting the 
+				// cached value from the shop.
+				Roar.DomainObjects.Costs.Stat stat_cost = cost as Roar.DomainObjects.Costs.Stat;
+				if( stat_cost != null )
+				{
+					string v = roar.Properties.GetValue( stat_cost.ikey );
+					int vv;
+					//If we can't get the info we need, we'll need to rely on the value from the shop.
+					if( v!=null && System.Int32.TryParse(v, out vv ) )
+					{
+						if( vv < stat_cost.value ) { can_buy = false; break; }
+						continue;
+					}
+				}
+				if( ! cost.ok ) { can_buy = false; break; }
+			}
+
+			GUI.enabled = can_buy && !isBuying;
+			
+			if (GUI.Button(new Rect(contentBounds.width - interColumnSeparators - buyButtonWidth, heightSoFar + (labSize.y+descSize.y + topSeparation)/2 - buyButtonHeight/2, buyButtonWidth, buyButtonHeight), "Buy", shopItemBuyButtonStyle))
+			{
+				if (Debug.isDebugBuild)
+				{
+					Debug.Log(string.Format("buy request: {0}", item.ikey));
+				}
+				if (OnItemBuyRequest != null)
+				{
+					OnItemBuyRequest(item);
+				}
+				isBuying = true;
+				shop.Buy( item.ikey, OnBuyComplete );
+			}
+			GUI.enabled = true;
+			heightSoFar += labSize.y+descSize.y + topSeparation;
 		}
 	}
 	
