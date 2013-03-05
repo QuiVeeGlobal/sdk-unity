@@ -46,6 +46,7 @@ public class RoarFriendsListWidget : RoarUIWidget
 	
 	public void Fetch()
 	{
+		networkActionInProgress = true;
 		isFetching = true;
 		friends.Fetch(OnRoarFetchFriendsComplete);
 	}
@@ -53,6 +54,7 @@ public class RoarFriendsListWidget : RoarUIWidget
 	void OnRoarFetchFriendsComplete(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.Friend> > info)
 	{
 		whenLastFetched = Time.realtimeSinceStartup;
+		networkActionInProgress = false;
 		isFetching = false;
 		friendsDict = info.data;
 	}
