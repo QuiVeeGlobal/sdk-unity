@@ -421,7 +421,30 @@ namespace Roar.implementation.Components
 				RoarManager.OnLoggedIn ();
 			}
 		}
-		
+
+		public void ShopList (Roar.Callback<WebObjects.Facebook.ShopListResponse> cb)
+		{
+			Roar.WebObjects.Facebook.ShopListArguments args = new Roar.WebObjects.Facebook.ShopListArguments();
+			facebook.shop_list (args, new ShopListCallback (cb));
+		}
+
+		protected class ShopListCallback : CBBase<WebObjects.Facebook.ShopListResponse>
+		{
+			public ShopListCallback (Roar.Callback<WebObjects.Facebook.ShopListResponse> in_cb) : base(in_cb)
+			{
+			}
+
+			public override void HandleError (Roar.RequestResult info)
+			{
+				RoarManager.OnFacebookShopListFailed (info.msg);
+			}
+
+			public override void HandleSuccess (CallbackInfo<WebObjects.Facebook.ShopListResponse> info)
+			{
+				RoarManager.OnFacebookShopList (info.data.shop_list);
+			}
+		}
+
 		public void SetOAuthToken(string oauth_token)
 		{
 		
@@ -442,6 +465,19 @@ namespace Roar.implementation.Components
 		public bool IsLoggedInViaFacebook()
 		{
 			return isLoggedinViaFacebook;
+		}
+		
+		//Facebook Shop stuff
+		public void FetchShopData(Roar.Callback<IDictionary<string,DomainObjects.FacebookShopEntry>> callback)
+		{
+			dataStore.facebookShop.Fetch(callback);
+		}
+		
+		public bool HasDataFromServer { get { return dataStore.facebookShop.HasDataFromServer; } }
+		
+		public IList<DomainObjects.FacebookShopEntry> List ()
+		{
+			return dataStore.facebookShop.List();
 		}
 		
 		/**

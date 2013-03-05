@@ -84,6 +84,19 @@ public class TaskListToTask : IDomToCache<Roar.WebObjects.Tasks.ListResponse, Ro
 	}
 }
 
+public class FacebookShopListToFacebookShop : IDomToCache<Roar.WebObjects.Facebook.ShopListResponse,Roar.DomainObjects.FacebookShopEntry>
+{
+	public Dictionary<string, Roar.DomainObjects.FacebookShopEntry> convert( Roar.WebObjects.Facebook.ShopListResponse d)
+	{
+		Dictionary<string,Roar.DomainObjects.FacebookShopEntry> retval = new Dictionary<string, Roar.DomainObjects.FacebookShopEntry>();
+		foreach( Roar.DomainObjects.FacebookShopEntry x in d.shop_list )
+		{
+			retval[x.ikey] = x;
+		}
+		return retval;
+	}
+}
+
 public class FooToFoo : IDomToCache<Foo,Foo>
 {
 	public Dictionary<string, Foo> convert( Foo d)
@@ -151,6 +164,11 @@ public class TasksListGetter : GenericGetter<Roar.WebObjects.Tasks.ListResponse,
 	public TasksListGetter( IWebAPI api ) : base( api.tasks.list ) {}
 }
 
+public class FacebookShopListGetter : GenericGetter<Roar.WebObjects.Facebook.ShopListResponse, Roar.WebObjects.Facebook.ShopListArguments>
+{
+	public FacebookShopListGetter( IWebAPI api ) : base( api.facebook.shop_list ) {}
+}
+
 public class FooGetter : IDomGetter<Foo>
 {
 	public FooGetter( IWebAPI api ) 
@@ -176,6 +194,7 @@ namespace Roar.implementation
 		IDataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory { get; }
 		IDataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop { get; }
 		IDataModel<DomainObjects.Task,WebObjects.Tasks.ListResponse> actions { get; }
+		IDataModel<DomainObjects.FacebookShopEntry,WebObjects.Facebook.ShopListResponse> facebookShop {get;}
 		IDataModel<Foo,Foo> gifts { get; }
 		IDataModel<Foo,Foo> achievements { get; }
 		IDataModel<Foo,Foo> ranking { get; }
@@ -195,6 +214,7 @@ namespace Roar.implementation
 			inventory_ = new DataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> ("inventory", new ItemsListGetter(webapi), new ItemsListToItem(), logger);
 			shop_ = new DataModel<DomainObjects.ShopEntry,WebObjects.Shop.ListResponse>("shop", new ShopListGetter(webapi), new ShopListToShopEntry(), logger);
 			actions_ = new DataModel<DomainObjects.Task,WebObjects.Tasks.ListResponse> ("tasks", new TasksListGetter(webapi), new TaskListToTask(), logger);
+			facebookShop_ = new DataModel<DomainObjects.FacebookShopEntry, WebObjects.Facebook.ShopListResponse>("facebook", new FacebookShopListGetter(webapi), new FacebookShopListToFacebookShop(), logger);
 			gifts_ = new DataModel<Foo,Foo> ("gifts", new FooGetter(webapi), new FooToFoo(), logger);
 			achievements_ = new DataModel<Foo,Foo> ("achievements", new FooGetter(webapi), new FooToFoo(), logger);
 			ranking_ = new DataModel<Foo,Foo> ("ranking", new FooGetter(webapi), new FooToFoo(), logger);
@@ -209,6 +229,7 @@ namespace Roar.implementation
 			inventory.Clear (x);
 			shop.Clear (x);
 			actions.Clear (x);
+			facebookShop.Clear(x);
 			gifts.Clear (x);
 			achievements.Clear (x);
 			ranking.Clear (x);
@@ -223,6 +244,7 @@ namespace Roar.implementation
 		public IDataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory { get { return inventory_; } }
 		public IDataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop { get { return shop_; } }
 		public IDataModel<DomainObjects.Task,WebObjects.Tasks.ListResponse> actions { get { return actions_; } }
+		public IDataModel<DomainObjects.FacebookShopEntry, WebObjects.Facebook.ShopListResponse> facebookShop {get {return facebookShop_;}}
 		public IDataModel<Foo,Foo> gifts { get { return gifts_; } }
 		public IDataModel<Foo,Foo> achievements { get { return achievements_; } }
 		public IDataModel<Foo,Foo> ranking { get { return ranking_; } }
@@ -234,6 +256,7 @@ namespace Roar.implementation
 		public DataModel<DomainObjects.InventoryItem,Roar.WebObjects.Items.ListResponse> inventory_;
 		public DataModel<DomainObjects.ShopEntry,Roar.WebObjects.Shop.ListResponse> shop_;
 		public DataModel<DomainObjects.Task,WebObjects.Tasks.ListResponse> actions_;
+		public DataModel<DomainObjects.FacebookShopEntry, WebObjects.Facebook.ShopListResponse> facebookShop_;
 		public DataModel<Foo,Foo> gifts_;
 		public DataModel<Foo,Foo> achievements_;
 		public DataModel<Foo,Foo> ranking_;
