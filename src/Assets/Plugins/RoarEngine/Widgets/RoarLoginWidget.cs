@@ -34,6 +34,17 @@ public class RoarLoginWidget : RoarUIWidget
 	public string loginLabelStyle = "DefaultHeavyContentText";
 	public string statusStyle = "LoginStatus";
 	
+	public bool allowFacebookLogin = true;
+	public string facebookApplicationID = "";
+	bool lastRequestLogin; //true if the last request was a login facebook request, else it was a create facebook request
+	enum SecondaryLogin
+	{
+		None,
+		Facebook,
+		Google,
+	};
+	
+	SecondaryLogin secondaryLogin = SecondaryLogin.None;
 	protected override void Awake ()
 	{
 		base.Awake ();
@@ -76,14 +87,18 @@ public class RoarLoginWidget : RoarUIWidget
 		currentRect.y += loginBoxSpacing;
 		currentRect.width = fieldWidth;
 		currentRect.height = labelHeight;
-		GUI.Label(currentRect, "Password", loginLabelStyle);
-		currentRect.y += labelHeight;
-		currentRect.width = fieldWidth;
-		currentRect.height = fieldHeight;
-		password = GUI.PasswordField(currentRect, password, '*', boxStyle);
 		
-		currentRect.y += fieldHeight;
-		currentRect.y += labelHeight;
+		if(secondaryLogin == SecondaryLogin.None)
+		{
+			GUI.Label(currentRect, "Password", loginLabelStyle);
+			currentRect.y += labelHeight;
+			currentRect.width = fieldWidth;
+			currentRect.height = fieldHeight;
+			password = GUI.PasswordField(currentRect, password, '*', boxStyle);
+			currentRect.y += fieldHeight;
+			currentRect.y += labelHeight;
+		}
+		
 		currentRect.x = 0;
 		currentRect.width = contentBounds.width;
 		GUI.Label(currentRect, status, statusStyle);
@@ -94,35 +109,84 @@ public class RoarLoginWidget : RoarUIWidget
 		currentRect.x = contentBounds.width - buttonWidth - buttonSpacing; 
 		currentRect.y = contentBounds.height - buttonHeight/2 - footerSpacing/2;
 		
-		GUI.enabled = username.Length > 0 && password.Length > 0 && !networkActionInProgress;
-		if ((GUI.Button(currentRect, "Log In", buttonStyle) || ( Event.current.keyCode == KeyCode.Return)) && !networkActionInProgress)
+		if(secondaryLogin == SecondaryLogin.None)
 		{
+			GUI.enabled = username.Length > 0 && password.Length > 0 && !networkActionInProgress;
+			if ((GUI.Button(currentRect, "Log In", buttonStyle) || ( Event.current.keyCode == KeyCode.Return)) && !networkActionInProgress)
+			{
 
-			status = "Logging in...";
-			networkActionInProgress = true;
-			if (saveUsername)
-			{
-				PlayerPrefs.SetString(KEY_USERNAME, username);
+				status = "Logging in...";
+				networkActionInProgress = true;
+				if (saveUsername)
+				{
+					PlayerPrefs.SetString(KEY_USERNAME, username);
+				}
+				if (savePassword)
+				{
+					PlayerPrefs.SetString(KEY_PASSWORD, password);
+				}
+				if (Debug.isDebugBuild)
+					Debug.Log(string.Format("[Debug] Logging in as [{0}] with password [{1}].", username, password));
+			
+				roar.User.Login(username, password, OnRoarLoginComplete);
 			}
-			if (savePassword)
-			{
-				PlayerPrefs.SetString(KEY_PASSWORD, password);
-			}
-			if (Debug.isDebugBuild)
-				Debug.Log(string.Format("[Debug] Logging in as [{0}] with password [{1}].", username, password));
-			roar.User.Login(username, password, OnRoarLoginComplete);
-		}
-		currentRect.x -= buttonWidth + buttonSpacing;
+			currentRect.x -= buttonWidth + buttonSpacing;
 		
-		if (GUI.Button(currentRect, "Create", buttonStyle) && !networkActionInProgress)
+			if (GUI.Button(currentRect, "Create", buttonStyle) && !networkActionInProgress)
+			{
+				status = "Creating new player account...";
+				networkActionInProgress = true;
+				roar.User.Create(username, password, OnRoarAccountCreateComplete);
+			}
+			GUI.enabled = true;
+			
+			if(allowFacebookLogin)
+			{
+				currentRect.x -= buttonWidth + buttonSpacing;
+				
+				if (GUI.Button(currentRect, "Facebook", buttonStyle))
+				{
+					drawSubheading = true;
+					subheaderName = "Facebook";
+					status = "Click 'Login' to log in through facebook or supply a username and click 'Create' to create account through facebook";
+					secondaryLogin = SecondaryLogin.Facebook;
+				}
+			}
+			currentRect.y+= buttonSpacing + buttonHeight;
+		}
+			
+		if(secondaryLogin == SecondaryLogin.Facebook)
 		{
-			status = "Creating new player account...";
-			networkActionInProgress = true;
-			roar.User.Create(username, password, OnRoarAccountCreateComplete);
+			if ((GUI.Button(currentRect, "Log In", buttonStyle) || ( Event.current.keyCode == KeyCode.Return)) && !networkActionInProgress)
+			{
+				lastRequestLogin = true;
+				status = "Logging in through facebook...";
+				networkActionInProgress = true;
+				roar.Facebook.DoWebplayerLogin(OnRoarFacebookLoginComplete);
+			}
+			currentRect.x -= buttonWidth + buttonSpacing;
+			
+			GUI.enabled = username.Length > 0 && !networkActionInProgress;
+			
+			if (GUI.Button(currentRect, "Create", buttonStyle) && !networkActionInProgress)
+			{
+				lastRequestLogin = false;
+				status = "Logging in to Facebook...";
+				networkActionInProgress = true;
+				roar.Facebook.DoWebplayerCreate(username, OnRoarFacebookCreateComplete);
+			}
+			
+			currentRect.x -= buttonWidth + buttonSpacing;
+			
+			if (GUI.Button(currentRect, "Back", buttonStyle))
+			{
+				status = "Supply a username and password to log in or to register a new account";
+				drawSubheading = false;
+				secondaryLogin = SecondaryLogin.None;
+			}
+			currentRect.y+= buttonSpacing + buttonHeight;
+			GUI.enabled = true;
 		}
-		GUI.enabled = true;
-		
-		currentRect.y+= buttonSpacing + buttonHeight;
 		GUI.enabled = true;
 	}
 	
@@ -152,6 +216,66 @@ public class RoarLoginWidget : RoarUIWidget
 		}
 	}
 	
+	void OnRoarFacebookLoginComplete(Roar.CallbackInfo<Roar.WebObjects.Facebook.LoginOauthResponse> info)
+	{
+		if (Debug.isDebugBuild)
+		{
+			Debug.Log(string.Format("OnRoarLoginComplete ({0}): {1}", info.code, info.msg));
+			if( info.data!= null)
+			{
+			Debug.Log( string.Format("OnRoarLoginComplete got auth_token {0}", info.data.auth_token ) );
+			Debug.Log( string.Format("OnRoarLoginComplete got player_id {0}",  info.data.player_id ) );
+			}
+			else
+			{
+				Debug.Log("OnRoarLogingComplete got null data");
+			}
+		}
+		switch (info.code)
+		{
+		case IWebAPI.OK: // (success)
+			// fetch the player's properties after successful login
+			if (fetchPropertiesOnLogin)
+			{
+				DefaultRoar.Instance.Properties.Fetch(OnRoarPropertiesFetched);
+			}
+			else
+			{
+				networkActionInProgress = false;
+			}
+			
+			break;
+		case 3: // Invalid name or password
+		default:
+			status = info.msg;
+			networkActionInProgress = false;
+			break;
+		}
+	}
+	
+	void OnRoarFacebookCreateComplete(Roar.CallbackInfo<Roar.WebObjects.Facebook.CreateOauthResponse> info)
+	{
+		switch (info.code)
+		{
+		case IWebAPI.OK: // (success)
+			this.enabled = false;
+			// fetch the player's properties after successful login
+			if (fetchPropertiesOnLogin)
+			{
+				DefaultRoar.Instance.Properties.Fetch(OnRoarPropertiesFetched);
+			}
+			else
+			{
+				networkActionInProgress = false;
+			}
+			break;
+		case 3: // Invalid name or password
+		default:
+			status = info.msg;
+			networkActionInProgress = false;
+			break;
+		}
+	}
 	void OnRoarLoginComplete(Roar.CallbackInfo<Roar.WebObjects.User.LoginResponse> info)
 	{
 		if (Debug.isDebugBuild)
@@ -214,4 +338,86 @@ public class RoarLoginWidget : RoarUIWidget
 		if (OnFullyLoggedIn != null) OnFullyLoggedIn();
 	}
 
+	#region JAVASCRIPT CALLBACK
+	/**
+	* Function that is called from javascript and is handed the facebook code parameter. Call graph.authorize with this.
+	*
+	*
+	* @param code is the get parameter picked up from facebook 'GET'. Can be null.
+	**/
+	void CatchCodeGetPara(string paras)
+	{
+		if(paras.Split(' ')[0] == "")
+		{
+			//Invoke redirect with authorization.
+			//fire event that says we are redirecting to login/authorize.
+			if(lastRequestLogin)
+				roar.Facebook.FacebookGraphRedirect(facebookApplicationID, "LoginFacebookOnLoad", paras.Split(' ')[1]);
+			else
+				roar.Facebook.FacebookGraphRedirect(facebookApplicationID, "CreateFacebookOnLoad", paras.Split(' ')[1]);
+			return;
+		}
+
+		string codeParameter = paras.Split(' ')[0];
+		roar.Facebook.FetchOAuthToken(codeParameter, OnRoarFacebookFetchOauthTokenComplete);
+	}
+
+	/**
+	* Function that is called from javascript and is handed the facebook state parameter
+	*
+	*
+	* @param code is the get parameter picked up from facebook 'GET'. Can be null.
+	**/
+	void CatchStatePara(string paras)
+	{
+		if (Debug.isDebugBuild)
+			Debug.Log("caught state para"+paras);
+		
+		if(paras == "")
+		{
+			return;
+		}
+		else
+		{
+			if(paras == "LoginFacebookOnLoad")
+			{
+				status = "Logging in through facebook...";
+				networkActionInProgress = true;
+				roar.Facebook.DoWebplayerLogin(OnRoarFacebookLoginComplete);
+			}
+			
+			if(paras == "CreateFacebookOnLoad")
+			{
+				if(username != null || username != "")
+				{
+					status = "Logging in to Facebook...";
+					networkActionInProgress = true;
+					roar.Facebook.DoWebplayerCreate(username, OnRoarFacebookCreateComplete);
+				}
+				else
+					status = "Please specify a valid username when creating an account";
+			}
+		}
+	}
+
+	/**
+	 * Function that is called from javascript and is passed the signedRequest string
+	 *
+	 *
+	 * @param signedRequest is the actual signed request picked up from facebook 'POST'
+	 **/
+	void CatchFacebookRequest(string oAuth)
+	{
+		if (oAuth == "")
+		{
+			//fire signed request event failed. go for the graph api method.
+			roar.Facebook.SignedRequestFailed();
+		}
+		else
+		{
+			roar.Facebook.SetOAuthToken(oAuth);
+			roar.Facebook.DoPostLoginAction();
+		}
+	}
+	#endregion	
 }
