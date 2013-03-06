@@ -274,7 +274,7 @@ public class WebAPI : IWebAPI
 
 		public void fetch_oauth_token( Roar.WebObjects.Facebook.FetchOauthTokenArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.FetchOauthTokenResponse> cb)
 		{
-			api.MakeCall ("facebook/fetch_oauth_token", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Facebook.FetchOauthTokenResponse>(cb, fetch_oauth_token_response_parser), true);
+			api.MakeCall ("facebook/fetch_oauth_token", args.ToHashtable(), new CallbackBridge<Roar.WebObjects.Facebook.FetchOauthTokenResponse>(cb, fetch_oauth_token_response_parser), false);
 		}
 
 		public void friends( Roar.WebObjects.Facebook.FriendsArguments args, ZWebAPI.Callback<Roar.WebObjects.Facebook.FriendsResponse> cb)

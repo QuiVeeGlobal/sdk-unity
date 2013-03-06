@@ -189,6 +189,12 @@ public class RoarManager
 	 */
 	public static event Action shopReadyEvent;
 	public static void OnShopReady() { if(shopReadyEvent!=null) shopReadyEvent(); }
+	
+	/**
+	 * Fired when the data have been retrieved from the server.
+	 */
+	public static event Action facebookShopReadyEvent;
+	public static void OnFacebookShopReady() { if(facebookShopReadyEvent!=null) facebookShopReadyEvent(); }
 
 	/**
 	 * Fired when the data changes.
@@ -530,6 +536,9 @@ public class RoarManager
 			break;
 		case "tasks":
 			OnTasksReady();
+			break;
+		case "facebook":
+			OnFacebookShopReady();
 			break;
 
 		default:
