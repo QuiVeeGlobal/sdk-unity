@@ -103,7 +103,7 @@ MonoBehaviour:
   bounds:
     serializedVersion: 2
     x: 0
-    y: 0
+    y: 100
     width: 512
     height: 386
   contentBounds:
@@ -131,9 +131,9 @@ MonoBehaviour:
   windowInfo:
     isWindowed: 1
     supportsDragging: 1
-  displayName: Widget
+  displayName: Inventory Widget
   drawSubheading: 0
-  subheaderName:
+  subheaderName: 
   subheaderDarkWidth: 100
   horizontalAlignment: 3
   verticalAlignment: 3
@@ -142,13 +142,13 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
-  scrollBarStyle:
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
   whenToFetch: 2
   howOftenToFetch: 60
-  labelFormat: DefaultHeavyContentLeftText
+  labelFormat: DefaultHeavyContentText
   descriptionFormat: DefaultLightContentText
   typeFormat: DefaultHeavyContentLeftText
   consumeButtonFormat: DefaultButton
@@ -160,6 +160,7 @@ MonoBehaviour:
   maxTypeWidth: 40
   rowHeight: 32
   divideHeight: 30
+  margin: 5
 --- !u!4 &199454296
 Transform:
   m_ObjectHideFlags: 0
@@ -378,7 +379,7 @@ MonoBehaviour:
     supportsDragging: 0
   displayName: Shop
   drawSubheading: 0
-  subheaderName:
+  subheaderName: 
   subheaderDarkWidth: 100
   horizontalAlignment: 1
   verticalAlignment: 1
@@ -387,7 +388,7 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
-  scrollBarStyle:
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -473,7 +474,7 @@ MonoBehaviour:
     supportsDragging: 0
   displayName: Leaderboard
   drawSubheading: 0
-  subheaderName:
+  subheaderName: 
   subheaderDarkWidth: 100
   horizontalAlignment: 0
   verticalAlignment: 1
@@ -482,7 +483,7 @@ MonoBehaviour:
   useScrollView: 1
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
-  scrollBarStyle:
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -531,14 +532,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1340799529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d43ce148cba310c4e8a38952786873dd, type: 3}
-  m_Name:
+  m_Script: {fileID: 11500000, guid: 99fb95a3953f13c4b944cfd0f4cc02e7, type: 3}
+  m_Name: 
   bounds:
     serializedVersion: 2
     x: 0
-    y: 0
-    width: 0
-    height: 0
+    y: 100
+    width: 512
+    height: 386
   contentBounds:
     serializedVersion: 2
     x: 0
@@ -551,7 +552,7 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     boundingStyle: WidgetBoundingStyle
     windowBoundingStyle: WindowedWidgetBoundingStyle
-    boundingTitle:
+    boundingTitle: 
     boundingImage: {fileID: 0}
     headerStyle: DefaultHeaderStyle
     subheaderStyleLeft: DefaultSubheaderStyleLeft
@@ -564,7 +565,7 @@ MonoBehaviour:
   windowInfo:
     isWindowed: 0
     supportsDragging: 0
-  displayName: Widget
+  displayName: Facebook Shop
   drawSubheading: 0
   subheaderName: Widget
   subheaderDarkWidth: 100
@@ -715,10 +716,10 @@ MonoBehaviour:
     height: 386
   contentBounds:
     serializedVersion: 2
-    x: 8
-    y: 32
-    width: 496
-    height: 338
+    x: 0
+    y: 0
+    width: 0
+    height: 0
   skin: {fileID: 0}
   depth: 0
   apearance:
@@ -738,9 +739,9 @@ MonoBehaviour:
   windowInfo:
     isWindowed: 0
     supportsDragging: 0
-  displayName: Widget
+  displayName: Friends Widget
   drawSubheading: 0
-  subheaderName:
+  subheaderName: 
   subheaderDarkWidth: 100
   horizontalAlignment: 2
   verticalAlignment: 1
@@ -749,7 +750,7 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
-  scrollBarStyle:
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -851,8 +852,8 @@ MonoBehaviour:
   spinnerMovieTex: {fileID: 0}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
-  status:
-  facebookApplicationID:
+  status: 
+  facebookApplicationID: 
   buttonStyle: DefaultButton
   buttonWidth: 300
   buttonHeight: 90
@@ -911,7 +912,7 @@ MonoBehaviour:
     color: {r: 1, g: 1, b: 1, a: 1}
     boundingStyle: WidgetBoundingStyle
     windowBoundingStyle: WindowedWidgetBoundingStyle
-    boundingTitle:
+    boundingTitle: 
     boundingImage: {fileID: 0}
     headerStyle: DefaultHeaderStyle
     subheaderStyleLeft: DefaultSubheaderStyleLeft
@@ -926,7 +927,7 @@ MonoBehaviour:
     supportsDragging: 0
   displayName: Tasks
   drawSubheading: 0
-  subheaderName:
+  subheaderName: 
   subheaderDarkWidth: 100
   horizontalAlignment: 3
   verticalAlignment: 3
@@ -935,7 +936,7 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
-  scrollBarStyle:
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -953,6 +954,7 @@ MonoBehaviour:
   buttonWidth: 130
   buttonHeight: 30
   divideHeight: 30
+  margin: 5
 --- !u!1 &1765055054
 GameObject:
   m_ObjectHideFlags: 0
@@ -1032,7 +1034,7 @@ MonoBehaviour:
   useScrollView: 1
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
-  scrollBarStyle:
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -1064,7 +1066,7 @@ MonoBehaviour:
   sectionHeight: 50
   topSeparation: 5
   leaderboardId: 
-  leaderboardName:
+  leaderboardName: 
   page: 1
 --- !u!1 &1998890867
 GameObject:
@@ -1136,7 +1138,7 @@ MonoBehaviour:
     supportsDragging: 0
   displayName: Stats
   drawSubheading: 0
-  subheaderName:
+  subheaderName: 
   subheaderDarkWidth: 100
   horizontalAlignment: 2
   verticalAlignment: 0
@@ -1145,7 +1147,7 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 1
-  scrollBarStyle:
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 0}
   autoEnableOnLogIn: 1
   autoDisableOnLogout: 1
@@ -1237,7 +1239,7 @@ MonoBehaviour:
     supportsDragging: 1
   displayName: Login
   drawSubheading: 0
-  subheaderName:
+  subheaderName: 
   subheaderDarkWidth: 100
   horizontalAlignment: 3
   verticalAlignment: 3
@@ -1246,7 +1248,7 @@ MonoBehaviour:
   useScrollView: 0
   alwaysShowHorizontalScrollBar: 0
   alwaysShowVerticalScrollBar: 0
-  scrollBarStyle:
+  scrollBarStyle: 
   spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
   autoEnableOnLogIn: 0
   autoDisableOnLogout: 1
@@ -1268,7 +1270,7 @@ MonoBehaviour:
   loginLabelStyle: DefaultHeavyContentLeftText
   statusStyle: DefaultSmallStatusText
   allowFacebookLogin: 1
-  facebookApplicationID:
+  facebookApplicationID: 152296965024
 --- !u!4 &2063613870
 Transform:
   m_ObjectHideFlags: 0

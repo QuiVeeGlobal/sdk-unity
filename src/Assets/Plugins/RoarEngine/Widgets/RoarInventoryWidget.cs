@@ -25,6 +25,7 @@ public class RoarInventoryWidget : RoarUIWidget
 	public int maxTypeWidth = 100;
 	public int rowHeight = 32;
 	public int divideHeight = 30;
+	public int margin = 5;
 
 	protected override void OnEnable ()
 	{
@@ -62,7 +63,7 @@ public class RoarInventoryWidget : RoarUIWidget
 		IList<Roar.DomainObjects.InventoryItem> items = inventory.List();
 
 		//TODO: Fixup the hardcoded dimensions here!
-		Rect rect = new Rect(0,0,ContentWidth, 32);
+		Rect rect = new Rect(margin,0,ContentWidth, 32);
 		GUI.Box(new Rect(0, 0, contentBounds.width, divideHeight), new GUIContent(""), "DefaultSeparationBar");
 		
 		Vector2 lastLabelSize;
@@ -73,7 +74,7 @@ public class RoarInventoryWidget : RoarUIWidget
 			rect.width = maxLabelWidth;
 		GUI.Label ( rect, "LABEL", "DefaultSeparationBarText");
 		
-		rect.x += rect.width + 5;
+		rect.x += rect.width + margin;
 		
 		lastLabelSize =GUI.skin.FindStyle("DefaultSeparationBarText").CalcSize(new GUIContent("Description"));
 		if(maxDescriptionFormatWidth == 0)
@@ -82,7 +83,7 @@ public class RoarInventoryWidget : RoarUIWidget
 			rect.width = maxDescriptionFormatWidth;
 			
 		GUI.Label ( rect, "DESCRIPTION", "DefaultSeparationBarText");
-		rect.x += rect.width+ 5;
+		rect.x += rect.width+ margin;
 		
 		lastLabelSize =GUI.skin.FindStyle("DefaultSeparationBarText").CalcSize(new GUIContent("Type"));
 		if(maxTypeWidth == 0)
@@ -91,12 +92,12 @@ public class RoarInventoryWidget : RoarUIWidget
 			rect.width = maxTypeWidth;
 			
 		GUI.Label ( rect, "TYPE", "DefaultSeparationBarText");
-		rect.x += rect.width+ 5;
+		rect.x += rect.width+ margin;
 		
 		lastLabelSize =GUI.skin.FindStyle(consumeButtonFormat).CalcSize(new GUIContent("Consume"));
 		rect.width = lastLabelSize.x;
 		
-		rect.x = 0;
+		rect.x = margin;
 		rect.y += rowHeight;
 		
 		foreach( Roar.DomainObjects.InventoryItem item in items )
@@ -109,7 +110,7 @@ public class RoarInventoryWidget : RoarUIWidget
 				rect.width = maxLabelWidth;
 			GUI.Label ( rect, item.label, labelFormat);
 			
-			rect.x += rect.width + 5;
+			rect.x += rect.width + margin;
 			
 			lastLabelSize =GUI.skin.FindStyle(descriptionFormat).CalcSize(new GUIContent(item.description));
 			if(maxDescriptionFormatWidth == 0)
@@ -118,7 +119,7 @@ public class RoarInventoryWidget : RoarUIWidget
 				rect.width = maxDescriptionFormatWidth;
 				
 			GUI.Label ( rect, item.description, descriptionFormat);
-			rect.x += rect.width+ 5;
+			rect.x += rect.width+ margin;
 			
 			lastLabelSize =GUI.skin.FindStyle(typeFormat).CalcSize(new GUIContent(item.type));
 			if(maxTypeWidth == 0)
@@ -127,9 +128,9 @@ public class RoarInventoryWidget : RoarUIWidget
 				rect.width = maxTypeWidth;
 				
 			GUI.Label ( rect, item.type, typeFormat);
-			rect.x += rect.width+ 5;
+			rect.x += rect.width+ margin;
 			
-			rect.x = 0;
+			rect.x = margin;
 			rect.y += rowHeight;
 		}
 	}
