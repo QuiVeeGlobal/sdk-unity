@@ -239,6 +239,7 @@ public class RoarLoginWidget : RoarUIWidget
 		{
 		case IWebAPI.OK: // (success)
 			// fetch the player's properties after successful login
+			this.enabled = false;
 			if (fetchPropertiesOnLogin)
 			{
 				DefaultRoar.Instance.Properties.Fetch(OnRoarPropertiesFetched);
