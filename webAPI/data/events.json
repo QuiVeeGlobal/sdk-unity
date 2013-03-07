@@ -70,6 +70,9 @@
       { "name":"facebookShopListFailed",
         "args":[ {"name":"mesg","type":"string"} ]
       },
+	  { "name":"facebookShopReady",
+        "args":[]
+      },
       { "name":"facebookBindUserOAuth",
         "args":[]
       },
@@ -270,7 +273,8 @@
       "shop",
       "inventory",
       "cache",
-      "tasks"
+      "tasks",
+	  "facebook"
     ]
   }
 }

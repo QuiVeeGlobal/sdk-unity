@@ -136,6 +136,9 @@ public class RoarManager
 	public static event Action<string> facebookShopListFailedEvent;
 	public static void OnFacebookShopListFailed( string mesg ) { if(facebookShopListFailedEvent!=null) facebookShopListFailedEvent(mesg); }
 
+	public static event Action facebookShopReadyEvent;
+	public static void OnFacebookShopReady() { if(facebookShopReadyEvent!=null) facebookShopReadyEvent(); }
+
 	public static event Action facebookBindUserOAuthEvent;
 	public static void OnFacebookBindUserOAuth() { if(facebookBindUserOAuthEvent!=null) facebookBindUserOAuthEvent(); }
 
@@ -189,12 +192,6 @@ public class RoarManager
 	 */
 	public static event Action shopReadyEvent;
 	public static void OnShopReady() { if(shopReadyEvent!=null) shopReadyEvent(); }
-	
-	/**
-	 * Fired when the data have been retrieved from the server.
-	 */
-	public static event Action facebookShopReadyEvent;
-	public static void OnFacebookShopReady() { if(facebookShopReadyEvent!=null) facebookShopReadyEvent(); }
 
 	/**
 	 * Fired when the data changes.
@@ -237,6 +234,18 @@ public class RoarManager
 	 */
 	public static event Action tasksChangeEvent;
 	public static void OnTasksChange() { if(tasksChangeEvent!=null) tasksChangeEvent(); }
+
+	/**
+	 * Fired when the data have been retrieved from the server.
+	 */
+	public static event Action facebookReadyEvent;
+	public static void OnFacebookReady() { if(facebookReadyEvent!=null) facebookReadyEvent(); }
+
+	/**
+	 * Fired when the data changes.
+	 */
+	public static event Action facebookChangeEvent;
+	public static void OnFacebookChange() { if(facebookChangeEvent!=null) facebookChangeEvent(); }
 
 	/**
 	 * @todo Ugly to be using a hash here.
@@ -500,6 +509,9 @@ public class RoarManager
 		case "tasks":
 			OnTasksChange();
 			break;
+		case "facebook":
+			OnFacebookChange();
+			break;
 
 		default:
 			Debug.Log ("Component change event for "+name+" not yet implemented");
@@ -538,7 +550,7 @@ public class RoarManager
 			OnTasksReady();
 			break;
 		case "facebook":
-			OnFacebookShopReady();
+			OnFacebookReady();
 			break;
 
 		default:
