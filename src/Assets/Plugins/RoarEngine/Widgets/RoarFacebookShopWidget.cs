@@ -142,7 +142,13 @@ public class RoarFacebookShopWidget : RoarUIWidget
 
 			heightSoFar += labSize.y+descSize.y + topSeparation;
 		}
-		ScrollViewContentHeight = heightSoFar;
+		if(alwaysShowVerticalScrollBar)
+			if(heightSoFar < contentBounds.height)
+				ScrollViewContentHeight = contentBounds.height;
+			else
+				ScrollViewContentHeight = heightSoFar;
+		else
+			ScrollViewContentHeight = heightSoFar;
 	}
 
 	protected void OnBuyComplete( CallbackInfo<Roar.WebObjects.Shop.BuyResponse> response )
