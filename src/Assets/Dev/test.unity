@@ -1065,6 +1065,7 @@ MonoBehaviour:
   divideHeight: 20
   sectionHeight: 50
   topSeparation: 5
+  footerHeight: 60
   leaderboardId: 
   leaderboardName: 
   page: 1

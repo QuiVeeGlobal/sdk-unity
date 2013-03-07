@@ -34,6 +34,7 @@ public class RoarRankingsWidget : RoarUIWidget
 	public float divideHeight = 20;
 	public float sectionHeight = 50;
 	public float topSeparation = 5;
+	public float footerHeight = 60;
 	
 	public string leaderboardId = string.Empty;
 	public string leaderboardName = "";
@@ -143,8 +144,31 @@ public class RoarRankingsWidget : RoarUIWidget
 			bool requires_refetch = false;
 
 			if(leaderboard != null)
+			foreach (LeaderboardEntry item in leaderboard)
 			{
-				GUILayout.BeginArea(new Rect(0, heightSoFar, contentBounds.width, sectionHeight));
+				Vector2 rank = GUI.skin.FindStyle("DefaultLightContentText").CalcSize(new GUIContent(item.rank.ToString()));
+				Vector2 labSize = GUI.skin.FindStyle("DefaultLightContentText").CalcSize(new GUIContent(item.player_id));
+
+				string prop_string = string.Join(
+						"\n",
+						item.properties.Select( p => ( string.Format( customDataFormat, p.ikey, p.value ) ) ).ToArray()
+						);
+
+				GUI.Box(new Rect(0, heightSoFar, contentBounds.width, sectionHeight), new GUIContent(""), "DefaultHorizontalSection");
+				float ySoFar = heightSoFar + topSeparation;
+
+				GUI.Box(new Rect(interColumnSeparators, ySoFar, rank.x, sectionHeight), item.rank.ToString(), "DefaultHeavyContentText");
+				GUI.Box(new Rect(2*interColumnSeparators + rank.x, ySoFar, labSize.x, sectionHeight), prop_string, "DefaultHeavyContentText");
+
+				GUI.Label (new Rect(contentBounds.width - valueWidth - interColumnSeparators, heightSoFar, valueWidth, labSize.y),  item.value.ToString(), "DefaultHeavyContentText");
+				heightSoFar += sectionHeight + topSeparation;
+			}
+
+			if(leaderboard != null)
+			{
+				GUI.Box(new Rect(0, heightSoFar, contentBounds.width, footerHeight), new GUIContent(""), "DefaultFooterStyle");
+
+				GUILayout.BeginArea(new Rect(0, heightSoFar, contentBounds.width, footerHeight));
 				GUILayout.BeginVertical();
 				GUILayout.FlexibleSpace();
 				
@@ -159,7 +183,7 @@ public class RoarRankingsWidget : RoarUIWidget
 				}
 				GUI.enabled = true;
 				
-				GUILayout.FlexibleSpace();
+				GUILayout.Space(interColumnSeparators);
 				if( leaderboard.Count == 0 ) { GUI.enabled = false; }
 				if( GUILayout.Button( nextButtonLabel, nextButtonStyle) )
 				{
@@ -167,35 +191,21 @@ public class RoarRankingsWidget : RoarUIWidget
 					requires_refetch = true;
 				}
 				GUI.enabled = true;
-				GUILayout.FlexibleSpace();
+				GUILayout.Space(interColumnSeparators);
 				GUILayout.EndHorizontal();
 				GUILayout.FlexibleSpace();
 				GUILayout.EndVertical();
 				GUILayout.EndArea();
-				heightSoFar += sectionHeight;
+				heightSoFar += footerHeight;
 			}
-			if(leaderboard != null)
-			foreach (LeaderboardEntry item in leaderboard)
-			{
-				
-				Vector2 rank = GUI.skin.FindStyle("DefaultLightContentText").CalcSize(new GUIContent(item.rank.ToString()));
-				Vector2 labSize = GUI.skin.FindStyle("DefaultLightContentText").CalcSize(new GUIContent(item.player_id));
-
-				string prop_string = string.Join(
-						"\n",
-						item.properties.Select( p => ( string.Format( customDataFormat, p.ikey, p.value ) ) ).ToArray()
-						);
-				
-				GUI.Box(new Rect(0, heightSoFar, contentBounds.width, sectionHeight), new GUIContent(""), "DefaultHorizontalSection");
-				float ySoFar = heightSoFar + topSeparation;
-
-				GUI.Box(new Rect(interColumnSeparators, ySoFar, rank.x, sectionHeight), item.rank.ToString(), "DefaultHeavyContentText");
-
-				GUI.Box(new Rect(2*interColumnSeparators + rank.x, ySoFar, labSize.x, sectionHeight), prop_string, "DefaultHeavyContentText");
-
-				GUI.Label (new Rect(contentBounds.width - valueWidth - interColumnSeparators, heightSoFar, valueWidth, labSize.y),  item.value.ToString(), "DefaultHeavyContentText") ;
-				heightSoFar += sectionHeight + topSeparation;
-			}
+			
+			if(alwaysShowVerticalScrollBar)
+				if(heightSoFar < contentBounds.height)
+					ScrollViewContentHeight = contentBounds.height;
+				else
+					ScrollViewContentHeight = heightSoFar;
+			else
+				ScrollViewContentHeight = heightSoFar;
 
 			if(requires_refetch) FetchIfRequired();
 		}
