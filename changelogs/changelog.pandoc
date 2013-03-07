@@ -1,5 +1,17 @@
 # RoarEngine UnitySDK Changelog
 
+## Changes in v1.0
+
+### New Features
+
+* UnitySDK uploaded to the Unity Asset Store!
+* All Widgets restyled with a new skin **[UNITYSDK-210]**
+* Facebook login functionality added **[UNITYSDK-195]**
+* Facebook Bind widget added **[UNITYSDK-195]**
+* Facebook Shop widget added **[UNITYSDK-212]**
+* Widget control bar added and scene updated **[UNITYSDK-207]**
+
+
 ## Changes in v0.10.1
 
 ### Bug Fixes
