@@ -244,6 +244,62 @@ public class RoarObjectFactory : Editor
 		Selection.activeGameObject = go;
 	}
 	
+	[MenuItem("GameObject/Create Other/Roar/Facebook Shop Widget", false, 2009)]
+	public static void CreateRoarFacebookShopWidgetObject()
+	{
+		if (!ExistingComponentTypeExists(typeof(DefaultRoar)))
+		{
+			if (EditorUtility.DisplayDialog("Sorry!", "A DefaultRoar system component cannot be found in this scene. Add one now?", "OK", "Later"))
+			{
+				CreateRoarSceneObject();
+				_CreateRoarFacebookShopWidgetObject();
+			}
+		}
+		else
+		{
+			_CreateRoarFacebookShopWidgetObject();
+		}
+	}
+
+	private static void _CreateRoarFacebookShopWidgetObject()
+	{
+		GameObject go = RoarObjectFactory.CreateGameObjectInScene("RoarFacebookShopWidget");
+		go.AddComponent<RoarFacebookShopWidget>();
+
+		DefaultRoar defaultRoar = GameObject.FindObjectOfType(typeof(DefaultRoar)) as DefaultRoar;
+		go.transform.parent = defaultRoar.transform;		
+
+		Selection.activeGameObject = go;
+	}
+
+	[MenuItem("GameObject/Create Other/Roar/Facebook Bind Widget", false, 2010)]
+	public static void CreateRoarFacebookBindWidgetObject()
+	{
+		if (!ExistingComponentTypeExists(typeof(DefaultRoar)))
+		{
+			if (EditorUtility.DisplayDialog("Sorry!", "A DefaultRoar system component cannot be found in this scene. Add one now?", "OK", "Later"))
+			{
+				CreateRoarSceneObject();
+				_CreateRoarFacebookBindWidgetObject();
+			}
+		}
+		else
+		{
+			_CreateRoarFacebookBindWidgetObject();
+		}
+	}
+
+	private static void _CreateRoarFacebookBindWidgetObject()
+	{
+		GameObject go = RoarObjectFactory.CreateGameObjectInScene("RoarFacebookBindWidget");
+		go.AddComponent<RoarFacebookBindWidget>();
+
+		DefaultRoar defaultRoar = GameObject.FindObjectOfType(typeof(DefaultRoar)) as DefaultRoar;
+		go.transform.parent = defaultRoar.transform;		
+
+		Selection.activeGameObject = go;
+	}
+
 	public static bool ExistingComponentTypeExists(System.Type type)
 	{
 		Component c = FindObjectOfType(type) as Component;
