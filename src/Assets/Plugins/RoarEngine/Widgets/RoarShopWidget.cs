@@ -167,6 +167,7 @@ public class RoarShopWidget : RoarUIWidget
 					OnItemBuyRequest(item);
 				}
 				isBuying = true;
+				networkActionInProgress = true;
 				shop.Buy( item.ikey, OnBuyComplete );
 			}
 			GUI.enabled = true;
@@ -177,6 +178,7 @@ public class RoarShopWidget : RoarUIWidget
 	
 	protected void OnBuyComplete( CallbackInfo<Roar.WebObjects.Shop.BuyResponse> response )
 	{
+		networkActionInProgress = false;
 		isBuying = false;
 		if( response.code!=WebAPI.OK )
 		{
