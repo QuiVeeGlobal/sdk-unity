@@ -4370,9 +4370,9 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Font: {fileID: 12800000, guid: 78af4059493b31b4796c189006af8344, type: 3}
-    m_FontSize: 18
+    m_FontSize: 14
     m_FontStyle: 0
-    m_Alignment: 4
+    m_Alignment: 3
     m_WordWrap: 0
     m_RichText: 1
     m_TextClipping: 0
@@ -4645,20 +4645,20 @@ MonoBehaviour:
       m_Top: 0
       m_Bottom: 0
     m_Margin:
+      m_Left: 20
+      m_Right: 20
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
       m_Left: 0
       m_Right: 0
       m_Top: 0
       m_Bottom: 0
-    m_Padding:
-      m_Left: 10
-      m_Right: 10
-      m_Top: 3
-      m_Bottom: 3
     m_Overflow:
-      m_Left: 5
-      m_Right: 5
-      m_Top: 0
-      m_Bottom: 0
+      m_Left: 15
+      m_Right: 15
+      m_Top: 5
+      m_Bottom: 5
     m_Font: {fileID: 12800000, guid: 2e7d3ce5aec76b04fa9e4b58df614b1b, type: 3}
     m_FontSize: 19
     m_FontStyle: 0
