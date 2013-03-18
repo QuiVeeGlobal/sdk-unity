@@ -63,7 +63,7 @@ public class RoarShopWidget : RoarUIWidget
 
 	void Reset()
 	{
-		bounds.y = 100;
+		bounds = new Rect(0,100,512,386);
 		displayName = "Shop";
 	}
 

@@ -51,8 +51,7 @@ public class RoarRankingsWidget : RoarUIWidget
 	}
 	void Reset()
 	{
-		bounds.y = 100;
-		bounds.x = 512;
+		bounds = new Rect(512,100,512,386);
 		subheaderDarkWidth = 150;
 		displayName = "Rankings";
 	}

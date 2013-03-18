@@ -35,7 +35,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 	
 	void Reset()
 	{
-		bounds.y = 100;
+		bounds = new Rect(0,100,512,386);
 		displayName = "Leaderboard";
 		horizontalAlignment = AlignmentHorizontal.Left;
 		verticalAlignment = AlignmentVertical.Center;

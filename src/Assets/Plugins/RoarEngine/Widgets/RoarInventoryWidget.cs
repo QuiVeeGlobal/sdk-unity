@@ -47,6 +47,7 @@ public class RoarInventoryWidget : RoarUIWidget
 	void Reset()
 	{
 		displayName = "Inventory";
+		bounds = new Rect(0,0,512,386);
 	}
 
 	protected override void DrawGUI(int windowId)
