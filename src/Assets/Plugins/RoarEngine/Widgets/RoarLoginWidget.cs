@@ -20,19 +20,19 @@ public class RoarLoginWidget : RoarUIWidget
 	private string status = "Supply a username and password to log in or to register a new account.";
 	private string username = string.Empty;
 	private string password = string.Empty;
-	public int loginBoxSpacing = 10;
-	public float labelHeight= 30;
+	public int loginBoxSpacing = 20;
+	public float labelHeight= 25;
 	public float statusWidth = 400;
-	public float fieldHeight = 30;
-	public float fieldWidth = 140;
-	public float buttonWidth = 200;
+	public float fieldHeight = 50;
+	public float fieldWidth = 280;
+	public float buttonWidth = 150;
 	public float buttonHeight = 40;
 	public float footerSpacing = 50;
 	public float buttonSpacing = 10;
 	public string buttonStyle="DefaultButton";
 	public string boxStyle="DefaultTextArea";
-	public string loginLabelStyle = "DefaultHeavyContentText";
-	public string statusStyle = "LoginStatus";
+	public string loginLabelStyle = "DefaultHeavyContentLeftText";
+	public string statusStyle = "DefaultSmallStatusText";
 	
 	public bool allowFacebookLogin = true;
 	public string facebookApplicationID = "";
@@ -52,6 +52,13 @@ public class RoarLoginWidget : RoarUIWidget
 			enabled = true;
 	}
 	
+	void Reset ()
+	{
+		displayName = "Login Widget";
+		bounds.width = 512;
+		bounds.height = 450;
+	}
+
 	protected override void OnEnable ()
 	{
 		if (saveUsername)

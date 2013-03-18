@@ -13,15 +13,15 @@ public class RoarShopWidget : RoarUIWidget
 	public WhenToFetch whenToFetch = WhenToFetch.Occassionally;
 	public float howOftenToFetch = 60;
 	
-	public string shopItemLabelStyle = "DefaultHeavyContentText";
-	public string shopItemDescriptionStyle = "DefaultLightContentText";
-	public string shopItemCostStyle = "DefaultHeavyContentText";
+	public string shopItemLabelStyle = "DefaultHeavyContentLeftText";
+	public string shopItemDescriptionStyle = "LightTextRightAligned";
+	public string shopItemCostStyle = "DefaultHeavyContentLeftText";
 	public string shopItemBuyButtonStyle = "DefaultButton";
 
 	public float buyButtonWidth =100;
 	public float buyButtonHeight = 40;
-	public float interColumnSeparators =5;
-	public float divideHeight = 20;
+	public float interColumnSeparators =20;
+	public float divideHeight = 35;
 	public float priceColumnWidth = 40;//Buy button always sticks to the right. description takes up the rest.
 
 	public float topSeparation = 15;
@@ -59,6 +59,12 @@ public class RoarShopWidget : RoarUIWidget
 		{
 			enabled = false;
 		}
+	}
+
+	void Reset()
+	{
+		bounds.y = 100;
+		displayName = "Shop";
 	}
 
 	public void Fetch()

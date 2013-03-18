@@ -52,7 +52,7 @@ public class Apearance
 	public string closeButtonStyle = "DefaultCloseButtonStyle";
 	public float headerHeight = 50;
 	public float closeButtonOffset = 30;
-	public float closeButtonSize = 5;
+	public float closeButtonSize = 30;
 	public int windowBorderWidth = 8;
 
 }

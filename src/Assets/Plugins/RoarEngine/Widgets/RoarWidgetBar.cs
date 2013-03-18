@@ -30,6 +30,16 @@ public class RoarWidgetBar : RoarUIWidget
 		}
 	}
 
+	void Reset()
+	{
+		bounds.width = 800;
+		bounds.height = 100;
+		apearance.headerHeight = 30;
+		apearance.closeButtonSize = 15;
+		autoEnableOnLogIn = true;
+		displayName = "Widget Bar";
+	}
+
 	protected override void Awake()
 	{
 		base.Awake();

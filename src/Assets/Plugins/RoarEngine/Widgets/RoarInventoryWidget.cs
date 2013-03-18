@@ -11,20 +11,20 @@ public class RoarInventoryWidget : RoarUIWidget
 	protected Roar.Components.IInventory inventory;
 	protected bool isFetching=false;
 	
-	public string labelFormat = "InventoryLabel";
-	public string descriptionFormat = "InventoryDescription";
-	public string typeFormat = "InventoryType";
-	public string consumeButtonFormat = "InventoryConsumeButton";
+	public string labelFormat = "DefaultHeavyContentText";
+	public string descriptionFormat = "DefaultLightContentText";
+	public string typeFormat = "DefaultHeavyContentLeftText";
+	public string consumeButtonFormat = "DefaultButton";
 	
 	public bool showDescription = true;
 	public bool showType = true;
 	public bool allowSorting = true;
 	
-	public int maxLabelWidth = 150;
-	public int maxDescriptionFormatWidth = 350;
-	public int maxTypeWidth = 100;
+	public int maxLabelWidth = 58;
+	public int maxDescriptionFormatWidth = 310;
+	public int maxTypeWidth = 40;
 	public int rowHeight = 32;
-	public int divideHeight = 30;
+	public int divideHeight = 50;
 	public int margin = 5;
 
 	protected override void OnEnable ()
@@ -44,6 +44,11 @@ public class RoarInventoryWidget : RoarUIWidget
 		
 	}
 	
+	void Reset()
+	{
+		displayName = "Inventory";
+	}
+
 	protected override void DrawGUI(int windowId)
 	{
 		if (inventory == null || !IsLoggedIn) return;

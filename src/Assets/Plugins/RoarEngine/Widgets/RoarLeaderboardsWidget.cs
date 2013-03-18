@@ -18,7 +18,7 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 	public float howOftenToFetch = 60;
 
 	public Rect leaderboardItemBounds = new Rect(0, 0, 450, 30);
-	public float leaderboardItemSpacing = 1;
+	public float leaderboardItemSpacing = 4;
 	public string leaderboardEntryStyle = "DefaultButton";
 	
 	private bool isFetching;
@@ -33,6 +33,14 @@ public class RoarLeaderboardsWidget : RoarUIWidget
 		ScrollViewContentWidth = leaderboardItemBounds.width;
 	}
 	
+	void Reset()
+	{
+		bounds.y = 100;
+		displayName = "Leaderboard";
+		horizontalAlignment = AlignmentHorizontal.Left;
+		verticalAlignment = AlignmentVertical.Center;
+	}
+
 	protected override void OnEnable()
 	{
 		base.OnEnable();

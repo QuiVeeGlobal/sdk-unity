@@ -12,7 +12,7 @@ public class RoarRankingsWidget : RoarUIWidget
 	public float howOftenToFetch = 60;
 	
 	public Rect rankingItemBounds = new Rect(0, 0, 450, 50);
-	public float rankingItemSpacing;
+	public float rankingItemSpacing = 4;
 	public string rankingEntryPlayerRankStyle = "LeaderboardRankingPlayerRank";
 	public string rankingEntryPlayerNameStyle = "LeaderboardRankingPlayerName";
 	public string rankingEntryPlayerScoreStyle = "LeaderboardRankingPlayerScore";
@@ -30,7 +30,7 @@ public class RoarRankingsWidget : RoarUIWidget
 	
 	public float valueWidth =100;
 	public float rankColumnWidth = 40;
-	public float interColumnSeparators =5;
+	public float interColumnSeparators =40;
 	public float divideHeight = 20;
 	public float sectionHeight = 50;
 	public float topSeparation = 5;
@@ -48,6 +48,13 @@ public class RoarRankingsWidget : RoarUIWidget
 	{
 		base.Awake();
 		ScrollViewContentWidth = rankingItemBounds.width;
+	}
+	void Reset()
+	{
+		bounds.y = 100;
+		bounds.x = 512;
+		subheaderDarkWidth = 150;
+		displayName = "Rankings";
 	}
 	
 	protected override void OnEnable()

@@ -8,9 +8,9 @@ public class RoarTasksWidget : RoarUIWidget
 	
 	protected Roar.Components.ITasks tasks;
 	protected bool isFetching=false;
-	public string labelFormat = "DefaultHeavyContentText";
+	public string labelFormat = "DefaultHeavyContentLeftText";
 	public string descriptionFormat = "DefaultLightContentText";
-	public string locationFormat = "TaskLocation";
+	public string locationFormat = "DefaultHeavyContentText";
 	public string detailFormat = "DefaultLightContentText";
 	
 	public bool showDescription = true;
@@ -20,7 +20,7 @@ public class RoarTasksWidget : RoarUIWidget
 	public int maxLabelWidth = 250;
 	public int maxDescriptionFormatWidth = 350;
 	public int maxLocationWidth = 100;
-	public int rowHeight = 32;
+	public int rowHeight = 45;
 	public int buttonWidth = 130;
 	public int buttonHeight = 30;
 	public int divideHeight = 30;
@@ -29,6 +29,14 @@ public class RoarTasksWidget : RoarUIWidget
 	bool hasSelectedTask = false;
 	Roar.DomainObjects.Task selectedTask = null;
 	
+	void Reset()
+	{
+		bounds.y = 100;
+		bounds.width = 880;
+		bounds.height = 500;
+		displayName = "Tasks";
+	}
+
 	public class CRMToString : CRMVisitor<string>
 	{
 		public override string OnCostNull ()
