@@ -97,6 +97,15 @@ public class FacebookShopListToFacebookShop : IDomToCache<Roar.WebObjects.Facebo
 	}
 }
 
+public class LeaderboardViewToLeaderboardData : IDomToCache<Roar.WebObjects.Leaderboards.ViewResponse, Roar.DomainObjects.LeaderboardData>
+{
+	public Dictionary<string, Roar.DomainObjects.LeaderboardData> convert( Roar.WebObjects.Leaderboards.ViewResponse d)
+	{
+		Dictionary<string,Roar.DomainObjects.LeaderboardData> retval = new Dictionary<string, Roar.DomainObjects.LeaderboardData>();
+		return retval;
+	}
+}
+
 public class FooToFoo : IDomToCache<Foo,Foo>
 {
 	public Dictionary<string, Foo> convert( Foo d)
@@ -154,6 +163,11 @@ public class FriendsListGetter : GenericGetter<Roar.WebObjects.Friends.ListRespo
 	public FriendsListGetter( IWebAPI api ) : base( api.friends.list ) {}
 }
 
+public class LeaderboardViewGetter : GenericGetter<Roar.WebObjects.Leaderboards.ViewResponse, Roar.WebObjects.Leaderboards.ViewArguments>
+{
+	public LeaderboardViewGetter( IWebAPI api ) : base( api.leaderboards.view) {}
+}
+
 public class ItemsViewGetter : GenericGetter<Roar.WebObjects.Items.ViewResponse, Roar.WebObjects.Items.ViewArguments>
 {
 	public ItemsViewGetter( IWebAPI api ) : base( api.items.view ) {}
@@ -197,7 +211,7 @@ namespace Roar.implementation
 		IDataModel<DomainObjects.FacebookShopEntry,WebObjects.Facebook.ShopListResponse> facebookShop {get;}
 		IDataModel<Foo,Foo> gifts { get; }
 		IDataModel<Foo,Foo> achievements { get; }
-		IDataModel<Foo,Foo> ranking { get; }
+		IDataModel<DomainObjects.LeaderboardData,WebObjects.Leaderboards.ViewResponse> ranking { get; }
 		IDataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends { get; }
 		IDataModel<Foo,Foo> appStore { get; }
 		IItemCache cache { get; }
@@ -217,7 +231,7 @@ namespace Roar.implementation
 			facebookShop_ = new DataModel<DomainObjects.FacebookShopEntry, WebObjects.Facebook.ShopListResponse>("facebook", new FacebookShopListGetter(webapi), new FacebookShopListToFacebookShop(), logger);
 			gifts_ = new DataModel<Foo,Foo> ("gifts", new FooGetter(webapi), new FooToFoo(), logger);
 			achievements_ = new DataModel<Foo,Foo> ("achievements", new FooGetter(webapi), new FooToFoo(), logger);
-			ranking_ = new DataModel<Foo,Foo> ("ranking", new FooGetter(webapi), new FooToFoo(), logger);
+			ranking_ = new DataModel<DomainObjects.LeaderboardData,WebObjects.Leaderboards.ViewResponse> ("ranking", new LeaderboardViewGetter(webapi), new LeaderboardViewToLeaderboardData(), logger);
 			friends_ = new DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> ("friends",  new FriendsListGetter(webapi), new FriendsListToFriend(), logger);
 			cache_ = new ItemCache ("cache", new ItemsViewGetter(webapi), new ItemsViewToItemPrototype(), logger);
 			appStore_ = new DataModel<Foo,Foo> ("appstore", new FooGetter(webapi), new FooToFoo(), logger);
@@ -247,7 +261,7 @@ namespace Roar.implementation
 		public IDataModel<DomainObjects.FacebookShopEntry, WebObjects.Facebook.ShopListResponse> facebookShop {get {return facebookShop_;}}
 		public IDataModel<Foo,Foo> gifts { get { return gifts_; } }
 		public IDataModel<Foo,Foo> achievements { get { return achievements_; } }
-		public IDataModel<Foo,Foo> ranking { get { return ranking_; } }
+		public IDataModel<DomainObjects.LeaderboardData,WebObjects.Leaderboards.ViewResponse> ranking { get { return ranking_; } }
 		public IDataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends { get { return friends_; } }
 		public IDataModel<Foo,Foo> appStore { get { return appStore_; } }
 		public IItemCache cache { get { return cache_; } }
@@ -259,7 +273,7 @@ namespace Roar.implementation
 		public DataModel<DomainObjects.FacebookShopEntry, WebObjects.Facebook.ShopListResponse> facebookShop_;
 		public DataModel<Foo,Foo> gifts_;
 		public DataModel<Foo,Foo> achievements_;
-		public DataModel<Foo,Foo> ranking_;
+		public DataModel<DomainObjects.LeaderboardData,WebObjects.Leaderboards.ViewResponse> ranking_;
 		public DataModel<DomainObjects.Friend,WebObjects.Friends.ListResponse> friends_;
 		public DataModel<Foo,Foo> appStore_;
 		public ItemCache cache_;
