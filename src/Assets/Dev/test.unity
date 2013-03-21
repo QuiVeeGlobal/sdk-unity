@@ -201,6 +201,7 @@ Transform:
   - {fileID: 1510717982}
   - {fileID: 1340799530}
   - {fileID: 1464614849}
+  - {fileID: 1277531604}
   - {fileID: 199454296}
   - {fileID: 906782020}
   - {fileID: 2063613870}
@@ -222,7 +223,7 @@ MonoBehaviour:
   m_Name: 
   debug: 1
   appstoreSandbox: 1
-  gameKey: spark
+  gameKey: shooty
   defaultGUISkin: {fileID: 11400000, guid: e9a7b12d3982d1b4b9c3f31ff7587cc9, type: 2}
 --- !u!1 &609839861
 GameObject:
@@ -497,6 +498,122 @@ MonoBehaviour:
     height: 64
   leaderboardItemSpacing: 4
   leaderboardEntryStyle: DefaultButton
+--- !u!1 &1277531603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1277531604}
+  - 114: {fileID: 1277531605}
+  m_Layer: 0
+  m_Name: Gifts
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1277531604
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1277531603}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.388404369, y: -290.194, z: 3.54426599}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453953422}
+--- !u!114 &1277531605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1277531603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90b09a3598440da4a97ca9bdf3032d6e, type: 3}
+  m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 100
+    width: 800
+    height: 386
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 30
+    windowBorderWidth: 8
+  windowInfo:
+    isWindowed: 1
+    supportsDragging: 1
+  displayName: Gifts
+  drawSubheading: 0
+  subheaderName: Widget
+  subheaderDarkWidth: 100
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: DefaultScrollbarStyle
+  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
+  whenToFetch: 2
+  howOftenToFetch: 60
+  entrySpacing: 0
+  entryBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 350
+    height: 25
+  playerIdFormatString: '{0}'
+  playerIdFormat: DefaultLabel
+  nameFormatString: '{0}'
+  nameFormat: DefaultLabel
+  levelFormatString: '{0}'
+  levelFormat: DefaultLabel
+  buttonFormat: DefaultButton
+  topSpacing: 5
+  sectionHeight: 45
+  fromColumnWidth: 100
+  messageColumnWidth: 450
+  typeColumnWidth: 80
+  interColumnSeprators: 10
+  divideHeight: 25
+  buttonWidth: 90
+  buttonHeight: 40
+  footerSpacing: 90
+  messageBoxWidth: 150
+  messageBoxHeight: 100
+  playerIdBoxWidth: 150
+  textBoxHeight: 30
+  labelWidth: 130
+  labelHeight: 30
+  verticalSeparators: 5
 --- !u!1 &1340799529
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,64 +651,6 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 99fb95a3953f13c4b944cfd0f4cc02e7, type: 3}
   m_Name: 
-  bounds:
-    serializedVersion: 2
-    x: 0
-    y: 100
-    width: 512
-    height: 386
-  contentBounds:
-    serializedVersion: 2
-    x: 0
-    y: 0
-    width: 0
-    height: 0
-  skin: {fileID: 0}
-  depth: 0
-  apearance:
-    color: {r: 1, g: 1, b: 1, a: 1}
-    boundingStyle: WidgetBoundingStyle
-    windowBoundingStyle: WindowedWidgetBoundingStyle
-    boundingTitle: 
-    boundingImage: {fileID: 0}
-    headerStyle: DefaultHeaderStyle
-    subheaderStyleLeft: DefaultSubheaderStyleLeft
-    subheaderStyleRight: DefaultSubheaderStyleRight
-    closeButtonStyle: DefaultCloseButtonStyle
-    headerHeight: 50
-    closeButtonOffset: 30
-    closeButtonSize: 5
-    windowBorderWidth: 8
-  windowInfo:
-    isWindowed: 0
-    supportsDragging: 0
-  displayName: Facebook Shop
-  drawSubheading: 0
-  subheaderName: Widget
-  subheaderDarkWidth: 100
-  horizontalAlignment: 3
-  verticalAlignment: 3
-  horizontalOffset: 0
-  verticalOffset: 0
-  useScrollView: 0
-  alwaysShowHorizontalScrollBar: 0
-  alwaysShowVerticalScrollBar: 0
-  scrollBarStyle: DefaultScrollbarStyle
-  spinnerMovieTex: {fileID: 0}
-  autoEnableOnLogIn: 0
-  autoDisableOnLogout: 1
-  whenToFetch: 2
-  howOftenToFetch: 60
-  shopItemLabelStyle: DefaultHeavyContentText
-  shopItemDescriptionStyle: DefaultLightContentText
-  shopItemCostStyle: DefaultHeavyContentText
-  shopItemBuyButtonStyle: DefaultButton
-  buyButtonWidth: 100
-  buyButtonHeight: 40
-  interColumnSeparators: 5
-  divideHeight: 20
-  priceColumnWidth: 40
-  topSeparation: 15
 --- !u!1 &1371897980
 GameObject:
   m_ObjectHideFlags: 0
@@ -1256,7 +1315,7 @@ MonoBehaviour:
   enableOnAwake: 1
   fetchPropertiesOnLogin: 1
   saveUsername: 1
-  savePassword: 0
+  savePassword: 1
   loginBoxSpacing: 20
   labelHeight: 25
   statusWidth: 400
