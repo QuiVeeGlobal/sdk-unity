@@ -248,6 +248,30 @@ public class RoarManager
 	public static void OnFacebookChange() { if(facebookChangeEvent!=null) facebookChangeEvent(); }
 
 	/**
+	 * Fired when the data have been retrieved from the server.
+	 */
+	public static event Action giftsSendableReadyEvent;
+	public static void OnGiftsSendableReady() { if(giftsSendableReadyEvent!=null) giftsSendableReadyEvent(); }
+
+	/**
+	 * Fired when the data changes.
+	 */
+	public static event Action giftsSendableChangeEvent;
+	public static void OnGiftsSendableChange() { if(giftsSendableChangeEvent!=null) giftsSendableChangeEvent(); }
+
+	/**
+	 * Fired when the data have been retrieved from the server.
+	 */
+	public static event Action giftsAcceptabeReadyEvent;
+	public static void OnGiftsAcceptabeReady() { if(giftsAcceptabeReadyEvent!=null) giftsAcceptabeReadyEvent(); }
+
+	/**
+	 * Fired when the data changes.
+	 */
+	public static event Action giftsAcceptabeChangeEvent;
+	public static void OnGiftsAcceptabeChange() { if(giftsAcceptabeChangeEvent!=null) giftsAcceptabeChangeEvent(); }
+
+	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
 	 */
@@ -512,6 +536,12 @@ public class RoarManager
 		case "facebook":
 			OnFacebookChange();
 			break;
+		case "giftsSendable":
+			OnGiftsSendableChange();
+			break;
+		case "giftsAcceptabe":
+			OnGiftsAcceptabeChange();
+			break;
 
 		default:
 			Debug.Log ("Component change event for "+name+" not yet implemented");
@@ -551,6 +581,12 @@ public class RoarManager
 			break;
 		case "facebook":
 			OnFacebookReady();
+			break;
+		case "giftsSendable":
+			OnGiftsSendableReady();
+			break;
+		case "giftsAcceptabe":
+			OnGiftsAcceptabeReady();
 			break;
 
 		default:
