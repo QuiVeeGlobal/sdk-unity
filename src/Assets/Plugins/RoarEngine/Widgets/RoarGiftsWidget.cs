@@ -9,7 +9,6 @@ public class RoarGiftsWidget : RoarUIWidget
 	public WhenToFetch whenToFetch = WhenToFetch.Occassionally;
 	public float howOftenToFetch = 60;
 	private bool isFetching;
-	private bool isFetchingMailable;
 	private float whenLastFetched;
 	private Roar.Components.IGifts gifts;
 	public float entrySpacing;
@@ -18,9 +17,9 @@ public class RoarGiftsWidget : RoarUIWidget
 	public string playerIdFormatString ="{0}";
 	public string playerIdFormat = "DefaultLabel";
 	public string nameFormatString = "{0}";
-	public string nameFormat = "DefaultLabel";
+	public string messageFormat = "DefaultLabel";
 	public string levelFormatString = "{0}";
-	public string levelFormat = "DefaultLabel";
+	public string typeFormat = "DefaultLabel";
 	public string buttonFormat = "DefaultButton";
 
 	public float topSpacing = 5;
@@ -41,6 +40,7 @@ public class RoarGiftsWidget : RoarUIWidget
 	public float labelWidth = 130;
 	public float labelHeight = 30;
 	public float verticalSeparators = 5;
+	public float selectButtonWidth = 20;
 	string statusString;
 
 	Mailable selectedMailable = null;
@@ -91,7 +91,6 @@ public class RoarGiftsWidget : RoarUIWidget
 	public void FetchMailable()
 	{
 		networkActionInProgress = true;
-		isFetchingMailable = true;
 		gifts.FetchSendable(OnRoarFetchMailableGiftsComplete);
 	}
 	
@@ -107,14 +106,12 @@ public class RoarGiftsWidget : RoarUIWidget
 	void OnRoarFetchMailableGiftsComplete(Roar.CallbackInfo< IDictionary<string,Roar.DomainObjects.Mailable> > info)
 	{
 		networkActionInProgress = false;
-		isFetchingMailable = false;
 		mailableDict = info.data;
 		Debug.Log("sendable gifts count "+mailableDict.Count);
 	}
 
 	protected override void DrawGUI(int windowId)
 	{
-
 		if (!IsLoggedIn) return;
 		if (isFetching)
 		{
@@ -154,10 +151,10 @@ public class RoarGiftsWidget : RoarUIWidget
 				GUI.Label(currentRect,  f.Value.sender_name, playerIdFormat );
 				currentRect.x += interColumnSeprators + fromColumnWidth;
 				currentRect.width = messageColumnWidth;
-				GUI.Label(currentRect, f.Value.message, nameFormat );
+				GUI.Label(currentRect, f.Value.message, messageFormat );
 				currentRect.x += interColumnSeprators + messageColumnWidth;
 				currentRect.width = typeColumnWidth;
-				GUI.Label(currentRect, f.Value.type, levelFormat );
+				GUI.Label(currentRect, f.Value.type, typeFormat );
 				currentRect.x += interColumnSeprators + typeColumnWidth;
 
 				currentRect.width = buttonWidth;
@@ -284,9 +281,19 @@ public class RoarGiftsWidget : RoarUIWidget
 			currentRect.height = labelHeight;
 			GUI.Label(currentRect,"To: (PlayerID)");
 			currentRect.x += labelWidth + interColumnSeprators;
-			currentRect.width = contentBounds.width- currentRect.x  - interColumnSeprators;
+			currentRect.width = contentBounds.width- currentRect.x  - interColumnSeprators - selectButtonWidth;
 			currentRect.height = textBoxHeight;
 			playerIdToSendTo = GUI.TextField(currentRect, playerIdToSendTo, "DefaultTextArea");
+			currentRect.x += contentBounds.width- currentRect.x  - interColumnSeprators - selectButtonWidth;
+			currentRect.width = selectButtonWidth;
+			if(GUI.Button(currentRect, "?", "DefaultButton"))
+			{
+				Debug.Log("going");
+				System.Action<string> act = (pid) => {
+					playerIdToSendTo = pid;
+				};
+				GameObject.Find("/PlayerSelectionWidget").SendMessage("setCallbackAndEnable", act);
+			}
 			currentRect.y += labelHeight+verticalSeparators;
 			currentRect.x = interColumnSeprators;
 			currentRect.width = labelWidth;
@@ -333,7 +340,7 @@ public class RoarGiftsWidget : RoarUIWidget
 				GUI.Label(currentRect,  f.Value.label, playerIdFormat );
 				currentRect.x += interColumnSeprators + fromColumnWidth;
 				currentRect.width = messageColumnWidth;
-				GUI.Label(currentRect, f.Value.type, nameFormat );
+				GUI.Label(currentRect, f.Value.type, messageFormat );
 				currentRect.x += interColumnSeprators + messageColumnWidth;
 				
 				if(GUI.Toggle(currentRect, (selectedMailable == f.Value)?true:false,"Select"))
@@ -379,5 +386,17 @@ public class RoarGiftsWidget : RoarUIWidget
 			statusString = "Gift sending failed. Reason: "+data.msg;
 			Debug.Log("Gift sent "+data.msg);
 		}
+	}
+
+	public void SendMailWithPID(string pid)
+	{
+		enabled = true;
+		section = Section.SendingMail;
+		statusString = "";
+		FetchMailable();
+		section = Section.SendingMail;
+		drawSubheading = true;
+		subheaderName = "Send Gift";
+		playerIdToSendTo = pid;
 	}
 }
