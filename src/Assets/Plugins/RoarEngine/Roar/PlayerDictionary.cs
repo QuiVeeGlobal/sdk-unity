@@ -3,19 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using Roar.DomainObjects;
 
-public class PlayerDictionary {
+public static class PlayerDictionary {
 
-	Dictionary<string, IList<LeaderboardExtraProperties>>  playerIDleaderboardDict; 
-	Dictionary<string, Roar.DomainObjects.Friend> playerIDFriendDict;
-	Dictionary<string, string> playerIDFriendInviteDict;
+	public static Dictionary<string, IList<LeaderboardExtraProperties>>  playerIDleaderboardDict;
+	public static Dictionary<string, Roar.DomainObjects.Friend> playerIDFriendDict;
+	public static Dictionary<string, string> playerIDFriendInviteDict;
 	
-	public void Init()
+	public static void Init()
 	{
 		playerIDleaderboardDict = new Dictionary<string, IList<LeaderboardExtraProperties>>();
 		playerIDFriendDict = new Dictionary<string, Friend>();
 		playerIDFriendInviteDict = new Dictionary<string, string>();
 		
-		RoarManager.leaderboardsChangeEvent += LoadChangedLeaderboard;
+		Roar.implementation.Components.Leaderboards.OnLeaderboardFetchCompleted += LoadChangedLeaderboard;
 		RoarManager.roarServerFriendRequestEvent+= delegate(Roar.Events.FriendRequestEvent friendReq) {
 			if(playerIDFriendInviteDict.ContainsKey(friendReq.from_player_id))
 			{
@@ -24,23 +24,19 @@ public class PlayerDictionary {
 		};
 	}
 	
-	void LoadChangedLeaderboard()
+	static void LoadChangedLeaderboard(Roar.WebObjects.Leaderboards.ViewResponse response)
 	{
-		IList<LeaderboardData> boardList = DefaultRoar.Instance.DataStore.ranking.List();
 		
-		foreach(LeaderboardData board in boardList)
+		foreach(LeaderboardEntry e in response.leaderboard_data.entries)
 		{
-			foreach(LeaderboardEntry e in board.entries)
+			if(!playerIDleaderboardDict.ContainsKey(e.player_id))
 			{
-				if(!playerIDleaderboardDict.ContainsKey(e.player_id))
-				{
-					playerIDleaderboardDict.Add(e.player_id, e.properties);
-				}
+				playerIDleaderboardDict.Add(e.player_id, e.properties);
 			}
 		}
 	}
 	
-	void UpdateFriendsDictionary()
+	public static void UpdateFriendsDictionary()
 	{
 		IList<Roar.DomainObjects.Friend> friendList = DefaultRoar.Instance.Friends.List(); //lists friends and friend invites.
 		
