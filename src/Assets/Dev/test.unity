@@ -152,6 +152,7 @@ MonoBehaviour:
   descriptionFormat: DefaultLightContentText
   typeFormat: DefaultHeavyContentLeftText
   consumeButtonFormat: DefaultButton
+  consumeButtonWidth: 100
   showDescription: 0
   showType: 1
   allowSorting: 1
@@ -199,13 +200,13 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1510717982}
-  - {fileID: 1340799530}
   - {fileID: 1464614849}
   - {fileID: 1277531604}
   - {fileID: 199454296}
   - {fileID: 906782020}
   - {fileID: 2063613870}
   - {fileID: 1765055055}
+  - {fileID: 666828011}
   - {fileID: 671462277}
   - {fileID: 1998890868}
   - {fileID: 1654474001}
@@ -310,6 +311,101 @@ MonoBehaviour:
   autoDisableOnLogout: 1
   interButtonSpacing: 0
   numRows: 2
+--- !u!1 &666828010
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 666828011}
+  - 114: {fileID: 666828012}
+  m_Layer: 0
+  m_Name: Facebook Shop
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &666828011
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 666828010}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 453953422}
+--- !u!114 &666828012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 666828010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3fc7f4254b70ca147b859ce7990edee8, type: 3}
+  m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 512
+    height: 386
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 30
+    windowBorderWidth: 8
+  windowInfo:
+    isWindowed: 1
+    supportsDragging: 1
+  displayName: Widget
+  drawSubheading: 0
+  subheaderName: Widget
+  subheaderDarkWidth: 100
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: DefaultScrollbarStyle
+  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
+  whenToFetch: 2
+  howOftenToFetch: 60
+  shopItemLabelStyle: DefaultHeavyContentText
+  shopItemDescriptionStyle: DefaultLightContentText
+  shopItemCostStyle: DefaultHeavyContentText
+  shopItemBuyButtonStyle: DefaultButton
+  buyButtonWidth: 100
+  buyButtonHeight: 40
+  interColumnSeparators: 5
+  divideHeight: 20
+  priceColumnWidth: 40
+  topSeparation: 15
 --- !u!1 &671462276
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,8 +472,8 @@ MonoBehaviour:
     closeButtonSize: 30
     windowBorderWidth: 7
   windowInfo:
-    isWindowed: 0
-    supportsDragging: 0
+    isWindowed: 1
+    supportsDragging: 1
   displayName: Shop
   drawSubheading: 0
   subheaderName: 
@@ -472,7 +568,7 @@ MonoBehaviour:
     windowBorderWidth: 7
   windowInfo:
     isWindowed: 1
-    supportsDragging: 0
+    supportsDragging: 1
   displayName: Leaderboard
   drawSubheading: 0
   subheaderName: 
@@ -593,9 +689,9 @@ MonoBehaviour:
   playerIdFormatString: '{0}'
   playerIdFormat: DefaultLabel
   nameFormatString: '{0}'
-  nameFormat: DefaultLabel
+  messageFormat: DefaultLabel
   levelFormatString: '{0}'
-  levelFormat: DefaultLabel
+  typeFormat: DefaultLabel
   buttonFormat: DefaultButton
   topSpacing: 5
   sectionHeight: 45
@@ -614,43 +710,7 @@ MonoBehaviour:
   labelWidth: 130
   labelHeight: 30
   verticalSeparators: 5
---- !u!1 &1340799529
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 1340799530}
-  - 114: {fileID: 1340799531}
-  m_Layer: 0
-  m_Name: Facebook Shop
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1340799530
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1340799529}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.67973709, y: -4.83867073, z: 1.56423426}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 453953422}
---- !u!114 &1340799531
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1340799529}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99fb95a3953f13c4b944cfd0f4cc02e7, type: 3}
-  m_Name: 
+  selectButtonWidth: 20
 --- !u!1 &1371897980
 GameObject:
   m_ObjectHideFlags: 0
@@ -771,7 +831,7 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 100
-    width: 512
+    width: 1000
     height: 386
   contentBounds:
     serializedVersion: 2
@@ -796,12 +856,12 @@ MonoBehaviour:
     closeButtonSize: 30
     windowBorderWidth: 7
   windowInfo:
-    isWindowed: 0
-    supportsDragging: 0
+    isWindowed: 1
+    supportsDragging: 1
   displayName: Friends Widget
   drawSubheading: 0
   subheaderName: 
-  subheaderDarkWidth: 100
+  subheaderDarkWidth: 200
   horizontalAlignment: 2
   verticalAlignment: 1
   horizontalOffset: 0
@@ -823,11 +883,32 @@ MonoBehaviour:
     width: 476
     height: 32
   playerIdFormatString: '{0}'
-  playerIdFormat: DefaultHeavyContentText
+  playerIdFormat: DefaultHeavyContentLeftText
   nameFormatString: '{0}'
-  nameFormat: DefaultHeavyContentText
+  nameFormat: DefaultHeavyContentLeftText
   levelFormatString: '{0}'
-  levelFormat: DefaultHeavyContentText
+  levelFormat: DefaultHeavyContentLeftText
+  topSpacing: 5
+  sectionHeight: 45
+  playerIDColumnWidth: 220
+  messageColumnWidth: 200
+  playerNameColumnWidth: 150
+  levelColumnWidth: 80
+  interColumnSeprators: 10
+  divideHeight: 25
+  buttonWidth: 140
+  buttonHeight: 40
+  footerSpacing: 90
+  messageBoxWidth: 150
+  messageBoxHeight: 60
+  playerIdBoxWidth: 150
+  textBoxHeight: 30
+  labelWidth: 130
+  labelHeight: 30
+  verticalSeparators: 5
+  selectButtonWidth: 20
+  statusString: 
+  buttonFormat: DefaultButton
 --- !u!1 &1510717981
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,8 +975,8 @@ MonoBehaviour:
     closeButtonSize: 5
     windowBorderWidth: 8
   windowInfo:
-    isWindowed: 0
-    supportsDragging: 0
+    isWindowed: 1
+    supportsDragging: 1
   displayName: Bind Widget
   drawSubheading: 0
   subheaderName: Widget
@@ -1055,14 +1136,14 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 100
-    width: 512
+    width: 800
     height: 386
   contentBounds:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 512
-    height: 386
+    width: 0
+    height: 0
   skin: {fileID: 0}
   depth: 0
   apearance:
@@ -1080,8 +1161,8 @@ MonoBehaviour:
     closeButtonSize: 30
     windowBorderWidth: 7
   windowInfo:
-    isWindowed: 0
-    supportsDragging: 0
+    isWindowed: 1
+    supportsDragging: 1
   displayName: Leaderboard
   drawSubheading: 1
   subheaderName: None
@@ -1125,9 +1206,101 @@ MonoBehaviour:
   sectionHeight: 50
   topSeparation: 5
   footerHeight: 60
+  buttonHeight: 30
   leaderboardId: 
   leaderboardName: 
   page: 1
+--- !u!1 &1953525291
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1953525292}
+  - 114: {fileID: 1953525293}
+  m_Layer: 0
+  m_Name: PlayerSelectionWidget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1953525292
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1953525291}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.93884277, y: -259.06665, z: -1.04999995}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &1953525293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1953525291}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85dbfc376660c440b473c14a882bfe0, type: 3}
+  m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 512
+    height: 386
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 11400000, guid: e9a7b12d3982d1b4b9c3f31ff7587cc9, type: 2}
+  depth: 0
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 30
+    windowBorderWidth: 8
+  windowInfo:
+    isWindowed: 1
+    supportsDragging: 1
+  displayName: Select Player
+  drawSubheading: 0
+  subheaderName: Widget
+  subheaderDarkWidth: 100
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: DefaultScrollbarStyle
+  spinnerMovieTex: {fileID: 0}
+  autoEnableOnLogIn: 0
+  autoDisableOnLogout: 1
+  buttonWidth: 100
+  buttonHeight: 60
+  interSeparation: 10
+  leftSeparation: 30
+  sectionHeight: 50
+  displayPlayersFromFriends: 1
+  displayPlayersFromFriendsInvites: 1
+  displayPlayersFromLeaderboards: 1
 --- !u!1 &1998890867
 GameObject:
   m_ObjectHideFlags: 0
@@ -1240,6 +1413,113 @@ MonoBehaviour:
     valueFormat: 
     valueStyle: StatsValueStyle
     valueType: 1
+--- !u!1 &2060759853
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 2060759854}
+  - 114: {fileID: 2060759855}
+  m_Layer: 0
+  m_Name: ProfileViewerWidget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2060759854
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2060759853}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.93884277, y: -259.06665, z: -1.04999995}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+--- !u!114 &2060759855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2060759853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac4bfbc737bc1be4ebc87eddd5fecc62, type: 3}
+  m_Name: 
+  bounds:
+    serializedVersion: 2
+    x: 0
+    y: 100
+    width: 512
+    height: 512
+  contentBounds:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 0
+    height: 0
+  skin: {fileID: 0}
+  depth: -1
+  apearance:
+    color: {r: 1, g: 1, b: 1, a: 1}
+    boundingStyle: WidgetBoundingStyle
+    windowBoundingStyle: WindowedWidgetBoundingStyle
+    boundingTitle: 
+    boundingImage: {fileID: 0}
+    headerStyle: DefaultHeaderStyle
+    subheaderStyleLeft: DefaultSubheaderStyleLeft
+    subheaderStyleRight: DefaultSubheaderStyleRight
+    closeButtonStyle: DefaultCloseButtonStyle
+    headerHeight: 50
+    closeButtonOffset: 30
+    closeButtonSize: 30
+    windowBorderWidth: 8
+  windowInfo:
+    isWindowed: 1
+    supportsDragging: 1
+  displayName: View Profile
+  drawSubheading: 0
+  subheaderName: Widget
+  subheaderDarkWidth: 100
+  horizontalAlignment: 3
+  verticalAlignment: 3
+  horizontalOffset: 0
+  verticalOffset: 0
+  useScrollView: 0
+  alwaysShowHorizontalScrollBar: 0
+  alwaysShowVerticalScrollBar: 0
+  scrollBarStyle: DefaultScrollbarStyle
+  spinnerMovieTex: {fileID: 15200000, guid: 959e64b0ba34c9c4b969275a42036880, type: 3}
+  autoEnableOnLogIn: 1
+  autoDisableOnLogout: 1
+  autoCalculateContentBounds: 1
+  defaultValueFormat: N0
+  statsToDisplay:
+  - enabled: 1
+    key: strength
+    title: Hunger
+    titleStyle: StatsTitleStyle
+    valueFormat: 
+    valueStyle: StatsTitleStyle
+    valueType: 1
+  - enabled: 0
+    key: 
+    title: 
+    titleStyle: 
+    valueFormat: 
+    valueStyle: 
+    valueType: 0
+  propertyHeight: 40
+  interColumnSeparation: 10
+  labelWidth: 100
+  propertyWidth: 300
+  verticalSeparation: 10
+  labelStyle: DefaultHeavyContentText
+  buttonWidth: 70
 --- !u!1 &2063613868
 GameObject:
   m_ObjectHideFlags: 0
