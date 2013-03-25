@@ -272,6 +272,18 @@ public class RoarManager
 	public static void OnGiftsAcceptabeChange() { if(giftsAcceptabeChangeEvent!=null) giftsAcceptabeChangeEvent(); }
 
 	/**
+	 * Fired when the data have been retrieved from the server.
+	 */
+	public static event Action friendsReadyEvent;
+	public static void OnFriendsReady() { if(friendsReadyEvent!=null) friendsReadyEvent(); }
+
+	/**
+	 * Fired when the data changes.
+	 */
+	public static event Action friendsChangeEvent;
+	public static void OnFriendsChange() { if(friendsChangeEvent!=null) friendsChangeEvent(); }
+
+	/**
 	 * @todo Ugly to be using a hash here.
 	 * @todo Implement more server update functions.
 	 */
@@ -542,6 +554,9 @@ public class RoarManager
 		case "giftsAcceptabe":
 			OnGiftsAcceptabeChange();
 			break;
+		case "friends":
+			OnFriendsChange();
+			break;
 
 		default:
 			Debug.Log ("Component change event for "+name+" not yet implemented");
@@ -587,6 +602,9 @@ public class RoarManager
 			break;
 		case "giftsAcceptabe":
 			OnGiftsAcceptabeReady();
+			break;
+		case "friends":
+			OnFriendsReady();
 			break;
 
 		default:
