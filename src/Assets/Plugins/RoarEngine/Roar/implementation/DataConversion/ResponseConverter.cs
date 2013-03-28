@@ -837,6 +837,14 @@ namespace Roar.DataConversion.Responses
 									prop.value = ccc_e.GetAttribute("value");
 									lbe.properties.Add( prop );
 								}
+								else if( ccc.Name == "stat" )
+								{
+									LeaderboardExtraProperties prop = new LeaderboardExtraProperties();
+									System.Xml.XmlElement ccc_e = ccc as System.Xml.XmlElement;
+									prop.ikey = ccc_e.GetAttribute("ikey");
+									prop.value = ccc_e.GetAttribute("value");
+									lbe.properties.Add( prop );
+								}
 								else
 								{
 									throw new UnexpectedXMLElementException("unexpected child, \""+c.Name+"\", on Leadeboard Entry custom properties");
