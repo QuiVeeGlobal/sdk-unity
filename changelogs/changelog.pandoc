@@ -1,5 +1,20 @@
 # RoarEngine UnitySDK Changelog
 
+## Changes in v1.0.1
+
+### New Features
+
+* Added Gifts component and Widget **[UNITYSDK-228]**
+* Added Invite and Accept functionality to Friends widget **[UNITYSDK-235]**
+* Added a User dictionary to keep track of encountered playerIDs **[UNITYSDK-234]**
+* Added a Player selection widget for easily entering playerIDs **[UNITYSDK-238]**
+* Added a View Profile widget **[UNITYSDK-237]**
+
+### Bug Fixes
+
+* Fixed parsing of stats in Leaderboard XML **[UNITYSDK-216]**
+* Fix for error when buying with an empty inventory **[UNITYSDK-241]**
+
 ## Changes in v1.0
 
 ### New Features
