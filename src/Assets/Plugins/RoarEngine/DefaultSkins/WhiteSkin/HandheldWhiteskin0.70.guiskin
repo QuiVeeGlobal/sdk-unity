@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 1
   m_Script: {fileID: 12001, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: HandheldWhiteskin
+  m_Name: HandheldWhiteskin0.70
   m_Font: {fileID: 12800000, guid: 2e7d3ce5aec76b04fa9e4b58df614b1b, type: 3}
   m_box:
     m_Name: box
