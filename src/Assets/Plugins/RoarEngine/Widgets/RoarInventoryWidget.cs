@@ -47,7 +47,7 @@ public class RoarInventoryWidget : RoarUIWidget
 	
 	protected override void Awake ()
 	{
-		consumeButtonWidth = consumeButtonWidth;
+		consumeButtonWidth = consumeButtonWidth * scaleMultiplier;
 		maxLabelWidth = maxLabelWidth * scaleMultiplier;
 		maxDescriptionFormatWidth = maxDescriptionFormatWidth* scaleMultiplier;
 		maxTypeWidth = maxTypeWidth* scaleMultiplier;
