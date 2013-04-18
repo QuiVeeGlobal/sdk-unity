@@ -47,6 +47,16 @@ public class RoarRankingsWidget : RoarUIWidget
 	
 	protected override void Awake()
 	{
+
+		valueWidth =valueWidth * scaleMultiplier;
+		rankColumnWidth = rankColumnWidth * scaleMultiplier;
+		interColumnSeparators =interColumnSeparators * scaleMultiplier;
+		divideHeight = divideHeight * scaleMultiplier;
+		sectionHeight = sectionHeight * scaleMultiplier;
+		topSeparation = topSeparation * scaleMultiplier;
+		footerHeight = footerHeight * scaleMultiplier;
+		buttonHeight = buttonHeight * scaleMultiplier;
+
 		base.Awake();
 		ScrollViewContentWidth = rankingItemBounds.width;
 	}
