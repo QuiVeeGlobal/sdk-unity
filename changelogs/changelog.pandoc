@@ -1,5 +1,16 @@
 # RoarEngine UnitySDK Changelog
 
+## Changes in v1.0.2
+
+### New Features
+
+* Added an option to shrink a widget by a percentage. This is for smaller handheld devices **[UNITYSDK-243]**
+
+### Bug Fixes
+
+* Combined the Leaderboard and Rankings widget into one widget **[UNITYSDK-208]**
+* Fixed Movie Texture problems on handheld devices **[UNITYSDK-242]**
+
 ## Changes in v1.0.1
 
 ### New Features
