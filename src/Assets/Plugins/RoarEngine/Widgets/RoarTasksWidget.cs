@@ -17,18 +17,30 @@ public class RoarTasksWidget : RoarUIWidget
 	public bool showType = true;
 	public bool allowSorting = true;
 	
-	public int maxLabelWidth = 250;
-	public int maxDescriptionFormatWidth = 350;
-	public int maxLocationWidth = 100;
-	public int rowHeight = 45;
-	public int buttonWidth = 130;
-	public int buttonHeight = 30;
-	public int divideHeight = 30;
-	public int margin = 5;
+	public float maxLabelWidth = 250;
+	public float maxDescriptionFormatWidth = 350;
+	public float maxLocationWidth = 100;
+	public float rowHeight = 45;
+	public float buttonWidth = 130;
+	public float buttonHeight = 30;
+	public float divideHeight = 30;
+	public float margin = 5;
 	
 	bool hasSelectedTask = false;
 	Roar.DomainObjects.Task selectedTask = null;
 	
+	protected override void Awake ()
+	{
+		maxLabelWidth = maxLabelWidth * scaleMultiplier;
+		maxDescriptionFormatWidth = maxDescriptionFormatWidth * scaleMultiplier;
+		maxLocationWidth = maxLocationWidth * scaleMultiplier;
+		rowHeight = rowHeight * scaleMultiplier;
+		buttonWidth = buttonWidth * scaleMultiplier;
+		buttonHeight = buttonHeight * scaleMultiplier;
+		divideHeight = divideHeight * scaleMultiplier;
+		margin = margin * scaleMultiplier;
+		base.Awake ();
+	}
 	void Reset()
 	{
 		bounds.y = 100;

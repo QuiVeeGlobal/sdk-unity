@@ -20,7 +20,7 @@ public class RoarLoginWidget : RoarUIWidget
 	private string status = "Supply a username and password to log in or to register a new account.";
 	private string username = string.Empty;
 	private string password = string.Empty;
-	public int loginBoxSpacing = 20;
+	public float loginBoxSpacing = 20;
 	public float labelHeight= 25;
 	public float statusWidth = 400;
 	public float fieldHeight = 50;
@@ -47,6 +47,17 @@ public class RoarLoginWidget : RoarUIWidget
 	SecondaryLogin secondaryLogin = SecondaryLogin.None;
 	protected override void Awake ()
 	{
+
+		labelHeight = labelHeight * scaleMultiplier;
+		statusWidth = statusWidth * scaleMultiplier;
+		fieldHeight = fieldHeight * scaleMultiplier;
+		fieldWidth = fieldWidth * scaleMultiplier;
+		buttonWidth = buttonWidth * scaleMultiplier;
+		buttonHeight = buttonHeight * scaleMultiplier;
+		buttonSpacing = buttonSpacing * scaleMultiplier;
+		loginBoxSpacing = loginBoxSpacing * scaleMultiplier;
+		footerSpacing = footerSpacing * scaleMultiplier;
+
 		base.Awake ();
 		if(enableOnAwake)
 			enabled = true;

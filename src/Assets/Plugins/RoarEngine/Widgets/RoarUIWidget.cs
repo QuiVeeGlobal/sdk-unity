@@ -10,6 +10,10 @@ public abstract class RoarUIWidget : RoarWidgetBase
 
 	protected override void Awake()
 	{
+		bounds.width = bounds.width * scaleMultiplier;
+		bounds.height = bounds.height * scaleMultiplier;
+		apearance.headerHeight = apearance.headerHeight * scaleMultiplier;
+		apearance.closeButtonSize = apearance.closeButtonSize * scaleMultiplier;
 		base.Awake();
 
 		roar = DefaultRoar.Instance;

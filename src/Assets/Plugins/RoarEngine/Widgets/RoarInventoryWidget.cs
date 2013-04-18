@@ -21,12 +21,12 @@ public class RoarInventoryWidget : RoarUIWidget
 	public bool showType = true;
 	public bool allowSorting = true;
 	
-	public int maxLabelWidth = 58;
-	public int maxDescriptionFormatWidth = 310;
-	public int maxTypeWidth = 40;
-	public int rowHeight = 32;
-	public int divideHeight = 50;
-	public int margin = 5;
+	public float maxLabelWidth = 58;
+	public float maxDescriptionFormatWidth = 250;
+	public float maxTypeWidth = 40;
+	public float rowHeight = 32;
+	public float divideHeight = 50;
+	public float margin = 5;
 
 	protected override void OnEnable ()
 	{
@@ -45,6 +45,19 @@ public class RoarInventoryWidget : RoarUIWidget
 		
 	}
 	
+	protected override void Awake ()
+	{
+		consumeButtonWidth = consumeButtonWidth;
+		maxLabelWidth = maxLabelWidth * scaleMultiplier;
+		maxDescriptionFormatWidth = maxDescriptionFormatWidth* scaleMultiplier;
+		maxTypeWidth = maxTypeWidth* scaleMultiplier;
+		rowHeight = rowHeight* scaleMultiplier;
+		divideHeight = divideHeight* scaleMultiplier;
+		margin = margin* scaleMultiplier;
+
+		base.Awake ();
+	}
+
 	void Reset()
 	{
 		displayName = "Inventory";

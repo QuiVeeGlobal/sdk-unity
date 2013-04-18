@@ -59,6 +59,29 @@ public class RoarGiftsWidget : RoarUIWidget
 	IDictionary<string, Roar.DomainObjects.MailPackage> mailDict = null;
 	IDictionary<string, Roar.DomainObjects.Mailable> mailableDict = null;
 
+	protected override void Awake ()
+	{
+		topSpacing = topSpacing * scaleMultiplier;
+		sectionHeight = sectionHeight * scaleMultiplier;
+		fromColumnWidth = fromColumnWidth * scaleMultiplier;
+		messageColumnWidth = messageColumnWidth * scaleMultiplier;
+		typeColumnWidth = typeColumnWidth * scaleMultiplier;
+		interColumnSeprators = interColumnSeprators * scaleMultiplier;
+		divideHeight = divideHeight * scaleMultiplier;
+		buttonWidth = buttonWidth * scaleMultiplier;
+		buttonHeight = buttonHeight * scaleMultiplier;
+		footerSpacing = footerSpacing * scaleMultiplier;
+		messageBoxWidth = messageBoxWidth * scaleMultiplier;
+		messageBoxHeight = messageBoxHeight * scaleMultiplier;
+		playerIdBoxWidth = playerIdBoxWidth * scaleMultiplier;
+		textBoxHeight = textBoxHeight * scaleMultiplier;
+		labelWidth = labelWidth * scaleMultiplier;
+		labelHeight = labelHeight * scaleMultiplier;
+		verticalSeparators = verticalSeparators * scaleMultiplier;
+		selectButtonWidth = selectButtonWidth * scaleMultiplier;
+
+		base.Awake ();
+	}
 	protected override void OnEnable ()
 	{
 		base.OnEnable ();

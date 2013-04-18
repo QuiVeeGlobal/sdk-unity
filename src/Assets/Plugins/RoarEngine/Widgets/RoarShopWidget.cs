@@ -34,6 +34,17 @@ public class RoarShopWidget : RoarUIWidget
 	
 	private IList<string> errorMessages = new List<string>();
 	
+	protected override void Awake ()
+	{
+		buyButtonWidth =buyButtonWidth * scaleMultiplier;
+		buyButtonHeight = buyButtonHeight * scaleMultiplier;
+		interColumnSeparators =interColumnSeparators * scaleMultiplier;
+		divideHeight = divideHeight* scaleMultiplier;
+		priceColumnWidth = priceColumnWidth * scaleMultiplier;//Buy button always sticks to the right. description takes up the rest.
+
+		topSeparation = topSeparation * scaleMultiplier;
+		base.Awake ();
+	}
 	protected override void OnEnable ()
 	{
 		if (IsLoggedIn)

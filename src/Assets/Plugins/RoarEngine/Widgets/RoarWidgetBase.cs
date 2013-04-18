@@ -102,6 +102,9 @@ public abstract class RoarWidgetBase : MonoBehaviour
 	Rect headerRect;
 	Rect headerRightRect;
 	protected bool networkActionInProgress;
+
+	public float scaleMultiplier = 1;
+
 	public MovieTexture spinnerMovieTex;
 
 	protected virtual void SnapBoundsRectIntoPosition()
