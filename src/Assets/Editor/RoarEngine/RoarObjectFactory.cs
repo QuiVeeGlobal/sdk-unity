@@ -96,7 +96,7 @@ public class RoarObjectFactory : Editor
 	private static void _CreateRoarRankingsWidgetObject()
 	{
 		GameObject go = RoarObjectFactory.CreateGameObjectInScene("RoarRankingsWidget");
-		go.AddComponent<RoarRankingsWidget>();
+		go.AddComponent<RoarLeaderboardsWidget>();
 	
 		DefaultRoar defaultRoar = GameObject.FindObjectOfType(typeof(DefaultRoar)) as DefaultRoar;
 		go.transform.parent = defaultRoar.transform;		
